@@ -21,10 +21,10 @@ window.onload = function () {
     // Scene and Lights
     let scene = new THREE.Scene();
     let worldCamera = new THREE.PerspectiveCamera();
-    worldCamera.position.set(0, 7.5, 10);
+    worldCamera.position.set(0, 100, 200);
     worldCamera.lookAt(0, 5, 0);
     let topCamera = new THREE.PerspectiveCamera();
-    topCamera.position.set(0, 10, 0);
+    topCamera.position.set(0, 250, 0);
     topCamera.lookAt(0, 0, 0);
     let trainCamera = new THREE.PerspectiveCamera();
     let camera = worldCamera;
@@ -43,6 +43,15 @@ window.onload = function () {
         if (onchange) box.onchange = onchange;
         document.getElementById("div1").appendChild(box);
         document.getElementById("div1").appendChild(document.createTextNode(name));
+        return box;
+    }
+    function addFile(name = "", onchange = undefined) {
+        let box = document.createElement("input");
+        box.type = "file";
+        box.accept = "text/plain";
+        if (onchange) box.onchange = onchange;
+        document.getElementById("div1").appendChild(document.createTextNode(name));
+        document.getElementById("div1").appendChild(box);
         return box;
     }
     function addSelect(name = "", choices = [""], initial = 0, onchange = undefined) {
@@ -101,19 +110,21 @@ window.onload = function () {
     }
     addBreak();
     let run = addCheckBox("Run", true, moveTrain);
-    let increment = addIncrement(" : ", 0, 1, 0.01, 0, moveTrain);
+    let increment = addIncrement(": ", 0, 1, 0.01, 0, moveTrain);
     let arcLength = addCheckBox("ArcLength", true, moveTrain);
     addBreak();
     let view = addSelect("Camera : ", ["World", "Train", "Top"], 0, updateView);
     addBreak();
     let speed = addSlider("Speed", 0, 100, 50, moveTrain);
     addBreak();
-    let splineType = addSelect("Spline Type : ", ["Linear", "Cardinal Cubic", "Cubic B-Spline (not working)"], 1, moveTrack);
+    let splineType = addSelect("Spline Type: ", ["Linear", "Cardinal Cubic", "Cubic B-Spline (not working)"], 1, moveTrack);
     addBreak();
     addBreak("Shift + Mouse Click to add Point ; Ctrl + Mouse Click to remove Point");
     addBreak("Load Save Reset (not working)");
+    addFile("Load: ", updatePoints);
+    addBreak();
     addBreak("Use the TransformControls to rotate Point");
-    let trackType = addSelect("Track Type : ", ["Simple Track", "Parallel Rails", "Road Rail (not working)", "Fancy Rails (not working)"], 1, moveTrack);
+    let trackType = addSelect("Track Type: ", ["Simple Track", "Parallel Rails", "Road Rail (not working)", "Fancy Rails"], 1, moveTrack);
     addBreak();
     let railTies = addCheckBox("Rail Ties", true, moveTrack);
     let railTiesSimple = addCheckBox("Rail Ties Simple", false, moveTrack);
@@ -121,7 +132,7 @@ window.onload = function () {
     addBreak();
     let tension = addSlider("Tension", 0, 1, 0.5, moveTrack);
     addBreak();
-    let cars = addIncrement("Cars : ", 3, 10, 1, 5, updateTrain);
+    let cars = addIncrement("Cars: ", 3, 10, 1, 5, updateTrain);
     let trainHead = addCheckBox("Train", true, updateTrain);
     let trainArcLength = addCheckBox("Train ArcLength", true, updateTrain);
     // TransformControl
@@ -144,11 +155,12 @@ window.onload = function () {
         scene.add(transformControl);
     }
     // Initial Drawing
-    let trainSize = 1;
-    let trackSize = 0.05;
+    let planeSize = 200;
+    let trainSize = 15;
+    let trackSize = 1;
     let thePointsMesh = [];
-    let thePoints = [[2, 0, 2], [2, 0, -2], [-2, 0, -2], [-3, 0, 0], [-2, 0, 2]].map(p => new THREE.Vector3(...p));
-    let pointSize = 0.3;
+    let thePoints = [[50, 5, 0], [0, 5, 50], [-50, 5, 0], [0, 5, -50]].map(p => new THREE.Vector3(...p));
+    let pointSize = 5;
     let boxGeometry = new THREE.BoxBufferGeometry(pointSize, pointSize, pointSize);
     let pyramidGeometry = new THREE.ConeBufferGeometry(pointSize / Math.SQRT2, pointSize, 4);
     pyramidGeometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, pointSize, 0));
@@ -163,7 +175,19 @@ window.onload = function () {
         addTransformControl(boxMesh);
         scene.add(boxMesh);
     }
-    thePoints.forEach(p => drawPoint(p));
+    function drawPoints() {
+        let i = thePointsMesh.length - 1;
+        while (i >= 0) {
+            transformControls[i].detach();
+            transformControls[i].dispose();
+            transformControls.splice(i, 1);
+            scene.remove(thePointsMesh[i]);
+            thePointsMesh.splice(i, 1);
+            i--;
+        }
+        thePoints.forEach(p => drawPoint(p));
+    }
+    drawPoints();
     let track = new THREE.Group();
     function createCurve(points = thePoints) {
         let curve = null;
@@ -219,7 +243,7 @@ window.onload = function () {
             let trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
             track.add(trackMesh);
         }
-        else {
+        else if (trackType.value == "1") {
             let trackMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
             let outerTrack = offsetCurve(0.45);
             let outerTrackGeometry = new THREE.TubeBufferGeometry(outerTrack, 64, trackSize);
@@ -229,13 +253,23 @@ window.onload = function () {
             let innerTrackMesh = new THREE.Mesh(innerTrackGeometry, trackMaterial);
             track.add(outerTrackMesh, innerTrackMesh);
         }
+        else {
+            let trackMaterial = new THREE.MeshPhongMaterial({ color: "lime" });
+            let trackGeometry = new THREE.SphereBufferGeometry(trackSize);
+            let increment = 1 / trackCurve.getLength() * 5;
+            for (let u = 0; u < 1; u += increment) {
+                let trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
+                trackMesh.position.copy(trackCurve.getPointAt(u));
+                track.add(trackMesh);
+            }
+        }
         if (railTies.checked) {
             let tieGeometry = null;
             if (railTiesSimple.checked) tieGeometry = new THREE.TubeBufferGeometry(new THREE.LineCurve3(new THREE.Vector3(-0.5, 0, 0), new THREE.Vector3(0.5, 0, 0)), 64, trackSize);
-            else tieGeometry = new THREE.BoxBufferGeometry(1, trackSize * 2, trackSize * 4);
+            else tieGeometry = new THREE.BoxBufferGeometry(trainSize, trackSize * 2, trackSize * 4);
             let tieMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
             let tieMesh = [];
-            let increment = 1 / trackCurve.getLength() * 0.75;
+            let increment = 1 / trackCurve.getLength() * 15;
             for (let u = 0; u < 1 - increment; u += increment) {
                 let currentTieMesh = new THREE.Mesh(tieGeometry, tieMaterial);
                 let currentPosition = null;
@@ -370,8 +404,8 @@ window.onload = function () {
     scene.add(train);
     function drawPlane() {
         let ground = new THREE.Group();
-        let segments = 8;
-        let groundGeometry = new THREE.PlaneGeometry(10, 10, segments, segments);
+        let segments = 10;
+        let groundGeometry = new THREE.PlaneGeometry(planeSize, planeSize, segments, segments);
         let materialEven = new THREE.MeshPhongMaterial({ color: "lightgray" });
         let materialOdd = new THREE.MeshStandardMaterial({ color: "gray" });
         materialEven.side = THREE.DoubleSide;
@@ -413,6 +447,30 @@ window.onload = function () {
             dragControls.enabled = false;
             transformControls.forEach(t => t.enabled = false);
         }
+    }
+    function updatePoints(event) {
+        let input = event.target;
+        let reader = new FileReader();
+        reader.onload = function () {
+            let list = reader.result.split("\n");
+            list.splice(0, 1);
+            while (list[list.length - 1].trim() == "") list.splice(list.length - 1);
+            list = list.map(l => l.indexOf("\t") >= 0 ? l.split("\t") : l.split(" "));
+            try {
+                thePoints = list.map(l => new THREE.Vector3(Number(l[0]), Number(l[1]), Number(l[2])));
+                drawPoints();
+                moveTrack();
+            }
+            catch (error) {
+                resetPoints();
+            }
+        };
+        reader.readAsText(input.files[0]);
+    }
+    function resetPoints() {
+        thePoints = [[50, 5, 0], [0, 5, 50], [-50, 5, 0], [0, 5, -50]].map(p => new THREE.Vector3(...p));
+        drawPoints();
+        moveTrack();
     }
     function updateTrain() {
         train.children.length = 0;
