@@ -32,8 +32,8 @@ window.onload = function () {
     scene.add(light);
     let directionalLight = new THREE.DirectionalLight("white", 0.8);
     directionalLight.castShadow = true;
-    directionalLight.shadow.camera.near = -10;
-    directionalLight.shadow.camera.far = 10;
+    //directionalLight.shadow.camera.near = 10;
+    //directionalLight.shadow.camera.far = 200;
     scene.add(directionalLight);
     // Buttons and Checkboxes
     function addCheckBox(name = "", initial = true, onchange = undefined) {
@@ -210,9 +210,9 @@ window.onload = function () {
     }
     function offsetCurve(offset) {
         let newTrack = [];
-        let totalLength = trackCurve.getLength();
-        for (let i = 0; i < totalLength; i += 0.5) {
-            newTrack.push(offsetPoint(i / totalLength, offset));
+        let increment = 1 / trackCurve.getLength();
+        for (let i = 0; i < 1; i += increment) {
+            newTrack.push(offsetPoint(i, offset));
         }
         return createCurve(newTrack);
     }
@@ -237,8 +237,9 @@ window.onload = function () {
     }
     function drawTrack() {
         let track = new THREE.Group();
+        let totalLengthSeg = Math.round(trackCurve.getLength());
         if (trackType.value == "0") {
-            let trackGeometry = new THREE.TubeBufferGeometry(trackCurve, 64, trackSize);
+            let trackGeometry = new THREE.TubeBufferGeometry(trackCurve, totalLengthSeg, trackSize);
             let trackMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
             let trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
             track.add(trackMesh);
@@ -246,10 +247,10 @@ window.onload = function () {
         else if (trackType.value == "1") {
             let trackMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
             let outerTrack = offsetCurve(0.45);
-            let outerTrackGeometry = new THREE.TubeBufferGeometry(outerTrack, 64, trackSize);
+            let outerTrackGeometry = new THREE.TubeBufferGeometry(outerTrack, totalLengthSeg, trackSize);
             let outerTrackMesh = new THREE.Mesh(outerTrackGeometry, trackMaterial);
             let innerTrack = offsetCurve(-0.45);
-            let innerTrackGeometry = new THREE.TubeBufferGeometry(innerTrack, 64, trackSize);
+            let innerTrackGeometry = new THREE.TubeBufferGeometry(innerTrack, totalLengthSeg, trackSize);
             let innerTrackMesh = new THREE.Mesh(innerTrackGeometry, trackMaterial);
             track.add(outerTrackMesh, innerTrackMesh);
         }
@@ -418,7 +419,6 @@ window.onload = function () {
             }
         }
         let groundMesh = new THREE.Mesh(groundGeometry, materials);
-        groundMesh.translateY(-2);
         groundMesh.rotateX(-Math.PI / 2);
         groundMesh.receiveShadow = true;
         ground.add(groundMesh);
@@ -495,9 +495,10 @@ window.onload = function () {
             }
         }
         else u0 = u;
+        let totalLength = trackCurve.getLength();
         for (let i = 0; i < carts.length; i++) {
-            let up = (u0 - ((trainSize * 1.4) * i / trackCurve.getLength()) + 1) % 1;
-            if (i > 0) up = (up - (trainSize * 0.125) / trackCurve.getLength() + 1) % 1;
+            let up = (u0 - ((trainSize * 1.4) * i / totalLength) + 1) % 1;
+            if (i > 0) up = (up - (trainSize * 0.125) / totalLength + 1) % 1;
             let pup = trainArcLength.checked ? trackCurve.getPointAt(up) : trackCurve.getPoint(up);
             let aup = trainArcLength.checked ? getAngleAt(up) : getAngle(up);
             let tup = trainArcLength.checked ? trackCurve.getTangentAt(up) : trackCurve.getTangent(up);
@@ -506,8 +507,7 @@ window.onload = function () {
             carts[i].lookAt(pup.add(tup));
         }
         let du = speed.value;
-        wheels.forEach(w => w.rotateY(-du / 800));
-        u = (u + du / 8000) % 1;
+        u = (u + du / totalLength / 30) % 1;
     }
     // OrbitControl and DragControl
     let rayCaster = new THREE.Raycaster();
