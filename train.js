@@ -273,7 +273,7 @@ window.onload = function () {
         }
         if (railTies.checked) {
             let tieGeometry = null;
-            if (railTiesSimple.checked) tieGeometry = new THREE.TubeBufferGeometry(new THREE.LineCurve3(new THREE.Vector3(-0.5, 0, 0), new THREE.Vector3(0.5, 0, 0)), 64, trackSize);
+            if (railTiesSimple.checked) tieGeometry = new THREE.TubeBufferGeometry(new THREE.LineCurve3(new THREE.Vector3(-0.5 * trainSize, 0, 0), new THREE.Vector3(0.5 * trainSize, 0, 0)), 64, trackSize);
             else tieGeometry = new THREE.BoxBufferGeometry(trainSize, trackSize * 2, trackSize * 4);
             let tieMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
             let tieMesh = [];
