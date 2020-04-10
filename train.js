@@ -30,11 +30,10 @@ window.onload = function () {
     let camera = worldCamera;
     let light = new THREE.AmbientLight("white", 0.2);
     scene.add(light);
-    let directionalLight = new THREE.DirectionalLight("white", 0.8);
-    directionalLight.castShadow = true;
-    //directionalLight.shadow.camera.near = 10;
-    //directionalLight.shadow.camera.far = 200;
-    scene.add(directionalLight);
+    let spotLight = new THREE.SpotLight("white", 1);
+    spotLight.position.set(0, 150, 0);
+    spotLight.castShadow = true;
+    scene.add(spotLight);
     // Buttons and Checkboxes
     function addCheckBox(name = "", initial = true, onchange = undefined) {
         let box = document.createElement("input");
@@ -43,6 +42,13 @@ window.onload = function () {
         if (onchange) box.onchange = onchange;
         document.getElementById("div1").appendChild(box);
         document.getElementById("div1").appendChild(document.createTextNode(name));
+        return box;
+    }
+    function addButton(name = "", onchange = undefined) {
+        let box = document.createElement("button");
+        box.innerHTML = name;
+        if (onchange) box.onclick = onchange;
+        document.getElementById("div1").appendChild(box);
         return box;
     }
     function addFile(name = "", onchange = undefined) {
@@ -120,8 +126,9 @@ window.onload = function () {
     let splineType = addSelect("Spline Type: ", ["Linear", "Cardinal Cubic", "Cubic B-Spline (not working)"], 1, moveTrack);
     addBreak();
     addBreak("Shift + Mouse Click to add Point ; Ctrl + Mouse Click to remove Point");
-    addBreak("Load Save Reset (not working)");
-    addFile("Load: ", updatePoints);
+    addFile("Load: ", loadPoints);
+    addButton("Save", savePoints);
+    addButton("Reset", resetPoints);
     addBreak();
     addBreak("Use the TransformControls to rotate Point");
     let trackType = addSelect("Track Type: ", ["Simple Track", "Parallel Rails", "Road Rail (not working)", "Fancy Rails"], 1, moveTrack);
@@ -150,7 +157,7 @@ window.onload = function () {
         });
         transformControl.attach(thePointMesh);
         transformControl.setMode("rotate");
-        transformControl.setSize(0.5);
+        transformControl.setSize(0.35);
         transformControls.push(transformControl);
         scene.add(transformControl);
     }
@@ -159,7 +166,7 @@ window.onload = function () {
     let trainSize = 15;
     let trackSize = 1;
     let thePointsMesh = [];
-    let thePoints = [[50, 5, 0], [0, 5, 50], [-50, 5, 0], [0, 5, -50]].map(p => new THREE.Vector3(...p));
+    let thePoints = [[50, 5, 0], [0, 5, 50], [-50, 5, 0], [0, 5, -50], [25, 5, -25]].map(p => new THREE.Vector3(...p));
     let pointSize = 5;
     let boxGeometry = new THREE.BoxBufferGeometry(pointSize, pointSize, pointSize);
     let pyramidGeometry = new THREE.ConeBufferGeometry(pointSize / Math.SQRT2, pointSize, 4);
@@ -448,7 +455,7 @@ window.onload = function () {
             transformControls.forEach(t => t.enabled = false);
         }
     }
-    function updatePoints(event) {
+    function loadPoints(event) {
         let input = event.target;
         let reader = new FileReader();
         reader.onload = function () {
@@ -459,6 +466,8 @@ window.onload = function () {
             try {
                 thePoints = list.map(l => new THREE.Vector3(Number(l[0]), Number(l[1]), Number(l[2])));
                 drawPoints();
+                thePointsMesh.forEach((p, i) => p.lookAt(Number(list[i][0]) + Number(list[i][3] || 0), Number(list[i][1]) + Number(list[i][4] || 1), Number(list[i][2]) + Number(list[i][5] || 0)));
+                thePointsMesh.forEach(p => p.rotateX(Math.PI / 2));
                 moveTrack();
             }
             catch (error) {
@@ -466,6 +475,18 @@ window.onload = function () {
             }
         };
         reader.readAsText(input.files[0]);
+    }
+    function savePoints() {
+        let rot = thePointsMesh.map(() => new THREE.Vector3(0, 1, 0));
+        rot.forEach((r, i) => r.applyEuler(thePointsMesh[i].rotation));
+        let list = thePoints.reduce((s, p, i) => s + p.x + "\t" + p.y + "\t" + p.z + "\t" + parseFloat(rot[i].x.toFixed(2)) + "\t" + parseFloat(rot[i].y.toFixed(2)) + "\t" + parseFloat(rot[i].z.toFixed(2)) + "\n", "");
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(list));
+        element.setAttribute('download', "track.txt");
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
     }
     function resetPoints() {
         thePoints = [[50, 5, 0], [0, 5, 50], [-50, 5, 0], [0, 5, -50]].map(p => new THREE.Vector3(...p));
