@@ -123,15 +123,17 @@ window.onload = function () {
     addBreak();
     let speed = addSlider("Speed", 0, 100, 50, moveTrain);
     addBreak();
-    let splineType = addSelect("Spline Type: ", ["Linear", "Cardinal Cubic", "Cubic B-Spline (not working)"], 1, moveTrack);
+    let splineType = addSelect("Spline Type: ", ["Linear", "Cardinal Cubic", "Cubic B-Spline"], 1, moveTrack);
     addBreak();
     addBreak("Shift + Mouse Click to add Point ; Ctrl + Mouse Click to remove Point");
+    let example = addSelect("Load Example: ", ["figure8", "loop0", "reset", "spiral", "sqiggle"], 2, loadExample);
+    addBreak();
     addFile("Load: ", loadPoints);
     addButton("Save", savePoints);
     addButton("Reset", resetPoints);
     addBreak();
     addBreak("Use the TransformControls to rotate Point");
-    let trackType = addSelect("Track Type: ", ["Simple Track", "Parallel Rails", "Road Rail (not working)", "Fancy Rails"], 1, moveTrack);
+    let trackType = addSelect("Track Type: ", ["Simple Track", "Parallel Rails", "Road Rail", "Fancy Rails"], 1, moveTrack);
     addBreak();
     let railTies = addCheckBox("Rail Ties", true, moveTrack);
     let railTiesSimple = addCheckBox("Rail Ties Simple", false, moveTrack);
@@ -196,6 +198,9 @@ window.onload = function () {
     }
     drawPoints();
     let track = new THREE.Group();
+    function bSplineToCatmullRom(points = thePoints, i = 0) {
+        return ["x", "y", "z"].map(c => 1 / 6 * (points[i][c] + points[(i + 1) % points.length][c] * 4 + points[(i + 2) % points.length][c]));
+    }
     function createCurve(points = thePoints) {
         let curve = null;
         if (splineType.value == "0") {
@@ -203,32 +208,37 @@ window.onload = function () {
             for (let i = 0; i < points.length; i++) curve.add(new THREE.LineCurve3(points[i], points[(i + 1) % points.length]));
             curve.updateArcLengths();
         }
-        else curve = new THREE.CatmullRomCurve3(points, true, "catmullrom", tension.value);
+        else if (splineType.value == "1") curve = new THREE.CatmullRomCurve3(points, true, "catmullrom", tension.value);
+        else if (splineType.value == "2") {
+            let b_points = points.map((_, i) => new THREE.Vector3(...bSplineToCatmullRom(points, i)));
+            console.log(b_points);
+            curve = new THREE.CatmullRomCurve3(b_points, true, "catmullrom", tension.value);
+        }
         return curve;
     }
     let trackCurve = createCurve();
-    function offsetPoint(u = 0, offset = 0) {
+    function offsetPoint(pu = 0, offset = 0) {
         let point = new THREE.Vector3(0, 0, 0);
-        point.crossVectors(trackCurve.getTangentAt(u), getAngleAt(u));
+        point.crossVectors(trackCurve.getTangentAt(pu), getAngleAt(pu));
         point.normalize();
         point.multiplyScalar(offset * trainSize);
-        point.add(trackCurve.getPointAt(u));
+        point.add(trackCurve.getPointAt(pu));
         return point;
     }
     function offsetCurve(offset) {
         let newTrack = [];
-        let increment = 1 / trackCurve.getLength();
-        for (let i = 0; i < 1; i += increment) {
+        let incrementTrack = 1 / trackCurve.getLength();
+        for (let i = 0; i < 1; i += incrementTrack) {
             newTrack.push(offsetPoint(i, offset));
         }
         return createCurve(newTrack);
     }
-    function getAngleAt(u) {
-        let param = trackCurve.getUtoTmapping(u) * thePoints.length;
+    function getAngleAt(pu) {
+        let param = trackCurve.getUtoTmapping(pu) * thePoints.length;
         return getAngleGeneral(param);
     }
-    function getAngle(u) {
-        let param = u * thePoints.length;
+    function getAngle(pu) {
+        let param = pu * thePoints.length;
         return getAngleGeneral(param);
     }
     function getAngleGeneral(param) {
@@ -243,13 +253,13 @@ window.onload = function () {
         return du;
     }
     function drawTrack() {
-        let track = new THREE.Group();
+        let trackGroup = new THREE.Group();
         let totalLengthSeg = Math.round(trackCurve.getLength());
         if (trackType.value == "0") {
             let trackGeometry = new THREE.TubeBufferGeometry(trackCurve, totalLengthSeg, trackSize);
             let trackMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
             let trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
-            track.add(trackMesh);
+            trackGroup.add(trackMesh);
         }
         else if (trackType.value == "1") {
             let trackMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
@@ -259,56 +269,83 @@ window.onload = function () {
             let innerTrack = offsetCurve(-0.45);
             let innerTrackGeometry = new THREE.TubeBufferGeometry(innerTrack, totalLengthSeg, trackSize);
             let innerTrackMesh = new THREE.Mesh(innerTrackGeometry, trackMaterial);
-            track.add(outerTrackMesh, innerTrackMesh);
+            trackGroup.add(outerTrackMesh, innerTrackMesh);
         }
-        else {
+        else if (trackType.value == "2") {
+            let trackMaterial = new THREE.MeshPhongMaterial({ color: "burlywood", side: THREE.DoubleSide });
+            let trackGeometry = new THREE.BufferGeometry();
+            let incrementTrack = 1 / trackCurve.getLength() * 2;
+            let list = [];
+            let previousOuter;
+            let previousInner;
+            for (let pu = 0; pu < 1 + incrementTrack; pu += incrementTrack) {
+                let outer = offsetPoint(pu > 1 ? 0 : pu, 0.5);
+                let inner = offsetPoint(pu > 1 ? 0 : pu, -0.5);
+                if (previousOuter && previousInner) {
+                    list.push(outer.x, outer.y, outer.z);
+                    list.push(inner.x, inner.y, inner.z);
+                    list.push(previousInner.x, previousInner.y, previousInner.z);
+                    list.push(outer.x, outer.y, outer.z);
+                    list.push(previousInner.x, previousInner.y, previousInner.z);
+                    list.push(previousOuter.x, previousOuter.y, previousOuter.z);
+                }
+                previousOuter = outer;
+                previousInner = inner;
+            }
+            let vertices = new Float32Array(list);
+            trackGeometry.setAttribute("position", new THREE.BufferAttribute(vertices, 3));
+            trackGeometry.computeVertexNormals();
+            let trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
+            trackGroup.add(trackMesh);
+        }
+        else if (trackType.value == "3") {
             let trackMaterial = new THREE.MeshPhongMaterial({ color: "lime" });
             let trackGeometry = new THREE.SphereBufferGeometry(trackSize);
-            let increment = 1 / trackCurve.getLength() * 5;
-            for (let u = 0; u < 1; u += increment) {
+            let incrementTrack = 1 / trackCurve.getLength() * 5;
+            for (let pu = 0; pu < 1; pu += incrementTrack) {
                 let trackMesh = new THREE.Mesh(trackGeometry, trackMaterial);
-                trackMesh.position.copy(trackCurve.getPointAt(u));
-                track.add(trackMesh);
+                trackMesh.position.copy(trackCurve.getPointAt(pu));
+                trackGroup.add(trackMesh);
             }
         }
-        if (railTies.checked) {
+        if (railTies.checked && trackType.value != "2") {
             let tieGeometry = null;
             if (railTiesSimple.checked) tieGeometry = new THREE.TubeBufferGeometry(new THREE.LineCurve3(new THREE.Vector3(-0.5 * trainSize, 0, 0), new THREE.Vector3(0.5 * trainSize, 0, 0)), 64, trackSize);
             else tieGeometry = new THREE.BoxBufferGeometry(trainSize, trackSize * 2, trackSize * 4);
             let tieMaterial = new THREE.MeshPhongMaterial({ color: "burlywood" });
             let tieMesh = [];
-            let increment = 1 / trackCurve.getLength() * 15;
-            for (let u = 0; u < 1 - increment; u += increment) {
+            let incrementRail = 1 / trackCurve.getLength() * 15;
+            for (let pu = 0; pu < 1 - incrementRail; pu += incrementRail) {
                 let currentTieMesh = new THREE.Mesh(tieGeometry, tieMaterial);
                 let currentPosition = null;
                 let currentUp = null;
                 let currentTangent = null;
                 if (railTiesArcLength.checked) {
-                    currentPosition = trackCurve.getPointAt(u);
-                    currentUp = getAngleAt(u);
-                    currentTangent = trackCurve.getTangentAt(u);
+                    currentPosition = trackCurve.getPointAt(pu);
+                    currentUp = getAngleAt(pu);
+                    currentTangent = trackCurve.getTangentAt(pu);
                 }
                 else {
-                    currentPosition = trackCurve.getPoint(u);
-                    currentUp = getAngle(u);
-                    currentTangent = trackCurve.getTangent(u);
+                    currentPosition = trackCurve.getPoint(pu);
+                    currentUp = getAngle(pu);
+                    currentTangent = trackCurve.getTangent(pu);
                 }
                 currentTieMesh.position.copy(currentPosition);
                 currentTieMesh.up = currentUp;
                 currentTieMesh.lookAt(currentPosition.add(currentTangent));
                 tieMesh.push(currentTieMesh);
             }
-            track.add(...tieMesh);
+            trackGroup.add(...tieMesh);
         }
-        track.traverse(c => c.castShadow = true);
-        return track;
+        trackGroup.traverse(c => c.castShadow = true);
+        return trackGroup;
     }
     track = drawTrack();
     scene.add(track);
     let carts = [];
-    let wheels = [];
+    //let wheels = [];
     function drawCart(cart = 0) {
-        let train = new THREE.Group();
+        let trainGroup = new THREE.Group();
         if (cart == 0) {
             let trainBodyGeometry = new THREE.BoxBufferGeometry(0.5 * trainSize, 0.5 * trainSize, 1.5 * trainSize);
             let trainTopGeometry = new THREE.BoxBufferGeometry(0.5 * trainSize, 0.25 * trainSize, 0.5 * trainSize);
@@ -326,17 +363,17 @@ window.onload = function () {
                     currentTrainWheelMesh.position.set(0.25 * trainSize * j, 0.2 * trainSize + trackSize, 0.5 * trainSize * (i - 1));
                     currentTrainWheelMesh.rotateZ(Math.PI / 2);
                     trainWheelMesh.push(currentTrainWheelMesh);
-                    wheels.push(currentTrainWheelMesh);
+                    //wheels.push(currentTrainWheelMesh);
                 }
             }
             trainBodyMesh.position.set(0, 0.45 * trainSize + trackSize, 0);
             trainTopMesh.position.set(0, 0.825 * trainSize + trackSize, -0.5 * trainSize);
             trainChimneyMesh.position.set(0, 0.825 * trainSize + trackSize, 0.5 * trainSize);
             trainChimneyMesh.rotateX(Math.PI);
-            train.add(trainBodyMesh);
-            train.add(trainTopMesh);
-            train.add(trainChimneyMesh);
-            train.add(...trainWheelMesh);
+            trainGroup.add(trainBodyMesh);
+            trainGroup.add(trainTopMesh);
+            trainGroup.add(trainChimneyMesh);
+            trainGroup.add(...trainWheelMesh);
         }
         else if (cart > 0) {
             let trainBodyGeometry = new THREE.BoxBufferGeometry(0.5 * trainSize, 0.5 * trainSize, 1 * trainSize);
@@ -351,12 +388,12 @@ window.onload = function () {
                     currentTrainWheelMesh.position.set(0.25 * trainSize * j, 0.2 * trainSize + trackSize, 0.5 * trainSize * i);
                     currentTrainWheelMesh.rotateZ(Math.PI / 2);
                     trainWheelMesh.push(currentTrainWheelMesh);
-                    wheels.push(currentTrainWheelMesh);
+                    //wheels.push(currentTrainWheelMesh);
                 }
             }
             trainBodyMesh.position.set(0, 0.45 * trainSize + trackSize, 0);
-            train.add(trainBodyMesh);
-            train.add(...trainWheelMesh);
+            trainGroup.add(trainBodyMesh);
+            trainGroup.add(...trainWheelMesh);
         }
         else {
             let trainBodyGeometry = new THREE.BoxBufferGeometry(0.5 * trainSize, 0.5 * trainSize, 1 * trainSize);
@@ -373,20 +410,20 @@ window.onload = function () {
                     currentTrainWheelMesh.position.set(0.25 * trainSize * j, 0.2 * trainSize + trackSize, 0.5 * trainSize * i);
                     currentTrainWheelMesh.rotateZ(Math.PI / 2);
                     trainWheelMesh.push(currentTrainWheelMesh);
-                    wheels.push(currentTrainWheelMesh);
+                    //wheels.push(currentTrainWheelMesh);
                 }
             }
             trainBodyMesh.position.set(0, 0.45 * trainSize + trackSize, 0);
             trainTopMesh.position.set(0, 0.7625 * trainSize + trackSize, 0);
-            train.add(trainBodyMesh);
-            train.add(trainTopMesh);
-            train.add(...trainWheelMesh);
+            trainGroup.add(trainBodyMesh);
+            trainGroup.add(trainTopMesh);
+            trainGroup.add(...trainWheelMesh);
         }
-        train.traverse(c => c.castShadow = true);
-        return train;
+        trainGroup.traverse(c => c.castShadow = true);
+        return trainGroup;
     }
     function drawTrain() {
-        let train = new THREE.Group();
+        let trainGroup = new THREE.Group();
         let nCart = Number(cars.value);
         let cart;
         if (trainHead.checked) cart = drawCart(0);
@@ -395,27 +432,27 @@ window.onload = function () {
         trainCamera.rotateY(Math.PI);
         trainCamera.translateY(0.5 * trainSize);
         trainCamera.translateZ(-0.5 * trainSize);
-        train.add(cart);
+        trainGroup.add(cart);
         carts.push(cart);
         for (let i = 1; i < nCart - 1; i++) {
             cart = drawCart(i);
-            train.add(cart);
+            trainGroup.add(cart);
             carts.push(cart);
         }
         if (trainHead.checked) cart = drawCart(-1);
         else cart = drawCart(1);
-        train.add(cart);
+        trainGroup.add(cart);
         carts.push(cart);
-        return train;
+        return trainGroup;
     }
     let train = drawTrain();
     scene.add(train);
     function drawPlane() {
-        let ground = new THREE.Group();
+        let groundGroup = new THREE.Group();
         let segments = 10;
         let groundGeometry = new THREE.PlaneGeometry(planeSize, planeSize, segments, segments);
         let materialEven = new THREE.MeshPhongMaterial({ color: "lightgray" });
-        let materialOdd = new THREE.MeshStandardMaterial({ color: "gray" });
+        let materialOdd = new THREE.MeshPhongMaterial({ color: "gray" });
         materialEven.side = THREE.DoubleSide;
         materialOdd.side = THREE.DoubleSide;
         let materials = [materialEven, materialOdd];
@@ -428,8 +465,8 @@ window.onload = function () {
         let groundMesh = new THREE.Mesh(groundGeometry, materials);
         groundMesh.rotateX(-Math.PI / 2);
         groundMesh.receiveShadow = true;
-        ground.add(groundMesh);
-        return ground;
+        groundGroup.add(groundMesh);
+        return groundGroup;
     }
     let ground = drawPlane();
     scene.add(ground);
@@ -455,24 +492,85 @@ window.onload = function () {
             transformControls.forEach(t => t.enabled = false);
         }
     }
+    function loadExample() {
+        let file = "";
+        if (example.value == "0") file = "8\n" +
+            "6.45518 30.1941 -1.16114 0 1 0\n" +
+            "54.5809 5 68.5436 0 1 0\n" +
+            "94.922 5 -0.220045 0 1 0\n" +
+            "72.8257 5 -60.8922 0 1 0\n" +
+            "6.60905 5 -0.796328 0 1 0\n" +
+            "-40.4197 5 68.9679 0 1 0\n" +
+            "-91.0671 5 -4.40602 0 1 0\n" +
+            "-46.5688 5 -64.7076 0 1 0";
+        else if (example.value == "2") file = "\n" +
+            "50 5 0 0 1 \n" +
+            "0 5 50 0 1 0\n" +
+            "-50 5 0 0 1 \n" +
+            "0 5 -50 0 1 0";
+        else if (example.value == "3") file = "25\n" +
+            "-100	5	-50\n" +
+            "-50	13	-100\n" +
+            "0	21	-50\n" +
+            "-50	29	0\n" +
+            "-100	37	-50\n" +
+            "-50	45	-100\n" +
+            "0	53	-50\n" +
+            "-50	61	0\n" +
+            "-100	69	-50\n" +
+            "-50	77	-100\n" +
+            "0	85	-50\n" +
+            "-50	93	0\n" +
+            "-100	93	50\n" +
+            "-50	93	100\n" +
+            "0	85	50\n" +
+            "-50	77	0\n" +
+            "-100	69	50\n" +
+            "-50	61	100\n" +
+            "0	53	50\n" +
+            "-50	45	0\n" +
+            "-100	37	50\n" +
+            "-50	29	100\n" +
+            "0	21	50\n" +
+            "-50	13	0";
+        else if (example.value == "4") file = "9\n" +
+            "97.9332 13.0475 -3.72687 0 1 0\n" +
+            "70.2915 14.9594 71.127 0 0.707107 -0.707107\n" +
+            "41.6882 13.7145 23.2595 0 0.707107 0.707107\n" +
+            "7.32237 12.4695 71.1804 0 0.707107 -0.707107\n" +
+            "-33.9496 9.9797 1.94439 0 0.707107 0.707107\n" +
+            "-67.8405 5 58.5512 0 0.707107 -0.707107\n" +
+            "-91.7602 5 -56.7403 0 1 0\n" +
+            "-39.5639 5 -82.2834 0 1 0\n" +
+            "69.9173 11.1356 -56.4903 0 1 0";
+        else if (example.value == "1") file = "4\n" +
+            "5.48518 51.1615 -3.1877 0 -1 0\n" +
+            "0 23.8452 50.0442 0 0 -1\n" +
+            "-7.38143 5 -3.98022 0 1 0\n" +
+            "-2.52079 19.1453 -44.242 0 0 1";
+        loadText(file);
+    }
+    function loadText(file = "") {
+        let list = file.split("\n");
+        list.splice(0, 1);
+        while (list[list.length - 1].trim() == "") list.splice(list.length - 1);
+        list = list.map(l => l.indexOf("\t") >= 0 ? l.split("\t") : l.split(" "));
+        try {
+            thePoints = list.map(l => new THREE.Vector3(Number(l[0]), Number(l[1]), Number(l[2])));
+            drawPoints();
+            thePointsMesh.forEach((p, i) => p.lookAt(Number(list[i][0]) + Number(list[i][3] || 0), Number(list[i][1]) + Number(list[i][4] || 1), Number(list[i][2]) + Number(list[i][5] || 0)));
+            thePointsMesh.forEach(p => p.rotateX(Math.PI / 2));
+            moveTrack();
+        }
+        catch (error) {
+            resetPoints();
+        }
+    }
     function loadPoints(event) {
         let input = event.target;
         let reader = new FileReader();
         reader.onload = function () {
-            let list = reader.result.split("\n");
-            list.splice(0, 1);
-            while (list[list.length - 1].trim() == "") list.splice(list.length - 1);
-            list = list.map(l => l.indexOf("\t") >= 0 ? l.split("\t") : l.split(" "));
-            try {
-                thePoints = list.map(l => new THREE.Vector3(Number(l[0]), Number(l[1]), Number(l[2])));
-                drawPoints();
-                thePointsMesh.forEach((p, i) => p.lookAt(Number(list[i][0]) + Number(list[i][3] || 0), Number(list[i][1]) + Number(list[i][4] || 1), Number(list[i][2]) + Number(list[i][5] || 0)));
-                thePointsMesh.forEach(p => p.rotateX(Math.PI / 2));
-                moveTrack();
-            }
-            catch (error) {
-                resetPoints();
-            }
+            loadText(reader.result);
         };
         reader.readAsText(input.files[0]);
     }
@@ -531,7 +629,6 @@ window.onload = function () {
         u = (u + du / totalLength / 30) % 1;
     }
     // OrbitControl and DragControl
-    let rayCaster = new THREE.Raycaster();
     let orbitControls = new OrbitControls(camera, renderer.domElement);
     let dragControls = new DragControls(thePointsMesh, camera, renderer.domElement);
     dragControls.addEventListener('hoveron', function (e) {
@@ -587,16 +684,15 @@ window.onload = function () {
     });
     document.addEventListener("mousedown", function (e) {
         if (shiftKey && view.value == "0") {
-            let mouse = new THREE.Vector2(0, 0);
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-            rayCaster.setFromCamera(mouse, camera);
-            let intersections = rayCaster.intersectObjects(ground.children);
-            if (intersections.length > 0) {
-                let intersection = intersections[0].point;
-                intersection.y = 0;
-                drawPoint(intersection);
-            }
+            let mouse = new THREE.Vector3(0, 0, 0.5);
+            mouse.x = (e.offsetX / renderer.domElement.clientWidth) * 2 - 1;
+            mouse.y = - (e.offsetY / renderer.domElement.clientHeight) * 2 + 1;
+            mouse.unproject(camera);
+            mouse.sub(camera.position).normalize();
+            let distance = (5 - camera.position.y) / mouse.y;
+            let intersection = new THREE.Vector3(0, 0, 0);
+            intersection.copy(camera.position).add(mouse.multiplyScalar(distance));
+            drawPoint(intersection);
             moveTrack();
         }
     });
