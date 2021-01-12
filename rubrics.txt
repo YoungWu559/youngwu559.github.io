@@ -1,0 +1,26 @@
+(50) Correctly turning something in.
+-----
+iframe README.md
+check README.md
+search README.md GitHub ID && WiscID
+(5) Correctly creating the README file.
+-----
+iframe 6-1.html
+check 6-1.html
+group Box 6-1.
+(3) Adjusting slider1 and slider2 when slider3 moves.
+(4) Is slider3 = slider2 - slider1?
+(3) Making 3 sliders.
+-----
+iframe 6-2.html
+check 6-2.html
+group Box 6-2.
+(3) Slider moves continuously when "start" pressed?
+(2) Slider stops when "stop" is pressed.
+(3) 3 input elements.
+(2) Slider starting again when the start button is pressed (after being stopped).
+-----
+iframe 6-3.html
+check 6-3.html
+group Box 6-3.
+(10) Making things fade between colors.

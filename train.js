@@ -1,8 +1,7 @@
 /**
  * A simple JavaScript file that gets loaded with Workbook (CS559).
  *
- * written by Michael Gleicher, January 2019
- * modified January 2020
+ * written by Young Wu, 2020
  */
 
 /* jshint -W069, esversion:6 */
@@ -211,7 +210,6 @@ window.onload = function () {
         else if (splineType.value == "1") curve = new THREE.CatmullRomCurve3(points, true, "catmullrom", tension.value);
         else if (splineType.value == "2") {
             let b_points = points.map((_, i) => new THREE.Vector3(...bSplineToCatmullRom(points, i)));
-            console.log(b_points);
             curve = new THREE.CatmullRomCurve3(b_points, true, "catmullrom", tension.value);
         }
         return curve;
