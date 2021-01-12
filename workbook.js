@@ -4,7 +4,7 @@ let questionsDiv = "questions";
 let outputDiv = "output";
 let namesFile = "names.txt";
 let rubricsFile = "rubrics.txt";
-let emptyFile = "yepw";
+let emptyFile = "YoungWu559";
 let github_column = 3;
 
 let classList = [];
@@ -89,7 +89,9 @@ function generateQuestions(text = "") {
     goTo();
     addNavigation(outputDiv);
     addField(outputDiv, "grade", "Comments", "\n\n\n\n\n\n\n\n");
+    addCopyDownload(outputDiv, "grade");
     addField(outputDiv, "sheet", "Spreadsheet", "\n\n\n\n\n\n\n\n");
+    addCopyDownload(outputDiv, "sheet");
     gradeList = Array(classList.length).fill(0).map(() => Array(questionList.length * 2).fill(0));
     for (let i = 0; i < questionList.length * 2; i++) gradeList[0][i] = i % 2 == 0 ? questionList[i / 2] : "Comment";
 }
@@ -162,6 +164,14 @@ function checkAll(group = 0, choice = true) {
     }
 }
 
+function copy(text = "") {
+
+}
+
+function download(text = "") {
+
+}
+
 function grade() {
     let totalComment = "";
     let comment = "";
@@ -206,7 +216,6 @@ function grade() {
         output.value = totalComment;
         sheet.value = summary;
     }
-    else console.log(totalComment, summary);
 }
 
 // Helper functions
@@ -387,6 +396,11 @@ function addInputField(title = "", index = 0) {
     let column = [];
     for (let i = 1; i < classList.length; i++) column.push(classList[i][index]);
     addField(inputDiv, "c" + (index + 1), title.trim() + ":", column, () => goTo(index + 1));
+}
+
+function addCopyDownload(location = "div1", text = "") {
+    addButton(location, "Copy", "", () => copy(text));
+    addButton(location, "Download\n", "", () => download(text));
 }
 
 function addCheckAll(location = "div1", name = "", group = 0) {
