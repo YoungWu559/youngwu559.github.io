@@ -1,0 +1,78 @@
+setwd("C:/Users/IBM/Young/Year 2 Term 2/ECO2401/paper")
+
+# plot estimates of parameters
+estparam_er <- read.table("estparam_er.txt")
+hist(estparam_er$V1, 100, main = "estimate of u0 = 2.4 imposing ERs at every Z", xlab = "u0")
+dev.copy(png, "estparam_er_u0.png") 
+dev.off()
+hist(estparam_er$V2, 100, main = "estimate of utilda = -3.0 imposing ERs at every Z", xlab = "utilda")
+dev.copy(png, "estparam_er_utilda.png") 
+dev.off()
+estparam_noer <- read.table("estparam_noer.txt")
+hist(estparam_noer$V1, 100, main = "estimate of u0 = 2.4 imposing ERs only at extreme Zs", xlab = "u0")
+dev.copy(png, "estparam_noer_u0.png") 
+dev.off()
+hist(estparam_noer$V2, 100, main = "estimate of utilda = -3.0 imposing ERs only at extreme Zs", xlab = "utilda")
+dev.copy(png, "estparam_noer_utilda.png") 
+dev.off()
+
+# plot chi-squared statistic for a particular value
+chi_sq <- read.table("chi_sq.txt")
+hist(chi_sq$V1, 100, main = "test statistic with equilibrium belief", xlab = "test statistic")
+dev.copy(png, "chi_sq_eq.png") 
+dev.off()
+hist(chi_sq$V2, 100, main = "test statistic with no equilibrium belief", xlab = "test statistic")
+dev.copy(png, "chi_sq_noeq.png") 
+dev.off()
+quantile(chi_sq$V1, c(0.9, 0.95, 0.975, 0.99))
+quantile(rchisq(length(chi_sq$V1), 1), c(0.9, 0.95, 0.975, 0.99))
+sum(chi_sq$V1 > qchisq(0.95, 1)) / length(chi_sq$V1)
+sum(chi_sq$V2 > qchisq(0.95, 1)) / length(chi_sq$V2)
+
+# plot u0 power
+u0 <- read.table("u0_size_power.txt")
+plot(u0$V1, u0$V3, type = "l", col = "red", lwd = "3",
+main="u0 v.s. power of test", xlab = "u0", ylab = "size;power")
+lines(u0$V1, u0$V2, col = "green", lwd = "3")
+dev.copy(png,"u0.png") 
+dev.off()
+smooth_u0_power = loess(u0$V3 ~ u0$V1)
+plot(u0$V1, predict(smooth_u0_power), type = "l", col = "red", lwd = "3",
+main="u0 v.s. power of test", xlab = "u0", ylab = "size;power")
+smooth_u0_size = loess(u0$V2 ~ u0$V1)
+lines(u0$V1 ,predict(smooth_u0_size), col = "green", lwd = "3")
+dev.copy(png,"u0_smooth.png") 
+dev.off()
+
+# plot utilda power
+utilda <- read.table("utilda_size_power.txt")
+plot(utilda$V1, utilda$V3, type = "l", col = "red", lwd = "3",
+main="utilda v.s. power of test", xlab = "utilda", ylab = "size;power")
+lines(utilda$V1, utilda$V2, col = "green", lwd = "3")
+dev.copy(png,"utilda.png") 
+dev.off()
+smooth_utilda_power = loess(utilda$V3 ~ utilda$V1)
+plot(utilda$V1, predict(smooth_utilda_power), type = "l", col = "red", lwd = "3",
+main="utild v.s. power of test", xlab = "utilda", ylab = "size;power")
+smooth_utilda_size = loess(utilda$V2 ~ utilda$V1)
+lines(utilda$V1 ,predict(smooth_utilda_size), col = "green", lwd = "3")
+dev.copy(png,"utilda_smooth.png") 
+dev.off()
+
+# plot theta power
+theta <- read.table("theta_size_power.txt")
+plot(theta$V1, theta$V3, type = "l", col = "red", lwd = "3",
+main="theta v.s. power of test", xlab = "theta", ylab = "size;power")
+lines(theta$V1, theta$V2, col = "green", lwd = "3")
+dev.copy(png,"theta.png") 
+dev.off()
+smooth_theta_power = loess(theta$V3 ~ theta$V1)
+plot(theta$V1, predict(smooth_theta_power), type = "l", col = "red", lwd = "3",
+main="theta v.s. power of test", xlab = "theta", ylab = "size;power")
+smooth_theta_size = loess(theta$V2 ~ theta$V1)
+lines(theta$V1 ,predict(smooth_theta_size), col = "green", lwd = "3")
+dev.copy(png,"theta_smooth.png") 
+dev.off()
+
+
+

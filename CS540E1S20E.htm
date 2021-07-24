@@ -1,0 +1,131 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.3094980547791786" type="model" defer></script>
+<script src="CS540.js?0.3470258207953604" type="model" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style540.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">CS540 Summer 2020 Epic Section</h1>
+</div> 
+<div id="content">
+<a href="CS540E2S20E.htm">Next: E2</a> <br>
+<br>
+Back to week 1 page: <a href="CS540W1S20E.htm">Link</a> <br>
+<br>
+<h2>Lecture Examples</h2>
+&bull; Lecture 1 Examples <br>
+<img src="CS540/CS540_Lecture_1_E1_1.png" alt="E" style="width:400px; height:309px">
+<img src="CS540/CS540_Lecture_1_E1_2.png" alt="E" style="width:400px; height:309px"> <br>
+<br>
+&bull; Lecture 2 Examples <br>
+<img src="CS540/CS540_Lecture_2_E1.png" alt="E" style="width:400px; height:309px"> <br>
+<img src="CS540/CS540_Lecture_2_E2.png" alt="E" style="width:400px; height:309px"> <br>
+<img src="CS540/CS540_Lecture_2_E3_1.png" alt="E" style="width:400px; height:309px">
+<img src="CS540/CS540_Lecture_2_E3_2.png" alt="E" style="width:400px; height:309px">
+<img src="CS540/CS540_Lecture_2_E3_3.png" alt="E" style="width:400px; height:309px"> <br>
+<br>
+See Lecture 2 Part 2 Video: <a href="https://youtu.be/SOIsZu7rFqI" target="_blank">Link</a> <br>
+<br>
+&bull; Relavent videos from 2019 <br>
+Example (Quiz): Perceptron update formula <a href="https://youtu.be/bdiyBRxyfgk" target="_blank">Link</a> <br>
+Example (Quiz): Gradient descent for logistic activation with squared error <a href="https://youtu.be/k3wzAOoDOBY" target="_blank">Link</a> <br>
+Example (Homework): Gradient descent for linear regression <a href="https://youtu.be/Rhxf-jpRE5M" target="_blank">Link</a> <br>
+<br>
+<h2>Lecture Quizzes</h2>
+&bull; Lecture 1 Quizzes <br>
+<img src="CS540/CS540_Lecture_1_Q1.png" alt="E" style="width:400px; height:309px"> <br>
+<br>
+&bull; Lecture 2 Quizzes <br>
+<img src="CS540/CS540_Lecture_2_Q1.png" alt="E" style="width:400px; height:309px"> <br>
+<img src="CS540/CS540_Lecture_2_Q2.png" alt="E" style="width:400px; height:309px"> <br>
+<img src="CS540/CS540_Lecture_2_Q3_1.png" alt="E" style="width:400px; height:309px">
+<img src="CS540/CS540_Lecture_2_Q3_2.png" alt="E" style="width:400px; height:309px"> <br>
+<br>
+<h2>Annotated Lecture Slides</h2>
+&bull; The handwriting is really bad, you should copy down your notes from the lecture videos instead of using these. Also, the BBCU slides do not contain all materials, please use with caution. <br>
+Lecture 1 BBCU Annotated: <a href="CS540/CS540_Lecture_1_E.pdf">Link</a> <br>
+Lecture 2 BBCU Annotated: <a href="CS540/CS540_Lecture_2_E.pdf">Link</a> <br>
+Lecture 1 Pre-recorded Annotated: <a href="CS540/CS540_Lecture_1_A.pdf">Link</a> <br>
+Lecture 2 Pre-recorded Annotated: <a href="CS540/CS540_Lecture_2_A.pdf">Link</a> <br>
+<br>
+<h2>Unused Examples</h2>
+<h2>Perceptron Example</h2>
+<input type="file", id="p_data_input", accept='text/plain'><br><textarea id="p_data"></textarea> <br>
+<button id="button_0">Separable 10 Points</button> <button id="button_1">Separable 100 Points</button> <button id="button_2">Separable 1000 Points</button> <button id="button_3">Load Data</button> <br>
+<canvas id="p_pts" width="350" height="350" style="border:1px solid #000000;"></canvas> <span hidden id="p_pts_state"> </span> <canvas id="p_pred" width="350" height="350" style="border:1px solid #000000;"></canvas> <span hidden id="p_pred_state"> </span> <br>
+<button id="button_4">1 Step</button> <button id="button_5">10 Step</button> <button id="button_6">100 Step</button>&nbsp; <br>
+<br>
+<h2>Logistic Regression Example</h2>
+<input type="file", id="l_data_input", accept='text/plain'><br><textarea id="l_data"></textarea> <br>
+<button id="button_7">Separable 10 Points</button> <button id="button_8">Separable 100 Points</button> <button id="button_9">Separable 1000 Points</button> <button id="button_10">Load Data</button> <br>
+<canvas id="l_pts" width="350" height="350" style="border:1px solid #000000;"></canvas> <span hidden id="l_pts_state"> </span> <canvas id="l_pred" width="350" height="350" style="border:1px solid #000000;"></canvas> <span hidden id="l_pred_state"> </span> <br>
+<button id="button_11">1 Step</button> <button id="button_12">10 Step</button> <button id="button_13">100 Step</button>&nbsp; <br>
+<script type="module"> 
+import {enter_button, read_file, rand_2d_sep_class_page, load_points_class_page, percept_page, logistic_page} from "./YJS.js";
+document.getElementById("p_data_input").onchange = () => read_file(event, "p_data");
+document.getElementById("button_0").onclick = () => rand_2d_sep_class_page("10", "@p_data");
+document.getElementById("button_1").onclick = () => rand_2d_sep_class_page("100", "@p_data");
+document.getElementById("button_2").onclick = () => rand_2d_sep_class_page("1000", "@p_data");
+document.getElementById("button_3").onclick = () => load_points_class_page("@p_data", "@p_pts");
+document.getElementById("button_4").onclick = () => percept_page("@p_pts", "@p_pred", "1");
+document.getElementById("button_5").onclick = () => percept_page("@p_pts", "@p_pred", "10");
+document.getElementById("button_6").onclick = () => percept_page("@p_pts", "@p_pred", "100");
+document.getElementById("l_data_input").onchange = () => read_file(event, "l_data");
+document.getElementById("button_7").onclick = () => rand_2d_sep_class_page("10", "@l_data");
+document.getElementById("button_8").onclick = () => rand_2d_sep_class_page("100", "@l_data");
+document.getElementById("button_9").onclick = () => rand_2d_sep_class_page("1000", "@l_data");
+document.getElementById("button_10").onclick = () => load_points_class_page("@l_data", "@l_pts");
+document.getElementById("button_11").onclick = () => logistic_page("@l_pts", "@l_pred", "1");
+document.getElementById("button_12").onclick = () => logistic_page("@l_pts", "@l_pred", "10");
+document.getElementById("button_13").onclick = () => logistic_page("@l_pts", "@l_pred", "100");
+</script><br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: June 24, 2020 at 7:32 PM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="CS540S20E.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<ul id="primarynavsub">
+<li><a href="CS540W1S20E.htm">Week 1 </a></li>
+<li><a href="CS540W2S20E.htm">Week 2 </a></li>
+<li><a href="CS540W3S20E.htm">Week 3 </a></li>
+<li><a href="CS540W4S20E.htm">Week 4 </a></li>
+<li><a href="CS540W5S20E.htm">Week 5 </a></li>
+<li><a href="CS540W6S20E.htm">Week 6 </a></li>
+<li><a href="CS540W7S20E.htm">Week 7 </a></li>
+<li><a href="CS540W9S20E.htm">Week 9 </a></li>
+<li><a href="CS540W10S20E.htm">Week 10 </a></li>
+<li><a href="CS540W11S20E.htm">Week 11 </a></li>
+<li><a href="CS540W12S20E.htm">Week 12 </a></li>
+<li><a href="CS540W13S20E.htm">Week 13 </a></li>
+</ul>
+<li><a href="CS540W8S20E.htm">Midterm </a></li>
+<li><a href="CS540W14S20E.htm">Final </a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png">
+</div>
+</body>
+</html>

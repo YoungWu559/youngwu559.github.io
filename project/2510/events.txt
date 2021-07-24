@@ -1,0 +1,94 @@
+##################################################
+# set up
+
+path <- "C:/Users/IBM/Young/Year 3 Term 1/ECO2510/Paper/"
+
+rm(list = ls(all = TRUE))
+tickers <- c("NWS", "SPWR", "CVLT", "AZPN", "CDNS", "SIRO", "FEIC", "ALNY", "HAIN", "BRCD", "FMER", "PMTC", "MORN", "CAR", "NATI", "TIBX", "FNFG", "MCRS", "CPRT", "MIDD")
+months <- c("nov")
+types <- c("trade")
+years <- c("2006", "2011")
+open <- c(9, 30, 16, 0)
+intervals <- c(30)
+interval <- 30
+n_event <- 5
+year <- "2011"
+
+setwd(paste(path, year))
+
+##################################################
+# identify the events
+
+rm(temp, grid, max_p, argmax_p, min_p, argmin_p, close_p, sum_q)
+
+n_stock <- length(tickers)
+ne <- n_event * 2 * n_stock
+stocks <- rep(0, ne)
+events <- rep(0, ne)
+dt1s <- rep(0, ne)
+dps <- rep(0, ne)
+qs <- rep(0, ne)
+gs <- rep(0, ne)
+min_ps <- rep(0, ne)
+max_ps <- rep(0, ne)
+
+for(stock in 1:n_stock)
+{
+  temp <- read.csv(paste(tickers[stock], "_", interval, "s.csv", sep = ""))
+  n <- floor(length(temp$grid))
+  diff <- (temp$max_p - temp$min_p) * sign(temp$argmax - temp$argmin)
+  cut_off <- quantile(diff, c(n_event / n, 1 - n_event / n))
+  current <- 1
+  for(i in 1:n)
+  {
+    if(current <= 2 * n_event & (diff[i] <= cut_off[1] || diff[i] >= cut_off[2]))
+    {
+      e <- current + 2 * n_event * (stock - 1)
+      events[e] <- temp$grid[i]
+      dt1s[e] <- abs(temp$argmax[i] - temp$argmin[i])
+      dt1s[e] <- floor(dt1s[e] / 100) + dt1s[e] %% 100 / 60
+      gs[e] <- 1 * (temp$argmax[i] > temp$argmin[i])
+      dps[e] <- abs(diff[i])
+      qs[e] <- temp$sum_q[i]
+      min_ps[e] <- temp$min_p[i]
+      max_ps[e] <- temp$max_p[i]
+      stocks[e] <- tickers[stock]
+      current <- current + 1
+    }
+  }
+}
+
+##################################################
+# construct measures for reaction time
+
+dt2s <- rep(0, ne)
+time <- 1:(3 * interval)
+current <- 1
+
+for(k1 in tickers)
+{
+  temp <- read.csv(paste(k1, ".csv", sep = ""))
+  t <- 1
+  for(i in 1:(2 * n_event))
+  {
+    while(temp$grid[t] < events[current]) t <- t + 1
+    if(t - interval - 1 > 0 & t + 2 * interval - 1 < length(temp$grid))
+    {
+      price <- temp$close_p[(t - interval - 1) + time]
+      tryCatch(
+      {
+        if(gs[current] > 0) mod <- nls(price ~ a1 + a2 * pnorm(time, mu, sigma), start = list(a1 = min_ps[current], a2 = max_ps[current] - min_ps[current], mu = 1.5 * interval, sigma = abs(dt1s[current] / 2)), lower = c(0, -100, 0, 0.01), algorithm = "port", control = nls.control(maxiter = 100, tol = 0.01))
+        else mod <- nls(price ~ a1 - a2 * pnorm(time, mu, sigma), start = list(a1 = max_ps[current], a2 = max_ps[current] - min_ps[current], mu = 1.5 * interval, sigma = abs(dt1s[current] / 2)), lower = c(0, -100, 0, 0.01), algorithm = "port", control = nls.control(maxiter = 100, tol = 0.01))
+        dt2s[current] <- summary(mod)$coef[4]
+        plot(time, price, main = "Time Series of Prices")
+        lines(time, predict(mod), col = "red", lwd = 2)
+        if(gs[current] > 0) curve(min_ps[current] + (max_ps[current] - min_ps[current]) * pnorm(x, 1.5 * interval, abs(dt1s[current] / 2)), 1, 3 * interval, col = "green", lwd = 2, add = T)
+        else curve(max_ps[current] - (max_ps[current] - min_ps[current]) * pnorm(x, 1.5 * interval, abs(dt1s[current] / 2)), 1, 3 * interval, col = "green", lwd = 2, add = T)
+        dev.copy(png, paste(k1, "_", events[current], ".png", sep = ""))
+        dev.off()
+      }, error=function(e) NULL)
+    }
+    current <- current + 1
+  }
+}
+write.csv(cbind(stocks, events, dt1s, dt2s, dps, qs, gs), file = "events.csv", row.names = F)

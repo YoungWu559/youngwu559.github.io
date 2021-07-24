@@ -1,0 +1,125 @@
+##################################################
+# set up
+
+path <- "C:/Users/IBM/Young/Year 3 Term 1/ECO2510/Paper/"
+
+rm(list = ls(all = TRUE))
+tickers <- c("NWS", "SPWR", "CVLT", "AZPN", "CDNS", "SIRO", "FEIC", "ALNY", "HAIN", "BRCD", "FMER", "PMTC", "MORN", "CAR", "NATI", "TIBX", "FNFG", "MCRS", "CPRT", "MIDD")
+months <- c("nov")
+types <- c("trade")
+years <- c("2006", "2011")
+open <- c(9, 30, 16, 0)
+intervals <- c(30)
+interval <- 30
+n_event <- 5
+year <- "2011"
+
+setwd(paste(path, year))
+
+##################################################
+# construct time grid
+
+rm(temp, time_f, stamp, year, month, day, hour, minute, second)
+
+n <- length(ds) * ((open[3] - open[1]) * 60 + (open[4] - open[2] + 1))
+grid <- NULL
+for(d in ds)
+{
+  for(h in open[1]:open[3])
+  {
+    set <- 0:59
+    if(h == open[1]) set <- open[2]:59
+    else if(h == open[3]) set <- 0:open[4]
+    for(m in set)
+    {
+      grid <- c(grid, d * 1000000 + h * 10000 + m * 100)
+    }
+  }
+}
+
+##################################################
+# construct individual stock data files on time grid
+
+for(k1 in tickers)
+{
+  max_p <- rep(0, n)
+  min_p <- rep(0, n)
+  argmax_p <- rep(-1, n)
+  argmin_p <- rep(-1, n)
+  close_p <- rep(0, n)
+  sum_q <- rep(0, n)
+  temp <- read.csv(paste("trade", "_", k1, ".csv", sep = ""))
+  end <- 1
+  max_end <- length(temp$stamp)
+  for(t in 1:n)
+  {
+    max_p[t] <- temp$PRICE[end]
+    min_p[t] <- max_p[t]
+    argmax_p[t] <- grid[t]
+    argmin_p[t] <- argmax_p[t]
+    while(end < max_end & floor(temp$stamp[end] / 100) == floor(grid[t] / 100))
+    {
+      if(temp$PRICE[end] > max_p[t])
+      {
+        max_p[t] <- temp$PRICE[end]
+        argmax_p[t] <- temp$stamp[end]
+      }
+      else if(temp$PRICE[end] < min_p[t])
+      {
+        min_p[t] <- temp$PRICE[end]
+        argmin_p[t] <- temp$stamp[end]
+      }
+      sum_q[t] <- sum_q[t] + temp$SIZE[end]
+      end <- end + 1
+    }
+    close_p[t] <- temp$PRICE[end]
+  }
+  write.csv(cbind(grid, max_p, argmax_p, min_p, argmin_p, close_p, sum_q), paste(k1, ".csv", sep = ""), row.names = F)
+}
+
+##################################################
+# construct individual stock data files on coarser time grids
+
+rm(temp, grid, max_p, argmax_p, min_p, argmin_p, close_p, sum_q, start, end)
+
+for(interval in intervals)
+{
+  for(k1 in tickers)
+  {
+    temp <- read.csv(paste(k1, ".csv", sep = ""))
+    n_per_day <- floor(((open[3] - open[1]) * 60 + (open[4] - open[2] + 1)) / interval)
+    n <- length(ds) * n_per_day
+    max_p <- rep(0, n)
+    min_p <- rep(0, n)
+    argmax_p <- rep(-1, n)
+    argmin_p <- rep(-1, n)
+    close_p <- rep(0, n)
+    sum_q <- rep(0, n)
+    grid <- rep(0, n)
+    for(t in 1:n)
+    {
+      set <- (t - 1) * interval + 1:interval + floor((t - 1) / n_per_day)
+      max_p[t] <- temp$max_p[set[1]]
+      min_p[t] <- temp$min_p[set[1]]
+      argmax_p[t] <- temp$argmax_p[set[1]]
+      argmin_p[t] <- temp$argmin_p[set[1]]
+      sum_q[t] <- sum(temp$sum_q[set])
+      close_p[t] <- temp$close_p[set[interval]]
+      grid[t] <- temp$grid[set[1]]
+      for (t_s in set)
+      {
+        if(temp$max_p[t_s] > max_p[t])
+        {
+          max_p[t] <- temp$max_p[t_s]
+          argmax_p[t] <- temp$argmax_p[t_s]
+        }
+        if(temp$min_p[t_s] < min_p[t])
+        {
+          min_p[t] <- temp$min_p[t_s]
+          argmin_p[t] <- temp$argmin_p[t_s]
+        }
+      }
+    }
+    write.csv(cbind(grid, max_p, argmax_p, min_p, argmin_p, close_p, sum_q), paste(k1, "_", interval, "s.csv", sep = ""), row.names = F)
+  }
+}

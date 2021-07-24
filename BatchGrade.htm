@@ -1,0 +1,693 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.7581808358962092" type="model" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">Young Wu's Homepage</h1>
+</div> 
+<div id="content">
+<div id="breadCrumb">
+<a href="index.htm">Home</a>
+ | <a href=BatchGrade.htm>BatchGrade </a>
+</div> <br>
+<script src="CS540.js?####" type="module" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>&nbsp; <br>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="module"> import {load_exams} from "./CS540.js"; load_exams() </script> <br>
+<br>
+<h2>Autograding 15 Questions</h2>
+<br>
+ID: <input type="text" id="id" value="" size="20"> <span hidden id="questions">1,2,3,4,5,6,7,8,9,10,11,12,13,14,15</span> <br>
+Question 1 [<span id="total_1">0</span>] Answer: <textarea id="answer_1" rows="2" cols="20"></textarea> <br>
+Question 2 [<span id="total_2">0</span>] Answer: <textarea id="answer_2" rows="2" cols="20"></textarea> <br>
+Question 3 [<span id="total_3">0</span>] Answer: <textarea id="answer_3" rows="2" cols="20"></textarea> <br>
+Question 4 [<span id="total_4">0</span>] Answer: <textarea id="answer_4" rows="2" cols="20"></textarea> <br>
+Question 5 [<span id="total_5">0</span>] Answer: <textarea id="answer_5" rows="2" cols="20"></textarea> <br>
+Question 6 [<span id="total_6">0</span>] Answer: <textarea id="answer_6" rows="2" cols="20"></textarea> <br>
+Question 7 [<span id="total_7">0</span>] Answer: <textarea id="answer_7" rows="2" cols="20"></textarea> <br>
+Question 8 [<span id="total_8">0</span>] Answer: <textarea id="answer_8" rows="2" cols="20"></textarea> <br>
+Question 9 [<span id="total_9">0</span>] Answer: <textarea id="answer_9" rows="2" cols="20"></textarea> <br>
+Question 10 [<span id="total_10">0</span>] Answer: <textarea id="answer_10" rows="2" cols="20"></textarea> <br>
+Question 11 [<span id="total_11">0</span>] Answer: <textarea id="answer_11" rows="2" cols="20"></textarea> <br>
+Question 12 [<span id="total_12">0</span>] Answer: <textarea id="answer_12" rows="2" cols="20"></textarea> <br>
+Question 13 [<span id="total_13">0</span>] Answer: <textarea id="answer_13" rows="2" cols="20"></textarea> <br>
+Question 14 [<span id="total_14">0</span>] Answer: <textarea id="answer_14" rows="2" cols="20"></textarea> <br>
+Question 15 [<span id="total_15">0</span>] Answer: <textarea id="answer_15" rows="2" cols="20"></textarea> <br>
+<span id="comment"></span> <br>
+<textarea id="output" rows="2" cols="20"></textarea> <br>
+Multiple Files: <input type="file", id="loading_input", accept='text/plain'><br><textarea id="loading"></textarea> <button id="button_0">Load</button> <br>
+<textarea id="list" rows="2" cols="20"></textarea> <br>
+<br>
+<canvas id="canvas_1" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_1_state"> </span> <br>
+<canvas id="canvas_2" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_2_state"> </span> <br>
+<canvas id="canvas_3" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_3_state"> </span> <br>
+<canvas id="canvas_4" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_4_state"> </span> <br>
+<canvas id="canvas_5" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_5_state"> </span> <br>
+<canvas id="canvas_6" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_6_state"> </span> <br>
+<canvas id="canvas_7" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_7_state"> </span> <br>
+<canvas id="canvas_8" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_8_state"> </span> <br>
+<canvas id="canvas_9" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_9_state"> </span> <br>
+<canvas id="canvas_10" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_10_state"> </span> <br>
+<canvas id="canvas_11" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_11_state"> </span> <br>
+<canvas id="canvas_12" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_12_state"> </span> <br>
+<canvas id="canvas_13" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_13_state"> </span> <br>
+<canvas id="canvas_14" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_14_state"> </span> <br>
+<canvas id="canvas_15" width="5" height="5" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_15_state"> </span> <br>
+<br>
+<h2>Manual Grading</h2>
+&bull; Input: <br>
+Class list: <input type="file", id="names_input", accept='text/plain'><br><textarea id="names"></textarea> <button id="button_1">Download</button>&nbsp; <br>
+Grading scheme: <input type="file", id="scheme_input", accept='text/plain'><br><textarea id="scheme"></textarea> <button id="button_2">Download</button> <br>
+Raw grade (optional): <input type="file", id="choices_input", accept='text/plain'><br><textarea id="choices"></textarea> <button id="button_3">Download</button> <br>
+Combined input (optional): <input type="file", id="input_input", accept='text/plain'><br><textarea id="input"></textarea> <button id="button_4">Combine</button> <button id="button_5">Split</button> <button id="button_6">Download</button> <br>
+Download file name: <input type="text" id="input_name" value="input" size="20"> <br>
+Click this before start grade: (locked: <input type="checkbox" id="locked" name = "none" value = "locked">) <button id="button_7">Set up</button> <br>
+<br>
+&bull; Setup: <br>
+Columns in class list to search: <input type="text" id="names_index" value="0,1" size="20"> <br>
+Sort class list according to column: <input type="text" id="sort_index" value="-1" size="1"> <button id="button_8">Sort</button> <br>
+Columns in grading scheme for name, grade, comments: <input type="text" id="scheme_index" value="0,1,2" size="20"> <br>
+Loop question from: <input type="text" id="from_q" value="-1" size="1">, to: <input type="text" id="to_q" value="-1" size="1"> <br>
+Default choices (or * items): (1) <input type="text" id="default_q0" value="" size="10">, (2) <input type="text" id="default_q1" value="" size="10">, (3) <input type="text" id="default_q2" value="" size="10"> <br>
+Separator: (comments) <input type="text" id="com_sep" value="\n" size="1"> (questions) <input type="text" id="q_sep" value="##" size="1"> <br>
+Comment text field resize: <input type="text" id="text_height" value="" size="10"> x <input type="text" id="text_width" value="" size="10"> <br>
+Allow select-only-one: <input type="checkbox" id="only_one" name = "none" value = "only_one"> <br>
+<br>
+&bull; Operations: <br>
+Extract: <input type="checkbox" id="ex_q" name = "none" value = "ex_q"> questions <input type="checkbox" id="ex_c" name = "none" value = "ex_c"> columns: <input type="text" id="extract" value="" size="20"> <button id="button_9">Extract</button> <br>
+<input type="file", id="extracted_input", accept='text/plain'><br><textarea id="extracted"></textarea> <button id="button_10">Push Back</button> <button id="button_11">Copy</button> <button id="button_12">Download</button> <br>
+Aggregate: <select id="aggregate">
+<option value="max">max</option>
+<option value="min">min</option>
+<option value="add">add</option>
+<option value="sub">sub</option>
+</select> <textarea id="aggregated" rows="2" cols="20"></textarea> <button id="button_13">Add</button> <button id="button_14">Copy</button> <button id="button_15">Download</button> <br>
+<br>
+&bull; Output: <br>
+Grade: <textarea id="output" rows="2" cols="20"></textarea> <button id="button_16">Unprint</button> <button id="button_17">Copy</button> <button id="button_18">Print</button> <br>
+Comments: <textarea id="commenting" rows="2" cols="20"></textarea> <button id="button_19">Copy</button> <button id="button_20">Download</button> <br>
+<br>
+&bull; Grading: <br>
+Name: <input type="text" id="name" value="" size="20">, <span id="full_name">-</span>, <span id="id_name">-</span> <button id="button_21">Select</button> <button id="button_22">Search</button> <br>
+Question: <input type="text" id="question" value="" size="20">, <span id="full_q">-</span>, <span id="id_q">-</span> <button id="button_23">Search</button> <br>
+Defaults: <button id="button_24">Default *</button> <button id="button_25">Default 1</button> <button id="button_26">Default 2</button> <button id="button_27">Default 3</button> <button id="button_28">Select</button> <button id="button_29">Deselect</button> <button id="button_30">Flip</button> <br>
+Checkbox ; Description ; Grade ; - Count + ; Comment ; Personalized ; Select only one <br>
+Navigate: <button id="button_31">Sort</button> <button id="button_32">Insert</button> <button id="button_33">Swap</button> <button id="button_34">Deselect</button> <button id="button_35">Back</button> <button id="button_36">Refresh</button> <button id="button_37">Next</button> <button id="button_38">Next</button> <br>
+<input type="checkbox" id="c1" name = "none" value = "c1"> <input type="text" id="d1" value="" size="20"> <input type="text" id="g1" value="" size="1"> <button id="button_39">-</button> <input type="text" id="r1" value="" size="1"> <button id="button_40">+</button> <textarea id="m1" rows="1" cols="10"></textarea> <textarea id="p1" rows="1" cols="10"></textarea> <input type="checkbox" id="s1" name = "none" value = "s1"> <button id="button_41">Next</button> <br>
+<input type="checkbox" id="c2" name = "none" value = "c2"> <input type="text" id="d2" value="" size="20"> <input type="text" id="g2" value="" size="1"> <button id="button_42">-</button> <input type="text" id="r2" value="" size="1"> <button id="button_43">+</button> <textarea id="m2" rows="1" cols="10"></textarea> <textarea id="p2" rows="1" cols="10"></textarea> <input type="checkbox" id="s2" name = "none" value = "s2"> <button id="button_44">Next</button> <br>
+<input type="checkbox" id="c3" name = "none" value = "c3"> <input type="text" id="d3" value="" size="20"> <input type="text" id="g3" value="" size="1"> <button id="button_45">-</button> <input type="text" id="r3" value="" size="1"> <button id="button_46">+</button> <textarea id="m3" rows="1" cols="10"></textarea> <textarea id="p3" rows="1" cols="10"></textarea> <input type="checkbox" id="s3" name = "none" value = "s3"> <button id="button_47">Next</button> <br>
+<input type="checkbox" id="c4" name = "none" value = "c4"> <input type="text" id="d4" value="" size="20"> <input type="text" id="g4" value="" size="1"> <button id="button_48">-</button> <input type="text" id="r4" value="" size="1"> <button id="button_49">+</button> <textarea id="m4" rows="1" cols="10"></textarea> <textarea id="p4" rows="1" cols="10"></textarea> <input type="checkbox" id="s4" name = "none" value = "s4"> <button id="button_50">Next</button> <br>
+<input type="checkbox" id="c5" name = "none" value = "c5"> <input type="text" id="d5" value="" size="20"> <input type="text" id="g5" value="" size="1"> <button id="button_51">-</button> <input type="text" id="r5" value="" size="1"> <button id="button_52">+</button> <textarea id="m5" rows="1" cols="10"></textarea> <textarea id="p5" rows="1" cols="10"></textarea> <input type="checkbox" id="s5" name = "none" value = "s5"> <button id="button_53">Next</button> <br>
+<input type="checkbox" id="c6" name = "none" value = "c6"> <input type="text" id="d6" value="" size="20"> <input type="text" id="g6" value="" size="1"> <button id="button_54">-</button> <input type="text" id="r6" value="" size="1"> <button id="button_55">+</button> <textarea id="m6" rows="1" cols="10"></textarea> <textarea id="p6" rows="1" cols="10"></textarea> <input type="checkbox" id="s6" name = "none" value = "s6"> <button id="button_56">Next</button> <br>
+<input type="checkbox" id="c7" name = "none" value = "c7"> <input type="text" id="d7" value="" size="20"> <input type="text" id="g7" value="" size="1"> <button id="button_57">-</button> <input type="text" id="r7" value="" size="1"> <button id="button_58">+</button> <textarea id="m7" rows="1" cols="10"></textarea> <textarea id="p7" rows="1" cols="10"></textarea> <input type="checkbox" id="s7" name = "none" value = "s7"> <button id="button_59">Next</button> <br>
+<input type="checkbox" id="c8" name = "none" value = "c8"> <input type="text" id="d8" value="" size="20"> <input type="text" id="g8" value="" size="1"> <button id="button_60">-</button> <input type="text" id="r8" value="" size="1"> <button id="button_61">+</button> <textarea id="m8" rows="1" cols="10"></textarea> <textarea id="p8" rows="1" cols="10"></textarea> <input type="checkbox" id="s8" name = "none" value = "s8"> <button id="button_62">Next</button> <br>
+<input type="checkbox" id="c9" name = "none" value = "c9"> <input type="text" id="d9" value="" size="20"> <input type="text" id="g9" value="" size="1"> <button id="button_63">-</button> <input type="text" id="r9" value="" size="1"> <button id="button_64">+</button> <textarea id="m9" rows="1" cols="10"></textarea> <textarea id="p9" rows="1" cols="10"></textarea> <input type="checkbox" id="s9" name = "none" value = "s9"> <button id="button_65">Next</button> <br>
+<button id="button_66">Insert</button> <button id="button_67">Swap</button> <button id="button_68">Deselect</button> <button id="button_69">Back</button> <button id="button_70">Refresh</button> <button id="button_71">Next</button> <button id="button_72">Next</button> <span id="full_name_1">-</span>, <span id="full_q_1">-</span>&nbsp; <br>
+<input type="checkbox" id="c10" name = "none" value = "c10"> <input type="text" id="d10" value="" size="20"> <input type="text" id="g10" value="" size="1"> <button id="button_73">-</button> <input type="text" id="r10" value="" size="1"> <button id="button_74">+</button> <textarea id="m10" rows="1" cols="10"></textarea> <textarea id="p10" rows="1" cols="10"></textarea> <input type="checkbox" id="s10" name = "none" value = "s10"> <button id="button_75">Next</button> <br>
+<input type="checkbox" id="c11" name = "none" value = "c11"> <input type="text" id="d11" value="" size="20"> <input type="text" id="g11" value="" size="1"> <button id="button_76">-</button> <input type="text" id="r11" value="" size="1"> <button id="button_77">+</button> <textarea id="m11" rows="1" cols="10"></textarea> <textarea id="p11" rows="1" cols="10"></textarea> <input type="checkbox" id="s11" name = "none" value = "s11"> <button id="button_78">Next</button> <br>
+<input type="checkbox" id="c12" name = "none" value = "c12"> <input type="text" id="d12" value="" size="20"> <input type="text" id="g12" value="" size="1"> <button id="button_79">-</button> <input type="text" id="r12" value="" size="1"> <button id="button_80">+</button> <textarea id="m12" rows="1" cols="10"></textarea> <textarea id="p12" rows="1" cols="10"></textarea> <input type="checkbox" id="s12" name = "none" value = "s12"> <button id="button_81">Next</button> <br>
+<input type="checkbox" id="c13" name = "none" value = "c13"> <input type="text" id="d13" value="" size="20"> <input type="text" id="g13" value="" size="1"> <button id="button_82">-</button> <input type="text" id="r13" value="" size="1"> <button id="button_83">+</button> <textarea id="m13" rows="1" cols="10"></textarea> <textarea id="p13" rows="1" cols="10"></textarea> <input type="checkbox" id="s13" name = "none" value = "s13"> <button id="button_84">Next</button> <br>
+<input type="checkbox" id="c14" name = "none" value = "c14"> <input type="text" id="d14" value="" size="20"> <input type="text" id="g14" value="" size="1"> <button id="button_85">-</button> <input type="text" id="r14" value="" size="1"> <button id="button_86">+</button> <textarea id="m14" rows="1" cols="10"></textarea> <textarea id="p14" rows="1" cols="10"></textarea> <input type="checkbox" id="s14" name = "none" value = "s14"> <button id="button_87">Next</button> <br>
+<input type="checkbox" id="c15" name = "none" value = "c15"> <input type="text" id="d15" value="" size="20"> <input type="text" id="g15" value="" size="1"> <button id="button_88">-</button> <input type="text" id="r15" value="" size="1"> <button id="button_89">+</button> <textarea id="m15" rows="1" cols="10"></textarea> <textarea id="p15" rows="1" cols="10"></textarea> <input type="checkbox" id="s15" name = "none" value = "s15"> <button id="button_90">Next</button> <br>
+<input type="checkbox" id="c16" name = "none" value = "c16"> <input type="text" id="d16" value="" size="20"> <input type="text" id="g16" value="" size="1"> <button id="button_91">-</button> <input type="text" id="r16" value="" size="1"> <button id="button_92">+</button> <textarea id="m16" rows="1" cols="10"></textarea> <textarea id="p16" rows="1" cols="10"></textarea> <input type="checkbox" id="s16" name = "none" value = "s16"> <button id="button_93">Next</button> <br>
+<input type="checkbox" id="c17" name = "none" value = "c17"> <input type="text" id="d17" value="" size="20"> <input type="text" id="g17" value="" size="1"> <button id="button_94">-</button> <input type="text" id="r17" value="" size="1"> <button id="button_95">+</button> <textarea id="m17" rows="1" cols="10"></textarea> <textarea id="p17" rows="1" cols="10"></textarea> <input type="checkbox" id="s17" name = "none" value = "s17"> <button id="button_96">Next</button> <br>
+<input type="checkbox" id="c18" name = "none" value = "c18"> <input type="text" id="d18" value="" size="20"> <input type="text" id="g18" value="" size="1"> <button id="button_97">-</button> <input type="text" id="r18" value="" size="1"> <button id="button_98">+</button> <textarea id="m18" rows="1" cols="10"></textarea> <textarea id="p18" rows="1" cols="10"></textarea> <input type="checkbox" id="s18" name = "none" value = "s18"> <button id="button_99">Next</button> <br>
+<input type="checkbox" id="c19" name = "none" value = "c19"> <input type="text" id="d19" value="" size="20"> <input type="text" id="g19" value="" size="1"> <button id="button_100">-</button> <input type="text" id="r19" value="" size="1"> <button id="button_101">+</button> <textarea id="m19" rows="1" cols="10"></textarea> <textarea id="p19" rows="1" cols="10"></textarea> <input type="checkbox" id="s19" name = "none" value = "s19"> <button id="button_102">Next</button> <br>
+<button id="button_103">Insert</button> <button id="button_104">Swap</button> <button id="button_105">Deselect</button> <button id="button_106">Back</button> <button id="button_107">Refresh</button> <button id="button_108">Next</button> <button id="button_109">Next</button> <span id="full_name_2">-</span>, <span id="full_q_2">-</span>&nbsp; <br>
+<input type="checkbox" id="c20" name = "none" value = "c20"> <input type="text" id="d20" value="" size="20"> <input type="text" id="g20" value="" size="1"> <button id="button_110">-</button> <input type="text" id="r20" value="" size="1"> <button id="button_111">+</button> <textarea id="m20" rows="1" cols="10"></textarea> <textarea id="p20" rows="1" cols="10"></textarea> <input type="checkbox" id="s20" name = "none" value = "s20"> <button id="button_112">Next</button> <br>
+<input type="checkbox" id="c21" name = "none" value = "c21"> <input type="text" id="d21" value="" size="20"> <input type="text" id="g21" value="" size="1"> <button id="button_113">-</button> <input type="text" id="r21" value="" size="1"> <button id="button_114">+</button> <textarea id="m21" rows="1" cols="10"></textarea> <textarea id="p21" rows="1" cols="10"></textarea> <input type="checkbox" id="s21" name = "none" value = "s21"> <button id="button_115">Next</button> <br>
+<input type="checkbox" id="c22" name = "none" value = "c22"> <input type="text" id="d22" value="" size="20"> <input type="text" id="g22" value="" size="1"> <button id="button_116">-</button> <input type="text" id="r22" value="" size="1"> <button id="button_117">+</button> <textarea id="m22" rows="1" cols="10"></textarea> <textarea id="p22" rows="1" cols="10"></textarea> <input type="checkbox" id="s22" name = "none" value = "s22"> <button id="button_118">Next</button> <br>
+<input type="checkbox" id="c23" name = "none" value = "c23"> <input type="text" id="d23" value="" size="20"> <input type="text" id="g23" value="" size="1"> <button id="button_119">-</button> <input type="text" id="r23" value="" size="1"> <button id="button_120">+</button> <textarea id="m23" rows="1" cols="10"></textarea> <textarea id="p23" rows="1" cols="10"></textarea> <input type="checkbox" id="s23" name = "none" value = "s23"> <button id="button_121">Next</button> <br>
+<input type="checkbox" id="c24" name = "none" value = "c24"> <input type="text" id="d24" value="" size="20"> <input type="text" id="g24" value="" size="1"> <button id="button_122">-</button> <input type="text" id="r24" value="" size="1"> <button id="button_123">+</button> <textarea id="m24" rows="1" cols="10"></textarea> <textarea id="p24" rows="1" cols="10"></textarea> <input type="checkbox" id="s24" name = "none" value = "s24"> <button id="button_124">Next</button> <br>
+<input type="checkbox" id="c25" name = "none" value = "c25"> <input type="text" id="d25" value="" size="20"> <input type="text" id="g25" value="" size="1"> <button id="button_125">-</button> <input type="text" id="r25" value="" size="1"> <button id="button_126">+</button> <textarea id="m25" rows="1" cols="10"></textarea> <textarea id="p25" rows="1" cols="10"></textarea> <input type="checkbox" id="s25" name = "none" value = "s25"> <button id="button_127">Next</button> <br>
+<input type="checkbox" id="c26" name = "none" value = "c26"> <input type="text" id="d26" value="" size="20"> <input type="text" id="g26" value="" size="1"> <button id="button_128">-</button> <input type="text" id="r26" value="" size="1"> <button id="button_129">+</button> <textarea id="m26" rows="1" cols="10"></textarea> <textarea id="p26" rows="1" cols="10"></textarea> <input type="checkbox" id="s26" name = "none" value = "s26"> <button id="button_130">Next</button> <br>
+<input type="checkbox" id="c27" name = "none" value = "c27"> <input type="text" id="d27" value="" size="20"> <input type="text" id="g27" value="" size="1"> <button id="button_131">-</button> <input type="text" id="r27" value="" size="1"> <button id="button_132">+</button> <textarea id="m27" rows="1" cols="10"></textarea> <textarea id="p27" rows="1" cols="10"></textarea> <input type="checkbox" id="s27" name = "none" value = "s27"> <button id="button_133">Next</button> <br>
+<input type="checkbox" id="c28" name = "none" value = "c28"> <input type="text" id="d28" value="" size="20"> <input type="text" id="g28" value="" size="1"> <button id="button_134">-</button> <input type="text" id="r28" value="" size="1"> <button id="button_135">+</button> <textarea id="m28" rows="1" cols="10"></textarea> <textarea id="p28" rows="1" cols="10"></textarea> <input type="checkbox" id="s28" name = "none" value = "s28"> <button id="button_136">Next</button> <br>
+<input type="checkbox" id="c29" name = "none" value = "c29"> <input type="text" id="d29" value="" size="20"> <input type="text" id="g29" value="" size="1"> <button id="button_137">-</button> <input type="text" id="r29" value="" size="1"> <button id="button_138">+</button> <textarea id="m29" rows="1" cols="10"></textarea> <textarea id="p29" rows="1" cols="10"></textarea> <input type="checkbox" id="s29" name = "none" value = "s29"> <button id="button_139">Next</button> <br>
+<button id="button_140">Insert</button> <button id="button_141">Swap</button> <button id="button_142">Deselect</button> <button id="button_143">Back</button> <button id="button_144">Refresh</button> <button id="button_145">Next</button> <button id="button_146">Next</button> <span id="full_name_3">-</span>, <span id="full_q_3">-</span>&nbsp; <br>
+<input type="checkbox" id="c30" name = "none" value = "c30"> <input type="text" id="d30" value="" size="20"> <input type="text" id="g30" value="" size="1"> <button id="button_147">-</button> <input type="text" id="r30" value="" size="1"> <button id="button_148">+</button> <textarea id="m30" rows="1" cols="10"></textarea> <textarea id="p30" rows="1" cols="10"></textarea> <input type="checkbox" id="s30" name = "none" value = "s30"> <button id="button_149">Next</button> <br>
+<input type="checkbox" id="c31" name = "none" value = "c31"> <input type="text" id="d31" value="" size="20"> <input type="text" id="g31" value="" size="1"> <button id="button_150">-</button> <input type="text" id="r31" value="" size="1"> <button id="button_151">+</button> <textarea id="m31" rows="1" cols="10"></textarea> <textarea id="p31" rows="1" cols="10"></textarea> <input type="checkbox" id="s31" name = "none" value = "s31"> <button id="button_152">Next</button> <br>
+<input type="checkbox" id="c32" name = "none" value = "c32"> <input type="text" id="d32" value="" size="20"> <input type="text" id="g32" value="" size="1"> <button id="button_153">-</button> <input type="text" id="r32" value="" size="1"> <button id="button_154">+</button> <textarea id="m32" rows="1" cols="10"></textarea> <textarea id="p32" rows="1" cols="10"></textarea> <input type="checkbox" id="s32" name = "none" value = "s32"> <button id="button_155">Next</button> <br>
+<input type="checkbox" id="c33" name = "none" value = "c33"> <input type="text" id="d33" value="" size="20"> <input type="text" id="g33" value="" size="1"> <button id="button_156">-</button> <input type="text" id="r33" value="" size="1"> <button id="button_157">+</button> <textarea id="m33" rows="1" cols="10"></textarea> <textarea id="p33" rows="1" cols="10"></textarea> <input type="checkbox" id="s33" name = "none" value = "s33"> <button id="button_158">Next</button> <br>
+<input type="checkbox" id="c34" name = "none" value = "c34"> <input type="text" id="d34" value="" size="20"> <input type="text" id="g34" value="" size="1"> <button id="button_159">-</button> <input type="text" id="r34" value="" size="1"> <button id="button_160">+</button> <textarea id="m34" rows="1" cols="10"></textarea> <textarea id="p34" rows="1" cols="10"></textarea> <input type="checkbox" id="s34" name = "none" value = "s34"> <button id="button_161">Next</button> <br>
+<input type="checkbox" id="c35" name = "none" value = "c35"> <input type="text" id="d35" value="" size="20"> <input type="text" id="g35" value="" size="1"> <button id="button_162">-</button> <input type="text" id="r35" value="" size="1"> <button id="button_163">+</button> <textarea id="m35" rows="1" cols="10"></textarea> <textarea id="p35" rows="1" cols="10"></textarea> <input type="checkbox" id="s35" name = "none" value = "s35"> <button id="button_164">Next</button> <br>
+<input type="checkbox" id="c36" name = "none" value = "c36"> <input type="text" id="d36" value="" size="20"> <input type="text" id="g36" value="" size="1"> <button id="button_165">-</button> <input type="text" id="r36" value="" size="1"> <button id="button_166">+</button> <textarea id="m36" rows="1" cols="10"></textarea> <textarea id="p36" rows="1" cols="10"></textarea> <input type="checkbox" id="s36" name = "none" value = "s36"> <button id="button_167">Next</button> <br>
+<input type="checkbox" id="c37" name = "none" value = "c37"> <input type="text" id="d37" value="" size="20"> <input type="text" id="g37" value="" size="1"> <button id="button_168">-</button> <input type="text" id="r37" value="" size="1"> <button id="button_169">+</button> <textarea id="m37" rows="1" cols="10"></textarea> <textarea id="p37" rows="1" cols="10"></textarea> <input type="checkbox" id="s37" name = "none" value = "s37"> <button id="button_170">Next</button> <br>
+<input type="checkbox" id="c38" name = "none" value = "c38"> <input type="text" id="d38" value="" size="20"> <input type="text" id="g38" value="" size="1"> <button id="button_171">-</button> <input type="text" id="r38" value="" size="1"> <button id="button_172">+</button> <textarea id="m38" rows="1" cols="10"></textarea> <textarea id="p38" rows="1" cols="10"></textarea> <input type="checkbox" id="s38" name = "none" value = "s38"> <button id="button_173">Next</button> <br>
+<input type="checkbox" id="c39" name = "none" value = "c39"> <input type="text" id="d39" value="" size="20"> <input type="text" id="g39" value="" size="1"> <button id="button_174">-</button> <input type="text" id="r39" value="" size="1"> <button id="button_175">+</button> <textarea id="m39" rows="1" cols="10"></textarea> <textarea id="p39" rows="1" cols="10"></textarea> <input type="checkbox" id="s39" name = "none" value = "s39"> <button id="button_176">Next</button> <br>
+<button id="button_177">Insert</button> <button id="button_178">Swap</button> <button id="button_179">Deselect</button> <button id="button_180">Back</button> <button id="button_181">Refresh</button> <button id="button_182">Next</button> <button id="button_183">Next</button> <span id="full_name_4">-</span>, <span id="full_q_4">-</span>&nbsp; <br>
+<input type="checkbox" id="c40" name = "none" value = "c40"> <input type="text" id="d40" value="" size="20"> <input type="text" id="g40" value="" size="1"> <button id="button_184">-</button> <input type="text" id="r40" value="" size="1"> <button id="button_185">+</button> <textarea id="m40" rows="1" cols="10"></textarea> <textarea id="p40" rows="1" cols="10"></textarea> <input type="checkbox" id="s40" name = "none" value = "s40"> <button id="button_186">Next</button> <br>
+<input type="checkbox" id="c41" name = "none" value = "c41"> <input type="text" id="d41" value="" size="20"> <input type="text" id="g41" value="" size="1"> <button id="button_187">-</button> <input type="text" id="r41" value="" size="1"> <button id="button_188">+</button> <textarea id="m41" rows="1" cols="10"></textarea> <textarea id="p41" rows="1" cols="10"></textarea> <input type="checkbox" id="s41" name = "none" value = "s41"> <button id="button_189">Next</button> <br>
+<input type="checkbox" id="c42" name = "none" value = "c42"> <input type="text" id="d42" value="" size="20"> <input type="text" id="g42" value="" size="1"> <button id="button_190">-</button> <input type="text" id="r42" value="" size="1"> <button id="button_191">+</button> <textarea id="m42" rows="1" cols="10"></textarea> <textarea id="p42" rows="1" cols="10"></textarea> <input type="checkbox" id="s42" name = "none" value = "s42"> <button id="button_192">Next</button> <br>
+<input type="checkbox" id="c43" name = "none" value = "c43"> <input type="text" id="d43" value="" size="20"> <input type="text" id="g43" value="" size="1"> <button id="button_193">-</button> <input type="text" id="r43" value="" size="1"> <button id="button_194">+</button> <textarea id="m43" rows="1" cols="10"></textarea> <textarea id="p43" rows="1" cols="10"></textarea> <input type="checkbox" id="s43" name = "none" value = "s43"> <button id="button_195">Next</button> <br>
+<input type="checkbox" id="c44" name = "none" value = "c44"> <input type="text" id="d44" value="" size="20"> <input type="text" id="g44" value="" size="1"> <button id="button_196">-</button> <input type="text" id="r44" value="" size="1"> <button id="button_197">+</button> <textarea id="m44" rows="1" cols="10"></textarea> <textarea id="p44" rows="1" cols="10"></textarea> <input type="checkbox" id="s44" name = "none" value = "s44"> <button id="button_198">Next</button> <br>
+<input type="checkbox" id="c45" name = "none" value = "c45"> <input type="text" id="d45" value="" size="20"> <input type="text" id="g45" value="" size="1"> <button id="button_199">-</button> <input type="text" id="r45" value="" size="1"> <button id="button_200">+</button> <textarea id="m45" rows="1" cols="10"></textarea> <textarea id="p45" rows="1" cols="10"></textarea> <input type="checkbox" id="s45" name = "none" value = "s45"> <button id="button_201">Next</button> <br>
+<input type="checkbox" id="c46" name = "none" value = "c46"> <input type="text" id="d46" value="" size="20"> <input type="text" id="g46" value="" size="1"> <button id="button_202">-</button> <input type="text" id="r46" value="" size="1"> <button id="button_203">+</button> <textarea id="m46" rows="1" cols="10"></textarea> <textarea id="p46" rows="1" cols="10"></textarea> <input type="checkbox" id="s46" name = "none" value = "s46"> <button id="button_204">Next</button> <br>
+<input type="checkbox" id="c47" name = "none" value = "c47"> <input type="text" id="d47" value="" size="20"> <input type="text" id="g47" value="" size="1"> <button id="button_205">-</button> <input type="text" id="r47" value="" size="1"> <button id="button_206">+</button> <textarea id="m47" rows="1" cols="10"></textarea> <textarea id="p47" rows="1" cols="10"></textarea> <input type="checkbox" id="s47" name = "none" value = "s47"> <button id="button_207">Next</button> <br>
+<input type="checkbox" id="c48" name = "none" value = "c48"> <input type="text" id="d48" value="" size="20"> <input type="text" id="g48" value="" size="1"> <button id="button_208">-</button> <input type="text" id="r48" value="" size="1"> <button id="button_209">+</button> <textarea id="m48" rows="1" cols="10"></textarea> <textarea id="p48" rows="1" cols="10"></textarea> <input type="checkbox" id="s48" name = "none" value = "s48"> <button id="button_210">Next</button> <br>
+<input type="checkbox" id="c49" name = "none" value = "c49"> <input type="text" id="d49" value="" size="20"> <input type="text" id="g49" value="" size="1"> <button id="button_211">-</button> <input type="text" id="r49" value="" size="1"> <button id="button_212">+</button> <textarea id="m49" rows="1" cols="10"></textarea> <textarea id="p49" rows="1" cols="10"></textarea> <input type="checkbox" id="s49" name = "none" value = "s49"> <button id="button_213">Next</button> <br>
+<button id="button_214">Insert</button> <button id="button_215">Swap</button> <button id="button_216">Deselect</button> <button id="button_217">Back</button> <button id="button_218">Refresh</button> <button id="button_219">Next</button> <button id="button_220">Next</button> <span id="full_name_5">-</span>, <span id="full_q_5">-</span>&nbsp; <br>
+<input type="checkbox" id="c50" name = "none" value = "c50"> <input type="text" id="d50" value="" size="20"> <input type="text" id="g50" value="" size="1"> <button id="button_221">-</button> <input type="text" id="r50" value="" size="1"> <button id="button_222">+</button> <textarea id="m50" rows="1" cols="10"></textarea> <textarea id="p50" rows="1" cols="10"></textarea> <input type="checkbox" id="s50" name = "none" value = "s50"> <button id="button_223">Next</button> <br>
+<input type="checkbox" id="c51" name = "none" value = "c51"> <input type="text" id="d51" value="" size="20"> <input type="text" id="g51" value="" size="1"> <button id="button_224">-</button> <input type="text" id="r51" value="" size="1"> <button id="button_225">+</button> <textarea id="m51" rows="1" cols="10"></textarea> <textarea id="p51" rows="1" cols="10"></textarea> <input type="checkbox" id="s51" name = "none" value = "s51"> <button id="button_226">Next</button> <br>
+<input type="checkbox" id="c52" name = "none" value = "c52"> <input type="text" id="d52" value="" size="20"> <input type="text" id="g52" value="" size="1"> <button id="button_227">-</button> <input type="text" id="r52" value="" size="1"> <button id="button_228">+</button> <textarea id="m52" rows="1" cols="10"></textarea> <textarea id="p52" rows="1" cols="10"></textarea> <input type="checkbox" id="s52" name = "none" value = "s52"> <button id="button_229">Next</button> <br>
+<input type="checkbox" id="c53" name = "none" value = "c53"> <input type="text" id="d53" value="" size="20"> <input type="text" id="g53" value="" size="1"> <button id="button_230">-</button> <input type="text" id="r53" value="" size="1"> <button id="button_231">+</button> <textarea id="m53" rows="1" cols="10"></textarea> <textarea id="p53" rows="1" cols="10"></textarea> <input type="checkbox" id="s53" name = "none" value = "s53"> <button id="button_232">Next</button> <br>
+<input type="checkbox" id="c54" name = "none" value = "c54"> <input type="text" id="d54" value="" size="20"> <input type="text" id="g54" value="" size="1"> <button id="button_233">-</button> <input type="text" id="r54" value="" size="1"> <button id="button_234">+</button> <textarea id="m54" rows="1" cols="10"></textarea> <textarea id="p54" rows="1" cols="10"></textarea> <input type="checkbox" id="s54" name = "none" value = "s54"> <button id="button_235">Next</button> <br>
+<input type="checkbox" id="c55" name = "none" value = "c55"> <input type="text" id="d55" value="" size="20"> <input type="text" id="g55" value="" size="1"> <button id="button_236">-</button> <input type="text" id="r55" value="" size="1"> <button id="button_237">+</button> <textarea id="m55" rows="1" cols="10"></textarea> <textarea id="p55" rows="1" cols="10"></textarea> <input type="checkbox" id="s55" name = "none" value = "s55"> <button id="button_238">Next</button> <br>
+<input type="checkbox" id="c56" name = "none" value = "c56"> <input type="text" id="d56" value="" size="20"> <input type="text" id="g56" value="" size="1"> <button id="button_239">-</button> <input type="text" id="r56" value="" size="1"> <button id="button_240">+</button> <textarea id="m56" rows="1" cols="10"></textarea> <textarea id="p56" rows="1" cols="10"></textarea> <input type="checkbox" id="s56" name = "none" value = "s56"> <button id="button_241">Next</button> <br>
+<input type="checkbox" id="c57" name = "none" value = "c57"> <input type="text" id="d57" value="" size="20"> <input type="text" id="g57" value="" size="1"> <button id="button_242">-</button> <input type="text" id="r57" value="" size="1"> <button id="button_243">+</button> <textarea id="m57" rows="1" cols="10"></textarea> <textarea id="p57" rows="1" cols="10"></textarea> <input type="checkbox" id="s57" name = "none" value = "s57"> <button id="button_244">Next</button> <br>
+<input type="checkbox" id="c58" name = "none" value = "c58"> <input type="text" id="d58" value="" size="20"> <input type="text" id="g58" value="" size="1"> <button id="button_245">-</button> <input type="text" id="r58" value="" size="1"> <button id="button_246">+</button> <textarea id="m58" rows="1" cols="10"></textarea> <textarea id="p58" rows="1" cols="10"></textarea> <input type="checkbox" id="s58" name = "none" value = "s58"> <button id="button_247">Next</button> <br>
+<input type="checkbox" id="c59" name = "none" value = "c59"> <input type="text" id="d59" value="" size="20"> <input type="text" id="g59" value="" size="1"> <button id="button_248">-</button> <input type="text" id="r59" value="" size="1"> <button id="button_249">+</button> <textarea id="m59" rows="1" cols="10"></textarea> <textarea id="p59" rows="1" cols="10"></textarea> <input type="checkbox" id="s59" name = "none" value = "s59"> <button id="button_250">Next</button> <br>
+<button id="button_251">Insert</button> <button id="button_252">Swap</button> <button id="button_253">Deselect</button> <button id="button_254">Back</button> <button id="button_255">Refresh</button> <button id="button_256">Next</button> <button id="button_257">Next</button> <span id="full_name_6">-</span>, <span id="full_q_6">-</span>&nbsp; <br>
+<input type="checkbox" id="c60" name = "none" value = "c60"> <input type="text" id="d60" value="" size="20"> <input type="text" id="g60" value="" size="1"> <button id="button_258">-</button> <input type="text" id="r60" value="" size="1"> <button id="button_259">+</button> <textarea id="m60" rows="1" cols="10"></textarea> <textarea id="p60" rows="1" cols="10"></textarea> <input type="checkbox" id="s60" name = "none" value = "s60"> <button id="button_260">Next</button> <br>
+<input type="checkbox" id="c61" name = "none" value = "c61"> <input type="text" id="d61" value="" size="20"> <input type="text" id="g61" value="" size="1"> <button id="button_261">-</button> <input type="text" id="r61" value="" size="1"> <button id="button_262">+</button> <textarea id="m61" rows="1" cols="10"></textarea> <textarea id="p61" rows="1" cols="10"></textarea> <input type="checkbox" id="s61" name = "none" value = "s61"> <button id="button_263">Next</button> <br>
+<input type="checkbox" id="c62" name = "none" value = "c62"> <input type="text" id="d62" value="" size="20"> <input type="text" id="g62" value="" size="1"> <button id="button_264">-</button> <input type="text" id="r62" value="" size="1"> <button id="button_265">+</button> <textarea id="m62" rows="1" cols="10"></textarea> <textarea id="p62" rows="1" cols="10"></textarea> <input type="checkbox" id="s62" name = "none" value = "s62"> <button id="button_266">Next</button> <br>
+<input type="checkbox" id="c63" name = "none" value = "c63"> <input type="text" id="d63" value="" size="20"> <input type="text" id="g63" value="" size="1"> <button id="button_267">-</button> <input type="text" id="r63" value="" size="1"> <button id="button_268">+</button> <textarea id="m63" rows="1" cols="10"></textarea> <textarea id="p63" rows="1" cols="10"></textarea> <input type="checkbox" id="s63" name = "none" value = "s63"> <button id="button_269">Next</button> <br>
+<input type="checkbox" id="c64" name = "none" value = "c64"> <input type="text" id="d64" value="" size="20"> <input type="text" id="g64" value="" size="1"> <button id="button_270">-</button> <input type="text" id="r64" value="" size="1"> <button id="button_271">+</button> <textarea id="m64" rows="1" cols="10"></textarea> <textarea id="p64" rows="1" cols="10"></textarea> <input type="checkbox" id="s64" name = "none" value = "s64"> <button id="button_272">Next</button> <br>
+<input type="checkbox" id="c65" name = "none" value = "c65"> <input type="text" id="d65" value="" size="20"> <input type="text" id="g65" value="" size="1"> <button id="button_273">-</button> <input type="text" id="r65" value="" size="1"> <button id="button_274">+</button> <textarea id="m65" rows="1" cols="10"></textarea> <textarea id="p65" rows="1" cols="10"></textarea> <input type="checkbox" id="s65" name = "none" value = "s65"> <button id="button_275">Next</button> <br>
+<input type="checkbox" id="c66" name = "none" value = "c66"> <input type="text" id="d66" value="" size="20"> <input type="text" id="g66" value="" size="1"> <button id="button_276">-</button> <input type="text" id="r66" value="" size="1"> <button id="button_277">+</button> <textarea id="m66" rows="1" cols="10"></textarea> <textarea id="p66" rows="1" cols="10"></textarea> <input type="checkbox" id="s66" name = "none" value = "s66"> <button id="button_278">Next</button> <br>
+<input type="checkbox" id="c67" name = "none" value = "c67"> <input type="text" id="d67" value="" size="20"> <input type="text" id="g67" value="" size="1"> <button id="button_279">-</button> <input type="text" id="r67" value="" size="1"> <button id="button_280">+</button> <textarea id="m67" rows="1" cols="10"></textarea> <textarea id="p67" rows="1" cols="10"></textarea> <input type="checkbox" id="s67" name = "none" value = "s67"> <button id="button_281">Next</button> <br>
+<input type="checkbox" id="c68" name = "none" value = "c68"> <input type="text" id="d68" value="" size="20"> <input type="text" id="g68" value="" size="1"> <button id="button_282">-</button> <input type="text" id="r68" value="" size="1"> <button id="button_283">+</button> <textarea id="m68" rows="1" cols="10"></textarea> <textarea id="p68" rows="1" cols="10"></textarea> <input type="checkbox" id="s68" name = "none" value = "s68"> <button id="button_284">Next</button> <br>
+<input type="checkbox" id="c69" name = "none" value = "c69"> <input type="text" id="d69" value="" size="20"> <input type="text" id="g69" value="" size="1"> <button id="button_285">-</button> <input type="text" id="r69" value="" size="1"> <button id="button_286">+</button> <textarea id="m69" rows="1" cols="10"></textarea> <textarea id="p69" rows="1" cols="10"></textarea> <input type="checkbox" id="s69" name = "none" value = "s69"> <button id="button_287">Next</button> <br>
+<button id="button_288">Insert</button> <button id="button_289">Swap</button> <button id="button_290">Deselect</button> <button id="button_291">Back</button> <button id="button_292">Refresh</button> <button id="button_293">Next</button> <button id="button_294">Next</button> <span id="full_name_7">-</span>, <span id="full_q_7">-</span>&nbsp; <br>
+<input type="checkbox" id="c70" name = "none" value = "c70"> <input type="text" id="d70" value="" size="20"> <input type="text" id="g70" value="" size="1"> <button id="button_295">-</button> <input type="text" id="r70" value="" size="1"> <button id="button_296">+</button> <textarea id="m70" rows="1" cols="10"></textarea> <textarea id="p70" rows="1" cols="10"></textarea> <input type="checkbox" id="s70" name = "none" value = "s70"> <button id="button_297">Next</button> <br>
+<input type="checkbox" id="c71" name = "none" value = "c71"> <input type="text" id="d71" value="" size="20"> <input type="text" id="g71" value="" size="1"> <button id="button_298">-</button> <input type="text" id="r71" value="" size="1"> <button id="button_299">+</button> <textarea id="m71" rows="1" cols="10"></textarea> <textarea id="p71" rows="1" cols="10"></textarea> <input type="checkbox" id="s71" name = "none" value = "s71"> <button id="button_300">Next</button> <br>
+<input type="checkbox" id="c72" name = "none" value = "c72"> <input type="text" id="d72" value="" size="20"> <input type="text" id="g72" value="" size="1"> <button id="button_301">-</button> <input type="text" id="r72" value="" size="1"> <button id="button_302">+</button> <textarea id="m72" rows="1" cols="10"></textarea> <textarea id="p72" rows="1" cols="10"></textarea> <input type="checkbox" id="s72" name = "none" value = "s72"> <button id="button_303">Next</button> <br>
+<input type="checkbox" id="c73" name = "none" value = "c73"> <input type="text" id="d73" value="" size="20"> <input type="text" id="g73" value="" size="1"> <button id="button_304">-</button> <input type="text" id="r73" value="" size="1"> <button id="button_305">+</button> <textarea id="m73" rows="1" cols="10"></textarea> <textarea id="p73" rows="1" cols="10"></textarea> <input type="checkbox" id="s73" name = "none" value = "s73"> <button id="button_306">Next</button> <br>
+<input type="checkbox" id="c74" name = "none" value = "c74"> <input type="text" id="d74" value="" size="20"> <input type="text" id="g74" value="" size="1"> <button id="button_307">-</button> <input type="text" id="r74" value="" size="1"> <button id="button_308">+</button> <textarea id="m74" rows="1" cols="10"></textarea> <textarea id="p74" rows="1" cols="10"></textarea> <input type="checkbox" id="s74" name = "none" value = "s74"> <button id="button_309">Next</button> <br>
+<input type="checkbox" id="c75" name = "none" value = "c75"> <input type="text" id="d75" value="" size="20"> <input type="text" id="g75" value="" size="1"> <button id="button_310">-</button> <input type="text" id="r75" value="" size="1"> <button id="button_311">+</button> <textarea id="m75" rows="1" cols="10"></textarea> <textarea id="p75" rows="1" cols="10"></textarea> <input type="checkbox" id="s75" name = "none" value = "s75"> <button id="button_312">Next</button> <br>
+<input type="checkbox" id="c76" name = "none" value = "c76"> <input type="text" id="d76" value="" size="20"> <input type="text" id="g76" value="" size="1"> <button id="button_313">-</button> <input type="text" id="r76" value="" size="1"> <button id="button_314">+</button> <textarea id="m76" rows="1" cols="10"></textarea> <textarea id="p76" rows="1" cols="10"></textarea> <input type="checkbox" id="s76" name = "none" value = "s76"> <button id="button_315">Next</button> <br>
+<input type="checkbox" id="c77" name = "none" value = "c77"> <input type="text" id="d77" value="" size="20"> <input type="text" id="g77" value="" size="1"> <button id="button_316">-</button> <input type="text" id="r77" value="" size="1"> <button id="button_317">+</button> <textarea id="m77" rows="1" cols="10"></textarea> <textarea id="p77" rows="1" cols="10"></textarea> <input type="checkbox" id="s77" name = "none" value = "s77"> <button id="button_318">Next</button> <br>
+<input type="checkbox" id="c78" name = "none" value = "c78"> <input type="text" id="d78" value="" size="20"> <input type="text" id="g78" value="" size="1"> <button id="button_319">-</button> <input type="text" id="r78" value="" size="1"> <button id="button_320">+</button> <textarea id="m78" rows="1" cols="10"></textarea> <textarea id="p78" rows="1" cols="10"></textarea> <input type="checkbox" id="s78" name = "none" value = "s78"> <button id="button_321">Next</button> <br>
+<input type="checkbox" id="c79" name = "none" value = "c79"> <input type="text" id="d79" value="" size="20"> <input type="text" id="g79" value="" size="1"> <button id="button_322">-</button> <input type="text" id="r79" value="" size="1"> <button id="button_323">+</button> <textarea id="m79" rows="1" cols="10"></textarea> <textarea id="p79" rows="1" cols="10"></textarea> <input type="checkbox" id="s79" name = "none" value = "s79"> <button id="button_324">Next</button> <br>
+<button id="button_325">Insert</button> <button id="button_326">Swap</button> <button id="button_327">Deselect</button> <button id="button_328">Back</button> <button id="button_329">Refresh</button> <button id="button_330">Next</button> <button id="button_331">Next</button> <span id="full_name_8">-</span>, <span id="full_q_8">-</span>&nbsp; <br>
+<input type="checkbox" id="c80" name = "none" value = "c80"> <input type="text" id="d80" value="" size="20"> <input type="text" id="g80" value="" size="1"> <button id="button_332">-</button> <input type="text" id="r80" value="" size="1"> <button id="button_333">+</button> <textarea id="m80" rows="1" cols="10"></textarea> <textarea id="p80" rows="1" cols="10"></textarea> <input type="checkbox" id="s80" name = "none" value = "s80"> <button id="button_334">Next</button> <br>
+<input type="checkbox" id="c81" name = "none" value = "c81"> <input type="text" id="d81" value="" size="20"> <input type="text" id="g81" value="" size="1"> <button id="button_335">-</button> <input type="text" id="r81" value="" size="1"> <button id="button_336">+</button> <textarea id="m81" rows="1" cols="10"></textarea> <textarea id="p81" rows="1" cols="10"></textarea> <input type="checkbox" id="s81" name = "none" value = "s81"> <button id="button_337">Next</button> <br>
+<input type="checkbox" id="c82" name = "none" value = "c82"> <input type="text" id="d82" value="" size="20"> <input type="text" id="g82" value="" size="1"> <button id="button_338">-</button> <input type="text" id="r82" value="" size="1"> <button id="button_339">+</button> <textarea id="m82" rows="1" cols="10"></textarea> <textarea id="p82" rows="1" cols="10"></textarea> <input type="checkbox" id="s82" name = "none" value = "s82"> <button id="button_340">Next</button> <br>
+<input type="checkbox" id="c83" name = "none" value = "c83"> <input type="text" id="d83" value="" size="20"> <input type="text" id="g83" value="" size="1"> <button id="button_341">-</button> <input type="text" id="r83" value="" size="1"> <button id="button_342">+</button> <textarea id="m83" rows="1" cols="10"></textarea> <textarea id="p83" rows="1" cols="10"></textarea> <input type="checkbox" id="s83" name = "none" value = "s83"> <button id="button_343">Next</button> <br>
+<input type="checkbox" id="c84" name = "none" value = "c84"> <input type="text" id="d84" value="" size="20"> <input type="text" id="g84" value="" size="1"> <button id="button_344">-</button> <input type="text" id="r84" value="" size="1"> <button id="button_345">+</button> <textarea id="m84" rows="1" cols="10"></textarea> <textarea id="p84" rows="1" cols="10"></textarea> <input type="checkbox" id="s84" name = "none" value = "s84"> <button id="button_346">Next</button> <br>
+<input type="checkbox" id="c85" name = "none" value = "c85"> <input type="text" id="d85" value="" size="20"> <input type="text" id="g85" value="" size="1"> <button id="button_347">-</button> <input type="text" id="r85" value="" size="1"> <button id="button_348">+</button> <textarea id="m85" rows="1" cols="10"></textarea> <textarea id="p85" rows="1" cols="10"></textarea> <input type="checkbox" id="s85" name = "none" value = "s85"> <button id="button_349">Next</button> <br>
+<input type="checkbox" id="c86" name = "none" value = "c86"> <input type="text" id="d86" value="" size="20"> <input type="text" id="g86" value="" size="1"> <button id="button_350">-</button> <input type="text" id="r86" value="" size="1"> <button id="button_351">+</button> <textarea id="m86" rows="1" cols="10"></textarea> <textarea id="p86" rows="1" cols="10"></textarea> <input type="checkbox" id="s86" name = "none" value = "s86"> <button id="button_352">Next</button> <br>
+<input type="checkbox" id="c87" name = "none" value = "c87"> <input type="text" id="d87" value="" size="20"> <input type="text" id="g87" value="" size="1"> <button id="button_353">-</button> <input type="text" id="r87" value="" size="1"> <button id="button_354">+</button> <textarea id="m87" rows="1" cols="10"></textarea> <textarea id="p87" rows="1" cols="10"></textarea> <input type="checkbox" id="s87" name = "none" value = "s87"> <button id="button_355">Next</button> <br>
+<input type="checkbox" id="c88" name = "none" value = "c88"> <input type="text" id="d88" value="" size="20"> <input type="text" id="g88" value="" size="1"> <button id="button_356">-</button> <input type="text" id="r88" value="" size="1"> <button id="button_357">+</button> <textarea id="m88" rows="1" cols="10"></textarea> <textarea id="p88" rows="1" cols="10"></textarea> <input type="checkbox" id="s88" name = "none" value = "s88"> <button id="button_358">Next</button> <br>
+<input type="checkbox" id="c89" name = "none" value = "c89"> <input type="text" id="d89" value="" size="20"> <input type="text" id="g89" value="" size="1"> <button id="button_359">-</button> <input type="text" id="r89" value="" size="1"> <button id="button_360">+</button> <textarea id="m89" rows="1" cols="10"></textarea> <textarea id="p89" rows="1" cols="10"></textarea> <input type="checkbox" id="s89" name = "none" value = "s89"> <button id="button_361">Next</button> <br>
+<button id="button_362">Insert</button> <button id="button_363">Swap</button> <button id="button_364">Deselect</button> <button id="button_365">Back</button> <button id="button_366">Refresh</button> <button id="button_367">Next</button> <button id="button_368">Next</button> <span id="full_name_9">-</span>, <span id="full_q_9">-</span>&nbsp; <br>
+<input type="checkbox" id="c90" name = "none" value = "c90"> <input type="text" id="d90" value="" size="20"> <input type="text" id="g90" value="" size="1"> <button id="button_369">-</button> <input type="text" id="r90" value="" size="1"> <button id="button_370">+</button> <textarea id="m90" rows="1" cols="10"></textarea> <textarea id="p90" rows="1" cols="10"></textarea> <input type="checkbox" id="s90" name = "none" value = "s90"> <button id="button_371">Next</button> <br>
+<input type="checkbox" id="c91" name = "none" value = "c91"> <input type="text" id="d91" value="" size="20"> <input type="text" id="g91" value="" size="1"> <button id="button_372">-</button> <input type="text" id="r91" value="" size="1"> <button id="button_373">+</button> <textarea id="m91" rows="1" cols="10"></textarea> <textarea id="p91" rows="1" cols="10"></textarea> <input type="checkbox" id="s91" name = "none" value = "s91"> <button id="button_374">Next</button> <br>
+<input type="checkbox" id="c92" name = "none" value = "c92"> <input type="text" id="d92" value="" size="20"> <input type="text" id="g92" value="" size="1"> <button id="button_375">-</button> <input type="text" id="r92" value="" size="1"> <button id="button_376">+</button> <textarea id="m92" rows="1" cols="10"></textarea> <textarea id="p92" rows="1" cols="10"></textarea> <input type="checkbox" id="s92" name = "none" value = "s92"> <button id="button_377">Next</button> <br>
+<input type="checkbox" id="c93" name = "none" value = "c93"> <input type="text" id="d93" value="" size="20"> <input type="text" id="g93" value="" size="1"> <button id="button_378">-</button> <input type="text" id="r93" value="" size="1"> <button id="button_379">+</button> <textarea id="m93" rows="1" cols="10"></textarea> <textarea id="p93" rows="1" cols="10"></textarea> <input type="checkbox" id="s93" name = "none" value = "s93"> <button id="button_380">Next</button> <br>
+<input type="checkbox" id="c94" name = "none" value = "c94"> <input type="text" id="d94" value="" size="20"> <input type="text" id="g94" value="" size="1"> <button id="button_381">-</button> <input type="text" id="r94" value="" size="1"> <button id="button_382">+</button> <textarea id="m94" rows="1" cols="10"></textarea> <textarea id="p94" rows="1" cols="10"></textarea> <input type="checkbox" id="s94" name = "none" value = "s94"> <button id="button_383">Next</button> <br>
+<input type="checkbox" id="c95" name = "none" value = "c95"> <input type="text" id="d95" value="" size="20"> <input type="text" id="g95" value="" size="1"> <button id="button_384">-</button> <input type="text" id="r95" value="" size="1"> <button id="button_385">+</button> <textarea id="m95" rows="1" cols="10"></textarea> <textarea id="p95" rows="1" cols="10"></textarea> <input type="checkbox" id="s95" name = "none" value = "s95"> <button id="button_386">Next</button> <br>
+<input type="checkbox" id="c96" name = "none" value = "c96"> <input type="text" id="d96" value="" size="20"> <input type="text" id="g96" value="" size="1"> <button id="button_387">-</button> <input type="text" id="r96" value="" size="1"> <button id="button_388">+</button> <textarea id="m96" rows="1" cols="10"></textarea> <textarea id="p96" rows="1" cols="10"></textarea> <input type="checkbox" id="s96" name = "none" value = "s96"> <button id="button_389">Next</button> <br>
+<input type="checkbox" id="c97" name = "none" value = "c97"> <input type="text" id="d97" value="" size="20"> <input type="text" id="g97" value="" size="1"> <button id="button_390">-</button> <input type="text" id="r97" value="" size="1"> <button id="button_391">+</button> <textarea id="m97" rows="1" cols="10"></textarea> <textarea id="p97" rows="1" cols="10"></textarea> <input type="checkbox" id="s97" name = "none" value = "s97"> <button id="button_392">Next</button> <br>
+<input type="checkbox" id="c98" name = "none" value = "c98"> <input type="text" id="d98" value="" size="20"> <input type="text" id="g98" value="" size="1"> <button id="button_393">-</button> <input type="text" id="r98" value="" size="1"> <button id="button_394">+</button> <textarea id="m98" rows="1" cols="10"></textarea> <textarea id="p98" rows="1" cols="10"></textarea> <input type="checkbox" id="s98" name = "none" value = "s98"> <button id="button_395">Next</button> <br>
+<input type="checkbox" id="c99" name = "none" value = "c99"> <input type="text" id="d99" value="" size="20"> <input type="text" id="g99" value="" size="1"> <button id="button_396">-</button> <input type="text" id="r99" value="" size="1"> <button id="button_397">+</button> <textarea id="m99" rows="1" cols="10"></textarea> <textarea id="p99" rows="1" cols="10"></textarea> <input type="checkbox" id="s99" name = "none" value = "s99"> <button id="button_398">Next</button> <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<script type="module"> 
+import {enter_button, read_file, load_grade_page, download_file, combine_fields, split_fields, grade_set_up_page, grade_sort_page, grade_extract_page, clipboard, grade_aggregate_page, grade_revert_page, grade_output_page, select_field, grade_search_name_page, grade_search_question_page, grade_default_page, grade_check_page, grade_swap_page, grade_next_page, incr_page} from "./YJS.js";
+document.getElementById("loading_input").onchange = () => read_file(event, "loading");
+document.getElementById("button_0").onclick = () => load_grade_page();
+document.getElementById("names_input").onchange = () => read_file(event, "names");
+document.getElementById("button_1").onclick = () => download_file("@names", "names");
+document.getElementById("scheme_input").onchange = () => read_file(event, "scheme");
+document.getElementById("button_2").onclick = () => download_file("@scheme", "scheme");
+document.getElementById("choices_input").onchange = () => read_file(event, "choices");
+document.getElementById("button_3").onclick = () => download_file("@choices", "choices");
+document.getElementById("input_input").onchange = () => read_file(event, "input");
+document.getElementById("button_4").onclick = () => combine_fields("@names,@scheme,@choices", "@input");
+document.getElementById("button_5").onclick = () => split_fields("@input", "@names,@scheme,@choices");
+document.getElementById("button_6").onclick = () => download_file("@input", "@input_name");
+document.getElementById("button_7").onclick = () => grade_set_up_page();
+document.getElementById("button_8").onclick = () => grade_sort_page();
+document.getElementById("button_9").onclick = () => grade_extract_page("1");
+document.getElementById("extracted_input").onchange = () => read_file(event, "extracted");
+document.getElementById("button_10").onclick = () => grade_extract_page("-1");
+document.getElementById("button_11").onclick = () => clipboard("@extracted");
+document.getElementById("button_12").onclick = () => download_file("@extracted", "columns");
+document.getElementById("button_13").onclick = () => grade_aggregate_page();
+document.getElementById("button_14").onclick = () => clipboard("@aggregated");
+document.getElementById("button_15").onclick = () => download_file("@aggregated", "aggregated");
+document.getElementById("button_16").onclick = () => grade_revert_page();
+document.getElementById("button_17").onclick = () => clipboard("@output");
+document.getElementById("button_18").onclick = () => grade_output_page();
+document.getElementById("button_19").onclick = () => clipboard("@commenting");
+document.getElementById("button_20").onclick = () => download_file("@commenting", "comments");
+document.getElementById("button_21").onclick = () => select_field("@name");
+document.getElementById("button_22").onclick = () => grade_search_name_page();
+document.getElementById("button_23").onclick = () => grade_search_question_page();
+document.getElementById("button_24").onclick = () => grade_default_page("-1");
+document.getElementById("button_25").onclick = () => grade_default_page("0");
+document.getElementById("button_26").onclick = () => grade_default_page("1");
+document.getElementById("button_27").onclick = () => grade_default_page("2");
+document.getElementById("button_28").onclick = () => grade_check_page("1");
+document.getElementById("button_29").onclick = () => grade_check_page("-1");
+document.getElementById("button_30").onclick = () => grade_check_page("0");
+document.getElementById("button_31").onclick = () => grade_swap_page("0");
+document.getElementById("button_32").onclick = () => grade_swap_page("1");
+document.getElementById("button_33").onclick = () => grade_swap_page("-1");
+document.getElementById("button_34").onclick = () => grade_swap_page("-2");
+document.getElementById("button_35").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_36").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_37").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_38").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_39").onclick = () => incr_page("@r1", "-1", "@c1");
+document.getElementById("button_40").onclick = () => incr_page("@r1", "1", "@c1");
+document.getElementById("button_41").onclick = () => grade_next_page("1", "1");
+document.getElementById("button_42").onclick = () => incr_page("@r2", "-1", "@c2");
+document.getElementById("button_43").onclick = () => incr_page("@r2", "1", "@c2");
+document.getElementById("button_44").onclick = () => grade_next_page("1", "2");
+document.getElementById("button_45").onclick = () => incr_page("@r3", "-1", "@c3");
+document.getElementById("button_46").onclick = () => incr_page("@r3", "1", "@c3");
+document.getElementById("button_47").onclick = () => grade_next_page("1", "3");
+document.getElementById("button_48").onclick = () => incr_page("@r4", "-1", "@c4");
+document.getElementById("button_49").onclick = () => incr_page("@r4", "1", "@c4");
+document.getElementById("button_50").onclick = () => grade_next_page("1", "4");
+document.getElementById("button_51").onclick = () => incr_page("@r5", "-1", "@c5");
+document.getElementById("button_52").onclick = () => incr_page("@r5", "1", "@c5");
+document.getElementById("button_53").onclick = () => grade_next_page("1", "5");
+document.getElementById("button_54").onclick = () => incr_page("@r6", "-1", "@c6");
+document.getElementById("button_55").onclick = () => incr_page("@r6", "1", "@c6");
+document.getElementById("button_56").onclick = () => grade_next_page("1", "6");
+document.getElementById("button_57").onclick = () => incr_page("@r7", "-1", "@c7");
+document.getElementById("button_58").onclick = () => incr_page("@r7", "1", "@c7");
+document.getElementById("button_59").onclick = () => grade_next_page("1", "7");
+document.getElementById("button_60").onclick = () => incr_page("@r8", "-1", "@c8");
+document.getElementById("button_61").onclick = () => incr_page("@r8", "1", "@c8");
+document.getElementById("button_62").onclick = () => grade_next_page("1", "8");
+document.getElementById("button_63").onclick = () => incr_page("@r9", "-1", "@c9");
+document.getElementById("button_64").onclick = () => incr_page("@r9", "1", "@c9");
+document.getElementById("button_65").onclick = () => grade_next_page("1", "9");
+document.getElementById("button_66").onclick = () => grade_swap_page("1");
+document.getElementById("button_67").onclick = () => grade_swap_page("-1");
+document.getElementById("button_68").onclick = () => grade_swap_page("-2");
+document.getElementById("button_69").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_70").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_71").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_72").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_73").onclick = () => incr_page("@r10", "-1", "@c10");
+document.getElementById("button_74").onclick = () => incr_page("@r10", "1", "@c10");
+document.getElementById("button_75").onclick = () => grade_next_page("1", "10");
+document.getElementById("button_76").onclick = () => incr_page("@r11", "-1", "@c11");
+document.getElementById("button_77").onclick = () => incr_page("@r11", "1", "@c11");
+document.getElementById("button_78").onclick = () => grade_next_page("1", "11");
+document.getElementById("button_79").onclick = () => incr_page("@r12", "-1", "@c12");
+document.getElementById("button_80").onclick = () => incr_page("@r12", "1", "@c12");
+document.getElementById("button_81").onclick = () => grade_next_page("1", "12");
+document.getElementById("button_82").onclick = () => incr_page("@r13", "-1", "@c13");
+document.getElementById("button_83").onclick = () => incr_page("@r13", "1", "@c13");
+document.getElementById("button_84").onclick = () => grade_next_page("1", "13");
+document.getElementById("button_85").onclick = () => incr_page("@r14", "-1", "@c14");
+document.getElementById("button_86").onclick = () => incr_page("@r14", "1", "@c14");
+document.getElementById("button_87").onclick = () => grade_next_page("1", "14");
+document.getElementById("button_88").onclick = () => incr_page("@r15", "-1", "@c15");
+document.getElementById("button_89").onclick = () => incr_page("@r15", "1", "@c15");
+document.getElementById("button_90").onclick = () => grade_next_page("1", "15");
+document.getElementById("button_91").onclick = () => incr_page("@r16", "-1", "@c16");
+document.getElementById("button_92").onclick = () => incr_page("@r16", "1", "@c16");
+document.getElementById("button_93").onclick = () => grade_next_page("1", "16");
+document.getElementById("button_94").onclick = () => incr_page("@r17", "-1", "@c17");
+document.getElementById("button_95").onclick = () => incr_page("@r17", "1", "@c17");
+document.getElementById("button_96").onclick = () => grade_next_page("1", "17");
+document.getElementById("button_97").onclick = () => incr_page("@r18", "-1", "@c18");
+document.getElementById("button_98").onclick = () => incr_page("@r18", "1", "@c18");
+document.getElementById("button_99").onclick = () => grade_next_page("1", "18");
+document.getElementById("button_100").onclick = () => incr_page("@r19", "-1", "@c19");
+document.getElementById("button_101").onclick = () => incr_page("@r19", "1", "@c19");
+document.getElementById("button_102").onclick = () => grade_next_page("1", "19");
+document.getElementById("button_103").onclick = () => grade_swap_page("1");
+document.getElementById("button_104").onclick = () => grade_swap_page("-1");
+document.getElementById("button_105").onclick = () => grade_swap_page("-2");
+document.getElementById("button_106").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_107").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_108").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_109").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_110").onclick = () => incr_page("@r20", "-1", "@c20");
+document.getElementById("button_111").onclick = () => incr_page("@r20", "1", "@c20");
+document.getElementById("button_112").onclick = () => grade_next_page("1", "20");
+document.getElementById("button_113").onclick = () => incr_page("@r21", "-1", "@c21");
+document.getElementById("button_114").onclick = () => incr_page("@r21", "1", "@c21");
+document.getElementById("button_115").onclick = () => grade_next_page("1", "21");
+document.getElementById("button_116").onclick = () => incr_page("@r22", "-1", "@c22");
+document.getElementById("button_117").onclick = () => incr_page("@r22", "1", "@c22");
+document.getElementById("button_118").onclick = () => grade_next_page("1", "22");
+document.getElementById("button_119").onclick = () => incr_page("@r23", "-1", "@c23");
+document.getElementById("button_120").onclick = () => incr_page("@r23", "1", "@c23");
+document.getElementById("button_121").onclick = () => grade_next_page("1", "23");
+document.getElementById("button_122").onclick = () => incr_page("@r24", "-1", "@c24");
+document.getElementById("button_123").onclick = () => incr_page("@r24", "1", "@c24");
+document.getElementById("button_124").onclick = () => grade_next_page("1", "24");
+document.getElementById("button_125").onclick = () => incr_page("@r25", "-1", "@c25");
+document.getElementById("button_126").onclick = () => incr_page("@r25", "1", "@c25");
+document.getElementById("button_127").onclick = () => grade_next_page("1", "25");
+document.getElementById("button_128").onclick = () => incr_page("@r26", "-1", "@c26");
+document.getElementById("button_129").onclick = () => incr_page("@r26", "1", "@c26");
+document.getElementById("button_130").onclick = () => grade_next_page("1", "26");
+document.getElementById("button_131").onclick = () => incr_page("@r27", "-1", "@c27");
+document.getElementById("button_132").onclick = () => incr_page("@r27", "1", "@c27");
+document.getElementById("button_133").onclick = () => grade_next_page("1", "27");
+document.getElementById("button_134").onclick = () => incr_page("@r28", "-1", "@c28");
+document.getElementById("button_135").onclick = () => incr_page("@r28", "1", "@c28");
+document.getElementById("button_136").onclick = () => grade_next_page("1", "28");
+document.getElementById("button_137").onclick = () => incr_page("@r29", "-1", "@c29");
+document.getElementById("button_138").onclick = () => incr_page("@r29", "1", "@c29");
+document.getElementById("button_139").onclick = () => grade_next_page("1", "29");
+document.getElementById("button_140").onclick = () => grade_swap_page("1");
+document.getElementById("button_141").onclick = () => grade_swap_page("-1");
+document.getElementById("button_142").onclick = () => grade_swap_page("-2");
+document.getElementById("button_143").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_144").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_145").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_146").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_147").onclick = () => incr_page("@r30", "-1", "@c30");
+document.getElementById("button_148").onclick = () => incr_page("@r30", "1", "@c30");
+document.getElementById("button_149").onclick = () => grade_next_page("1", "30");
+document.getElementById("button_150").onclick = () => incr_page("@r31", "-1", "@c31");
+document.getElementById("button_151").onclick = () => incr_page("@r31", "1", "@c31");
+document.getElementById("button_152").onclick = () => grade_next_page("1", "31");
+document.getElementById("button_153").onclick = () => incr_page("@r32", "-1", "@c32");
+document.getElementById("button_154").onclick = () => incr_page("@r32", "1", "@c32");
+document.getElementById("button_155").onclick = () => grade_next_page("1", "32");
+document.getElementById("button_156").onclick = () => incr_page("@r33", "-1", "@c33");
+document.getElementById("button_157").onclick = () => incr_page("@r33", "1", "@c33");
+document.getElementById("button_158").onclick = () => grade_next_page("1", "33");
+document.getElementById("button_159").onclick = () => incr_page("@r34", "-1", "@c34");
+document.getElementById("button_160").onclick = () => incr_page("@r34", "1", "@c34");
+document.getElementById("button_161").onclick = () => grade_next_page("1", "34");
+document.getElementById("button_162").onclick = () => incr_page("@r35", "-1", "@c35");
+document.getElementById("button_163").onclick = () => incr_page("@r35", "1", "@c35");
+document.getElementById("button_164").onclick = () => grade_next_page("1", "35");
+document.getElementById("button_165").onclick = () => incr_page("@r36", "-1", "@c36");
+document.getElementById("button_166").onclick = () => incr_page("@r36", "1", "@c36");
+document.getElementById("button_167").onclick = () => grade_next_page("1", "36");
+document.getElementById("button_168").onclick = () => incr_page("@r37", "-1", "@c37");
+document.getElementById("button_169").onclick = () => incr_page("@r37", "1", "@c37");
+document.getElementById("button_170").onclick = () => grade_next_page("1", "37");
+document.getElementById("button_171").onclick = () => incr_page("@r38", "-1", "@c38");
+document.getElementById("button_172").onclick = () => incr_page("@r38", "1", "@c38");
+document.getElementById("button_173").onclick = () => grade_next_page("1", "38");
+document.getElementById("button_174").onclick = () => incr_page("@r39", "-1", "@c39");
+document.getElementById("button_175").onclick = () => incr_page("@r39", "1", "@c39");
+document.getElementById("button_176").onclick = () => grade_next_page("1", "39");
+document.getElementById("button_177").onclick = () => grade_swap_page("1");
+document.getElementById("button_178").onclick = () => grade_swap_page("-1");
+document.getElementById("button_179").onclick = () => grade_swap_page("-2");
+document.getElementById("button_180").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_181").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_182").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_183").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_184").onclick = () => incr_page("@r40", "-1", "@c40");
+document.getElementById("button_185").onclick = () => incr_page("@r40", "1", "@c40");
+document.getElementById("button_186").onclick = () => grade_next_page("1", "40");
+document.getElementById("button_187").onclick = () => incr_page("@r41", "-1", "@c41");
+document.getElementById("button_188").onclick = () => incr_page("@r41", "1", "@c41");
+document.getElementById("button_189").onclick = () => grade_next_page("1", "41");
+document.getElementById("button_190").onclick = () => incr_page("@r42", "-1", "@c42");
+document.getElementById("button_191").onclick = () => incr_page("@r42", "1", "@c42");
+document.getElementById("button_192").onclick = () => grade_next_page("1", "42");
+document.getElementById("button_193").onclick = () => incr_page("@r43", "-1", "@c43");
+document.getElementById("button_194").onclick = () => incr_page("@r43", "1", "@c43");
+document.getElementById("button_195").onclick = () => grade_next_page("1", "43");
+document.getElementById("button_196").onclick = () => incr_page("@r44", "-1", "@c44");
+document.getElementById("button_197").onclick = () => incr_page("@r44", "1", "@c44");
+document.getElementById("button_198").onclick = () => grade_next_page("1", "44");
+document.getElementById("button_199").onclick = () => incr_page("@r45", "-1", "@c45");
+document.getElementById("button_200").onclick = () => incr_page("@r45", "1", "@c45");
+document.getElementById("button_201").onclick = () => grade_next_page("1", "45");
+document.getElementById("button_202").onclick = () => incr_page("@r46", "-1", "@c46");
+document.getElementById("button_203").onclick = () => incr_page("@r46", "1", "@c46");
+document.getElementById("button_204").onclick = () => grade_next_page("1", "46");
+document.getElementById("button_205").onclick = () => incr_page("@r47", "-1", "@c47");
+document.getElementById("button_206").onclick = () => incr_page("@r47", "1", "@c47");
+document.getElementById("button_207").onclick = () => grade_next_page("1", "47");
+document.getElementById("button_208").onclick = () => incr_page("@r48", "-1", "@c48");
+document.getElementById("button_209").onclick = () => incr_page("@r48", "1", "@c48");
+document.getElementById("button_210").onclick = () => grade_next_page("1", "48");
+document.getElementById("button_211").onclick = () => incr_page("@r49", "-1", "@c49");
+document.getElementById("button_212").onclick = () => incr_page("@r49", "1", "@c49");
+document.getElementById("button_213").onclick = () => grade_next_page("1", "49");
+document.getElementById("button_214").onclick = () => grade_swap_page("1");
+document.getElementById("button_215").onclick = () => grade_swap_page("-1");
+document.getElementById("button_216").onclick = () => grade_swap_page("-2");
+document.getElementById("button_217").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_218").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_219").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_220").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_221").onclick = () => incr_page("@r50", "-1", "@c50");
+document.getElementById("button_222").onclick = () => incr_page("@r50", "1", "@c50");
+document.getElementById("button_223").onclick = () => grade_next_page("1", "50");
+document.getElementById("button_224").onclick = () => incr_page("@r51", "-1", "@c51");
+document.getElementById("button_225").onclick = () => incr_page("@r51", "1", "@c51");
+document.getElementById("button_226").onclick = () => grade_next_page("1", "51");
+document.getElementById("button_227").onclick = () => incr_page("@r52", "-1", "@c52");
+document.getElementById("button_228").onclick = () => incr_page("@r52", "1", "@c52");
+document.getElementById("button_229").onclick = () => grade_next_page("1", "52");
+document.getElementById("button_230").onclick = () => incr_page("@r53", "-1", "@c53");
+document.getElementById("button_231").onclick = () => incr_page("@r53", "1", "@c53");
+document.getElementById("button_232").onclick = () => grade_next_page("1", "53");
+document.getElementById("button_233").onclick = () => incr_page("@r54", "-1", "@c54");
+document.getElementById("button_234").onclick = () => incr_page("@r54", "1", "@c54");
+document.getElementById("button_235").onclick = () => grade_next_page("1", "54");
+document.getElementById("button_236").onclick = () => incr_page("@r55", "-1", "@c55");
+document.getElementById("button_237").onclick = () => incr_page("@r55", "1", "@c55");
+document.getElementById("button_238").onclick = () => grade_next_page("1", "55");
+document.getElementById("button_239").onclick = () => incr_page("@r56", "-1", "@c56");
+document.getElementById("button_240").onclick = () => incr_page("@r56", "1", "@c56");
+document.getElementById("button_241").onclick = () => grade_next_page("1", "56");
+document.getElementById("button_242").onclick = () => incr_page("@r57", "-1", "@c57");
+document.getElementById("button_243").onclick = () => incr_page("@r57", "1", "@c57");
+document.getElementById("button_244").onclick = () => grade_next_page("1", "57");
+document.getElementById("button_245").onclick = () => incr_page("@r58", "-1", "@c58");
+document.getElementById("button_246").onclick = () => incr_page("@r58", "1", "@c58");
+document.getElementById("button_247").onclick = () => grade_next_page("1", "58");
+document.getElementById("button_248").onclick = () => incr_page("@r59", "-1", "@c59");
+document.getElementById("button_249").onclick = () => incr_page("@r59", "1", "@c59");
+document.getElementById("button_250").onclick = () => grade_next_page("1", "59");
+document.getElementById("button_251").onclick = () => grade_swap_page("1");
+document.getElementById("button_252").onclick = () => grade_swap_page("-1");
+document.getElementById("button_253").onclick = () => grade_swap_page("-2");
+document.getElementById("button_254").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_255").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_256").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_257").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_258").onclick = () => incr_page("@r60", "-1", "@c60");
+document.getElementById("button_259").onclick = () => incr_page("@r60", "1", "@c60");
+document.getElementById("button_260").onclick = () => grade_next_page("1", "60");
+document.getElementById("button_261").onclick = () => incr_page("@r61", "-1", "@c61");
+document.getElementById("button_262").onclick = () => incr_page("@r61", "1", "@c61");
+document.getElementById("button_263").onclick = () => grade_next_page("1", "61");
+document.getElementById("button_264").onclick = () => incr_page("@r62", "-1", "@c62");
+document.getElementById("button_265").onclick = () => incr_page("@r62", "1", "@c62");
+document.getElementById("button_266").onclick = () => grade_next_page("1", "62");
+document.getElementById("button_267").onclick = () => incr_page("@r63", "-1", "@c63");
+document.getElementById("button_268").onclick = () => incr_page("@r63", "1", "@c63");
+document.getElementById("button_269").onclick = () => grade_next_page("1", "63");
+document.getElementById("button_270").onclick = () => incr_page("@r64", "-1", "@c64");
+document.getElementById("button_271").onclick = () => incr_page("@r64", "1", "@c64");
+document.getElementById("button_272").onclick = () => grade_next_page("1", "64");
+document.getElementById("button_273").onclick = () => incr_page("@r65", "-1", "@c65");
+document.getElementById("button_274").onclick = () => incr_page("@r65", "1", "@c65");
+document.getElementById("button_275").onclick = () => grade_next_page("1", "65");
+document.getElementById("button_276").onclick = () => incr_page("@r66", "-1", "@c66");
+document.getElementById("button_277").onclick = () => incr_page("@r66", "1", "@c66");
+document.getElementById("button_278").onclick = () => grade_next_page("1", "66");
+document.getElementById("button_279").onclick = () => incr_page("@r67", "-1", "@c67");
+document.getElementById("button_280").onclick = () => incr_page("@r67", "1", "@c67");
+document.getElementById("button_281").onclick = () => grade_next_page("1", "67");
+document.getElementById("button_282").onclick = () => incr_page("@r68", "-1", "@c68");
+document.getElementById("button_283").onclick = () => incr_page("@r68", "1", "@c68");
+document.getElementById("button_284").onclick = () => grade_next_page("1", "68");
+document.getElementById("button_285").onclick = () => incr_page("@r69", "-1", "@c69");
+document.getElementById("button_286").onclick = () => incr_page("@r69", "1", "@c69");
+document.getElementById("button_287").onclick = () => grade_next_page("1", "69");
+document.getElementById("button_288").onclick = () => grade_swap_page("1");
+document.getElementById("button_289").onclick = () => grade_swap_page("-1");
+document.getElementById("button_290").onclick = () => grade_swap_page("-2");
+document.getElementById("button_291").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_292").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_293").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_294").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_295").onclick = () => incr_page("@r70", "-1", "@c70");
+document.getElementById("button_296").onclick = () => incr_page("@r70", "1", "@c70");
+document.getElementById("button_297").onclick = () => grade_next_page("1", "70");
+document.getElementById("button_298").onclick = () => incr_page("@r71", "-1", "@c71");
+document.getElementById("button_299").onclick = () => incr_page("@r71", "1", "@c71");
+document.getElementById("button_300").onclick = () => grade_next_page("1", "71");
+document.getElementById("button_301").onclick = () => incr_page("@r72", "-1", "@c72");
+document.getElementById("button_302").onclick = () => incr_page("@r72", "1", "@c72");
+document.getElementById("button_303").onclick = () => grade_next_page("1", "72");
+document.getElementById("button_304").onclick = () => incr_page("@r73", "-1", "@c73");
+document.getElementById("button_305").onclick = () => incr_page("@r73", "1", "@c73");
+document.getElementById("button_306").onclick = () => grade_next_page("1", "73");
+document.getElementById("button_307").onclick = () => incr_page("@r74", "-1", "@c74");
+document.getElementById("button_308").onclick = () => incr_page("@r74", "1", "@c74");
+document.getElementById("button_309").onclick = () => grade_next_page("1", "74");
+document.getElementById("button_310").onclick = () => incr_page("@r75", "-1", "@c75");
+document.getElementById("button_311").onclick = () => incr_page("@r75", "1", "@c75");
+document.getElementById("button_312").onclick = () => grade_next_page("1", "75");
+document.getElementById("button_313").onclick = () => incr_page("@r76", "-1", "@c76");
+document.getElementById("button_314").onclick = () => incr_page("@r76", "1", "@c76");
+document.getElementById("button_315").onclick = () => grade_next_page("1", "76");
+document.getElementById("button_316").onclick = () => incr_page("@r77", "-1", "@c77");
+document.getElementById("button_317").onclick = () => incr_page("@r77", "1", "@c77");
+document.getElementById("button_318").onclick = () => grade_next_page("1", "77");
+document.getElementById("button_319").onclick = () => incr_page("@r78", "-1", "@c78");
+document.getElementById("button_320").onclick = () => incr_page("@r78", "1", "@c78");
+document.getElementById("button_321").onclick = () => grade_next_page("1", "78");
+document.getElementById("button_322").onclick = () => incr_page("@r79", "-1", "@c79");
+document.getElementById("button_323").onclick = () => incr_page("@r79", "1", "@c79");
+document.getElementById("button_324").onclick = () => grade_next_page("1", "79");
+document.getElementById("button_325").onclick = () => grade_swap_page("1");
+document.getElementById("button_326").onclick = () => grade_swap_page("-1");
+document.getElementById("button_327").onclick = () => grade_swap_page("-2");
+document.getElementById("button_328").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_329").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_330").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_331").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_332").onclick = () => incr_page("@r80", "-1", "@c80");
+document.getElementById("button_333").onclick = () => incr_page("@r80", "1", "@c80");
+document.getElementById("button_334").onclick = () => grade_next_page("1", "80");
+document.getElementById("button_335").onclick = () => incr_page("@r81", "-1", "@c81");
+document.getElementById("button_336").onclick = () => incr_page("@r81", "1", "@c81");
+document.getElementById("button_337").onclick = () => grade_next_page("1", "81");
+document.getElementById("button_338").onclick = () => incr_page("@r82", "-1", "@c82");
+document.getElementById("button_339").onclick = () => incr_page("@r82", "1", "@c82");
+document.getElementById("button_340").onclick = () => grade_next_page("1", "82");
+document.getElementById("button_341").onclick = () => incr_page("@r83", "-1", "@c83");
+document.getElementById("button_342").onclick = () => incr_page("@r83", "1", "@c83");
+document.getElementById("button_343").onclick = () => grade_next_page("1", "83");
+document.getElementById("button_344").onclick = () => incr_page("@r84", "-1", "@c84");
+document.getElementById("button_345").onclick = () => incr_page("@r84", "1", "@c84");
+document.getElementById("button_346").onclick = () => grade_next_page("1", "84");
+document.getElementById("button_347").onclick = () => incr_page("@r85", "-1", "@c85");
+document.getElementById("button_348").onclick = () => incr_page("@r85", "1", "@c85");
+document.getElementById("button_349").onclick = () => grade_next_page("1", "85");
+document.getElementById("button_350").onclick = () => incr_page("@r86", "-1", "@c86");
+document.getElementById("button_351").onclick = () => incr_page("@r86", "1", "@c86");
+document.getElementById("button_352").onclick = () => grade_next_page("1", "86");
+document.getElementById("button_353").onclick = () => incr_page("@r87", "-1", "@c87");
+document.getElementById("button_354").onclick = () => incr_page("@r87", "1", "@c87");
+document.getElementById("button_355").onclick = () => grade_next_page("1", "87");
+document.getElementById("button_356").onclick = () => incr_page("@r88", "-1", "@c88");
+document.getElementById("button_357").onclick = () => incr_page("@r88", "1", "@c88");
+document.getElementById("button_358").onclick = () => grade_next_page("1", "88");
+document.getElementById("button_359").onclick = () => incr_page("@r89", "-1", "@c89");
+document.getElementById("button_360").onclick = () => incr_page("@r89", "1", "@c89");
+document.getElementById("button_361").onclick = () => grade_next_page("1", "89");
+document.getElementById("button_362").onclick = () => grade_swap_page("1");
+document.getElementById("button_363").onclick = () => grade_swap_page("-1");
+document.getElementById("button_364").onclick = () => grade_swap_page("-2");
+document.getElementById("button_365").onclick = () => grade_next_page("-1", "0");
+document.getElementById("button_366").onclick = () => grade_next_page("0", "-1");
+document.getElementById("button_367").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_368").onclick = () => grade_next_page("1", "0");
+document.getElementById("button_369").onclick = () => incr_page("@r90", "-1", "@c90");
+document.getElementById("button_370").onclick = () => incr_page("@r90", "1", "@c90");
+document.getElementById("button_371").onclick = () => grade_next_page("1", "90");
+document.getElementById("button_372").onclick = () => incr_page("@r91", "-1", "@c91");
+document.getElementById("button_373").onclick = () => incr_page("@r91", "1", "@c91");
+document.getElementById("button_374").onclick = () => grade_next_page("1", "91");
+document.getElementById("button_375").onclick = () => incr_page("@r92", "-1", "@c92");
+document.getElementById("button_376").onclick = () => incr_page("@r92", "1", "@c92");
+document.getElementById("button_377").onclick = () => grade_next_page("1", "92");
+document.getElementById("button_378").onclick = () => incr_page("@r93", "-1", "@c93");
+document.getElementById("button_379").onclick = () => incr_page("@r93", "1", "@c93");
+document.getElementById("button_380").onclick = () => grade_next_page("1", "93");
+document.getElementById("button_381").onclick = () => incr_page("@r94", "-1", "@c94");
+document.getElementById("button_382").onclick = () => incr_page("@r94", "1", "@c94");
+document.getElementById("button_383").onclick = () => grade_next_page("1", "94");
+document.getElementById("button_384").onclick = () => incr_page("@r95", "-1", "@c95");
+document.getElementById("button_385").onclick = () => incr_page("@r95", "1", "@c95");
+document.getElementById("button_386").onclick = () => grade_next_page("1", "95");
+document.getElementById("button_387").onclick = () => incr_page("@r96", "-1", "@c96");
+document.getElementById("button_388").onclick = () => incr_page("@r96", "1", "@c96");
+document.getElementById("button_389").onclick = () => grade_next_page("1", "96");
+document.getElementById("button_390").onclick = () => incr_page("@r97", "-1", "@c97");
+document.getElementById("button_391").onclick = () => incr_page("@r97", "1", "@c97");
+document.getElementById("button_392").onclick = () => grade_next_page("1", "97");
+document.getElementById("button_393").onclick = () => incr_page("@r98", "-1", "@c98");
+document.getElementById("button_394").onclick = () => incr_page("@r98", "1", "@c98");
+document.getElementById("button_395").onclick = () => grade_next_page("1", "98");
+document.getElementById("button_396").onclick = () => incr_page("@r99", "-1", "@c99");
+document.getElementById("button_397").onclick = () => incr_page("@r99", "1", "@c99");
+document.getElementById("button_398").onclick = () => grade_next_page("1", "99");
+</script><br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: July 23, 2021 at 6:07 PM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="index.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<li><a href="Research.htm">Research </a></li>
+<li><a href="CV.htm">CV </a></li>
+<li><a href="Teaching.htm">Teaching</a></li>
+<ul id="primarynavsub">
+<li><a href="CS540.htm">CS 540 Artificial Intelligence </a></li>
+<li><a href="ECO206.htm">ECO 206 Game Theory </a></li>
+<li><a href="Teaching.htm">as Teaching Assistant </a></li>
+</ul>
+<li><a href="Timetable.htm">Timetable</a></li>
+<li><a href="Bookmark.htm">Bookmark</a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png"> 2010 layout design created by <a href="http://www.math.uwaterloo.ca/%7Efpoulin/">Francis Poulin </a><img style="width: 65px; height: 65px;" src="image004.jpg"><img style="width: 65px; height: 65px;" alt="" src="image002.png">
+</div>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.4326040773465649" type="model" defer></script>
+<script src="CS540.js?0.17604207340338285" type="model" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style540.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">CS540 Summer 2020 Epic Section</h1>
+</div> 
+<div id="content">
+<script type="module"> import {m3s20e} from "./CS540.js"; m3s20e() </script> <br>
+<a href="CS540M2S20E.htm">Previous: M2</a>, <a href="CS540M4S20E.htm">Next: M4</a> <br>
+<br>
+Back to week 2 page: <a href="CS540W2S20E.htm">Link</a> <br>
+<br>
+Official Due Date: May 31 <br>
+<br>
+<h2>Written (Math) Problems</h2>
+&bull; Enter your ID here: <input type="text" id="id" value="" size="20"> and click <button id="button_0">Confirm</button> <span hidden id="questions">1,2,3,4,5,6,7,8,9,10</span> <br>
+&bull; The same ID should generate the same set of questions. Your answers are not saved when you close the browser. You could print the page: <button id="button_1">Print</button>, solve the problems, then enter all your answers at the end. <br>
+&bull; Some of the referenced past exams can be found in on Professor Zhu's and Professor Dyer's websites: <a href="http://pages.cs.wisc.edu/~jerryzhu/cs540.html" target="_blank">Link</a> and <a href="http://pages.cs.wisc.edu/~dyer/cs540/exams-toc.html" target="_blank">Link</a>. <br>
+&bull; Please do not refresh the page: your answers will not be saved. You can save and load your answers (only fill-in-the-blank questions) using the buttons at the bottom of the page. <br>
+&bull; Please report any bugs on Piazza. <br>
+<br>
+<h2><span id="id_warning"><font color="red"> Warning: please enter your ID before you start! </font></span></h2>
+<br>
+<h2>Question 1 [<span id="total_1">2</span>]</h2>
+&bull; (Fall 2017 Final Q19) Let the input \(x \in \mathbb{R}\). Thus the input layer has a single \(x\) input. The network has 5 hidden layers. Each hidden layer has 10 units. The output layer has a single unit and outputs \(y \in \mathbb{R}\). Between layers, the network is fully connected. All units in the network have a bias 1 input. All units are linear units, namely the activation function is the identity function \(v = f\left(u\right) = u\), while \(u\) is a linear combination of all inputs to that unit (including bias 1). Which functions can this network compute? <br>
+&bull; Choices: <br>
+<input type="checkbox" id="answer1_1" name = "none" value = "answer1_1"> <span id="choice1_1"></span> <br>
+<input type="checkbox" id="answer2_1" name = "none" value = "answer2_1"> <span id="choice2_1"></span> <br>
+<input type="checkbox" id="answer3_1" name = "none" value = "answer3_1"> <span id="choice3_1"></span> <br>
+<input type="checkbox" id="answer4_1" name = "none" value = "answer4_1"> <span id="choice4_1"></span> <br>
+<input type="checkbox" id="answer5_1" name = "none" value = "answer5_1"> <span id="choice5_1"></span> <br>
+<input type="checkbox" id="answer6_1" name = "none" value = "answer6_1"> None of the above <br>
+<br>
+<h2>Question 2 [<span id="total_2">1</span>]</h2>
+&bull; (Fall 2017 Final Q21) A binary classifier is trained on a training set, \(\hat{y} = 1\) if \(a x_{1} + b x_{2} + c \geq&nbsp; 0\) and \(\hat{y} = 0\) otherwise, and tested its performance on a separate test set. The accuracy of the classifier is <span id="acc_2"></span>. What is accuracy if the flipped classifier (\(\hat{y} = 1\) if \(a x_{1} + b x_{2} + c < 0\) and \(\hat{y} = 0\) otherwise) is used? <br>
+&bull; Hint: accuracy means: number of correct predictions divided by the total number of test instances. <br>
+&bull; Answer: <input type="text" id="answer_2" value="" size="20">. <button id="button_2">Calculate</button> <br>
+<br>
+<h2>Question 3 [<span id="total_3">2</span>]</h2>
+&bull; (Fall 2014 Midterm Q7) A test set \(\left(x_{1}, y_{1}\right), ..., \left(x_{100}, y_{100}\right)\) contains labels \(y_{i}\) = <span id="y_3"></span> for \(i = 1, ..., 100\). A classifier simply predicts <span id="p_3"></span> all the time (the labels are +1 and -1). What is this classifier's test accuracy? <br>
+&bull; Answer: <input type="text" id="answer_3" value="" size="20">. <br>
+<br>
+<h2>Question 4 [<span id="total_4">3</span>]</h2>
+&bull; (Fall 2014 Final Q16) The sigmoid function in a neural network is defined as \(g(x) = \dfrac{1}{1 + e^{-x}}\). There is an another activation function defined as \(h(x)\) = <span id="h_4"></span>. If \(h(x) = a \cdot&nbsp; g\left(b \cdot&nbsp; x\right) + c\), write down the values of \(a, b, c\). <br>
+&bull; Answer (comma separated vector): <input type="text" id="answer_4" value="" size="20">. <br>
+<br>
+<h2>Question 5 [<span id="total_5">2</span>]</h2>
+&bull; (Fall 2013 Final Q8, Fall 2019 Final Q14) In a three-layer neural network, the first layer contains <span id="u1_5"></span> sigmoid units, the second layer contains <span id="u2_5"></span> units, and the output layer contains <span id="u3_5"></span> units. The input is <span id="u0_5"></span> dimensional. How many weights and biases does this neural network have? <br>
+&bull; Hint: there are 2 hidden layers, and the output layer having k units means it is used for k-class classification (for example, using softmax activations). <br>
+&bull; Answer: <input type="text" id="answer_5" value="" size="20">. <button id="button_3">Calculate</button> <br>
+<br>
+<h2>Question 6 [<span id="total_6">4</span>]</h2>
+&bull; (Fall 2010 Final Q17) Fill in the missing weight below so that it computes the following function. All inputs takes value 0 or 1, and the perceptrons are linear threshold units. <br>
+<table style="width:100%" border=1>
+<tr>
+<td>\(x_{1}\) </td>
+<td> \(x_{2}\) </td>
+<td> \(y\) or \(o_{1}\) <br></td>
+</tr>
+<tr>
+<td>0 </td>
+<td> 0 </td>
+<td> <span id="00_6"></span> <br></td>
+</tr>
+<tr>
+<td>0 </td>
+<td> 1 </td>
+<td> <span id="01_6"></span> <br></td>
+</tr>
+<tr>
+<td>1 </td>
+<td> 0 </td>
+<td> <span id="10_6"></span> <br></td>
+</tr>
+<tr>
+<td>1 </td>
+<td> 1 </td>
+<td> <span id="11_6"></span> <br></td>
+</tr>
+</table><br>
+<canvas id="canvas_6" width="500" height="500" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_6_state"> </span> <br>
+&bull; Hint: if the weights are not shown clearly, you could move the nodes around with mouse or touch. <br>
+&bull; Answer: <input type="text" id="answer_6" value="" size="20">. <button id="button_4">Calculate</button> <br>
+<br>
+<h2>Question 7 [<span id="total_7">4</span>]</h2>
+&bull; (Fall 2010 Final Q17) Fill in the missing weight below so that it computes the following function. All inputs takes value 0 or 1, and the perceptrons are linear threshold units. <br>
+<table style="width:100%" border=1>
+<tr>
+<td>\(x_{1}\) </td>
+<td> \(x_{2}\) </td>
+<td> \(y\) or \(o_{1}\) <br></td>
+</tr>
+<tr>
+<td>0 </td>
+<td> 0 </td>
+<td> <span id="00_7"></span> <br></td>
+</tr>
+<tr>
+<td>0 </td>
+<td> 1 </td>
+<td> <span id="01_7"></span> <br></td>
+</tr>
+<tr>
+<td>1 </td>
+<td> 0 </td>
+<td> <span id="10_7"></span> <br></td>
+</tr>
+<tr>
+<td>1 </td>
+<td> 1 </td>
+<td> <span id="11_7"></span> <br></td>
+</tr>
+</table><br>
+<canvas id="canvas_7" width="500" height="500" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_7_state"> </span> <br>
+&bull; Hint: if the weights are not shown clearly, you could move the nodes around with mouse or touch. <br>
+&bull; Answer: <input type="text" id="answer_7" value="" size="20">. <button id="button_5">Calculate</button> <br>
+<br>
+<h2>Question 8 [<span id="total_8">1</span>]</h2>
+&bull; (Fall 2011 Midterm Q12) You want to design a neural network with sigmoid units to predict the academic role from his webpage. Possible roles are "professor" (label 0), "student" (label 1), "staff" (label 2). Suppose each person can take on only one of these roles at the same time. The neural network uses one-hot encoding, label 0 is encoded by \(\begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}\), label 1 is encoded by \(\begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}\), and label 2 is encoded by \(\begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix}\). What is the role (enter a label, not a string) if the output is <span id="out_8"></span>? <br>
+&bull; Answer: <input type="text" id="answer_8" value="" size="20">. <br>
+<br>
+<h2>Question 9 [<span id="total_9">2</span>]</h2>
+&bull; Compare ReLU, Tanh, Sigmoid, and Linear activation functions on the page: <a href="https://playground.tensorflow.org/" target="_blank">Link</a>. Compare these with different learning rate and without regularization on different datasets. Also try different network structure. Discuss the differences on Piazza: <a href="https://piazza.com/class/k9pv5chyr1i3t1?cid=21" target="_blank">Link</a>. <br>
+&bull; My favorite activation function is: <input type="text" id="answer_9" value="" size="20"> and <input type="checkbox" id="answer1_9" name = "none" value = "answer1_9"> I have participated in the discussion on Piazza. <br>
+<br>
+<h2>Question 10 [<span id="total_10">1</span> points]</h2>
+&bull; Please enter any comments and suggestions including possible mistakes and bugs with the questions and the auto-grading, and materials relevant to solving the questions that you think are not covered well during the lectures. If you have no comments, please enter "None": do not leave it blank. <br>
+&bull; Answer: <textarea id="answer_10" rows="2" cols="20"></textarea>. <br>
+<br>
+<h2>Grade</h2>
+<button id="button_6">Grade</button> <br>
+&nbsp;***** ***** ***** ***** *****&nbsp; <br>
+<span id="comment"></span> <br>
+&nbsp;***** ***** ***** ***** *****&nbsp; <br>
+<br>
+&bull; Please copy and paste the text between the *****s (not including the *****s) and submit it on Canvas, M3. <br>
+&bull; You could save the text as text file using the button <button id="button_7">Download</button> or just copy and paste it into a text file. <br>
+&bull; Warning: the load button does not function properly for all questions, please recheck everything after you load. You could load your answers using the button <button id="button_8">Load</button> from the text field: <br>
+<input type="file", id="loading_input", accept='text/plain'><br><textarea id="loading"></textarea> <br>
+<br>
+<script type="module"> 
+import {enter_button, gen_questions, math_eval_page, grade, download_file, load_ans_page, read_file} from "./YJS.js";
+document.getElementById("button_0").onclick = () => gen_questions();
+document.getElementById("button_1").onclick = () => window.print();
+document.getElementById("button_2").onclick = () => math_eval_page("@answer_2");
+document.getElementById("button_3").onclick = () => math_eval_page("@answer_5");
+document.getElementById("button_4").onclick = () => math_eval_page("@answer_6");
+document.getElementById("button_5").onclick = () => math_eval_page("@answer_7");
+document.getElementById("button_6").onclick = () => grade();
+document.getElementById("button_7").onclick = () => download_file("@comment", "M3");
+document.getElementById("button_8").onclick = () => load_ans_page("@loading");
+document.getElementById("loading_input").onchange = () => read_file(event, "loading");
+</script><br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: May 27, 2021 at 10:25 PM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="CS540S20E.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<ul id="primarynavsub">
+<li><a href="CS540W1S20E.htm">Week 1 </a></li>
+<li><a href="CS540W2S20E.htm">Week 2 </a></li>
+<li><a href="CS540W3S20E.htm">Week 3 </a></li>
+<li><a href="CS540W4S20E.htm">Week 4 </a></li>
+<li><a href="CS540W5S20E.htm">Week 5 </a></li>
+<li><a href="CS540W6S20E.htm">Week 6 </a></li>
+<li><a href="CS540W7S20E.htm">Week 7 </a></li>
+<li><a href="CS540W9S20E.htm">Week 9 </a></li>
+<li><a href="CS540W10S20E.htm">Week 10 </a></li>
+<li><a href="CS540W11S20E.htm">Week 11 </a></li>
+<li><a href="CS540W12S20E.htm">Week 12 </a></li>
+<li><a href="CS540W13S20E.htm">Week 13 </a></li>
+</ul>
+<li><a href="CS540W8S20E.htm">Midterm </a></li>
+<li><a href="CS540W14S20E.htm">Final </a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png">
+</div>
+</body>
+</html>

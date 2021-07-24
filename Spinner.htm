@@ -1,0 +1,111 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.6373441271469864" type="model" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">Young Wu's Homepage</h1>
+</div> 
+<div id="content">
+<div id="breadCrumb">
+<a href="index.htm">Home</a>
+ | <a href=Spinner.htm>Spinner </a>
+</div> <br>
+<h2>Misty Test</h2>
+<script type="module"> import {spinner} from "./YJS.js"; spinner() </script> <br>
+<br>
+<button id="button_0">Spin/Stop</button> <button id="button_1">Back</button> <button id="button_2">Forward</button> <br>
+<canvas id="canvas" width="600" height="600" style="border:1px solid #000000;"></canvas> <span hidden id="canvas_state"> </span> <br>
+<br>
+<h2>Keyboard (click on Canvas first)</h2>
+Spin/Stop (p): <button id="button_3">Spin/Stop</button> <br>
+Move Misty (w,a,s,d): <button id="button_4">Further</button> <button id="button_5">Closer</button> <button id="button_6">Back</button> <button id="button_7">Forward</button> <br>
+Rotate Head (q,r): <button id="button_8">Counter-Clockwise</button> <button id="button_9">Clockwise</button> <br>
+<br>
+<h2>Control</h2>
+Move Distance (per step): <input type="text" id="dist" value="" size="20"> <br>
+<button id="button_10">Fix Blinking</button> <button id="button_11">Show/Hide Look Buttons</button> <br>
+<button id="button_12">Introduce</button> <button id="button_13">Story</button> <br>
+<button id="button_14">Explain_askR1</button> <button id="button_15">Explain_askR2</button> <button id="button_16">Explain_tryAgain</button> <button id="button_17">Explain_yourTurn</button> <br>
+<button id="button_18">Child's Turn</button> <br>
+Magic Spinner #: <input type="text" id="spin" value="" size="20"> <br>
+<button id="button_19">Move&count_X</button> <button id="button_20">Confirm_X</button> <button id="button_21">Step_X2_GoTo_X3</button> <br>
+<button id="button_22">Spinner_prompt</button> <button id="button_23">Spinner_askNum</button> <br>
+<button id="button_24">Re_incorrect1</button> <button id="button_25">Re_incorrect2_S</button> <button id="button_26">Re_incorrect2_L</button> <button id="button_27">Re_incorrect3</button> <br>
+<button id="button_28">Complete</button> <button id="button_29">Go Home</button> <br>
+<script type="module"> 
+import {enter_button, key_three_page, to_speech} from "./YJS.js";
+document.getElementById("button_0").onclick = () => key_three_page("P", "spinner_");
+document.getElementById("button_1").onclick = () => key_three_page("A", "robot_");
+document.getElementById("button_2").onclick = () => key_three_page("D", "robot_");
+document.getElementById("button_3").onclick = () => key_three_page("P", "spinner_");
+document.getElementById("button_4").onclick = () => key_three_page("W", "robot_");
+document.getElementById("button_5").onclick = () => key_three_page("S", "robot_");
+document.getElementById("button_6").onclick = () => key_three_page("A", "robot_");
+document.getElementById("button_7").onclick = () => key_three_page("D", "robot_");
+document.getElementById("button_8").onclick = () => key_three_page("Q", "robot_");
+document.getElementById("button_9").onclick = () => key_three_page("E", "robot_");
+document.getElementById("button_10").onclick = () => to_speech("fix blinking");
+document.getElementById("button_11").onclick = () => to_speech("show hide look buttons");
+document.getElementById("button_12").onclick = () => to_speech("hello I am Misty");
+document.getElementById("button_13").onclick = () => to_speech("story");
+document.getElementById("button_14").onclick = () => to_speech("explain ask 1");
+document.getElementById("button_15").onclick = () => to_speech("explain ask 2");
+document.getElementById("button_16").onclick = () => to_speech("explain try again");
+document.getElementById("button_17").onclick = () => to_speech("explain your turn");
+document.getElementById("button_18").onclick = () => to_speech("child's turn");
+document.getElementById("button_19").onclick = () => to_speech("move and count");
+document.getElementById("button_20").onclick = () => to_speech("confirm");
+document.getElementById("button_21").onclick = () => to_speech("step go to");
+document.getElementById("button_22").onclick = () => to_speech("spinner prompt");
+document.getElementById("button_23").onclick = () => to_speech("spinner ask number");
+document.getElementById("button_24").onclick = () => to_speech("incorrect 1");
+document.getElementById("button_25").onclick = () => to_speech("incorrect 1 s");
+document.getElementById("button_26").onclick = () => to_speech("incorrect 2 l");
+document.getElementById("button_27").onclick = () => to_speech("incorrect 3");
+document.getElementById("button_28").onclick = () => to_speech("complete");
+document.getElementById("button_29").onclick = () => to_speech("go home");
+</script><br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: December 27, 2020 at 6:08 AM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="index.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<li><a href="Research.htm">Research </a></li>
+<li><a href="CV.htm">CV </a></li>
+<li><a href="Teaching.htm">Teaching</a></li>
+<ul id="primarynavsub">
+<li><a href="CS540.htm">CS 540 Artificial Intelligence </a></li>
+<li><a href="ECO206.htm">ECO 206 Game Theory </a></li>
+<li><a href="Teaching.htm">as Teaching Assistant </a></li>
+</ul>
+<li><a href="Timetable.htm">Timetable</a></li>
+<li><a href="Bookmark.htm">Bookmark</a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png"> 2010 layout design created by <a href="http://www.math.uwaterloo.ca/%7Efpoulin/">Francis Poulin </a><img style="width: 65px; height: 65px;" src="image004.jpg"><img style="width: 65px; height: 65px;" alt="" src="image002.png">
+</div>
+</body>
+</html>

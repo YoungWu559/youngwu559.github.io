@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="shortcut icon" href="fire.ico" type="image/x-icon">
+<link rel="icon" href="fire.ico" type="image/x-icon">
+</head>
+<body>
+	
+<style type="text/css">
+body
+{
+	border-left: 20px solid #FFFFFF;
+	border-right: 20px solid #FFFFFF;  
+}
+</style>
+
+<font size="3" face="Calibri" color="#444">
+<br><a style="text-decoration: none" href="http://bigenergy.chass.utoronto.ca/"><font size="6" face="Calibri" color="#444"><b>Big Energy</b></font></a><br>
+From Fire to the Future
+<br><br>
+<hr color="#C0C0C0" size="1">
+<br>
+Current Version: 1.7.10<br><br>
+Load Existing Game : <select id = "g" onchange = "select()">
+<option value = "0">Please select</option>
+<option value = "1">Carbon Cycle</option>
+<option value = "2">Energy Timeline</option>
+<option value = "3">Chinese Dynasties</option>
+<option value = "4">Renewable Energies</option>
+<option value = "5">Famous Economists</option>
+<option value = "6">US Energy Consumption</option>
+<option value = "7">The Avengers (Movie)</option>
+<option value = "8">UT Map</option>
+<option value = "9">Wind Mill Components</option>
+</select><br>
+or Load My Game : <input type="text" id="d" value="">
+<button onclick="load()"> Load </button><br>
+
+<font size="3" face="Calibri" color="#1E73BE">
+<h2> Game: </h2>
+</font>
+  
+Click the red dots in the picture: each correct answer gets 1 point, skipping get 0 point, incorrect answer gets -1 point. <br><br>
+Find in the Picture: <input type="text" id="c" value="" readonly><br>
+Current Score : <input type="text" id="s" value="0" readonly>
+
+<button onclick="next()"> Skip </button>
+<button onclick="renew()"> Restart </button><br><br>
+
+<canvas id="canvas2" width="500" height="500" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas><br><br>
+	
+<hr color="#C0C0C0" size="1">
+<font size="3" face="Calibri" color="#1E73BE">
+<h2> Editor: </h2>
+</font>
+
+Click anywhere in the picture and enter the question associated with that red dot, then press Add button to add the question. Click on existing green dots to see the question, press Add button to update and press Remove button to delete. Press Save button to load the game and play in the top section of the page.<br><br>
+Enter question here : <input type="text" id="q" value="" onkeydown="if (event.keyCode == 13) add()"><br>
+  
+<button onclick="add()"> Add </button>
+<button onclick="remove()"> Remove </button>
+<button onclick="save()"> Save </button><br><br>
+<canvas id="canvas1" width="500" height="500" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas><br><br>
+
+Enter url of picture here: <input type="text" id="p" value="" onkeydown="if (event.keyCode == 13) image()">
+<button onclick="image()"> Change </button><br>
+OR Upload file here: <input type="file" id="f" name="back" onchange="file()">
+<button onclick="clean()"> Clear Dots </button><br><br>
+
+<form name="form1" action="mailto:youngwu1101@hotmail.com" enctype="text/plain" method="post">
+Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="name" id="l" value=""><br>
+ID : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" name="id" value=""><br>
+Password : <input type="password" name = "password" value = ""><br>
+Code : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="code" value="">
+<input type="submit" value="Submit">
+</form>
+NOTE: Please attach the background picture to the email yourself if you uploaded the picture from your computer! (This website cannot save local files on your computer.)
+
+
+	
+<script>
+
+var list = new Array();
+var listuf = new Array();
+var n_list = 0;
+var n_listuf = 0;
+var current = -1;
+var c1 = document.getElementById("canvas1");
+var ctx1 = c1.getContext("2d");
+var c2 = document.getElementById("canvas2");
+var ctx2 = c2.getContext("2d");
+var img1 = new Image();
+var img1_h = 500;
+var img1_w = 500;
+var x_coord = -1;
+var y_coord = -1;
+list[0] = "";
+img1.src = 'http://logonoid.com/images/university-of-toronto-logo.png';
+img1.onload = function()
+{
+	paint();
+};
+fileReader = new FileReader();
+fileReader.onload = function (oFREvent)
+{
+	var file = oFREvent.target.result;
+	img1.src = file;
+	img1.onload = function()
+	{
+		setSize(img1.width, img1.height);
+		paint();
+	};
+	document.getElementById('p').value = file;
+	list[0]= file;
+};
+c1.addEventListener("mousedown", mouse1, false);
+c2.addEventListener("mousedown", mouse2, false);
+  
+function select()
+{
+  var game = document.getElementById('g').value;
+  document.getElementById('d').value = done[parseInt(game)];
+  load();
+}
+  
+function next()
+{
+  current = Math.floor(Math.random() * n_listuf);
+	current = listuf[current];
+  document.getElementById('c').value = list[3 * current + 1];
+	paint2();
+}
+  
+function renew()
+{
+  document.getElementById('s').value = 0;
+	listuf = new Array();
+	for(var i = 0; i < n_list; i++) listuf[i] = i;
+  n_listuf = n_list;
+  next();
+}
+
+function add()
+{
+  var q = document.getElementById('q').value.replace(/_/g, " ");
+  var i = get_index(x_coord, y_coord);
+  if(x_coord >= 0 && y_coord >= 0 && q != "")
+  {
+   	if(i == -1)
+   	{
+    		list[3 * n_list + 1] = q;
+    		list[3 * n_list + 2] = x_coord;
+    		list[3 * n_list + 3] = y_coord;
+    		n_list ++;
+   	}
+   	else
+   	{
+    		list[3 * i + 1] = q;
+   	}
+  }
+  document.getElementById('q').value = "";
+  print();
+  paint1();
+}
+
+function remove()
+{
+  var i = get_index(x_coord, y_coord);
+  if(i >= 0 && i < n_list)
+  {
+   	list[3 * i + 3] = list.pop();
+   	list[3 * i + 2] = list.pop();
+   	list[3 * i + 1] = list.pop();
+   	n_list --;
+  }
+  else if (i == n_list)
+  {
+    list.pop();
+    list.pop();
+    list.pop();
+		n_list --;
+  }
+  document.getElementById('q').value = "";
+  print();
+  paint1();
+}
+  
+function save()
+{
+  document.getElementById('d').value = document.getElementById('l').value;
+  load();
+}
+  
+function load()
+{
+  var d = document.getElementById('d').value;
+  if(d != "")
+  {
+   	var listf = d.split("__");
+   	var n = listf.length;
+   	var valid = true;
+   	if(n % 3 == 1)
+   	{
+    	for(var i = 1; i < n; i ++)
+    	{
+   	 		if(i % 3 != 1)
+   	 		{
+      		listf[i] = Math.max(0, Math.min(500, parseInt(listf[i])));
+   	 		}
+    	}
+    	list = listf;
+    	n_list = Math.round(n / 3);
+			document.getElementById('p').value = list[0]
+			image();
+    	renew();
+   	}
+  }
+}
+	
+function clean()
+{
+	document.getElementById('d').value = document.getElementById('p').value;
+	load();
+	paint1();
+}
+
+function get_index(x, y)
+{
+  for (var i = 0; i < n_list; i ++)
+  {
+   	if(dist(x, y, list[3 * i + 2], list[3 * i + 3]) < 20)
+   	{
+    		return i;
+   	}
+  }
+  return -1;
+}
+  
+function dist(x, y, x1, y1)
+{
+  return Math.sqrt((x - x1) * (x - x1) + (y - y1) * (y - y1));	
+}
+
+function paint_dot(ctx, x, y, type)
+{
+	if (type == 0)
+	{
+  	ctx.strokeStyle = "#008000";
+		ctx.lineWidth = 6;
+	}
+	else if (type == 1)
+	{
+		ctx.strokeStyle = "#FF0000";
+		ctx.lineWidth = 5;
+	}
+	else if (type == 2)
+	{
+		ctx.strokeStyle = "#FF0000";
+		ctx.lineWidth = 7;
+	}
+  ctx.fillStyle = "#FFFFFF";
+  ctx.beginPath();
+  ctx.arc(x, y, 5, 0, Math.PI * 2, true); 
+  ctx.closePath();
+  ctx.stroke();
+  ctx.fill();
+}
+
+function paint()
+{
+	paint1();
+	paint2();	
+}
+
+function paint1()
+{
+	ctx1.fillStyle="#FFFFFF";
+	ctx1.fillRect(0, 0, 500, 500);
+	ctx1.drawImage(img1, (500 - img1_w) / 2, (500 - img1_h) / 2, img1_w, img1_h);
+  for(var i = 0; i < n_list; i ++)
+  {
+   	paint_dot(ctx1, list[3 * i + 2], list[3 * i + 3], 1);
+  }
+}
+	
+function paint2()
+{
+	ctx2.fillStyle="#FFFFFF";
+	ctx2.fillRect(0, 0, 500, 500);
+	ctx2.drawImage(img1, (500 - img1_w) / 2, (500 - img1_h) / 2, img1_w, img1_h);
+  for(var i = 0; i < n_list; i ++)
+  {
+   	paint_dot(ctx2, list[3 * i + 2], list[3 * i + 3], 0);
+  }
+	for(var j = 0; j < n_listuf; j ++)
+  {
+   	paint_dot(ctx2, list[3 * listuf[j] + 2], list[3 * listuf[j] + 3], 2);
+  }
+}
+
+function print()
+{
+  document.getElementById('l').value = list[0];
+  for(var i = 1; i < 3 * n_list + 1; i ++)
+  {
+   	document.getElementById('l').value +=  "__" + list[i];
+  }
+}
+
+function image()
+{
+	var pic = document.getElementById('p').value;
+	if(pic.length > 0)
+	{
+		img1.src = pic;
+		img1.onload = function()
+		{
+			setSize(img1.width, img1.height);
+			paint();
+		};
+		list[0] = pic;
+	}
+}
+	
+function setSize(w, h)
+{
+	if(w > h)
+	{
+		img1_w = 500;
+		img1_h = Math.round(500 * h / w);
+	}
+	else
+	{
+		img1_h = 500;
+		img1_w = Math.round(500 * w / h);
+	}
+}
+
+function file()
+{
+	if (document.getElementById("f").files.length != 0)
+	{
+		var oFile = document.getElementById("f").files[0];
+  	fileReader.readAsDataURL(oFile);
+	}	
+}
+
+function mouse(canvas, evt)
+{
+  var rect = canvas.getBoundingClientRect();
+  return {x: Math.round(evt.clientX - rect.left), y: Math.round(evt.clientY - rect.top)};
+}
+
+function mouse1(event)
+{
+  var m = mouse(canvas1, event);
+  var x = m.x;
+  var y = m.y;
+  var i = get_index(x, y);
+  paint1();
+  if(i == -1)
+  {
+   	x_coord = x;
+   	y_coord = y;
+   	paint_dot(ctx1, x, y, 0);
+  }
+  else
+  {
+   	x_coord = list[3 * i + 2];
+   	y_coord = list[3 * i + 3];
+   	document.getElementById('q').value = list[3 * i + 1];
+   	paint_dot(ctx1, list[3 * i + 2], list[3 * i + 3], 0);
+  }
+}
+  
+function mouse2(event)
+{
+  var m = mouse(canvas2, event);
+  var x = m.x;
+  var y = m.y;
+  var i = get_index(x, y);
+	x = list[3 * i + 2];
+	y = list[3 * i + 3];
+  if (i >= 0)
+  {
+   	if (i == current)
+   	{
+    	document.getElementById('s').value ++;
+			var ind = listuf.indexOf(i);
+			var temp = listuf.pop();
+			if(ind < n_listuf - 1) listuf[ind] = temp;
+    	n_listuf --;
+			if(n_listuf == 0)
+			{
+				var score = parseInt(document.getElementById('s').value);
+				score = Math.max(0, Math.round(score * 100.0 / n_list));
+				ctx2.fillStyle="#FFFFFF";
+				ctx2.fillRect(0, 0, 500, 500);
+				ctx2.fillStyle="#000000";
+				ctx2.font="30px Calibri";
+				ctx2.textAlign="center"; 
+				ctx2.fillText("Your Score is " + score + "%",250, 250);
+			}
+			else
+			{
+   			next();
+			}
+   	}
+   	else
+   	{
+			paint2();
+   		document.getElementById('s').value --;
+			ctx2.font="15px Calibri";
+			var del_x = 10;
+			var del_y = 25;
+			ctx2.textAlign = "left";
+			if(x > 250)
+			{
+				del_x = -10;
+				ctx2.textAlign = "right";
+			}
+			if(y > 250)
+			{
+				del_y = -10;
+			}
+			var text = "NO! This is " + list[3 * i + 1];
+			var metrics = ctx2.measureText(text);
+			var text_w = metrics.width;
+			ctx2.fillStyle="#FFFFFF";
+			if(del_x > 0)
+			{
+				ctx2.fillRect(x + del_x - 5, y + del_y - 15, text_w + 10, 20);
+			}
+			else
+			{
+				ctx2.fillRect(x + del_x - text_w - 5, y + del_y - 15, text_w + 10, 20);
+			}
+			ctx2.fillStyle="#FF0000";
+			ctx2.fillText(text, x + del_x, y + del_y);
+   	}
+  }
+  else
+  {
+		paint2();
+  }
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+var done= new Array();
+done[0] = "http://logonoid.com/images/university-of-toronto-logo.png";
+done[1] = "carbon_cycle.png__(atmosphere) photosynthesis__62__123__plant respiration__147__151__human emissions__216__150__plant biomass__132__223__microbial respiration and decomposition__205__289__soil carbon__107__308__fossil carbon__116__370__atmosphere__439__109__air-sea gas exchange__382__181__surface ocean__454__249__(ocean) photosynthesis__305__292__respiration and decomposition__445__292__ocean sediments__334__343__deep ocean__431__342__reactive sediments__381__403";
+done[2] = "timeline.png__Fire, flint__23__65__Pottery, bricks__23__103__Wheel, spoked wheel__23__139__Bronze artifacts__23__175__Iron artifacts__23__213__Wind energy -- sail developments__23__251__Water energy -- water wheels__23__358__Coal__23__395__Gunpowder__23__433";
+done[3] = "chinese_dynasties.png__Xia__171__116__Shang__407__116__Zhou__100__202__Qin__222__202__Han__350__202__3 Kingdoms__470__202__Jin__100__289__Sui__222__289__Tang__350__289__5 Dynasties 10 Kingdoms__470__289__Song__100__376__Yuan__222__376__Ming__350__376__Qing__470__376";
+done[4] = "renewable_energy.gif__Solar Energy__115__211__Hydropower Energy__36__270__Biomass Energy__190__254__Geothermal Energy__49__373__Wind Energy__187__370__Fossil Fuel Oil__339__218__Coal__451__235__Nuclear__296__347__Natural Gas__459__356";
+done[5] = "Economists.gif__Marx__27__370__Friedman__84__370__Say__134__370__Keynes__188__370__Smith__237__370__Galbraith__298__370__Clark__349__370__Mill__409__370__Veblen__462__370";
+done[6] = "us_energy.jpg__Petroleum__110__126__Coal__110__188__Natural Gas__110__248__Uranium__110__314__Propane__110__375__Biomass__360__126__Hydropower__360__188__Geothermal__360__248__Wind__360__314__Solar__360__375";
+done[7] = "the_avengers.jpg__Agent Coulson__70__280__Hawkeye__116__280__The Hulk__159__280__Iron Man__205__280__Nick Fury__249__280__Captain America__295__280__Thor__341__280__Black Widow__382__280__Maria Hill__429__280";
+done[8] = "ut_map.gif__GE__133__69__WW__158__91__RL__109__155__BL__129__141__RW__120__232__SS__122__272__LM__114__310__MP__111__339__GB__167__405__EX__243__492__MB__239__435__UC__217__283__AH__394__257__VC__367__134__AR__94__425__RB__126__203__WE__79__262__WI__42__279__NC__61__272__PR__379__175__BA__113__388__WS__51__227__BN__80__233__RJ__407__136__LC__430__145__FH__313__141__EJ__289__139__LW__297__167__VA__249__106__GI__203__141__LA__214__161__MU__215__195__TC__251__190__CR__393__232__OH__453__202__PA__95__371__HU__93__397__FI__114__426__WB__186__429__HA__238__412__DC__255__394__FG__274__416";
+done[9] = "wind_mill.png__Blades__120__288__Rotor__204__189__Pitch__226__119__Brake__231__269__Low-Speed Shaft__280__218__Gear Box__333__242__Generator__346__300__Controller__388__273__Anemometer__426__248__Wind Vane__470__320__Nacelle__396__343__High-Speed Shaft__271__275__Yaw Drive__261__320__Yaw Motor__279__343__Tower__280__404";
+
+
+</script>
+</body>
+</html>

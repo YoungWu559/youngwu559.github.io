@@ -1,0 +1,24 @@
+##################################################
+# codes to generate other plots
+
+x <- 1:100
+y <- 10 + 10 * pnorm(x, 50, 10) + rnorm(100)
+mod <- nls(y ~ a + b * pnorm(x, c, d), start = list(a = 10, b = 10, c = 50, d = 10))
+
+plot(x, y, main = "Method 1 - MAXMIN")
+y1 <- min(y)
+y2 <- max(y)
+x1 <- x[y == y1]
+x2 <- x[y == y2]
+lines(c(x1, x2), rep((y1 + y2) * 0.5, 2))
+points(c(x1, x2), rep((y1 + y2) * 0.5, 2), pch = 19)
+points(c(x1, x2), c(y1, y2), pch = 15)
+
+plot(x, y, main = "Method 2 - NLS")
+lines(x, predict(mod))
+mu <- summary(mod)$coef[3]
+sigma <- summary(mod)$coef[4]
+x1 <- mu - sigma
+x2 <- mu + sigma
+lines(c(x1, x2), rep((y1 + y2) * 0.5, 2))
+points(c(x1, x2), rep((y1 + y2) * 0.5, 2), pch = 19)

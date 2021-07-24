@@ -1,0 +1,45 @@
+# setwd("C:/Users/IBM/Young/Year 3 Term 1/ECO2511/Paper")
+rm(list = ls(all = TRUE))
+
+data <- read.csv("data.csv", header = T)
+attach(data)
+
+n <- length(GVKEY)
+min_year <- min(YEAR)
+i_YEAR <- YEAR - min_year + 1
+n_year <- max(i_YEAR)
+
+ts_SALARY_0 <- rep(0, n_year)
+ts_BONUS_0 <- rep(0, n_year)
+ts_SALARY_1 <- rep(0, n_year)
+ts_BONUS_1 <- rep(0, n_year)
+ts_SALE <- rep(0, n_year)
+ts_ROA <- rep(0, n_year)
+ts_YEAR <- min_year:(min_year + n_year - 1)
+
+for (y in 1:n_year)
+{
+  ts_SALARY_0[y] <- mean(SALARY[which(i_YEAR == y & EXECDIR == 0)])
+  ts_BONUS_0[y] <- mean(BONUS[which(i_YEAR == y & EXECDIR == 0)])
+  ts_SALARY_1[y] <- mean(SALARY[which(i_YEAR == y & EXECDIR == 1)])
+  ts_BONUS_1[y] <- mean(BONUS[which(i_YEAR == y & EXECDIR == 1)])
+  ts_SALE[y] <- mean(SALE[which(i_YEAR == y)])
+  ts_ROA[y] <- mean(ROA[which(i_YEAR == y)])
+}
+
+write.csv(data.frame(ts_YEAR, ts_SALARY_0, ts_SALARY_1, ts_BONUS_0, ts_BONUS_1, ts_SALE, ts_ROA), "summary.csv", row.names = F)
+
+ts.plot(ts(ts_SALARY_0, start = min_year), ts(ts_SALARY_1, start = min_year), main = "Time Series for Salary", gpars = list(col = c("red", "blue")))
+legend("topleft", legend = c("Non-Director", "Director"), col = c("red", "blue"), lty = 1)
+dev.copy(png, "ts_SALARY.png")
+dev.off()
+ts.plot(ts(ts_BONUS_0, start = min_year), ts(ts_BONUS_1, start = min_year), main = "Time Series for Bonus", gpars = list(col = c("red", "blue")))
+legend("topleft", legend = c("Non-Director", "Director"), col = c("red", "blue"), lty = 1)
+dev.copy(png, "ts_BONUS.png")
+dev.off()
+ts.plot(ts(ts_SALE, start = min_year), main = "Time Series for Sale")
+dev.copy(png, "ts_SALE.png")
+dev.off()
+ts.plot(ts(ts_ROA, start = min_year), main = "Time Series for ROA")
+dev.copy(png, "ts_ROA.png")
+dev.off()

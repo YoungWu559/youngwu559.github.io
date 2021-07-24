@@ -1,0 +1,224 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.8461706752123697" type="model" defer></script>
+<script src="CS540.js?0.2748815797602797" type="model" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style540.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">CS540 Summer 2020 Campus Section</h1>
+</div> 
+<div id="content">
+<script type="module"> import {m2bs20c} from "./CS540.js"; m2bs20c() </script> <br>
+<br>
+<h2>Midterm M2B</h2>
+&bull; Enter your ID (the wisc email ID without @wisc.edu) here: <input type="text" id="id" value="test" size="20"> and click <button id="button_0">Confirm</button> <span hidden id="questions">1,2,3,4,5,6,7,8,9,10</span> <span hidden id="rand">1</span> <br>
+&bull; The same ID should generate the same set of questions. Your answers are not saved when you close the browser. You could print the page: <button id="button_1">Print</button>, solve the problems, then enter all your answers at the end. <br>
+&bull; Please do not refresh the page: your answers will not be saved. You can save and load your answers (only fill-in-the-blank questions) using the buttons at the bottom of the page. <br>
+<br>
+<h2><span id="id_warning"><font color="red"> Warning: please enter your ID before you start! </font></span></h2>
+<br>
+<h2>Question 1</h2>
+<span id="p1"></span> <br>
+<br>
+<h2>Question 2</h2>
+<span id="p2"></span> <br>
+<br>
+<h2>Question 3</h2>
+<span id="p3"></span> <br>
+<br>
+<h2>Question 4</h2>
+<span id="p4"></span> <br>
+<br>
+<h2>Question 5</h2>
+<span id="p5"></span> <br>
+<br>
+<h2>Question 6</h2>
+<span id="p6"></span> <br>
+<br>
+<h2>Question 7</h2>
+<span id="p7"></span> <br>
+<br>
+<h2>Question 8</h2>
+<span id="p8"></span> <br>
+<br>
+<h2>Question 9</h2>
+<span id="p9"></span> <br>
+<br>
+<h2>Question 10</h2>
+<span id="p10"></span> <br>
+<br>
+<div id="q1">
+&bull; [<span id="total_1">4</span> points] Given a linear SVM (Support Vector Machine) that perfectly classifies a set of training data containing <span id="np_1"></span> positive examples and <span id="nn_1"></span> negative examples. What is the maximum possible number of training examples that could be removed and still produce the exact same SVM as derived for the original training set? <br>
+<details>
+<summary>Hint</summary>
+See Fall 2019 Final Q7 Q8. <br>
+</details>
+&bull; Answer: <input type="text" id="answer_1" value="" size="20">. <br>
+</div>
+<div id="q2">
+&bull; [<span id="total_2">3</span> points] What is the minimum zero-one cost of a binary (y is either 0 or 1) linear (threshold) classifier (for example, LTU perceptron) on the following data set? <br>
+<table style="width:100%" border=1>
+<tr>
+<td>\(x_{i}\) </td>
+<td> 1 </td>
+<td> 2 </td>
+<td> 3 </td>
+<td> 4 </td>
+<td> 5 </td>
+<td> 6 <br></td>
+</tr>
+<tr>
+<td>\(y_{i}\) </td>
+<td> <span id="y1_2"></span> </td>
+<td> <span id="y2_2"></span> </td>
+<td> <span id="y3_2"></span> </td>
+<td> <span id="y4_2"></span> </td>
+<td> <span id="y5_2"></span> </td>
+<td> <span id="y6_2"></span> <br></td>
+</tr>
+</table><br>
+<details>
+<summary>Hint</summary>
+The zero-one cost is \(C = \displaystyle\min_{b} \displaystyle\sum_{i=1}^{n} 1_{\left\{\hat{y}_{i} \neq&nbsp; y_{i}\right\}}\), where \(\hat{y}_{i}\) is the prediction of the classifier. A linear classifier with threshold \(t\) is either in form (1) \(\hat{y}_{i} = 0\) when \(x_{i} \leq&nbsp; t\) and \(\hat{y}_{i} = 1\) when \(x_{i} > t\) or (2) \(\hat{y}_{i} = 1\) when \(x_{i} \leq&nbsp; t\) and \(\hat{y}_{i} = 0\) when \(x_{i} > t\). For this question, you can try \(t = 0, 1, 2, 3, 4, 5, 6, 7\) and check which one leads to the smallest zero-one cost. <br>
+</details>
+&bull; Answer: <input type="text" id="answer_2" value="" size="20">. <button id="button_2">Calculate</button> <span id="calc_2"></span> <br>
+</div>
+<div id="q3">
+&bull; [<span id="total_3">4</span> points] You are given a training set of five points and their 2-class classifications (+ or -): (<span id="x1_3"></span>, +), (<span id="x2_3"></span>, +), (<span id="x3_3"></span>, -), (<span id="x4_3"></span>, -), (<span id="x5_3"></span>, -). What is the decision boundary associated with this training set using 3NN (3 Nearest Neighbor)? <br>
+<details>
+<summary>Hint</summary>
+See Spring 2017 Midterm Q6. The decision boundary is the threshold such that all points on its left is classified as positive, and all points on its right is classified as negative. The threshold should be equidistant from the first and fourth points (i.e. the midpoint between the first and fourth points). <br>
+</details>
+&bull; Answer: <input type="text" id="answer_3" value="" size="20">. <button id="button_3">Calculate</button> <span id="calc_3"></span> <br>
+</div>
+<div id="q4">
+&bull; [<span id="total_4">4</span> points] Given the following transition matrix for a bigram model with words "I", "am" and "Groot": <span id="transition_4"></span>. Row \(i\) column \(j\) is \(\mathbb{P}\left\{w_{t} = j | w_{t-1} = i\right\}\). What is the probability that the third word is "<span id="w3_4"></span>" given the first word is "<span id="w1_4"></span>"? <br>
+<details>
+<summary>Hint</summary>
+See Fall 2019 Final Q30. <br>
+</details>
+&bull; Answer: <input type="text" id="answer_4" value="" size="20">. <button id="button_4">Calculate</button> <span id="calc_4"></span> <br>
+</div>
+<div id="q5">
+&bull; [<span id="total_5">4</span> points] What is the convolution between the image <span id="image_5"></span> and the filter <span id="filter_5"></span> using zero padding? Remember to flip the filter first. <br>
+<details>
+<summary>Hint</summary>
+</details>
+&bull; Answer (matrix with multiple lines, each line is a comma separated vector): <textarea id="answer_5" rows="2" cols="20"></textarea>. <button id="button_5">Calculate</button> <span id="calc_5"></span> <br>
+</div>
+<div id="q6">
+&bull; [<span id="total_6">4</span> points] If \(\mathbb{P}\left\{A | B\right\}\) is <span id="m_6"></span> times the value of \(\mathbb{P}\left\{B | A\right\}\), and \(\mathbb{P}\left\{A\right\}\) = <span id="pa_6"></span>. What is \(\mathbb{P}\left\{B\right\}\)? <br>
+<details>
+<summary>Hint</summary>
+See Fall 2013 Final Q11, Fall 2012 Midterm Q9, Fall 2011 Midterm Q14. <br>
+</details>
+&bull; Answer: <input type="text" id="answer_6" value="" size="20">. <button id="button_6">Calculate</button> <span id="calc_6"></span> <br>
+</div>
+<div id="q7">
+&bull; [<span id="total_7">4</span> points] Given two instances \(x_{1}\) = <span id="x1_7"></span> and \(x_{2}\) = <span id="x2_7"></span>, suppose the feature map for a kernel SVM (Support Vector Machine) is \(\varphi\left(x\right)\) = <span id="phi_7"></span>, what is the kernel (Gram) matrix? <br>
+<details>
+<summary>Hint</summary>
+</details>
+&bull; Answer (matrix with multiple lines, each line is a comma separated vector): <textarea id="answer_7" rows="2" cols="20"></textarea>. <button id="button_7">Calculate</button> <span id="calc_7"></span> <br>
+</div>
+<div id="q8">
+&bull; [<span id="total_8">4</span> points] Say we use Naive Bayes in an application where there are <span id="rv0_8"></span> features represented by <span id="rv_8"></span> variables, each having <span id="nx_8"></span> possible values, and there are <span id="ny_8"></span> classes. How many total probabilities must be stored in the CPTs (Conditional Probability Table) in the Bayesian network for this problem? Do not include probabilities that can be computed from other numbers? <br>
+<details>
+<summary>Hint</summary>
+See Fall 2019 Final Q27. <br>
+</details>
+&bull; Answer: <input type="text" id="answer_8" value="" size="20">. <button id="button_8">Calculate</button> <span id="calc_8"></span> <br>
+</div>
+<div id="q9">
+&bull; [<span id="total_9">4</span> points] A convolutional neural network has input image of size <span id="image1_9"></span> x <span id="image2_9"></span> that is connected to a convolutional layer that uses a <span id="filter1_9"></span> x <span id="filter2_9"></span> filter, no padding of the image, and a stride of 1. There are <span id="map_9"></span> activation maps. The convolutional layer is then connected to a pooling layer that uses <span id="pool1_9"></span> x <span id="pool2_9"></span> max pooling, a stride of <span id="pool3_9"></span> (non-overlapping), and no padding of the convolutional layer. The pooling layer is then fully connected to an output layer that contains <span id="out_9"></span> output units. There are no hidden layers between the pooling layer and the output layer. How many different weights must be learned in this whole network, not including any bias. <br>
+<details>
+<summary>Hint</summary>
+See Fall 2019 Final Q15, Spring 2018 Midterm Q8 Q9 Q10 Q11, Fall 2017 Final Q5, Spring 2017 Final Q5, Fall 2017 Midterm Q9, Fall 2017 Midterm Q11. <br>
+</details>
+&bull; Answer: <input type="text" id="answer_9" value="" size="20">. <button id="button_9">Calculate</button> <span id="calc_9"></span> <br>
+</div>
+<div id="q10">
+</div>
+<br>
+<h2>Grade</h2>
+<button id="button_10">Grade</button> <br>
+&nbsp;***** ***** ***** ***** *****&nbsp; <br>
+<span id="comment"></span> <br>
+<textarea id="output" rows="4" cols="40"></textarea> <br>
+&nbsp;***** ***** ***** ***** *****&nbsp; <br>
+&nbsp; <br>
+<h2><span id="canvas_warning"><font color="red"> Warning: remember to submit this on Canvas! </font></span></h2>
+<br>
+&bull; Please copy and paste the text between the *****s (not including the *****s) and submit it on Canvas, M2B. <br>
+&bull; Please save a copy as text file using the button <button id="button_11">Download</button> or just copy and paste it into a text file. <br>
+&bull; You could load your answers using the button <button id="button_12">Load</button> from the text field: <input type="file", id="loading_input", accept='text/plain'><br><textarea id="loading"></textarea> <br>
+<script type="module"> 
+import {enter_button, gen_questions, math_eval_page, grade, download_file, load_ans_page, read_file} from "./YJS.js";
+document.getElementById("button_0").onclick = () => gen_questions();
+enter_button("@id", "button_0");
+document.getElementById("button_1").onclick = () => window.print();
+document.getElementById("button_2").onclick = () => math_eval_page("@answer_2", "@calc_2");
+enter_button("@answer_2", "button_2");
+document.getElementById("button_3").onclick = () => math_eval_page("@answer_3", "@calc_3");
+enter_button("@answer_3", "button_3");
+document.getElementById("button_4").onclick = () => math_eval_page("@answer_4", "@calc_4");
+enter_button("@answer_4", "button_4");
+document.getElementById("button_5").onclick = () => math_eval_page("@answer_5", "@calc_5");
+enter_button("@answer_5", "button_5");
+document.getElementById("button_6").onclick = () => math_eval_page("@answer_6", "@calc_6");
+enter_button("@answer_6", "button_6");
+document.getElementById("button_7").onclick = () => math_eval_page("@answer_7", "@calc_7");
+enter_button("@answer_7", "button_7");
+document.getElementById("button_8").onclick = () => math_eval_page("@answer_8", "@calc_8");
+enter_button("@answer_8", "button_8");
+document.getElementById("button_9").onclick = () => math_eval_page("@answer_9", "@calc_9");
+enter_button("@answer_9", "button_9");
+document.getElementById("button_10").onclick = () => grade();
+document.getElementById("button_11").onclick = () => download_file("@comment", "M2B");
+document.getElementById("button_12").onclick = () => load_ans_page("@loading");
+document.getElementById("loading_input").onchange = () => read_file(event, "loading");
+</script><br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: June 25, 2021 at 3:39 AM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="CS540S20C.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<ul id="primarynavsub">
+<li><a href="CS540W1S20C.htm">Week 1 </a></li>
+<li><a href="CS540W2S20C.htm">Week 2 </a></li>
+<li><a href="CS540W3S20C.htm">Week 3 </a></li>
+<li><a href="CS540W5S20C.htm">Week 5 </a></li>
+<li><a href="CS540W6S20C.htm">Week 6 </a></li>
+<li><a href="CS540W7S20C.htm">Week 7 </a></li>
+</ul>
+<li><a href="CS540W4S20C.htm">Midterm </a></li>
+<li><a href="CS540W8S20C.htm">Final </a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png">
+</div>
+</body>
+</html>

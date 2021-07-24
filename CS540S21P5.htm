@@ -1,0 +1,253 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.2722939817231149" type="module" defer></script>
+<script src="CS540.js?0.16294722984243037" type="module" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style540.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">CS540 Summer 2021</h1>
+</div> 
+<div id="content">
+
+<script type="module"> import {p5s21} from "./CS540.js"; p5s21() </script> <br>
+Prev: <a href="CS540S21P4.htm">P4</a> Next: <a href="CS540S21P6.htm">P6</a> <br>
+Back to week 6 page: <a href="CS540S21W6.htm">Link</a> <br>
+<br>
+<h2><font color="red"> Warning: this is a draft, please do not start until the homework is announced on Canvas </font></h2>
+<br>
+<h2>P5 Programming Problem Instruction</h2>
+&bull; Enter your ID (the wisc email ID without @wisc.edu) here: <input type="text" id="id" value="" size="20"> and click <button id="button_0">Confirm</button> (or hit enter key) <span hidden id="questions">1,2,3,4,5,6,7,8,9,10</span> <span hidden id="assignment">p5</span> <br>
+&bull; The official deadline is August 8, but you can submit or resubmit without penalty until August 15. <br>
+&bull; The same ID should generate the same set of questions. Your answers are not saved when you close the browser. You could either copy and paste or load your program outputs into the text boxes for individual questions or print all your outputs to a single text file and load it using the button at the bottom of the page. <br>
+&bull; Please do not refresh the page: your answers will not be saved. <br>
+&bull; You should implement the algorithms using the mathematical formulas from the slides. You can use packages and libraries to preprocess and read the data and format the outputs. It is not recommended that you use machine learning packages or libraries, but you will not lose points for doing so. <br>
+&bull; Please report any bugs on Piazza. <br>
+<br>
+<h2><span id="id_warning"><font color="red"> Warning: please enter your ID before you start! </font></span></h2>
+<br>
+<span hidden id="store">1:plot;2:succ;3:solution;4:plot_solution;5:bfs;6:dfs;7:distances;8:a_manhattan;9:a_euclidean</span> <br>
+&bull; (Introduction) In this programming homework, you create a random maze and compare multiple uninformed and informed search algorithms. <br>
+<br>
+&bull; (Part 1) Create a \(h\) = <span id="h_0"></span> by \(w\) = <span id="w_0"></span> (height by width) rectangular orthogonal maze by parsing an image from the the Maze Generator: <a href="http://www.mazegenerator.net/" target="_blank">Link</a>. You can also generate a random maze yourself using Recursive Backtracker or one of the Minimum Spanning Tree algorithms (Kruskal or Prim): <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm" target="_blank">Wikipedia</a> or <a href="http://weblog.jamisbuck.org/2011/2/7/maze-generation-algorithm-recap" target="_blank">Link</a>. Make sure you enter from the center square of the top row and exit from the center square of the bottom row. <br>
+<br>
+&bull; (Part 1) Plot the maze using | for vertical walls and -- for horizontal walls and + for intersections. Below is an 15 by 15 example of such plot and the solution. <br>
+Example: <textarea id="example_0" rows="2" cols="20"></textarea> <br>
+Solution: <textarea id="solution_0" rows="2" cols="20"></textarea> <br>
+<br>
+&bull; (Part 1) Use BFS and DFS to get the solution of the maze. Keep track of the squares you searched (checked goal on). <br>
+<br>
+&bull; (Part 2) Use A* with the heuristic of Manhattan distance to the goal and Euclidean distance to the goal. Keep track of the squares you searched (checked goal on). <br>
+<br>
+<h2>Question 1</h2>
+&bull; [<span id="total_1">2</span> points] Enter the plot of the maze (use the same format as the example). <br>
+<input type="file", id="plot_input", accept='text/plain'><br><textarea id="plot"></textarea> <br>
+<span hidden id="answer_2"></span> <br>
+<br>
+<h2>Question 2</h2>
+&bull; [<span id="total_2">5</span> points] Enter the successor matrix of the maze (\(h\) lines, each line containing \(w\) strings, comma separated, each string represents the list of possible successors, a subset of the characters "U" "D" "L" "R"). <br>
+<details>
+<summary>Hint</summary>
+&bull; For each square \((i, j)\) centered at \(\left(2 i + 1, 3 j + 1\right)\) and \(\left(2 i + 1, 3 j + 2\right)\) (i is the line index, j is the character index in the line), start with "": if \(\left(2 i, 3 j + 1\right)\) is " ", add "U", if \(\left(2 i + 2, 3 j + 1\right)\) is " ", add "D", if \(\left(2 i + 1, 3 j\right)\) is " ", add "L"; if \(\left(2 i + 1, 3 j + 3\right)\) is " ", add "R". <br>
+&bull; You should use the successor matrix to solve the maze instead of the plot. <br>
+</details>
+<input type="file", id="succ_input", accept='text/plain'><br><textarea id="succ"></textarea> <br>
+<span hidden id="answer_1"></span> <br>
+<br>
+<h2>Question 3</h2>
+&bull; [<span id="total_3">5</span> points] Enter the action sequence (one line, a sequence of characters "U" "D" "L" "R", no comma in between them).&nbsp; <br>
+<details>
+<summary>Hint</summary>
+&bull; Do not start or finish outside the maze: start inside the center square of the top row. <br>
+</details>
+<input type="file", id="solution_input", accept='text/plain'><br><textarea id="solution"></textarea> <br>
+<span hidden id="answer_3"></span> <br>
+<br>
+<h2>Question 4</h2>
+&bull; [<span id="total_4">5</span> points] Enter the plot of the maze with the solution (use the same format as the example). <br>
+<input type="file", id="plot_solution_input", accept='text/plain'><br><textarea id="plot_solution"></textarea> <br>
+<span hidden id="answer_4"></span> <br>
+<br>
+<h2>Question 5</h2>
+&bull; [<span id="total_5">5</span> points] Enter the list of squares searched by BFS (\(h\) lines, each line containing \(w\) integers either 0 or 1, 1 means searched, comma separated). <br>
+<details>
+<summary>Hint</summary>
+&bull; Use a Queue of pairs of numbers as the Queue. You can use an array or list too, but you have to implement the "enQueue" and "deQueue" operations first. <br>
+&bull; Start by putting the entry square (center square of the top row) in the Queue. <br>
+&bull; DeQueue \((i, j)\) and find the string of the \((i, j)\) element of the successor matrix: if it contains "U", enQueue \((i - 1, j)\), if it contains "D", enQueue \((i + 1, j)\), if it contains "L", enQueue \((i, j - 1)\); if it contains "R", enQueue \((i, j + 1)\). <br>
+&bull; Repeat until the exit square (center square of the bottom row) is deQueued. <br>
+</details>
+<input type="file", id="bfs_input", accept='text/plain'><br><textarea id="bfs"></textarea> <br>
+<button id="button_1">Plot</button> <br>
+<canvas id="plot_bfs" width="500" height="500" style="border:1px solid #000000;"></canvas> <span hidden id="plot_bfs_state"> </span> <br>
+<span hidden id="answer_5"></span> <br>
+<br>
+<h2>Question 6</h2>
+&bull; [<span id="total_6">5</span> points] Enter the list of squares searched by DFS (\(h\) lines, each line containing \(w\) integers either 0 or 1, 1 means searched, comma separated). <br>
+<details>
+<summary>Hint</summary>
+&bull; Use a Stack of pairs of numbers as the Stack. You can use an array or list too, but you have to implement the "Pop" and "Push" operations first. <br>
+&bull; Start by putting the entry square (center square of the top row) in the Stack. <br>
+&bull; Pop \((i, j)\) and find the string of the \((i, j)\) element of the successor matrix: if it contains "U", push \((i - 1, j)\), if it contains "D", push \((i + 1, j)\), if it contains "L", push \((i, j - 1)\); if it contains "R", push \((i, j + 1)\). <br>
+&bull; Repeat until the exit square (center square of the bottom row) is popped. <br>
+</details>
+<input type="file", id="dfs_input", accept='text/plain'><br><textarea id="dfs"></textarea> <br>
+<button id="button_2">Plot</button> <br>
+<canvas id="plot_dfs" width="500" height="500" style="border:1px solid #000000;"></canvas> <span hidden id="plot_dfs_state"> </span> <br>
+<span hidden id="answer_6"></span> <br>
+<br>
+<h2>Question 7</h2>
+&bull; [<span id="total_7">5</span> points] Enter the Manhattan distances to the goal for each square in the maze (\(h\) lines, each line containing \(w\) integers, comma separated). <br>
+<details>
+<summary>Hint</summary>
+&bull; The Manhattan distance between \((i, j)\) and \(\left(i', j'\right)\) is \(\left| i - i' \right| + \left| j - j' \right|\). <br>
+</details>
+<input type="file", id="distances_input", accept='text/plain'><br><textarea id="distances"></textarea> <br>
+<span hidden id="answer_7"></span> <br>
+<br>
+<h2>Question 8</h2>
+&bull; [<span id="total_8">5</span> points] Enter the list of squares searched by A* with Manhattan distance to the goal as the heuristic (\(h\) lines, each line containing \(w\) integers either 0 or 1, 1 means searched, comma separated). <br>
+<details>
+<summary>Hint</summary>
+&bull; Use a PriorityQueue of pairs of numbers as the Queue. You can use an array or list too, but you have to implement the "enQueue" and "deQueue" operations first. Since the mazes are relatively small, you do not have to implement efficient PriorityQueue algorithms. <br>
+&bull; Start by putting the entry square (center square of the top row) with priority = cost + heuristic, where the cost is \(g = 0\) and the heuristic is \(h = H\left(i, j\right)\) (\(H\) is the matrix from the previous question) in the Queue. <br>
+&bull; DeQueue \((i, j)\) with cost \(c\) and find the string of the \((i, j)\) element of the successor matrix: if it contains "U", enQueue \((i - 1, j)\) with <a href="g = c + 1"></a> and <a href="h = H(i - 1, j)"></a>, if it contains "D", enQueue \((i + 1, j)\) with <a href="g = c + 1"></a> and <a href="h = H(i + 1, j)"></a>, if it contains "L", enQueue \((i, j - 1)\) with <a href="g = c + 1"></a> and <a href="h = H(i, j - 1)"></a>; if it contains "R", enQueue \((i, j + 1)\) with <a href="g = c + 1"></a> and <a href="h = H(i, j + 1)"></a>. <br>
+&bull; Repeat until the exit square (center square of the bottom row) is deQueued. <br>
+</details>
+<input type="file", id="a_manhattan_input", accept='text/plain'><br><textarea id="a_manhattan"></textarea> <br>
+<button id="button_3">Plot</button> <br>
+<canvas id="plot_am" width="500" height="500" style="border:1px solid #000000;"></canvas> <span hidden id="plot_am_state"> </span> <br>
+<span hidden id="answer_8"></span> <br>
+<br>
+<h2>Question 9</h2>
+&bull; [<span id="total_9">5</span> points] Enter the list of squares searched by A* with Euclidean distance to the goal as the heuristic (\(h\) lines, each line containing \(w\) integers either 0 or 1, 1 means searched, comma separated). <br>
+<details>
+<summary>Hint</summary>
+&bull; Replace the Manhattan distance by Euclidean distance \((i - i')^{2} + \left(j - j'\right)^{2}\). There is no need to take the square root. <br>
+</details>
+<input type="file", id="a_euclidean_input", accept='text/plain'><br><textarea id="a_euclidean"></textarea> <br>
+<button id="button_4">Plot</button> <br>
+<canvas id="plot_ae" width="500" height="500" style="border:1px solid #000000;"></canvas> <span hidden id="plot_ae_state"> </span> <br>
+<span hidden id="answer_9"></span> <br>
+<h2>Question 10</h2>
+&bull; [<span id="total_10">1</span> points] Please enter any comments and suggestions including possible mistakes and bugs with the questions and the auto-grading, and materials relevant to solving the question that you think are not covered well during the lectures. If you have no comments, please enter "None": do not leave it blank. <br>
+&bull; Answer: <textarea id="answer_10" rows="2" cols="20"></textarea>. <br>
+<br>
+<h2>Grade</h2>
+<button id="button_5">Grade</button> <br>
+&nbsp;***** ***** ***** ***** *****&nbsp; <br>
+<span id="comment"></span> <br>
+&nbsp;***** ***** ***** ***** ***** <br>
+<br>
+<h2>Submission</h2>
+<textarea id="output" rows="4" cols="40"></textarea> <br>
+&bull; Please do not modify the content in the above text field: use the "Grade" button to update. <br>
+&bull; Warning: grading may take around 10 to 20 seconds. Please be patient and do not click "Grade" multiple times. <br>
+<form name="submit_form">
+<input type="hidden" id="submit_id" name="id">
+<input type="hidden" id="submit_n" name="n">
+<input type="hidden" id="submit_a1" name="a1">
+<input type="hidden" id="submit_a2" name="a2">
+<input type="hidden" id="submit_a3" name="a3">
+<input type="hidden" id="submit_a4" name="a4">
+<input type="hidden" id="submit_a5" name="a5">
+<input type="hidden" id="submit_a6" name="a6">
+<input type="hidden" id="submit_a7" name="a7">
+<input type="hidden" id="submit_a8" name="a8">
+<input type="hidden" id="submit_a9" name="a9">
+<input type="hidden" id="submit_a10" name="a10">
+<input type="hidden" id="submit_g1" name="g1">
+<input type="hidden" id="submit_g2" name="g2">
+<input type="hidden" id="submit_g3" name="g3">
+<input type="hidden" id="submit_g4" name="g4">
+<input type="hidden" id="submit_g5" name="g5">
+<input type="hidden" id="submit_g6" name="g6">
+<input type="hidden" id="submit_g7" name="g7">
+<input type="hidden" id="submit_g8" name="g8">
+<input type="hidden" id="submit_g9" name="g9">
+<input type="hidden" id="submit_g10" name="g10">
+<input type="hidden" id="submit_g" name="g">
+<input type="checkbox" id="submit_check"> <label for="submit_check">Check the box to confirm submission.</label><br>
+<button type="submit">Submit</button>
+<span id="submit_message"></span>
+</form>
+ <br>
+&bull; You could submit multiple times (but please do not submit too often): only the latest submission will be counted.&nbsp; <br>
+&bull; Please also save the text in the above text box to a file using the button <button id="button_6">Download</button> or copy and paste it into a file yourself <button id="button_7">Copy</button>. <font color="red"> Please submit the resulting file with your code on Canvas Assignment P5</font>. <br>
+&bull; You could load your answers from the text (or txt file) in the text box below using the button <button id="button_8">Load</button>. The first two lines should be "##p: 5" and "##id: your id", and the format of the remaining lines should be "##1: your answer to question 1" newline "##2: your answer to question 2", etc. Please make sure that your answers are loaded correctly before submitting them. <br>
+<input type="file", id="loading_input", accept='text/plain'><br><textarea id="loading"></textarea> <br>
+&bull; Saving and loading may take around 10 to 20 seconds. Please be patient and do not click "Load" multiple times. <br>
+<br>
+<h2>Solutions</h2>
+&bull; The sample solution in Java and Python will be posted around the deadline. You are allowed to copy and use parts of the solution without attribution. You are allowed to use code from other people and from the Internet, but you must give proper attribution at the beginning of the your code. <a href="https://theory.stanford.edu/~aiken/moss/" target="_blank">MOSS</a> will be used for code plagiarism check: blocks of copied code without attribution will result in a zero for the whole assignment. <br>
+&bull; Sample solution from last year: <a href="CS540P5S20E">2020 P5</a>. The homework is slightly different, please use with caution. <br>
+&bull; Sample solution: TBA. <br>
+&bull; You can get help on understanding the algorithm from any of the office hours. To get help with debugging code in Java, please come during the Monday to Friday 2:00 to 3:00 Zoom office hours or Saturday to Sunday 2:00 to 3:00 (I can stay for a few hours after 3:00 by appointment) in-person office hours. To get help with debugging code in Python, please come during the Tuesday 3:00 to 5:00 in-person office hours or the Thursday 3:00 to 5:00 Zoom office hours. You are encouraged to work with other students, but if you use their code, you must give attribution at the beginning of your code. <br>
+<script type="module"> 
+import {enter_button, gen_questions, read_file, plot_image_page, grade, submit_file, download_file, clipboard, load_ans_page} from "./YJS.js";
+document.getElementById("button_0").onclick = () => gen_questions();
+enter_button("@id", "button_0");
+document.getElementById("plot_input").onchange = () => read_file(event, "plot");
+document.getElementById("succ_input").onchange = () => read_file(event, "succ");
+document.getElementById("solution_input").onchange = () => read_file(event, "solution");
+document.getElementById("plot_solution_input").onchange = () => read_file(event, "plot_solution");
+document.getElementById("bfs_input").onchange = () => read_file(event, "bfs");
+document.getElementById("button_1").onclick = () => plot_image_page("@bfs", "@plot_bfs", "@h_0", "@w_0");
+document.getElementById("dfs_input").onchange = () => read_file(event, "dfs");
+document.getElementById("button_2").onclick = () => plot_image_page("@dfs", "@plot_dfs", "@h_0", "@w_0");
+document.getElementById("distances_input").onchange = () => read_file(event, "distances");
+document.getElementById("a_manhattan_input").onchange = () => read_file(event, "a_manhattan");
+document.getElementById("button_3").onclick = () => plot_image_page("@a_manhattan", "@plot_am", "@h_0", "@w_0");
+document.getElementById("a_euclidean_input").onchange = () => read_file(event, "a_euclidean");
+document.getElementById("button_4").onclick = () => plot_image_page("@a_euclidean", "@plot_ae", "@h_0", "@w_0");
+document.getElementById("button_5").onclick = () => grade();
+submit_file("submit_form", "https://script.google.com/macros/s/AKfycbzEMQVs77vGDr1PxAnN4kvC0Vi49dVXxKYjhNc6lKnex4HrMPjV/exec", "@submit_message", "@submit_check", "@submit_id");
+document.getElementById("button_6").onclick = () => download_file("@output", "P5");
+document.getElementById("button_7").onclick = () => clipboard("@output");
+document.getElementById("button_8").onclick = () => load_ans_page("@loading");
+document.getElementById("loading_input").onchange = () => read_file(event, "loading");
+</script><br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: July 23, 2021 at 6:08 PM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="CS540S21.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<ul id="primarynavsub">
+<li><a href="CS540S21W1.htm">Week 1 </a></li>
+<li><a href="CS540S21W2.htm">Week 2 </a></li>
+<li><a href="CS540S21W3.htm">Week 3 </a></li>
+<li><a href="CS540S21W5.htm">Week 5 </a></li>
+<li><a href="CS540S21W6.htm">Week 6 </a></li>
+<li><a href="CS540S21W7.htm">Week 7 </a></li>
+</ul>
+<li><a href="CS540S21W4.htm">Midterm </a></li>
+<li><a href="CS540S21W8.htm">Final </a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png">
+</div>
+</body>
+</html>
+

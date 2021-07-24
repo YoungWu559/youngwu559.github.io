@@ -1,0 +1,255 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.8449836940901629" type="module" defer></script>
+<script src="CS540.js?0.0199688890577302" type="module" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style540.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">CS540 Summer 2021</h1>
+</div> 
+<div id="content">
+
+<script type="module"> import {p3s21} from "./CS540.js"; p3s21() </script> <br>
+Prev: <a href="CS540S21P2.htm">P2</a> Next: <a href="CS540S21P4.htm">P4</a> <br>
+Back to week 3 page: <a href="CS540S21W3.htm">Link</a> <br>
+<br>
+<br>
+<h2>P3 Programming Problem Instruction</h2>
+&bull; Enter your ID (the wisc email ID without @wisc.edu) here: <input type="text" id="id" value="" size="20"> and click <button id="button_0">Confirm</button> (or hit enter key) <span hidden id="questions">1,2,3,4,5,6,7,8,9,10</span> <span hidden id="assignment">p3</span> <br>
+&bull; The official deadline is July 18, but you can submit or resubmit without penalty until August 15. <br>
+&bull; The same ID should generate the same set of questions. Your answers are not saved when you close the browser. You could either copy and paste or load your program outputs into the text boxes for individual questions or print all your outputs to a single text file and load it using the button at the bottom of the page. <br>
+&bull; Please do not refresh the page: your answers will not be saved. <br>
+&bull; You should implement the algorithms using the mathematical formulas from the slides. You can use packages and libraries to preprocess and read the data and format the outputs. It is not recommended that you use machine learning packages or libraries, but you will not lose points for doing so. <br>
+&bull; Please report any bugs on Piazza. <br>
+<br>
+<h2><span id="id_warning"><font color="red"> Warning: please enter your ID before you start! </font></span></h2>
+<br>
+<span hidden id="store">2:unigram;3:bigram;4:bigram_smooth;5:sentences;7:likelihood;8:posterior;9:predictions</span> <br>
+&bull; (Introduction) In this programming homework, you will build and simulate a simple Markov chain model based on a movie script. You will use it to generate new sentences that hopefully contain sensible words maybe even phrases. In addition, you will build a Naive Bayes classifier to distinguish sentences from the script and sentences from another fake script. Due to the English vocabulary size, you will use characters as features instead of words. In practice, you could replace the 26 letters by (more than 170,000) English words when training these models. <br>
+<br>
+&bull; (Part 1) Download the script of one of the following movies: "<span id="movie1_0"></span>", "<span id="movie2_0"></span>", "<span id="movie3_0"></span>" from IMSDb: <a href="https://www.imsdb.com/" target="_blank">Link</a>. If you have another movie you really like, you can use that script instead. Go to the website, use "Search IMSDb" on the left to search for this movie, click on the link: "Read ... Script", and copy and paste the script into a text file. <br>
+<br>
+&bull; (Part 1) Make everything lower case, then remove all characters except for letters and spaces. Replace consecutive spaces by one single space and make sure that there are no consecutive spaces. <br>
+<br>
+&bull; (Part 1) Construct the bigram character (letters + space) transition probability table. Put "space" first then "a", "b", "c", ..., "z". It should be a 27 by 27 matrix. <br>
+<br>
+&bull; (Part 1) Construct the trigram transition probability table. It could be a 27 by 27 by 27 array or a 729 by 27 matrix. You do not have to submit this table. <br>
+<br>
+&bull; (Part 1) Generate 26 sentences consists of 1000 characters each using the trigram model starting from "a", "b", "c", ..., "z". You should use the bigram model to generate the second character and switch to the bigram model when the current two-character sequence never appeared in the script. For example, when you see "xz", instead of using the trigram model for the probabilities of Pr{? | xz}, switch to use the bigram model for the probabilities of Pr{? | z}. Find and share some interesting sentences. <br>
+<br>
+&bull; (Part 2) The following is my randomly generated script written according to an non-English language model. <br>
+<textarea id="script_0" rows="2" cols="20"></textarea> <br>
+You can either use the <button id="button_1">Download</button> button to download a text file, or copy and paste from the text box to a text file. Please do not change the content of the text box. <br>
+<br>
+&bull; (Part 2) Train a Naive Bayes classifier based on the characters. You should use the prior that is biased against your script: Pr{Document = your script} = <span id="prior_0">?</span> and Pr{Document = my script} = <span id="np_0">?</span>, compute the likelihood Pr{Letter | Document} based on your script and my script, and compute the posterior probabilities Pr{Document | Letter}, and test your classifier on the 26 random sentences you generated. <br>
+<br>
+<h2>Question 1</h2>
+&bull; [<span id="total_1">1</span> points] Please enter the name of the movie script you used. <br>
+&bull; Answer: <input type="text" id="answer_1" value="" size="20"> <br>
+<br>
+<h2>Question 2</h2>
+&bull; [<span id="total_2">5</span> points] Input the unigram probabilities (27 numbers, comma-separated, rounded to 4 decimal places, "space" first, then "a", "b", ...). <br>
+<details>
+<summary>Hint</summary>
+&bull; Please make sure all probabilities are strictly larger than 0 after rounded to 4 decimal places, for example, 0.00002 should be rounded up to 0.0001 instead of 0.0. Also, the numbers should add up to exactly 1, you can do this by adding or subtracting the difference between the sum of the rounded probabilities and 1 to one of the probabilities. <br>
+&bull; If there are \(n\) characters and \(n_{a}\) "a"s, then the unigram probability of "a" is \(p_{a} = \dfrac{n_{a}}{n}\). <br>
+</details>
+<input type="file", id="unigram_input", accept='text/plain'><br><textarea id="unigram"></textarea> <br>
+<span hidden id="answer_2"></span> <br>
+<br>
+<h2>Question 3</h2>
+&bull; [<span id="total_3">5</span> points] Input the bigram transition probabilities without Laplace smoothing (27 lines, each line containing 27 numbers, comma-separated, rounded to 4 decimal places, "space" first, then "a", "b", ...). <br>
+<details>
+<summary>Hint</summary>
+&bull; If there are \(n_{a}\) "a"s and \(n_{a b}\) "ab"s, then the bigram transition probability from "a" to "b" (row "a" column "b") is \(p_{a b} = \dfrac{n_{a b}}{n_{a}}\). <br>
+</details>
+<input type="file", id="bigram_input", accept='text/plain'><br><textarea id="bigram"></textarea> <br>
+<span hidden id="answer_3"></span> <br>
+<br>
+<h2>Question 4</h2>
+&bull; [<span id="total_4">5</span> points] Input the bigram transition probabilities with Laplace smoothing (27 lines, each line containing 27 numbers, comma-separated, rounded to 4 decimal places, "space" first, then "a", "b", ...). <br>
+<details>
+<summary>Hint</summary>
+&bull; Again, please make sure all probabilities are strictly larger than 0 after rounded to 4 decimal places, for example, 0.00002 should be rounded up to 0.0001 instead of 0.0. Also, the numbers should add up to exactly 1, you can do this by adding or subtracting the difference between the sum of the rounded probabilities and 1 to one of the probabilities. <br>
+&bull; If there are \(n_{a}\) "a"s and \(n_{a b}\) "ab"s, then the bigram transition probability from "a" to "b" (row "a" column "b") is \(p_{a b} = \dfrac{n_{a b} + 1}{n_{a} + 27}\) with Laplace smoothing. <br>
+</details>
+<input type="file", id="bigram_smooth_input", accept='text/plain'><br><textarea id="bigram_smooth"></textarea> <br>
+<span hidden id="answer_4"></span> <br>
+<br>
+<h2>Question 5</h2>
+&bull; [<span id="total_5">10</span> points] Input the 26 sentences generated by the trigram and bigram models (Laplace smoothed). (26 lines, each line containing 1000 characters, line 1 starts with "a", line 2 starts with "b" ...). <br>
+<details>
+<summary>Hint</summary>
+&bull; Suppose you start with "a", then you draw a random character according to the distribution specified by row "a" of the bigram transition matrix, i.e. \(p_{a, \text{\;space\;}}, p_{a a}, p_{a, b}, ..., p_{a, z}\). <br>
+&bull; Suppose you start with "ab" and \(p_{a b} > 0\) without Laplace smoothing, then you draw a random character according to the distribution specified by row "a" column "b" of trigram transition array, i.e. \(p_{a b \text{\;space\;}}, p_{a b a}, p_{a b b}, ..., p_{a b z}\). <br>
+&bull; Suppose you start with "yz" and \(p_{y z} = 0\) without Laplace smoothing, i.e. "yz" never appeared in your script, then you draw a random character according to the distribution specified by row "z" of the bigram transition matrix again, i.e. \(p_{z \text{\;space\;}}, p_{z a}, p_{z b}, ..., p_{z z}\). <br>
+&bull; To generate a random character using CDF inversion according to a distribution, for example \(p_{1}, p_{2}, p_{3}\): compute the CDF \(p_{1}, p_{1} + p_{2}, p_{1} + p_{2} + p_{3}\), generate a random number \(u\) between 0 and 1, if \(0 \leq&nbsp; u < p_{1}\), output 1; if \(p_{1} \leq&nbsp; u < p_{1} + p_{2}\), output 2; if \(p_{1} + p_{2} \leq&nbsp; u < p_{1} + p_{2} + p_{3} = 1\), output 3. <br>
+</details>
+<input type="file", id="sentences_input", accept='text/plain'><br><textarea id="sentences"></textarea> <br>
+<span hidden id="answer_5"></span> <br>
+<br>
+<h2>Question 6</h2>
+&bull; [<span id="total_6">2</span> points] Find one interesting sentence that at least contains English words. <br>
+&bull; Answer: <input type="text" id="answer_6" value="" size="20"> <br>
+<br>
+Try if Speech Synthesis can pronounce some of the words: <button id="button_2">Google US</button>, <button id="button_3">Google UK Female</button>, <button id="button_4">Google UK Male</button>, <button id="button_5">Microsoft David</button>, <button id="button_6">Microsoft Mark</button>, <button id="button_7">Microsoft Zira</button>. <br>
+<br>
+<h2>Question 7</h2>
+&bull; [<span id="total_7">5</span> points] Enter likelihood probabilities of the Naive Bayes estimator for my script. (27 numbers, comma separated, rounded to 4 decimal places, Pr{"space" | D = my script}, Pr{"a" | D = my script}, Pr{"b" | D = my script}, ...). The likelihood probabilities for your script should be the same as your answer to Question 2. <br>
+<details>
+<summary>Hint</summary>
+&bull; If there are \(n'\) characters and \(n'_{a}\) "a"s, then the likelihood probability of "a" is \(p'_{a} = \dfrac{n'_{a}}{n'}\). <br>
+</details>
+<input type="file", id="likelihood_input", accept='text/plain'><br><textarea id="likelihood"></textarea> <br>
+<span hidden id="answer_7"></span> <br>
+<br>
+<h2>Question 8</h2>
+&bull; [<span id="total_8">5</span> points] Enter posterior probabilities of the Naive Bayes estimator for my script. (27 numbers, comma separated, rounded to 4 decimal places, Pr{D = my script | "space"}, Pr{D = my script | "a"}, Pr{D = my script | "b"}, ...). <br>
+<details>
+<summary>Hint</summary>
+&bull; Suppose your prior probability that the script is mine is \(p\) (you can find this prior value under "Instruction" (Part 2), it is generated randomly based on your ID), then the posterior probability that the script is mine given there is a character "a" is, <br>
+\(\dfrac{p \cdot&nbsp; p'_{a}}{p \cdot&nbsp; p'_{a} + \left(1 - p\right) \cdot&nbsp; p_{a}}\). <br>
+</details>
+<input type="file", id="posterior_input", accept='text/plain'><br><textarea id="posterior"></textarea> <br>
+<span hidden id="answer_8"></span> <br>
+<br>
+<h2>Question 9</h2>
+&bull; [<span id="total_9">5</span> points] Use the Naive Bayes model to predict which document the 26 sentences your generated in Question 5 came from. Remember to compare the sum of log probabilities instead of the direct product of probabilities. (26 numbers, either 0 or 1, 0 is the label for your script, 1 is the label for mine) <br>
+<details>
+<summary>Hint</summary>
+&bull; Your prediction is supposed to be all 0s, but if there are few 1s, it is okay, but make sure you generated the sentences in Part 1 correctly according to the instruction (especially switching to bigram from trigram when necessary). <br>
+&bull; The log-likelihood that a sentence "abbccc" came from my script is the sum of the log of the posterior probability of each character in the sentence,&nbsp; <br>
+\(\log\left(\mathbb{P}\left\{M | a\right\}\right) + 2 \log\left(\mathbb{P}\left\{M | b\right\}\right) + 3 \log\left(\mathbb{P}\left\{M | c\right\}\right)\), \(M\) is the event "D = my script". <br>
+&bull; The log-likelihood that a sentence "abbccc" came from your script is similar,&nbsp; <br>
+\(\log\left(1 - \mathbb{P}\left\{M | a\right\}\right) + 2 \log\left(1 - \mathbb{P}\left\{M | b\right\}\right) + 3 \log\left(1 - \mathbb{P}\left\{M | c\right\}\right)\), the probability in the log is the probability of the event "D = your script". <br>
+</details>
+<input type="file", id="predictions_input", accept='text/plain'><br><textarea id="predictions"></textarea> <br>
+<span hidden id="answer_9"></span> <br>
+<h2>Question 10</h2>
+&bull; [<span id="total_10">1</span> points] Please enter any comments and suggestions including possible mistakes and bugs with the questions and the auto-grading, and materials relevant to solving the question that you think are not covered well during the lectures. If you have no comments, please enter "None": do not leave it blank. <br>
+&bull; Answer: <textarea id="answer_10" rows="2" cols="20"></textarea>. <br>
+<br>
+<h2>Grade</h2>
+<button id="button_8">Grade</button> <br>
+&nbsp;***** ***** ***** ***** *****&nbsp; <br>
+<span id="comment"></span> <br>
+&nbsp;***** ***** ***** ***** ***** <br>
+<br>
+<h2>Submission</h2>
+<textarea id="output" rows="4" cols="40"></textarea> <br>
+&bull; Please do not modify the content in the above text field: use the "Grade" button to update. <br>
+&bull; Warning: grading may take around 10 to 20 seconds. Please be patient and do not click "Grade" multiple times. <br>
+<form name="submit_form">
+<input type="hidden" id="submit_id" name="id">
+<input type="hidden" id="submit_n" name="n">
+<input type="hidden" id="submit_a1" name="a1">
+<input type="hidden" id="submit_a2" name="a2">
+<input type="hidden" id="submit_a3" name="a3">
+<input type="hidden" id="submit_a4" name="a4">
+<input type="hidden" id="submit_a5" name="a5">
+<input type="hidden" id="submit_a6" name="a6">
+<input type="hidden" id="submit_a7" name="a7">
+<input type="hidden" id="submit_a8" name="a8">
+<input type="hidden" id="submit_a9" name="a9">
+<input type="hidden" id="submit_a10" name="a10">
+<input type="hidden" id="submit_g1" name="g1">
+<input type="hidden" id="submit_g2" name="g2">
+<input type="hidden" id="submit_g3" name="g3">
+<input type="hidden" id="submit_g4" name="g4">
+<input type="hidden" id="submit_g5" name="g5">
+<input type="hidden" id="submit_g6" name="g6">
+<input type="hidden" id="submit_g7" name="g7">
+<input type="hidden" id="submit_g8" name="g8">
+<input type="hidden" id="submit_g9" name="g9">
+<input type="hidden" id="submit_g10" name="g10">
+<input type="hidden" id="submit_g" name="g">
+<input type="checkbox" id="submit_check"> <label for="submit_check">Check the box to confirm submission.</label><br>
+<button type="submit">Submit</button>
+<span id="submit_message"></span>
+</form>
+ <br>
+&bull; You could submit multiple times (but please do not submit too often): only the latest submission will be counted.&nbsp; <br>
+&bull; Please also save the text in the above text box to a file using the button <button id="button_9">Download</button> or copy and paste it into a file yourself <button id="button_10">Copy</button>. <font color="red"> Please submit the resulting file with your code on Canvas Assignment P3</font>. <br>
+&bull; You could load your answers from the text (or txt file) in the text box below using the button <button id="button_11">Load</button>. The first two lines should be "##p: 3" and "##id: your id", and the format of the remaining lines should be "##1: your answer to question 1" newline "##2: your answer to question 2", etc. Please make sure that your answers are loaded correctly before submitting them. <br>
+<input type="file", id="loading_input", accept='text/plain'><br><textarea id="loading"></textarea> <br>
+&bull; Saving and loading may take around 10 to 20 seconds. Please be patient and do not click "Load" multiple times. <br>
+<br>
+<h2>Solutions</h2>
+&bull; The sample solution in Java and Python will be posted around the deadline. You are allowed to copy and use parts of the solution without attribution. You are allowed to use code from other people and from the Internet, but you must give proper attribution at the beginning of the your code. <a href="https://theory.stanford.edu/~aiken/moss/" target="_blank">MOSS</a> will be used for code plagiarism check: blocks of copied code without attribution will result in a zero for the whole assignment. <br>
+&bull; Sample solution from last year: <a href="CS540P3S20E">2020 P3</a>. The homework is slightly different, please use with caution. <br>
+&bull; Sample solution: <br>
+Java: <a href="CS540/P3/P3_public.java">File</a> <br>
+Python: <a href="CS540/P3/P3_public.python">File</a> <br>
+For part 1, the solution does not use Laplace smoothing: you need to modify the formulas computing all probabilities. <br>
+For part 2, the solution assumes the prior is 0.5, so the formula is different. Make sure you change it. <br>
+&bull; You can get help on understanding the algorithm from any of the office hours. To get help with debugging code in Java, please come during the Monday to Friday 2:00 to 3:00 Zoom office hours or Saturday to Sunday 2:00 to 3:00 (I can stay for a few hours after 3:00 by appointment) in-person office hours. To get help with debugging code in Python, please come during the Tuesday 3:00 to 5:00 in-person office hours or the Thursday 3:00 to 5:00 Zoom office hours. You are encouraged to work with other students, but if you use their code, you must give attribution at the beginning of your code. <br>
+<script type="module"> 
+import {enter_button, gen_questions, download_file, read_file, to_speech, grade, submit_file, clipboard, load_ans_page} from "./YJS.js";
+document.getElementById("button_0").onclick = () => gen_questions();
+enter_button("@id", "button_0");
+document.getElementById("button_1").onclick = () => download_file("@script_0", "script");
+document.getElementById("unigram_input").onchange = () => read_file(event, "unigram");
+document.getElementById("bigram_input").onchange = () => read_file(event, "bigram");
+document.getElementById("bigram_smooth_input").onchange = () => read_file(event, "bigram_smooth");
+document.getElementById("sentences_input").onchange = () => read_file(event, "sentences");
+document.getElementById("button_2").onclick = () => to_speech("@answer_6", "1");
+document.getElementById("button_3").onclick = () => to_speech("@answer_6", "2");
+document.getElementById("button_4").onclick = () => to_speech("@answer_6", "3");
+document.getElementById("button_5").onclick = () => to_speech("@answer_6", "19");
+document.getElementById("button_6").onclick = () => to_speech("@answer_6", "20");
+document.getElementById("button_7").onclick = () => to_speech("@answer_6", "21");
+document.getElementById("likelihood_input").onchange = () => read_file(event, "likelihood");
+document.getElementById("posterior_input").onchange = () => read_file(event, "posterior");
+document.getElementById("predictions_input").onchange = () => read_file(event, "predictions");
+document.getElementById("button_8").onclick = () => grade();
+submit_file("submit_form", "https://script.google.com/macros/s/AKfycbzEMQVs77vGDr1PxAnN4kvC0Vi49dVXxKYjhNc6lKnex4HrMPjV/exec", "@submit_message", "@submit_check", "@submit_id");
+document.getElementById("button_9").onclick = () => download_file("@output", "P3");
+document.getElementById("button_10").onclick = () => clipboard("@output");
+document.getElementById("button_11").onclick = () => load_ans_page("@loading");
+document.getElementById("loading_input").onchange = () => read_file(event, "loading");
+</script><br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: July 23, 2021 at 6:08 PM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="CS540S21.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<ul id="primarynavsub">
+<li><a href="CS540S21W1.htm">Week 1 </a></li>
+<li><a href="CS540S21W2.htm">Week 2 </a></li>
+<li><a href="CS540S21W3.htm">Week 3 </a></li>
+<li><a href="CS540S21W5.htm">Week 5 </a></li>
+<li><a href="CS540S21W6.htm">Week 6 </a></li>
+<li><a href="CS540S21W7.htm">Week 7 </a></li>
+</ul>
+<li><a href="CS540S21W4.htm">Midterm </a></li>
+<li><a href="CS540S21W8.htm">Final </a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png">
+</div>
+</body>
+</html>
+

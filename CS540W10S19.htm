@@ -1,0 +1,203 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.06726008354956692" type="model" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style540.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">CS540 Summer 2019</h1>
+</div> 
+<div id="content">
+<a href="CS540W9S19.htm">Prev: W9</a> ; <a href="CS540W11S19.htm">Next: W11</a> <br>
+<br>
+<h2>Lecture Note</h2>
+&bull; Slides <br>
+Lecture 17: <a href="CS540/CS540_Lecture_17_P.pdf">Slides</a>, <a href="CS540/CS540_Lecture_17_C.pdf">With Quiz</a> <br>
+Lecture 18: <a href="CS540/CS540_Lecture_18_P.pdf">Slides</a>, <a href="CS540/CS540_Lecture_18_C.pdf">With Quiz</a> <br>
+Annotated Lecture 17 Section 1: <a href="CS540/CS540_Lecture_17_C1.pdf">Slides</a> <br>
+Annotated Lecture 18 Section 1: <a href="CS540/CS540_Lecture_18_C1.pdf">Slides</a> <br>
+Annotated Week 10 Section 2: <a href="CS540/CS540_Lecture_17_C2.pdf">Part I</a>, <a href="CS540/CS540_Lecture_18_C2.pdf">Part II</a> <br>
+<br>
+&bull; Websites <br>
+Simulated Annealing Map: <a href="https://toddwschneider.com/posts/traveling-salesman-with-simulated-annealing-r-and-shiny/" target="_blank">Link</a> <br>
+SAT Solver: <a href="https://www.comp.nus.edu.sg/~gregory/sat/" target="_blank">Link</a> <br>
+Genetic Walkers: <a href="https://rednuht.org/genetic_walkers/" target="_blank">Link</a> <br>
+Genetic Cars: <a href="https://rednuht.org/genetic_cars_2/" target="_blank">Link</a> <br>
+Genetic Eater: <a href="http://math.hws.edu/eck/jsdemo/jsGeneticAlgorithm.html" target="_blank">Link</a> <br>
+Genetic Image: <a href="https://chriscummins.cc/s/genetics/#" target="_blank">Link</a> <br>
+<br>
+&bull; YouTube Video <br>
+How to find reproduction probabilities? <a href="https://youtu.be/lKgyzrLE8dw" target="_blank">Link</a> <br>
+How to solve the lions game? <a href="https://youtu.be/ad6r1cDTl3o" target="_blank">Link</a> <br>
+How to solve the pirate game? <a href="https://youtu.be/UlTnXgCIBH0" target="_blank">Link</a> <br>
+How to solve the wage competition game (sequential version)? <a href="https://youtu.be/aPkPmmnAo2E" target="_blank">Link</a> <br>
+<br>
+<h2>Written (Math) Problems</h2>
+Submit on Canvas: <a href="CS540/CS540_M10.pdf">PDF</a> <br>
+Submit to M10 due August 5. <br>
+<br>
+<h2>Programming Problem</h2>
+&bull; Short Instruction <br>
+(1) Play <a href="https://flappybird.io/" target="_blank">Flappy Bird</a> to get an idea of the rule of the game. To simplify the problem, assume on a discrete timeline, at each time t = 1, 2, 3, ... there could be a mouse click to increase the position of the bird by x = 2, or the position of the bird will decrease by y = 1 otherwise. (Update: you can use different x and y values if it is easier to solve). The position of the bird starts with 5 and is an integer between 0 and 10. The game is over if the bird flies to a position above 10 or below 0 or it hits a pipe. The score is amount of the time it flies (NOT the number of pipes it passes). <br>
+(2) Given random test games based on your ID. The 100 numbers represent the height of the lower pipe (0 means no pipe). The distance between the upper and lower pipes is always 2. All heights are between 1 and 7. Use genetic algorithm with a population of 100 birds to estimate the highest possible point for 5 different random games. Use both cross over and mutation. <br>
+Type in your ID: <input type="text", id="id"> <button onclick="pipe()">GO</button><br>
+x = <input type="text", id="xx", value="0.5", size = "5">, y = <input type="text", id="yy", value="0.25", size = "5"><br>
+Input the game: <input type="text", id="pipe", value=""> <button onclick="clearr()">Clear</button><button onclick="empty()">No Pipe</button><br>
+Input the sequence of actions (binary 1's and 0's, nothing in between, comma separated for multiple birds): <input type="text", id="bird", value=""><button onclick="clean()">Clear</button> <button onclick="random()">Random</button> <button onclick="draw()">GO</button><br>
+<canvas id="canvas" width="1000" height="500" style="border:1px solid #000000;"></canvas><br>
+<script>
+function empty() <br>
+{ <br>
+&nbsp; let pipe = ""; <br>
+&nbsp; for (let i = 0; i < 100; i ++) pipe += "0"; <br>
+&nbsp; document.getElementById("pipe").value = pipe; <br>
+&nbsp; draw(); <br>
+} <br>
+function pipe() <br>
+{ <br>
+&nbsp; let pipe = ""; <br>
+&nbsp; let prev = 4; <br>
+&nbsp; for (let i = 0; i < 100; i ++) <br>
+&nbsp; { <br>
+&nbsp;&nbsp;&nbsp; prev += Math.floor(Math.random() * 3) - 1; <br>
+&nbsp;&nbsp;&nbsp; prev = Math.max(Math.min(prev, 7), 1); <br>
+&nbsp;&nbsp;&nbsp; if (Math.random() < i / 300.0) pipe += "" + prev; <br>
+&nbsp;&nbsp;&nbsp; else pipe += "0"; <br>
+&nbsp; } <br>
+&nbsp; document.getElementById("pipe").value = pipe; <br>
+&nbsp; draw(); <br>
+} <br>
+function clearr() <br>
+{ <br>
+&nbsp; document.getElementById("pipe").value = ""; <br>
+} <br>
+function clean() <br>
+{ <br>
+&nbsp; document.getElementById("bird").value = ""; <br>
+} <br>
+function random() <br>
+{ <br>
+&nbsp; bird = ""; <br>
+&nbsp; for (let i = 0; i < 10; i ++) <br>
+&nbsp; { <br>
+&nbsp;&nbsp;&nbsp; for (let j = 0; j < 100; j ++) <br>
+&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (Math.random() < 2.0 / 3.0) bird += "0"; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else bird += "1"; <br>
+&nbsp;&nbsp;&nbsp; } <br>
+&nbsp;&nbsp;&nbsp; bird += ","; <br>
+&nbsp; } <br>
+&nbsp; document.getElementById("bird").value = bird; <br>
+&nbsp; draw(); <br>
+} <br>
+function draw() <br>
+{ <br>
+&nbsp; let canvas = document.getElementById("canvas"); <br>
+&nbsp; let context = canvas.getContext("2d"); <br>
+&nbsp; let pipe = document.getElementById("pipe").value.trim(); <br>
+&nbsp; let birds = document.getElementById("bird").value.split(","); <br>
+&nbsp; let fly = Math.abs(document.getElementById("xx").value); <br>
+&nbsp; let gravity = -Math.abs(document.getElementById("yy").value); <br>
+&nbsp; let totalw = canvas.width; <br>
+&nbsp; let totalh = canvas.height; <br>
+&nbsp; let dw = Math.floor(totalw / pipe.length); <br>
+&nbsp; let dh = Math.floor(totalh / 10); <br>
+&nbsp; let gap = 2; <br>
+&nbsp; context.clearRect(0, 0, totalw, totalh); <br>
+&nbsp; context.fillStyle = "green"; <br>
+&nbsp; for (let i = 0; i < pipe.length; i ++) <br>
+&nbsp; { <br>
+&nbsp;&nbsp;&nbsp; let c = parseInt("" + pipe.charAt(i)); <br>
+&nbsp;&nbsp;&nbsp; if (c > 0) <br>
+&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context.fillRect(dw * i, 0, dw, (totalh / dh - c - 2) * dh); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context.fillRect(dw * i, totalh, dw, -c * dh); <br>
+&nbsp;&nbsp;&nbsp; } <br>
+&nbsp; } <br>
+&nbsp; context.fillStyle = "black"; <br>
+&nbsp; for (let j = 0; j < birds.length; j ++) <br>
+&nbsp; { <br>
+&nbsp;&nbsp;&nbsp; let x = 5; <br>
+&nbsp;&nbsp;&nbsp; let alive = 1; <br>
+&nbsp;&nbsp;&nbsp; context.beginPath(); <br>
+&nbsp;&nbsp;&nbsp; context.moveTo(-0.5 * dw, x * dh); <br>
+&nbsp;&nbsp;&nbsp; for (let k = 0; k < birds[j].length && alive == 1; k ++) <br>
+&nbsp;&nbsp;&nbsp; { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (birds[j].charAt(k) == '1') x += fly; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else x += gravity; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (x < 0 || x > 10) alive = 0; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (k >= pipe.length - 1) c = 0; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else c = parseInt("" + pipe.charAt(k + 1)); <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (c != 0 && (x < c || x > c + 2)) alive = 0; <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; context.lineTo((k + 0.5) * dw, (10 - x) * dh); <br>
+&nbsp;&nbsp;&nbsp; } <br>
+&nbsp;&nbsp;&nbsp; context.stroke(); <br>
+&nbsp; } <br>
+} <br>
+window.onload = function() {empty(); random(); draw();}; <br>
+</script>
+<br>
+&bull; Files to submit <br>
+(1) <u><b>output.txt</u></b> contains five lines. Each line contains 100 integers, comma separated, representing the scores of each bird in the population. <br>
+(2) <u><b>population.txt</u></b> contains 101 lines, the first line is the heights of the pipes, and the remaining 100 lines represent the sequence of actions of each individual bird for one of the games. Each line contains a string of length 100 (or 99) of zeros and ones, (zero means no mouse click). No commas. You can also submit <u><b>population.png</u></b> showing the pipes and the paths of the 100 birds. <br>
+(3) <u><b>comments.txt</b></u> contains information on how to run your program, in particular, the names of the data files are required. <br>
+(4) code. <br>
+<br>
+&bull; Things to try <br>
+(1) Try different schemes of mutation and compare the results. <br>
+(2) Try different schemes of cross over and compare the results. <br>
+<br>
+More (nonessential) details and hints: <a href="CS540/CS540_P10.pdf">PDF</a>. <br>
+<br>
+&bull; TAs' Solution <br>
+(1) Java: <a href="https://git.doit.wisc.edu/AINABEKOVA/cs-540-summer2019/tree/master/HW10" target="_blank">Link</a> written by Ainur <br>
+(2) Python: <a href="https://git.doit.wisc.edu/SONGDECHAKRA/CS540-SU19" target="_blank">Link</a> written by Tan <br>
+Important note: You are not allowed to copy any code from the solution. The deadline for resubmission without 50 percent penalty is August 18. <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: November 10, 2019 at 9:40 PM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="CS540S19.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<ul id="primarynavsub">
+<li><a href="CS540W1S19.htm">Week 1 </a></li>
+<li><a href="CS540W2S19.htm">Week 2 </a></li>
+<li><a href="CS540W3S19.htm">Week 3 </a></li>
+<li><a href="CS540W4S19.htm">Week 4 </a></li>
+<li><a href="CS540W5S19.htm">Week 5 </a></li>
+<li><a href="CS540W6S19.htm">Week 6 </a></li>
+<li><a href="CS540W7S19.htm">Week 7 </a></li>
+<li><a href="CS540W9S19.htm">Week 9 </a></li>
+<li><a href="CS540W10S19.htm">Week 10 </a></li>
+<li><a href="CS540W11S19.htm">Week 11 </a></li>
+<li><a href="CS540W12S19.htm">Week 12 </a></li>
+</ul>
+<li><a href="CS540W8S19.htm">Midterm </a></li>
+<li><a href="CS540W13S19.htm">Final </a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png">
+</div>
+</body>
+</html>

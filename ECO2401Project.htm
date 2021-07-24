@@ -1,0 +1,103 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-34711826-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<script src="YJS.js?0.5738487805162731" type="model" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js"></script>
+<script src="https://unpkg.com/mathjs@6.1.0/dist/math.min.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<title>Young Wu's Homepage</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body>
+<div id="masthead">
+<h1 id="siteName">Young Wu's Homepage</h1>
+</div> 
+<div id="content">
+<div id="breadCrumb">
+<a href="index.htm">Home</a>
+ | <a href=ECO2401Project.htm>ECO2401Project </a>
+</div> <br>
+<h2>ECO2401 Term Project</h2>
+<br>
+&bull; ) The whole project in a zip file: <a href="https://www.dropbox.com/s/27v59w1epg6aeu8/ECO2401_Term_Project_Young_Wu.zip" target="_blank">Dropbox link</a> <br>
+<br>
+&bull; ) The write-up : <a href="project/2401/ECO2401_Term_Project_Young_Wu.pdf">ECO2401_Term_Project_Young_Wu.pdf</a> <br>
+<br>
+&bull; ) Fortran codes:&nbsp; <br>
+<a href="project/estimation.f90">estimation.f90</a> : Estimation of parameter for coordination games ; <br>
+<a href="project/test.f90">test.f90</a> : Generate test statistic for test of equilibrium belief ;&nbsp; <br>
+<a href="project/power.f90">power.f90</a> : Generate power of the test as a function of the parameters ;&nbsp; <br>
+<a href="project/logit.f90">logit.f90</a> : Useful functions for Logit MLE, matrix inversion, element-wise matrix operation, etc <br>
+<br>
+&bull; ) R script: <a href="project/2401/R_script.txt">R_script.txt</a> : to generate the plots given the output files <br>
+<br>
+&bull; ) Outputs: <br>
+<a href="project/2401/u0_size_power.txt">u0_size_power.txt</a> : Power of the test as a function of u0 (column 1 - value of u0 ; column 2 - size of test ; column 3 - power of test) <br>
+<a href="project/2401/utilda_size_power.txt">utilda_size_power.txt</a> : Power of the test as a function of utilda (column 1 - value of utilda ; column 2 - size of test ; column 3 - power of test) <br>
+<a href="project/2401/theta_size_power.txt">theta_size_power.txt</a> : Power of the test as a function of theta (column 1 - value of theta ; column 2 - size of test ; column 3 - power of test) <br>
+<br>
+<a href="project/2401/chi_sq.txt">chi_sq.txt</a> : Chi-squared test statistic (column 1 - with equilibrium belief ; column 2 - with beliefs not in equilibrium) <br>
+<br>
+<a href="project/2401/estbelief_er.txt">estbelief_er.txt</a> : Estimation of beliefs imposing ERs at every Z <br>
+<a href="project/2401/estbelief_noer.txt">estbelief_noer.txt</a> : Estimation of beliefs imposing ERs only at the extremes <br>
+<a href="project/2401/estparam_er.txt">estparam_er.txt</a> : Estimation of parameters imposing ERs at every Z <br>
+<a href="project/2401/estparam_noer.txt">estparam_noer.txt</a> : Estimation of parameters imposing ERs only at the extremes <br>
+<br>
+&bull; ) Plots: <br>
+Main results: <br>
+<img src="project/2401/u0.png" alt="Power of the test as a function of u0"> <br>
+<img src="project/2401/u0_smooth.png" alt="Power of the test as a function of u0"> <br>
+<img src="project/2401/utilda.png" alt="Power of the test as a function of utilda"> <br>
+<img src="project/2401/utilda_smooth.png" alt="Power of the test as a function of utilda"> <br>
+<img src="project/2401/theta.png" alt="Power of the test as a function of theta"> <br>
+<img src="project/2401/theta_smooth.png" alt="Power of the test as a function of theta"> <br>
+<br>
+Estimation: <br>
+<img src="project/2401/estparam_er_u0.png" alt="Estimation for u0"> <br>
+<img src="project/2401/estparam_noer_u0.png" alt="Estimation for u0"> <br>
+<img src="project/2401/estparam_er_utilda.png" alt="Estimation for utilda"> <br>
+<img src="project/2401/estparam_noer_utila.png" alt="Estimation for utilda"> <br>
+<br>
+Test statistic: <br>
+<img src="project/2401/chi_sq_eq.png" alt="Chi Squared test statistic with equilibrium beliefs"> <br>
+<img src="project/2401/chi_sq_noeq.png" alt="Chi Squared test statistic with no equilibrium beliefs"> <br>
+<br>
+&bull; ) Reference: <a href="http://individual.utoronto.ca/vaguirre/" target="_blank">Dr. Victor Aguirregabiria's Website</a> (includes his original paper and code) <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<font color="grey" size = 2> Last Updated: February 28, 2019 at 3:43 PM</font><br>
+<br>
+</div>
+<div id="primarynavarea">
+<ul id="primarynav">
+<li><a href="index.htm"><span class="secondcolor"><strong>Home</strong></span></a></li>
+<li><a href="Research.htm">Research </a></li>
+<li><a href="CV.htm">CV </a></li>
+<li><a href="Teaching.htm">Teaching</a></li>
+<ul id="primarynavsub">
+<li><a href="CS540.htm">CS 540 Artificial Intelligence </a></li>
+<li><a href="ECO206.htm">ECO 206 Game Theory </a></li>
+<li><a href="Teaching.htm">as Teaching Assistant </a></li>
+</ul>
+<li><a href="Timetable.htm">Timetable</a></li>
+<li><a href="Bookmark.htm">Bookmark</a></li>
+</ul>
+</div>
+<div id="siteInfo">&nbsp;<img style="width: 191px; height: 65px;" alt="" src="image003.png"> 2010 layout design created by <a href="http://www.math.uwaterloo.ca/%7Efpoulin/">Francis Poulin </a><img style="width: 65px; height: 65px;" src="image004.jpg"><img style="width: 65px; height: 65px;" alt="" src="image002.png">
+</div>
+</body>
+</html>
