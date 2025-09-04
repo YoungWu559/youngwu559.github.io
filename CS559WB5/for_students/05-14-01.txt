@@ -1,0 +1,41 @@
+Please indicate the features you have implemented here by putting an "x" (i.e. "[x]") and a brief explanation of what the graders need to do to see it:
+
+Version 3
+
+# Features:
+[x] Simple cardinal spline track: No explaination needed
+[x] Train goes around the track: No explaination needed
+[x] Interface still works: No explaination needed
+[x] Train has a front: The front car of the train has a direction
+[x] Train points in the right direction: No explaination needed
+[x] Track that shows off arc length: Default track has longer segments and shorter segments. Train is clearly faster on longer segments
+[x] Edit the text file to explain features: No explaination needed
+[x] Arc-length parameterization: Click on 'arc-length' checkbox
+[x] Rail ties perpendicular: Shown when the track isn't simple (this is default)
+[x] Rail ties correctly spaced: Shown when the track isn't simple (this is default)
+[x] Parallel rails: Shown when the track isn't simple (this is default)
+[x] Multiple cars: There is a slider to adjust number of cars (6 by default)
+[x] Trucked wheels: Click on 'Trucked Wheels' checkbox (this is default). Easier to see when simple train and simple tracks turned on.
+[x] Slider to control tension: Slider right below time slider
+[x] Switchable B-Splines: Click on 'BSpline' checkbox
+[x] Smoke: No explaination needed
+[x] Scenery: No explaination needed
+[x] Scenery adapts to track: Trees disappear when track is there and bridge appears over water under track
+
+Artistic merit points are at the discretion of the grader.
+
+Note: please refer to the workbook instructions and rubrics for the detailed requirements.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

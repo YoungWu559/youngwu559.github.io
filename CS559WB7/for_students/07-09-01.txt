@@ -1,0 +1,43 @@
+Please indicate the features you have implemented here by putting an "x" (i.e. "[x]") and a brief explanation of what the graders need to do to see it:
+
+# Basic features:
+[x] equipment 1 is identifiable (can tell what it is): wrecking ball made by Kevin Wilson
+[x] equipment 2 is identifiable: forklift made by Gia-Phong Nguyen
+[x] equipment 1 has correct articulation: 5 degrees of freedom
+[x] equipment 2 has correct articulation: 3 degrees of freedom
+[x] UI works for 1&2: yes
+
+# Bonus features:
+[x] third machine identifiable with working articulation: robotic arm
+[x] nice shapes: wrecking ball made by Kevin Wilson
+[x] good use of colors/materials: wrecking ball made by Kevin Wilson
+[x] more than the minimum degrees of freedom on the objects: robotic arm
+[x] at least one object has 4+ d.o.f. (beyond position/orientation): robotic arm with 5 degrees of freedom
+[x] other coolness (describe below): robotic arm default configurations
+    [something else you did that was cool]
+
+Artistic merit points are at the discretion of the grader.
+
+Note: please refer to the workbook instructions and rubrics for the detailed requirements.
+
+# External files:
+
+If you have loaded any geometry from OBJ files, use the space below to credit your source for each file. Be sure to include a confirmation that you are permitted to use this asset (e.g., it is released under a Creative Commons license).
+
+You can follow this format, or something similar:
+
+None of the objects are loaded from an obj file.
+
+- an-example-file.obj
+  - source: https://graphics.cs.wisc.edu/Courses/559-sp2021/
+  - author: username123
+  - license: CC BY 2.0
+
+
+
+
+
+
+
+
+

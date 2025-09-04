@@ -1,0 +1,7 @@
+context.translate(2,3);
+context.rotate(Math.PI / 2);
+
+is equivalent to:
+
+context.rotate(Math.PI / 2);
+context.translate(3,-2);

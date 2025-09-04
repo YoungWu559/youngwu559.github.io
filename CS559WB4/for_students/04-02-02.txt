@@ -1,0 +1,4 @@
+Provide the matrix for a rotation by 90 degrees:
+
+     cos(pi/2)  -sin(pi/2)    =   0  -1
+     sin(pi/2)  cos(pi/2)         1   0

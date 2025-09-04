@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 8: Snowman</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><h2 id="box-1-exercise-4-make-a-snowman-using-three">Box 1: Exercise 4, Make a snowman using THREE!</h2>
+<p>You should make the snowman using THREE primitives. You can use <a href="https://threejs.org/docs/api/en/geometries/SphereGeometry.html" target="_blank">spheres</a> for the snowballs (the main parts of the body), a <a href="https://threejs.org/docs/#api/en/geometries/ConeGeometry" target="_blank">cone</a> to make a carrot nose, a cylinder and a ring to make a top hat, etc.</p>
+<p>You&rsquo;ll need to make primitives (Spheres, Cones, &hellip;) and use their transformations (position, scale, rotation) to assemble the snowman.</p>
+<p>You can use simple materials of different colors (e.g., <a href="https://threejs.org/docs/#api/en/materials/MeshPhongMaterial" target="_blank">MeshPhongMaterial</a> or <a href="https://threejs.org/docs/#api/en/materials/MeshStandardMaterial" target="_blank">MeshStandardMaterial</a>). A white standard material won&rsquo;t look like snow, but it will be good enough for this assignment. Our goal is that you know how to apply materials to get different colors, not necessarily to make materials to get special effects (like snow).</p>
+<p>The main point of the assignment is create a specific shape using THREE primitives.</p>
+<p>At a minimum, your snowman must have a body, a head, eyes, and a nose. We were thinking of the &ldquo;classic three-ball snowman&rdquo; (see the <a href="https://en.wikipedia.org/wiki/Snowman" target="_blank">Wikipedia Page</a>, for example), which gives enough parts (3 sections of the body, eyes, a nose, a mouth). You can add the hat and corncob pipe too. If you want to be more creative, make a regular snowman first, and then put another one next to it.</p>
+<p>You do not need to animate your snowman. But you can get advanced points for something animated, such as having stick arms that wave.</p>
+<p>Please put in a piece of ground (it can be a flat box) that the snowman stands on.</p>
+<p>We&rsquo;ve given you a start in 
+    <a href="../../for_students/06-08-01.js" class="for_students">06-08-01.js</a> (
+    <a href="../../for_students/06-08-01.html" class="for_students">06-08-01.html</a>) where you should put your drawing code.</p>
+<p>Here&rsquo;s is a place to put the snowman. We have already loaded THREE and OrbitControls. Please add OrbitControls to your picture. Note: we haven&rsquo;t given you much in this file. It&rsquo;s up to you to make the lights, camera, objects, etc. We just took care of the renderer.</p>
+<p>Note: There is a second programming assignment on <a href="../../docs/9/">Page9</a>. We&rsquo;ve re-stated the ground rules for both programming assignments after the picture.</p>
+<iframe
+    title="06-08-01"
+    src="../../for_students/06-08-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<h2 id="ground-rules-for-workbook-6">Ground Rules for Workbook 6</h2>
+<p>For the programming assignment, we are going to ask you to make some pictures by writing programs that use THREE. We want you to focus on using the parts that we&rsquo;ve discussed, not trying to show off that you can figure out the fancier features on your own.</p>
+<p>You must:</p>
+<ul>
+<li>Use one material per primitive object.</li>
+<li>Use solid colors (no textures).</li>
+<li>Use only built-in shapes (do not make your own meshes).</li>
+<li>Do not use reflections.</li>
+<li>You do not need to add shadows (but you can keep the ones we have in the starter code)</li>
+<li>Do not add other object models (although, you can use the sample ones we provided).</li>
+<li>Do not make your own new kinds of materials (by writing shaders).</li>
+</ul>
+<p>You&rsquo;ll get to do all of these things later in the class. For now, you can be creative and make sure you understand how to put together the basic pieces.</p>
+<p><a href="../../docs/9/" class="Next__Page">Next: Space-Age Sculpture Museum </a></p>
+
+            
+
+
+        
+        
+        
+        
+        
+        
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Page 8 Rubric (21 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (16):</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Visible Objects (requires lights, camera, at least some shapes)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Different materials used (everything isn&#39;t the same color</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">There is a ground, Snowman on ground</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Snowman Body as 3 stacked spheres</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Snowman Face (eyes, nose, mouth</div>
+            <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (5) 
+                 (maximum 7 can be earned in this workbook):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-08-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">Animated snowman</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-08-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">Second, creative snowman</div></div>
+    </details>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 6: 3D and Three</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 6 - 3D and THREE)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: The THREE.js library </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Elements of 3D Graphics Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Making a Scene </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Primitive Objects and Basic Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Lights, Camera, Action! </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Materials </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Animation and THREE </a></li>
+        <li class="Side__Item Side__Selected"> 8: Snowman </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Space-Age Sculpture Museum </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

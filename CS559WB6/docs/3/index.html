@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 3: Making a Scene</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>On this page, we&rsquo;ll connect some of the very most basic things in graphics to their concepts in THREE.</p>
+<h2 id="threes-coordinate-system">THREE&rsquo;s coordinate system</h2>
+<p>THREE is a scene graph API where we place graphics objects into the world, and then have it draw that world.</p>
+<p>THREE uses a right-handed coordinate system. For us, we&rsquo;ll always think about y going up, so that the &ldquo;ground&rdquo; is the x z plane.</p>
+<p>This &ldquo;y-up&rdquo; model also is how we&rsquo;ll view the screen. You can think of the screen as a box. The x-axis goes to the right. The y-axis goes up (so it&rsquo;s like in math class, not like 2D Canvas). Because we do right handed coordinates, the z-axis comes out of the screen.</p>
+<p>THREE&rsquo;s world is pretty arbitrary: we can put objects wherever we want. There is an origin (0,0,0) where objects get placed by default. But we can position things anywhere we like. Similarly, the size of things (the units of the axes) are up to us.</p>
+<p>THREE lets us do whatever we want - the &ldquo;world coordinates&rdquo; are up to us. We just need to provide the transformation between world and screen. This is what the camera does.</p>
+<h2 id="box-1-the-basic-abstractions">Box 1: The Basic Abstractions</h2>
+<p>In order to work with THREE, we need to work with a few kinds of objects:</p>
+<ul>
+<li><code>Renderer</code> - this is the connection to an image that we draw into (like the rectangle on the web page as a DOM element). We will generally use the <a href="https://threejs.org/docs/index.html#api/en/renderers/WebGLRenderer" target="_blank">WebGLRenderer</a> since it uses the built in browser drawing functionality. We usually let the <code>Renderer</code> create the Canvas in the browser because it will set it up correctly.</li>
+<li><code>Scene</code> - this is the object that stores the world. It is little more than a list of objects (which themselves can have a list of objects, in order to make hierarchies).</li>
+<li><code>Camera</code> - this is the transformation from the world to the image (where the image is the rectangle in a <code>Renderer</code>).</li>
+<li><code>Geometry</code> - this is a collection of triangles, usually held in a special format so it can be drawn efficiently.</li>
+<li><code>Material</code> - this is an object that describes how an object looks, including how it interacts with lights.</li>
+<li><code>Object3D</code> - these are the objects in the world. Both the regular objects that we see but also the lights and cameras.</li>
+<li><code>Mesh</code> - is a specific kind of <code>Object3D</code> that turns a <code>Geometry</code> (a collection of triangles) into something we can place in the world.</li>
+<li><code>Light</code> - is a special kind of <code>Object3D</code> that we generally do not see directly, but that instead is used by materials to determine how much light they are receiving (and therefore how they look).</li>
+</ul>
+<p>In our programs, we can use as many or as few of these as we want. Here is an example of a scene that has a ground plane (gray square - it actually is a box, just very thin), a few cubes, and a few lights. We will make two pictures of this one world. The code is in 
+    <a href="../../for_students/06-03-01.js" class="for_students">06-03-01.js</a> (
+    <a href="../../for_students/06-03-01.html" class="for_students">06-03-01.html</a>). You probably want to read along.</p>
+
+<h3>06-03-01</h3><iframe
+    title=""
+    src="../../for_students/06-03-01.html"
+    js = "/for_students/06-03-01.js"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>On the left you see a scene with the ground and the three cubes. We also put in an <a href="https://threejs.org/docs/#api/en/helpers/AxesHelper" target="_blank">AxesHelper</a> so that you can see what the coordinate system is (we&rsquo;ve left the <code>AxesHelper</code> at the origin, so this represents the &ldquo;world&rdquo; coordinates). Just as in class, red = x, green = y, blue = z. Since the axes are there, you can tell that the camera is placed above the ground, and some distance along the X and Z axes. The little orange stuff in the upper right is an artifact of the &ldquo;camera helper&rdquo; that we&rsquo;ll discuss in a moment.</p>
+<p>On the right, you can see a second picture of the same scene taken with a different camera. This camera is a bit farther away so you can actually see where the first camera is. Normally, we don&rsquo;t see cameras. But we&rsquo;ve added a <a href="https://threejs.org/docs/#api/en/helpers/CameraHelper" target="_blank">CameraHelper</a> object to the scene that is attached to the first camera and will draw the red and orange lines so we can see where the camera is. The orange stuff in the first image is the first camera basically looking at itself. We&rsquo;ve also added a <code>LightHelper</code> so you can see where the light source is.</p>
+<p>There are some things to notice in this example:</p>
+<ol>
+<li>We used all of the key abstractions of THREE: Renderer, Scene, Geometry, Material, Object3D (Mesh), Camera, and Light. But we were able to make a picture without having to understand the details of how things work.</li>
+<li>We made one world, and then used multiple cameras to take pictures of it.</li>
+<li>We made one box geometry (a cube) and created multiple meshes from it. (There was a second box geometry for the ground plane.)</li>
+<li>We used position and scaling to perform transformations to put the objects into the scene.</li>
+<li>We had to make a separate renderer for each Canvas (rectangular area) on the screen. Each one gets drawn separately (with its own <code>render</code> call).</li>
+<li>We can use helpers to help us see lights and cameras.</li>
+<li>We work in the world coordinate system. The center of the world is at 0,0,0. We position objects relative to that, and as big as we want. To make the correct things show up, we need to position the camera appropriately.</li>
+</ol>
+<p>In this workbook we&rsquo;ll focus on understanding how to use these pieces to make pictures and animations. And then in the future, we&rsquo;ll start to understand how they work.</p>
+<h2 id="reading">Reading</h2>
+<p>Now might be a good time to read the first parts of <a href="https://canvas.wisc.edu/files/30140487/download?download_frd=1">Chapter 6 of Hart&#39;s Big Fun Book of Computer Graphics</a>. This Chapter mixes in many different, but important things, including a review of the vector algebra basics. Sections 6.4-6.6 discuss rotations, which we will talk a lot more about later. The section on Gramm-Schmidt Orthonormalization is useful, but a more advanced topic and is optional.</p>
+<h2 id="summary-the-basic-abstractions">Summary: The Basic Abstractions</h2>
+<p>In the THREE API, we have objects that correspond to the basic abstractions in computer graphics. We create a world (with a right-handed coordinate system) and place objects into it. We give them surface properties (to determine how they look), and put lights in. Then we place cameras that take pictures of the world.</p>
+<p>On the <a href="../../docs/4/">Page &nbsp;4&nbsp; (Primitive Objects and Basic Transformations)</a>, we&rsquo;ll learn more <code>Object3D</code> objects and how they are transformed.</p>
+<p><a href="../../docs/4/" class="Next__Page">Next: Primitive Objects and Basic Transformations </a></p>
+
+            
+
+<div>
+        <i>There are no points associated with this page.</i>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 6: 3D and Three</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 6 - 3D and THREE)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: The THREE.js library </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Elements of 3D Graphics Programming </a></li>
+        <li class="Side__Item Side__Selected"> 3: Making a Scene </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Primitive Objects and Basic Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Lights, Camera, Action! </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Materials </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Animation and THREE </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Snowman </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Space-Age Sculpture Museum </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

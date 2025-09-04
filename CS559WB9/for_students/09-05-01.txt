@@ -1,0 +1,10 @@
+Explain why the object you chose is a good use case for environment mapping.
+
+The small sphere comes close to being the idea shape for an environment map: the reflection direction does primarily come from the normal direction - so the fact that we pretend everything is from the center is OK.
+
+The cube is actually not a great example. Because the normals on a face all face the same direction, they might normally all access the same part of environment map - except for the difference in the points relative to the camera (which causes the reflection direction to change). The cube reflects something (and looks cool) - but it doesn't actually reflect the correct part of the environment. (to be clear, the sphere is only an "accurate" reflection if it was placed at the center).
+
+
+Explain where you got your textures and include any attributions here.
+
+The machine shop environment map on page 4/5 comes from the HRDI heaven web site https://polyhaven.com/a/machine_shop_02 (note: the old "hdri haven" now is part of polyhaven - I had gotten things from hdri haven). The texture is CC0

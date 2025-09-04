@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 5: Lots of Flying Objects</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>This page and its exercise and advanced problems are more about graphics programming than fundamental graphics concepts.</p>
+<p>Basically, the methods you&rsquo;re going to experiment with have a bunch of simple objects that each make individual &ldquo;steering&rdquo; decisions, and maintain their speeds. This is sometimes referred to as &ldquo;flocking.&rdquo; The first person to really write about it in the graphics literature was <a href="http://www.red3d.com/cwr/" target="_blank">Craig Reynolds</a> who not only wrote the original <a href="https://dl.acm.org/citation.cfm?id=37406" target="_blank">flocking paper</a>, but also maintains a good <a href="http://www.red3d.com/cwr/boids/" target="_blank">page</a> with information about it. The &ldquo;creatures&rdquo; that flock are sometimes referred to as &ldquo;boids&rdquo; since they aren&rsquo;t always birds (sometimes they are fish, or pedestrians, or &hellip;).</p>
+<p>Boids are a fun programming project, and thus there are a number of implementations on the web. If you want, check out this pretty <a href="https://hughsk.io/boids/" target="_blank">Online Boids Demo</a> or this fun <a href="https://www.youtube.com/watch?v=bqtqltqcQhw&amp;" target="_blank">YouTube video by Sebastian Lague</a>.</p>
+<p>See also <a href="https://cs559.github.io/2008Boids/" target="_blank">2008 Boids Demo</a> for a more interactive demo. You can see the source code, but it&rsquo;s so archaic that it probably won&rsquo;t help you - we don&rsquo;t recommend looking at it.</p>
+<p>Creating flocking was a project in the old games class. Some of those old 2010 projects still run (the joy of web programming!)</p>
+<ul>
+<li><a href="http://graphics.cs.wisc.edu/Courses/Games10/proj1/RaeShei/" target="_blank">Ian and Irene&#39;s Asteroids Game</a></li>
+<li><a href="http://graphics.cs.wisc.edu/Courses/Games10/proj1/HugoMills/" target="_blank">Jeff and Chris&#39; Sheep Herder Game</a></li>
+</ul>
+<p>Those projects were multi-week things, with pairs of students. This assignment has lower ambitions. But, if you want to learn more about flocking, it can be fun.</p>
+<h2 id="flying-boids">Flying Boids</h2>
+<p>As an initial step, we&rsquo;ll keep a collection of objects. Each one has a position, and a velocity. Unlike in previous workbooks, we will create this using an actual JavaScript class. The code is in 
+    <a href="../../for_students/04-05-01.js" class="for_students">04-05-01.js</a> - you will do this exercise by changing this file (and possibly 
+    <a href="../../for_students/04-05-01.html" class="for_students">04-05-01.html</a>). We will provide you with some help understanding the JavaScript objects - see <a href="https://cs559.github.io/559Tutorials/javascript/oop-in-js-1/" target="_blank">Traditional Object Oriented Programming in JavaScript</a>.</p>
+<p>Throughout this assignment, we&rsquo;ll maintain that each object (1) stays within the Canvas, and (2) has a constant speed (the magnitude of the velocity vector should remain constant). We&rsquo;ll do this by making the velocity vector always be a unit vector. Note: the real speed of movement will depend on the browser&rsquo;s redraw speed, so it might not actually be constant. It should be close enough.</p>
+<p>Right now, this is really simple. The initial boids just fly straight and wrap around. But you can make it cooler.</p>
+<p>These changes are for &ldquo;basic points&rdquo; - we recommend that you do them order as they are designed to help you learn the code. The rubric (bottom of the page) tells you how many points each is worth.</p>
+<ol>
+<li>Change the &ldquo;Add&rdquo; button so that when it is clicked, 10 new boids are placed at random locations with random directions. Remember, the velocity vectors must have unit magnitude.</li>
+<li>Change the &ldquo;Clear&rdquo; button so that when it is clicked, all the boids are removed. This will be useful for starting over.</li>
+<li>Change things so that the boids are not drawn just as circles or squares. The objects should point in the direction they are going. You could add a marker to the circles, or change the shape to a triangle (that points in the direction of the velocity), or something fancier.</li>
+<li>Right now, the objects &ldquo;wrap around&rdquo; when they hit the edge. Change it so they &ldquo;bounce&rdquo; off the edge instead. So, for example, when an object hits the right edge, its velocity changes to that its moving to the left instead. If it hits a side wall, only the horizontal component of the velocity needs to change. Hint: while technically the &ldquo;collision&rdquo; happens in the middle of the step, it is OK to treat it as if it happens at the beginning of the step. That is, you can check if a Boid would go off the screen in the next step and change it&rsquo;s direction before it takes that step. And if a Boid does go off screen, you can move it back to the edge and change its direction.</li>
+<li>After a boid hits something, it changes color briefly. For example, it turns red after hitting something. They should stay the &ldquo;alternate&rdquo; color for a few frames. One type of collision is when they hit a wall. You also get points for having them change color when they hit another boid. For checking collisions between boids, it is OK to treat the boids as small circles or squares - rather than checking for collisions between complex shapes (which is much harder).</li>
+</ol>
+<p>The remaining features are for advanced points. Implement as many (or as few as you like). Only 8 points will count for this exercise. See the rubric for the number of points for each item. <strong>You must list the advanced points you believe you have implemented in the txt file</strong> (
+    <a href="../../for_students/04-05-01.txt" class="for_students">04-05-01.txt</a>). Note: while there are many opportunities for advanced points, you may only earn 8 on this workbook.</p>
+<ol>
+<li>
+<p>Objects bounce when they collide. When two boids hit (see 5 above), they change direction. Remember: the velocities stay constant.</p>
+<p>You don&rsquo;t need to get the physics exact (since we&rsquo;re maintaining velocities) - a simple version is to draw a line between the center of the two objects, and have the objects move away from each other in the directions of the line. This should go into the <code>steer</code> method of the boids.</p>
+</li>
+<li>
+<p>Add obstacles to the scene. You could put shapes into the Canvas (circles or rectangles are good enough), and have the boids stay outside of these regions. This means you need to have the boids collide with the edges (just as they do with the boundaries of the Canvas). You also need to make sure your method for randomly placing boids doesn&rsquo;t put things inside the shapes.</p>
+</li>
+<li>
+<p>Implement &ldquo;steering&rdquo; behaviors. They are implemented by having a boid on each step make a small adjustment to its direction vector. These decisions are completely local: there is no planning (it only decides what to do immediately), there is no central decision making (each boid decides on its own), and the boid can only make small changes to its direction (it keeps its velocity and cannot turn too sharply). Despite the fact that these steering behaviors are so limited, interesting effects (like flock formation) can emerge. All of these can be added to the <code>steer</code> method of the Boids.</p>
+<p>Note that you get some points for getting &ldquo;some steering to create interesting behavior&rdquo; - you will get this from picking some of the things on the list below, and getting them so they provide some decent looking behavior (grader&rsquo;s discretion). If you implement steering behaviors, list them in the
+<a href="../../for_students/04-05-01.txt" class="for_students">04-05-01.txt</a> file. You will also get advanced points for each steering behavior that you (1) describe in the txt file and (2) the grader thinks it looks like it works.</p>
+<p>We aren&rsquo;t telling you how to do steering (like cohesion)&hellip; if you want to figure it out you will need to look at the hints and the references.</p>
+</li>
+</ol>
+
+
+<details class="myexpand" >
+    <summary class="myexpand-head">Steering Behaviors for Advanced Points</summary>
+    <div class="markdown-inner myexpand-content">
+      <p>The steering behaviors are detailed in the references, but past students have made really cool things based just on these descriptions and some experimentation.</p>
+<p>The steering behaviors have the boids look at their &ldquo;neighbors&rdquo; (other boids within a radius) and adjusting their direction based on what they see.</p>
+<ul>
+<li>Implement &ldquo;alignment&rdquo; steering. On each step, the boid looks at the other nearby Boids and turns to go in the same direction as the average. This works best if the average is weighted (nearby ones have more weight).</li>
+<li>Implement &ldquo;separation&rdquo; steering. On each step, the boid tries to turn away from its neighbors to avoid hitting them.</li>
+<li>Implement &ldquo;cohesion&rdquo; steering. On each step, the boid looks at its neighbors and tries to steer to be in the middle of them.</li>
+<li>Mouse attraction - have boids turn towards the mouse. They should turn gradually (there should be a limit to how fast they turn).</li>
+<li>Implement some other steering behavior based on some of the references above.</li>
+</ul>
+<p>The steering behaviors require tweaking - you need to tune the parameters to get them to work well. Try it with the old demo. You will probably want to add sliders to help you experiment with the parameters. For example, in my testing (to try out the assignment), we limited the turning to 1 or 2 degrees per step. Also, the steering behaviors are most interesting when you combine different ones (e.g., alignment and separation).</p>
+<p>If you implement steering behaviors you can add sliders to tune them - but have the default values for the sliders be set to things that look nice. Being able to switch off a steering behavior (or set its strength to 0) using a slider or checkbox is a good way to test things (and helps us check that things work).</p>
+<p>Note that the behaviors &ldquo;count twice&rdquo; in the scoring scheme. For example, if you correctly implement alignment or separation, you will get the points for &ldquo;alignment&rdquo; but also &ldquo;Visually obvious flocking behavior&rdquo; (assuming it is visually obvious - which it should be).</p>
+
+    </div>
+</details>
+
+<p>You should do this exercise by editing 
+    <a href="../../for_students/04-05-01.html" class="for_students">04-05-01.html</a> and 
+    <a href="../../for_students/04-05-01.js" class="for_students">04-05-01.js</a>. The graders will look at these files.</p>
+<iframe
+    title="04-05-01"
+    src="../../for_students/04-05-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<iframe
+    title="04-05-01"
+    src="../../for_students/04-05-01.txt"
+    class="includebox"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Box 04-05-01 Rubric (33 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (17):</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Boids - add 10 boids when button is clicked, random locations and directions (but all with the correct speed)</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Boids - clear when button is clicked</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Draw boids so the direction they are facing is clear</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Boids bounce, not wrap</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Boids change color (briefly) when they hit a wall</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">Boids change color (briefly) when they hit another boid (either overlap or come very close)</div>
+            <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (16):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">Boids bounce off each other</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">Boids bounce off obstacles</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">Visually obvious flocking behavior (alignment, separation, cohesion)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">alignment flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">separation flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">cohesion flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">mouse attraction flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">other flocking behavior</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+                <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-bonus">added slider or checkbox that alters steering behavior</div></div>
+    </details>
+    </div>
+
+
+<details class="myexpand" >
+    <summary class="myexpand-head">Hints</summary>
+    <div class="markdown-inner myexpand-content">
+      <ol>
+<li>Do the required changes in the order suggested. This will help you learn the code.</li>
+<li>Read the references on Craig Reynold&rsquo;s pages for ideas on how to do steering. <a href="http://www.red3d.com/cwr/steer/gdc99/" target="_blank">Craig Reynolds Steering Behavior</a> is an advanced article (that includes the basic ideas).</li>
+<li>Many of the steering behaviors are easier if you represent the velocity as orientation, speed (rather than as x velocity, y velocity). You could change over all of the code. I found I was converting back and forth within the steer function. <code>Math.atan2</code> is your friend (see the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2" target="_blank">Mozilla <code>atan2</code> documentation</a>).</li>
+<li>When working with angles, be careful about wraparound! (angle + 360 degrees = angle)</li>
+<li>Be sure to document what you are trying to do so we appreciate what you did! (give a list of which requirements you did and which advanced things you did).</li>
+<li>You are allowed to change the starter code as much as you want (for example, to add or remove things from the constructor).</li>
+<li>You can use whatever canvas drawing commands (functions) you think are appropriate (you can use <code>transform</code>, <code>rotate</code>, <code>translate</code> and/or any of the others). There is no requirement that you use the transformation functions.</li>
+<li>To combine multiple steering behaviors, the standard approach is to blend them together (weighted addition). However, there are other things you can do as well.</li>
+</ol>
+
+    </div>
+</details>
+
+<h2 id="not-the-end">Not the end.</h2>
+<p>There are more things to do on <a href="../../docs/6/" class="Next__Page">Next: The 559 2D UI Code </a></p>
+
+            
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 4: Transformation Math</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 4: Transformation Math)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Transformations as Math vs. Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Linear, Affine, Projective </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Matrices in Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Matrix Exercises </a></li>
+        <li class="Side__Item Side__Selected"> 5: Lots of Flying Objects </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: The 559 2D UI Code </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

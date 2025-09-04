@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>
+        <input type="range" min="0" max="100" id="slider1"><br/>
+        <input type="range" min="0" max="100" id="slider2"><br/>
+        <input type="range" min="0" max="100" id="slider3"><br/>
+    </p>
+</body>
+<script type="module">
+    // make 3 sliders run "in parallel" - we make the code for each be independent
+    //
+    // we have separate functions for each slider
+    // each one is effectively it's own loop - but since the loops don't block
+    // (they simply schedule the next iteration), they allow other "loops" to run 
+    // effectively in parallel
+
+    /****************** Slider 1 */
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider1"));
+    function advanceSLR() {
+        // add 1, roll over to zero if we hit the max
+        // note that the value of the slider is a string,
+        // so we have to convert it to a number
+        // The more obvious 1+"1" = "11" - thanks to JavaScript's
+        // aggressive coercion rules
+        let newValue = (Number(slr.value)+1) % 100;
+        slr.value = newValue.toString();
+        // ask for this to be called again 16ms in the future
+        window.requestAnimationFrame(advanceSLR);
+    }
+    // note that just defined the function, now we need to call it
+    // to start the loop
+    advanceSLR();
+
+    /****************** Slider 2 */
+    /** @type{HTMLInputElement} */ let slr2 = (/** @type{HTMLInputElement} */ document.getElementById("slider2"));
+    function advanceSLR2() {
+        let newValue = (Number(slr2.value)+1) % 100;
+        slr2.value = newValue.toString();
+        window.requestAnimationFrame(advanceSLR2);
+    }
+    // remember to start the loop running
+    advanceSLR2();
+</script>
+<!-- I can have more than one script tags - each is a separate module 
+     (since I use the script type module)
+  -->
+<script type="module">
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider3"));
+    function advanceSLR() {
+        let newValue = (Number(slr.value)+1) % 100;
+        slr.value = newValue.toString();
+        window.requestAnimationFrame(advanceSLR);
+    }
+    advanceSLR();
+
+</script>
+</html>
+

@@ -1,0 +1,39 @@
+Please indicate the features you have implemented here by putting an "x" (i.e. "[x]") and a brief explanation of what the graders need to do to see it:
+
+# Basic features:
+[x] take out bouncing cube: done
+[x] place at least 1 more swing: already in the workbook
+[x] place carousel: already in the workbook
+[x] carousel has poles and "horses": two examples made by Kevin Wilson and Gia-Phong Nguyen
+[x] carousel has correct motion (spins, horses go up and down): two examples made by Kevin Wilson and Gia-Phong Nguyen
+[x] another moving object: bumper car made by Gia-Phong Nguyen
+
+# Bonus features:
+[x] fancier looking carousel: the example made by Gia-Phong Nguyen
+[x] more theme park rides (with hierarchical motion): the bumper car made by Gia-Phong Nguyen
+
+Artistic merit points are at the discretion of the grader.
+
+Note: please refer to the workbook instructions and rubrics for the detailed requirements.
+
+# External files:
+
+If you have loaded any geometry from OBJ files, use the space below to credit your source for each file. Be sure to include a confirmation that you are permitted to use this asset (e.g., it is released under a Creative Commons license).
+
+You can follow this format, or something similar:
+
+None of the objects are loaded from an obj file.
+
+- an-example-file.obj
+  - source: https://graphics.cs.wisc.edu/Courses/559-sp2021/
+  - author: username123
+  - license: CC BY 2.0
+
+
+
+
+
+
+
+
+

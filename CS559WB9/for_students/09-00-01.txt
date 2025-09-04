@@ -1,0 +1,5 @@
+In this box, explain how you used each of the creation methods listed above
+
+1. hand painted: the simple maps used for bumps were painted (using the online pixlr.com painting tool).
+2. a texture from the web. The environment map on page 4/5 comes from the HRDI heaven web site https://polyhaven.com/a/machine_shop_02 (note: the old "hdri haven" now is part of polyhaven - I had gotten things from hdri haven). The texture is CC0
+3. a texture that is a photograph. The book texture is a texture that the professor took.

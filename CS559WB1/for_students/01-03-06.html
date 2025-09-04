@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>
+            Another button example.
+            <button id="button1">Button 1</button>
+            The output is in the console.
+        </p>
+    </body>
+
+    <script type="module" defer>
+        var foo = function() {
+            let number = 1;
+            let button = document.getElementById("button1");
+            button.onclick = function() {
+                console.log(`Button ${number} Pressed!`);
+            }
+            number = 2;
+        }
+        foo();
+    </script>
+</html>
+

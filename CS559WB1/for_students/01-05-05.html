@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>
+        Also, we will often put all of our "changes" into a single function, so there
+        is only one <code>requestAnimationFrame</code>. That function might call other functions.
+    </p>
+    <p>
+        And, since we don't know how fast the loop will go (since the browser might do some
+        work between calls, or the stuff we do might take some time), we need to look at the
+        actual "clock time" to make sure that things go at the right speed.
+    </p>
+    <p>
+        Here's a silly example where we make something blink (the hard way). The trick is that we want to change color every 250ms (not faster).
+        Look at the code.
+        <span id="span1">Some text to blink</span>
+    </p>
+    <p>
+        OK, that was horrible. Let's try to see if
+        <span id="span2">this is any better?</span>
+        Or, maybe <span id="span3">even this one</span>.
+    </p>
+    <p>
+        Those are all really annoying looking - You can try something better
+        on the next page...
+    </p>
+</body>
+
+<script src="01-05-05.js" type="module" defer></script>
+
+</html>
+

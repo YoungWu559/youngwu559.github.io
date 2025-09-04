@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 4: Matrix Exercises</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>Over the past few pages, you saw the connection between the math of transformations and the code we write to draw using Canvas. On this page, you&rsquo;ll get to try writing some code to test it out.</p>
+<p>Hint for some of these: remember that the canvas <code>transform</code> allows you to specify an affine transformation as a matrix. It&rsquo;s up to you to figure out what the matrix should be and put it into the 6 values that are passed to <code>transform</code>. You may want to review the required readings to see the standard forms of the matrices. You can often figure out what the entries of the resulting matrix are using the methods in &ldquo;Reading Matrices&rdquo; on page 2, without having to build the matrix up from simple transformations.</p>
+<p>In cases where you do need to figure out the transformations&hellip; The JavaScript Math library has a useful function that does a 2-argument arctangent - see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2"><code>Math.atan2</code></a>. Given <code>x</code> and <code>y</code> it tells you the angle to rotate to.</p>
+<h2 id="box-1-exercise-1-two-dots-with-translate-rotate-and-scale">Box 1: Exercise 1, Two Dots with Translate, Rotate, and Scale</h2>
+<p>For this box, you should edit 
+    <a href="../../for_students/04-04-01.js" class="for_students">04-04-01.js</a> (
+    <a href="../../for_students/04-04-01.html" class="for_students">04-04-01.html</a>). The function you have to change is at the beginning of the file. Feel free to read the rest of the code - but please don&rsquo;t change it.</p>
+<p>Given two points, we want to map the square (0,0) - (10,10) such that the (0,0) corner appears at the first point, and top right corner (10,0) appears at the second point. The red square should be close to the red dot, and the black square should stay close to the black dot.</p>
+<p>The square should remain a square - it can turn and stretch uniformly, but it should not reflect (notice that the insides of the square are not symmetric).</p>
+<iframe
+    title="04-04-01"
+    src="../../for_students/04-04-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>I wrote some UI code that draws the square, and draw a red dot for the first point and a black dot for the second point, and lets you move the points around. All you need to do is fill in the function <code>twoDots</code> in 
+    <a href="../../for_students/04-04-01.js" class="for_students">04-04-01.js</a> with the code that performs the transformation. It should consist of calls to <code>context.translate</code>, <code>context.rotate</code>, and <code>context.scale</code>. I put in a <code>context.translate</code> just to get you started. You can drag around the dots to make sure your code works (the graders will do it).</p>
+<p>Here are some snapshots of what this should look like when it is working:</p>
+<div class="multifigure">
+    
+        
+        <figure class="">
+            <a href="../../images/4-1_1.png">
+                <img src="../../images/4-1_1_hu3511e911aa46b509713ecd1ae5808e55_1963_150x150_fit_box_3.png" alt="images/4-1_1.png" />
+            </a>
+        </figure>
+
+    
+        
+        <figure class="">
+            <a href="../../images/4-1_2.png">
+                <img src="../../images/4-1_2_hudbc6d2d7906609628e8ebd4ec1bb00a2_3206_150x150_fit_box_3.png" alt="images/4-1_2.png" />
+            </a>
+        </figure>
+
+    
+        
+        <figure class="">
+            <a href="../../images/4-1_3.png">
+                <img src="../../images/4-1_3_hu51f18f0d1e5642ef7c623707d2a06f11_4146_150x150_fit_box_3.png" alt="images/4-1_3.png" />
+            </a>
+        </figure>
+
+</div>
+
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Box 04-04-01 Rubric (2 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (2):</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">red dot stays in red corner and black dot stays in black corner as dots are dragged; square remains square; done via translate, rotate, and scale</div></div>
+    </details>
+    </div>
+<h2 id="box-2-exercise-2-two-dots-with-transform">Box 2: Exercise 2, Two Dots with Transform</h2>
+<p>Now, do that again, but this time do it using <code>context.transform</code> - compute the 6 numbers that need to be passed. Do this in the <code>twoDots</code> in 
+    <a href="../../for_students/04-04-02.js" class="for_students">04-04-02.js</a> function (
+    <a href="../../for_students/04-04-02.html" class="for_students">04-04-02.html</a>). I put some example values in that don&rsquo;t work correctly. (The same example images above apply here.)</p>
+<iframe
+    title="04-04-02"
+    src="../../for_students/04-04-02.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Box 04-04-02 Rubric (2 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (2):</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-02</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">red dot stays in red corner and black dot stays in black corner as dots are dragged; square remains square; done via transform</div></div>
+    </details>
+    </div>
+<h2 id="box-3-exercise-3-two-dots-a-little-harder">Box 3: Exercise 3, Two Dots a Little Harder</h2>
+<p>This is same as box 2 - except that the corner opposite the upper left (e.g., the 10,10 corner) should appear at the green dot. That is, the corner of the square closest to the green square should be close to the green dot. You may choose how you make the transformation - but make sure it keeps the square a square. The function to edit is <code>twoDots</code> in 
+    <a href="../../for_students/04-04-03.js" class="for_students">04-04-03.js</a> (
+    <a href="../../for_students/04-04-03.html" class="for_students">04-04-03.html</a>).</p>
+<iframe
+    title="04-04-03"
+    src="../../for_students/04-04-03.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>Here are some snapshots of what this should look like when it is working:</p>
+<div class="multifigure">
+    
+        
+        <figure class="">
+            <a href="../../images/4-3_1.png">
+                <img src="../../images/4-3_1_hu3511e911aa46b509713ecd1ae5808e55_1867_150x150_fit_box_3.png" alt="two dots box 3 example 1" />
+            </a>
+        </figure>
+
+    
+        
+        <figure class="">
+            <a href="../../images/4-3_2.png">
+                <img src="../../images/4-3_2_hudf8a955d74da0d493ffacb0c5db6d2af_3700_150x150_fit_box_3.png" alt="two dots box 3 example 2" />
+            </a>
+        </figure>
+
+    
+        
+        <figure class="">
+            <a href="../../images/4-3_3.png">
+                <img src="../../images/4-3_3_hu07ef9f562d3f1fa55f5979e26c6365d3_2144_150x150_fit_box_3.png" alt="two dots box 3 example 3" />
+            </a>
+        </figure>
+
+</div>
+
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Box 04-04-03 Rubric (2 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (2):</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-03</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">red dot stays in red corner and green dot stays in green corner as dots are dragged; square remains square</div></div>
+    </details>
+    </div>
+<h2 id="box-4-exercise-4-convert-to-transform">Box 4: Exercise 4, Convert to Transform</h2>
+<p>In the code for this box (
+    <a href="../../for_students/04-04-04.html" class="for_students">04-04-04.html</a> and 
+    <a href="../../for_students/04-04-04.js" class="for_students">04-04-04.js</a>), each of the squares in the top Canvas is placed by a sequence of rotate, translate, and scale commands.</p>
+<p>In the bottom canvas, each square is transformed by a <code>transform</code> - you need to match it. For each square, you need to figure out how to change the 6 parameters of the <code>transform</code> function to put the square in the correct place. We&rsquo;ve done this for square 2 already. Pay attention to the dots in the square.</p>
+<iframe
+    title="04-04-04"
+    src="../../for_students/04-04-04.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+
+        
+        
+        
+        
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Box 04-04-04 Rubric (5 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (5):</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 1 matches</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 2 matches (freebie!)</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 3 matches</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 4 matches</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 5 matches</div></div>
+    </details>
+    </div>
+<h2 id="box-5-exercise-5-shearskew">Box 5: Exercise 5, Shear/Skew</h2>
+<p>Shear (sometimes called skew) is a fundamental linear transformation. It is discussed in both textbooks, but specifically <a href="https://canvas.wisc.edu/files/30140519/download?download_frd=1">FCG4_Ch06.pdf (0.5mb)</a>. Unfortunately, Canvas doesn&rsquo;t have it.</p>
+<p>Put &ldquo;shear-x&rdquo; transformation into the <code>shearX</code> function in 
+    <a href="../../for_students/04-04-05.js" class="for_students">04-04-05.js</a> (
+    <a href="../../for_students/04-04-05.html" class="for_students">04-04-05.html</a>). The code for the following Canvas calls that function to test it. Since the <code>shearX</code> does nothing right now, you see squares here. If you implement things correctly, you should see sheared boxes. The test code does save and restore - you should make <code>shearX</code> work like <code>context.rotate</code>, except that it is a function not a method.</p>
+<iframe
+    title="04-04-05"
+    src="../../for_students/04-04-05.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>Here is what it should look like when you are done:</p>
+
+    
+    <figure class="">
+        <a href="../../images/4-5.png">
+            <img src="../../images/4-5_hu8d1f5750a4536ed2be300ee0da9287e6_2024_300x300_fit_box_3.png" alt="box 5 example" />
+        </a>
+    </figure>
+
+<p>Hint: using <code>context.transform</code> is the easiest way to do this.</p>
+
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Box 04-04-05 Rubric (3 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (3):</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-05</div>
+                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">shear-x implemented to draw sheared squares</div></div>
+    </details>
+    </div>
+<h2 id="summary">Summary</h2>
+<p>That was a little math programming. Now on to <a href="../../docs/5/">Page &nbsp;5&nbsp; (Lots of Flying Objects)</a>.</p>
+
+            
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 4: Transformation Math</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 4: Transformation Math)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Transformations as Math vs. Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Linear, Affine, Projective </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Matrices in Code </a></li>
+        <li class="Side__Item Side__Selected"> 4: Matrix Exercises </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Lots of Flying Objects </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: The 559 2D UI Code </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

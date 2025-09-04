@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 6: Interactive 2D Scenes</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>In an immediate-mode API like Canvas, when we draw a primitive, the API converts the primitive (for example, by coloring the pixels) - it doesn&rsquo;t save the primitive itself. This means if we want to refer to the primitive later, we need to keep track of it ourselves. The standard way to do this is to keep a list of the objects we want to have on the display. We call this list of objects a <strong>display list</strong>.</p>
+<p>In general, the display list might store more complicated objects that we want to keep track of. And it might have a more complex structure than just a list. For example, often it is a tree because we allow objects to be made of other objects. For this reason, the data structure is sometimes called a <strong>scene graph</strong> (because it is a graph that stores information about the items that make up the scene).</p>
+<p>I will use these two terms loosely.</p>
+<p>An API like SVG is sometime called a <em>scene graph</em> or <em>display list</em> API because it keeps the data structure for you. Canvas is not a display list API because the program has to keep a display list itself (if the programmer wants one).</p>
+<p>The things that SVG was doing &ldquo;behind the scenes&rdquo; we will have to do ourselves - this includes keeping a list of objects.</p>
+<h2 id="box-1-display-lists">Box 1: Display Lists</h2>
+<p>Here, I am implementing the animation from the previous page using Canvas in 2 different ways.</p>
+<iframe
+    title="02-06-01"
+    src="../../for_students/02-06-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+<p>Read
+<a href="../../for_students/02-06-01.js" class="for_students">02-06-01.js</a> to see how this is implemented differently in each. You can see
+<a href="../../for_students/02-06-01.html" class="for_students">02-06-01.html</a> which makes 2 canvases for this program.</p>
+<p>The first version of the code, in lines 19-46 is the same as on the previous page. We simply draw each rectangle each time. The only &ldquo;list of rectangles&rdquo; is in the code - and even there, they only exist in a loop.</p>
+<p>Starting at line 48, we have a second version of the code. In this version we will keep a list of rectangles. On line 57, we make an empty list <code>rects</code> to store the rectangles. On lines 58-62, we have a loop that is similar to the first version of the code - however, rather than calling the Canvas API to draw the rectangle, we create a data structure and add it to the list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75af00">rects</span><span style="color:#111">.</span><span style="color:#75af00">push</span><span style="color:#111">({</span><span style="color:#d88200">&#34;x&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">30</span><span style="color:#f92672">+</span><span style="color:#75af00">c</span><span style="color:#f92672">*</span><span style="color:#ae81ff">50</span><span style="color:#111">,</span><span style="color:#d88200">&#34;y&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">20</span><span style="color:#f92672">+</span><span style="color:#75af00">r</span><span style="color:#f92672">*</span><span style="color:#ae81ff">20</span><span style="color:#111">,</span><span style="color:#d88200">&#34;w&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">30</span><span style="color:#111">,</span><span style="color:#d88200">&#34;h&#34;</span><span style="color:#f92672">:</span><span style="color:#ae81ff">10</span><span style="color:#111">,</span><span style="color:#75af00">color</span><span style="color:#f92672">:</span><span style="color:#d88200">&#34;#888&#34;</span><span style="color:#111">});</span></span></span></code></pre></div>
+<p>This line is worth discussing because it may be unfamiliar if you are new to JavaScript. First note that I am appending something to the end of the <code>rects</code> object (which is a list). For JavaScript arrays, <code>push</code> means append.  The thing I am appending is an object - defined in place (with the curly braces).</p>
+<p>This is a very simple form of object-oriented programming: I am simply listing the fields I want in the object (<code>x</code>, <code>y</code>, <code>w</code>, <code>h</code>, and <code>color</code>) and specifying their values. JavaScript has other ways to do object-oriented programming, but for this little example I just made the object as I needed it.</p>
+<p>But hopefully, you realize that what I have done is stored all the information about a rectangle.</p>
+<p>Because I have stores information about my rectangles on a list, when I need to draw those rectangles, I can just loop over the list and draw each one.</p>
+<p>If all we were going to do is draw the rectangles, the extra effort of representing them as a list might not be worth it. However, the list will be very helpful when we want to interact with the rectangles.</p>
+<p>Also, while in this example I simply kept a list of rectangles, you could imagine keeping other information.</p>
+<h2 id="box-2-canvas-events">Box 2: Canvas Events</h2>
+<p>As far as the web browser is concerned, our Canvas is a single element. Even though we may have a list of objects, our entire Canvas is a single element. Only the Canvas element gets events.</p>
+<p>When the Canvas element receives an event, such as a mouse click event we need to figure out what to do with it.</p>
+<p>One complication is that when we get events, the mouse position is given in the coordinate system of the entire page, not the Canvas itself. That is, the x and y position is relative to the top left corner of the web page. In the case of a box, it&rsquo;s the box page. Here&rsquo;s a simple example:</p>
+<iframe
+    title="02-06-02"
+    src="../../for_students/02-06-02.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+<p>Notice that the position of the event is relative to the web page. When you look at the code in
+<a href="../../for_students/02-06-02.js" class="for_students">02-06-02.js</a> you&rsquo;ll see the we have to figure out where the canvas is (that&rsquo;s the <code>event.target</code>), and subtract the top left to figure out where the event is relative to the corner of the canvas.</p>
+<p>This specific operation - adjusting event coordinates so that we have them in canvas coordinates, rather than page coordinates, is something we will do all of the time. It is a special case of a coordinate system conversion. The browser gives us the event in one coordinate system, but we want to work in another. Changing coordinate systems is something we will do a lot of in graphics.</p>
+<h2 id="box-3-object-events">Box 3: Object Events</h2>
+<p>If we want to associate an event with an object, like a rectangle, it is our responsibility to figure out which object on the Canvas should receive the event. We get an event for the Canvas, and then need to look through the objects to see which one should get the event.</p>
+<iframe
+    title="02-06-03"
+    src="../../for_students/02-06-03.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+<p>Like the SVG version on the last page,
+<a href="../../for_students/02-06-03.js" class="for_students">02-06-03.js</a> allows the user to click on rectangles and causes them to change color. You can even click on the moving rectangle (if you can catch it - you need to release the mouse when the cursor is over the box).</p>
+<p>The code for this is a bit more complicated than for the SVG version,
+and it is worth reading through to make sure that you understand.
+Especially, since it uses some JavaScript tricks. And, we&rsquo;ll ask you to do something similar on the next page.</p>
+<p>As in the previous box, we build a list of rectangles to keep track of them. And just like the earlier box, we&rsquo;ll draw the rectangles by iterating over the list. One difference: with each rectangle, we&rsquo;ll also store a flag as to whether or not it has been clicked - so we know which color to draw it.</p>
+<p>The bigger piece is handling events. When you look at line 82 in
+<a href="../../for_students/02-06-03.js" class="for_students">02-06-03.js</a> you&rsquo;ll see we set an event handler for the <code>canvas</code>. After converting from page coordinates to canvas coordinates, we then call the <code>clickRectList</code> function - which sees which (if any) of the rectangles the click was in.</p>
+<p>Fortunately, all of the objects are rectangles, and checking to see if the mouse position is inside of them is easy.</p>
+<p>This code is a little bit tricky - so take the time to understand it. We&rsquo;re going to ask you to make your own version of it on the next page.</p>
+<p>One difference: we will ask you to do circles, not rectangles. So figuring out whether the event position is inside of the circle is a little different.</p>
+<h2 id="box-4-animation-and-events">Box 4: Animation and Events</h2>
+<p>We can, of course, make our rectangles at any time - not just before we start drawing. And, there are events other than a mouse click. We can get an event every time the mouse moves.</p>
+<p>So, here&rsquo;s a basic &ldquo;paint&rdquo; program - we add a rectangle whenever the mouse moves. In this case, we probably don&rsquo;t have to keep a list of the rectangles and redraw them all - we could just keep adding them to the canvas. But I will re-draw them anyway, since I want to do something with them later&hellip;</p>
+<iframe
+    title="02-06-04"
+    src="../../for_students/02-06-04.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+<p>Again, read the code in
+<a href="../../for_students/02-06-04.js" class="for_students">02-06-04.js</a> - it&rsquo;s simpler in some ways than the rectangles since my objects are just points. Notice how I made the button to clear things.</p>
+<p>OK, this is kind of boring - let&rsquo;s make it more interesting by animating things!</p>
+<p>I want to make it look like rain, so I will move each dot downward on each animation step. Of course, I need to be careful: when I dot hits the bottom, I need to remove it from the list (otherwise, I will end up with a lot of dots off the screen).</p>
+<iframe
+    title="02-06-04a"
+    src="../../for_students/02-06-04a.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+<p>Look at
+<a href="../../for_students/02-06-04a.js" class="for_students">02-06-04a.js</a> - you&rsquo;ll see some examples of functional programming style. Notice the way that I get rid of dots that go off the bottom. While it is concise, it does make a copy of the list each time.</p>
+<p>Programming in functional style is optional for this class - but it is good to learn. If nothing else, you&rsquo;ll need to <strong>read</strong> code written in this style.</p>
+<p>One of the more interesting pieces of this: notice how we use animation loops and events.</p>
+<h2 id="box-5-interaction-without-events">Box 5: Interaction without Events</h2>
+<p>As long as we have an animation loop running, we can get by without
+events for some things by polling: checking the input device on
+every iteration, and doing something on every animation step - whether there is an event or not.</p>
+<p>Notice how this rain is different than the previous one.</p>
+<iframe
+    title="02-06-05a"
+    src="../../for_students/02-06-05a.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>This example is 
+    <a href="../../for_students/02-06-05a.js" class="for_students">02-06-05a.js</a>. It makes a dot every animation update, whether there is a mouse motion or not.</p>
+<p>There is a trick in the code: because the web browser doesn&rsquo;t allow us to ask where the mouse is, we can only find its location when we get an event. Therefore, we have to keep track of the mouse position (these are the <code>mouseX</code> and <code>mouseY</code> variables). When we get a mouse event, we update the position. When the mouse leaves the canvas (the <code>onmouseleave</code> event), we store a value in the position that lets us know the mouse is outside the canvas (so we don&rsquo;t make dots outside). A canvas only gets <code>onmousemove</code> events when the mouse is inside of it.</p>
+<p>Make sure you understand that example (including transparency). Then check out a different version (try clicking and holding down the mouse button):</p>
+<iframe
+    title="02-06-05b"
+    src="../../for_students/02-06-05b.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>Be sure to understand how this works - including how we know if the mouse is pressed. The code is in 
+    <a href="../../for_students/02-06-05b.js" class="for_students">02-06-05b.js</a>.
+Notice how each rectangle not only stores its position, but also its velocity.
+And also notice that rectangles do get removed (when they get to the edge) - we don&rsquo;t just keep making more.</p>
+<p>You will be required to use all of these ideas on the <a href="../../docs/7/" class="Next__Page">next page</a>.</p>
+<h2 id="summary-interaction-and-animation-with-canvas">Summary: Interaction and Animation with Canvas</h2>
+<p>There are a few big ideas on this page:</p>
+<ol>
+<li>We make <em>display lists</em> to represent graphics objects. If the underlying API does not do it for us, we have to manage it ourselves.</li>
+<li>The web browser likes to work in an event-driven model. If we want to do things in a polling (animation-loop) style, we have to adapt.</li>
+</ol>
+<p>These are concepts we&rsquo;ll use a lot as we make more complicated graphics programs.</p>
+<p>Make sure you understand the code! It not only shows the concepts, but it also uses a lot of JavaScript idioms.</p>
+<p>On <a href="../../docs/7/" class="Next__Page">the next page</a>, we&rsquo;ll let you try doing some of this stuff on your own.</p>
+
+            
+
+<div>
+        <i>There are no points associated with this page.</i>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Where did I draw </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation and Interaction with SVG and Canvas </a></li>
+        <li class="Side__Item Side__Selected"> 6: Interactive 2D Scenes </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Fireworks </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

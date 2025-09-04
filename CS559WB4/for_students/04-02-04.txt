@@ -1,0 +1,9 @@
+If we transform the point 3,4
+
+by the homogeneous transformation matrix:
+
+    2 -2  6
+    2  1  4
+    0  0  1
+
+The point's new position is: 4, 14

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>
+            Here is the button example (01-03-02) again. Just that this time the script is 
+            in a different place.
+            <button id="button1">Button 1</button>
+            You should look at the HTML to see the JavaScript right inline on the button.
+            You should see what the button does (get used to looking at the console!).
+        </p>
+    </body>
+
+    <script type="module" defer>
+        let button = document.getElementById("button1");
+        button.onclick = function() {
+            console.log("Button 1 Pressed!");
+        }
+    </script>
+</html>
+

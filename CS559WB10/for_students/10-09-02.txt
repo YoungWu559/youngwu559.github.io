@@ -1,0 +1,11 @@
+Where did the image come from? 
+
+Texture folder in the workbook.
+
+What lighting did you implement?
+
+Diffuse light.
+
+Did you do anything beyond basic texure with diffuse lighting (explain)?
+
+Adjust the geometry and mix two textures together.

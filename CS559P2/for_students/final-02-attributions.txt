@@ -1,0 +1,5 @@
+List all attributions here, this include "self-attributions":
+
+Cars and buildings are from Workbook 9 Solution.
+The cube cube.obj is from https://www.marxentlabs.com/obj-files/.
+Graphics Town based on 2000 Graphics Town Assignment: https://research.cs.wisc.edu/graphics/Courses/559-f2000/559.htm

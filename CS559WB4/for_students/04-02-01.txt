@@ -1,0 +1,4 @@
+Provide the matrix for scaling by a factor of 2 (doubling in size):
+
+     2  0
+     0  2

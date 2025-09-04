@@ -1,0 +1,47 @@
+Please indicate the features you have implemented here by putting an "x" (i.e. "[x]") and a brief explanation of what the graders need to do to see it:
+
+# Basic features:
+[x] Basics in place (freebie, because we gave it to you): freebie
+[x] Some aircraft that isn’t a donut: a QuadCopter and a HeliCopter
+[x] A propeller that spins (not the body): the QuadCopter propellers
+[x] More than one propeller spinning (per aircraft): 4 for QuadCopter and 2 for HeliCopter
+[x] (at least) One aircraft that flies in a circle (or curved path): the QuadCopter
+[x] aircraft points forward as it moves: the QuadCopter and the HeliCopter
+[x] multiple aircraft both moving, both with propellers: the QuadCopter and the HeliCopter
+[x] Radar dish (or some object): two
+[x] Radar correctly points at aircraft (tracks as aircraft moves): both radars
+
+# Bonus features:
+[x] cool aircraft (describe below): the HeliCopter
+    [what you did to make it look cool]
+
+[x] more complex motion: the HeliCopter moving to the highlighted position
+[x] multiple types of aircraft: the QuadCopter and the HeliCopter
+[x] other cool features (describe below): the HeliCopter moving to the highlighted position
+    [your cool feature]
+
+Artistic merit points are at the discretion of the grader.
+
+Note: please refer to the workbook instructions and rubrics for the detailed requirements.
+
+# External files:
+
+If you have loaded any geometry from OBJ files, use the space below to credit your source for each file. Be sure to include a confirmation that you are permitted to use this asset (e.g., it is released under a Creative Commons license).
+
+You can follow this format, or something similar:
+
+None of the objects are loaded from an obj file.
+
+- an-example-file.obj
+  - source: https://graphics.cs.wisc.edu/Courses/559-sp2021/
+  - author: username123
+ - license: CC BY 2.0
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 7: Aliasing</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><h2 id="one-way-to-fix-aliasing">One Way to Fix Aliasing</h2>
+<p>If you look at the dots on the previous page (repeated below), you&rsquo;ll notice that you can see the pixel boundaries on the texture. Since something either is part of a dot or not, each pixel matters. As the dots get small, this can be ugly. This causes the jagged edges (called &ldquo;jaggies&rdquo; - yes, that&rsquo;s a technical term).</p>
+<p>The problem is that we are making the pixels either light or dark - nothing in between. Even if a pixel is half full of a dot, it has to be either light or dark.</p>
+<p>A different way to look at it: for each pixel, we compute the color at the center and make the entire pixel be that color. Since that point is either inside or outside of the dot, we choose a color for a pixel.</p>
+<p>Here is an example in 
+    <a href="../../for_students/10-07-01.js" class="for_students">10-07-01.js</a> (
+    <a href="../../for_students/10-07-01.html" class="for_students">10-07-01.html</a>)</p>
+<iframe
+    title="10-07-01"
+    src="../../for_students/10-07-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>An answer to this is to make the cutoff for inside/outside less severe. We can &ldquo;blur&rdquo; the dots - making the boundary fuzzy. The transition between inside and outside can be gradual. That way a pixel can be correctly on the boundary. If you select &ldquo;large blur&rdquo; you can see that in action. Notice that things look blurry, but the shapes are smooth (not jaggy).</p>
+<p>To make implementing things like this easier, we use a common GLSL idiom. On the previous page, we used <code>step</code> to cause the variable that measures whether we are &ldquo;inside the dot&rdquo; to switch from 0 to 1 as the distance to the dot center gets to be bigger than the radius. Here, we change that to use the <code>smoothstep</code> function which gradually transitions from 0 to 1 over a range centered at the threshold. The width of this range is the &ldquo;blurriness&rdquo;. Since we are using the <code>mix</code> function, if we are in the transition zone, we get a blend of colors.</p>
+<p>Can we have both sharp edges and no jaggies? Try &ldquo;correct anti-aliasing&rdquo; and see what is the best we can do easily. We&rsquo;re still blurring the edge, we&rsquo;re just making the blurriness one-pixel wide (rather than fixed in UV space). GLSL has support to help us do that. Basically, you take the derivative of <code>u</code> and <code>v</code> with respect to screen coordinates to see how much they change. This is a slightly advanced topic - but it is really important for making nice-looking texturing.</p>
+<p>GLSL can compute the derivative of a value (like u and v) with respect to screen space x and y. It basically tells us how much the value changes between pixels. It has a convenient function <code>fwidth</code> that is used in the shader to make the &ldquo;correct anti-aliasing&rdquo; - it basically computes the magnitude of the vector derivative (in x and y directions).</p>
+<p>Note that this is exactly the same problem as trying to figure out what level of the mip-map to look up when we filter image-based textures.</p>
+<h2 id="exercise-anti-aliased-checkerboard">Exercise: Anti-Aliased Checkerboard</h2>
+<p>This is a harder exercise. Make a version of your checkerboard shader that is anti-aliased!</p>
+<p>You can figure out how to do it from the dots example on this page. The starting code can be found in 
+    <a href="../../for_students/10-07-02.js" class="for_students">10-07-02.js</a> (
+    <a href="../../for_students/10-07-02.html" class="for_students">10-07-02.html</a>) and the shaders are in 
+    <a href="../../for_students/shaders/10-07-02.vs" class="for_students">shaders/10-07-02.vs</a> and 
+    <a href="../../for_students/shaders/10-07-02.fs" class="for_students">shaders/10-07-02.fs</a>. A hint: make a non-anti-aliased checkerboard using <code>step</code> and <code>mix</code> to switch between the colors. Then switching to <code>smoothstep</code> will be easy.</p>
+<p>Warning: even with the hints, this can be a harder exercise. Normally, we would make it advanced points, but we want to allow students who do the assignment late to have the opportunity to try it. It is also a bit harder this year because we don&rsquo;t get to discuss anti-aliasing in lectures until after the workbook is due.</p>
+<p>You should not load an image and use a texture map - which is easy to anti-alias with mip-map filtering. For this exercise, write a procedural shader.</p>
+<p>Note: it is OK if you make blurry edges (using a constant value instead of fwidth).</p>
+<iframe
+    title="10-07-02"
+    src="../../for_students/10-07-02.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<h2 id="summary-anti-aliasing">Summary: Anti-Aliasing</h2>
+<p>If you get jaggy looking textures, you need to do something about it. This is called &ldquo;anti-aliasing&rdquo;.</p>
+<p>For now we&rsquo;ll move on to <a href="../../docs/8/" class="Next__Page">Next: Using Textures </a> and learn about how to use images in textures.</p>
+
+            
+
+
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Page 7 Rubric (3 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (3):</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-07-02</div>
+                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">non-jaggy checkerboard</div></div>
+    </details>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 10: Shaders</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Shaders)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Shader Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Simple Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: GLSL and THREE </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Lighting in Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Procedural Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: More Procedural Textures </a></li>
+        <li class="Side__Item Side__Selected"> 7: Aliasing </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Using Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: All Together </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Shader Tools and Examples </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

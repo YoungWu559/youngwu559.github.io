@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+	<meta name="generator" content="Hugo 0.121.1">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./css/workbook.css">
+        <script src="./js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+
+
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Workbook 4: Transformation Math</h1>
+	</header>
+	<div class="content main__content clearfix">
+        
+
+        <div class="dimbox">
+                <h2>CS559 Spring 2023 Sample Solution</h2>
+                <p>This is a sample solution for the Workbook.
+                    You are welcome to refer to it to learn one way to do the assignment
+                    but only after you have turned in your own assignment
+                </p>
+            </div>
+<h2>Learning Goals</h2>
+<ol>
+    <li>To understand how coordinate systems and transformations are represented mathematically</li>
+    <li>To understand affine transformations and the use of homogeneous coordinates to represent them</li>
+    <li>To be able to build transformation matrices based on the desired outcomes</li>
+    <li>To be able to read a transformation matrix to understand what it does</li>
+    <li>To understand how Canvas and SVG use matrices internally</li>
+    <li>To use transformations in matrix form in graphics programs</li>
+    <li>To practice graphics programming using vector math</li>
+    <li>To get some exposure to JavaScript Object-Oriented Programming</li>
+    <li>To try out the course framework code</li>
+</ol>
+
+            <p><div class="workbook-todo">
+    <strong>TODO:</strong><div> maybe skip the boids (little pedagogical value)</div>
+</div>
+
+<div class="workbook-todo">
+    <strong>TODO:</strong><div> emphasize randomness</div>
+</div>
+
+<div class="workbook-todo">
+    <strong>TODO:</strong><div> maybe make a spider - body, 8 wiggling legs</div>
+</div>
+
+<div class="workbook-todo">
+    <strong>TODO:</strong><div> dots exercise might need more explanation</div>
+</div>
+</p>
+<p>Last time, we learned about transformations and coordinate systems. We learned a few transformations (translate, scale and rotate), how to think about transformations as changes of coordinate systems, and some ways we use transformations (e.g., to build hierarchy or create convenient coordinate systems). This week we&rsquo;ll learn about how they work mathematically.</p>
+<p>We will start by looking at a notational reason why our math (or the math in a textbook) looks different than the code we write for the Canvas API. We will then look at the general math for transformations as well as the special, simple case of <em>linear</em> transformations. Linear transformations are the most common case in graphics - and include all of the transformations we&rsquo;ve discussed so far. Then we can dive into the math of linear transformations (although, the textbooks cover this well). As part of this, we&rsquo;ll look at a common graphics trick of using <em>homogeneous coordinates</em> which will allow us to represent translation as a linear transformation. When we get to 3D, this will let us do other things as well.</p>
+<p>Also, as part of this workbook, we&rsquo;ll experiment with a fun animation technique as a way to practice vector algebra.</p>
+<p>The mathematical nature of this material doesn&rsquo;t lend itself to the workbook format. So some of the exercises may seem a little contrived. Do the exercises by implementing the things we ask, not by just typing in the answers.</p>
+<p>You will only need to edit the files in the <code>for_students</code> directory. Don&rsquo;t forget to commit and push your work. And please remember to complete the handin Quiz when you are done so that your assignment is ready for grading.</p>
+<p><strong>Note:</strong> There is a big programming assignment on 
+     <a href="./docs/5/#page-5">Lots of Flying Objects&nbsp;(Page 5)</a> - but there is also a page (with points on it) after that! Don&rsquo;t skip 
+     <a href="./docs/6/#page-6">The 559 2D UI Code&nbsp;(Page 6)</a></p>
+<h2 id="reading--watching">Reading / Watching</h2>
+<p>This is a topic where the textbooks do a good job at introducing the material. You don&rsquo;t have to read these right now - you can read them as they come up in the workbook, and we&rsquo;ll link to them throughout.</p>
+<p>I was trying to avoid requiring students to read from textbooks, but this is a place where they are really helpful. You need some place where they write the equations out in a formal way. But before you get to that, you probably need to be motivated why you want to know this stuff. This workbook, and the Washington videos, hopefully provide that motivation.</p>
+<p>Required:</p>
+<ul>
+<li><a href="https://youtu.be/AheaTd_l5Is" target="_blank">Affine Transformations in 5 Minutes</a> and <a href="https://youtu.be/4iNJdWXsFQ4" target="_blank">Hierarchical Modeling in 5 Minutes</a> - These two videos introduce the basic concepts. They are from the University of Washington <a href="https://g5m.cs.washington.edu/" target="_blank">Graphics in 5 Minutes</a> series. I am not sure they teach you everything you need to know, but they are great at motivating the details that you will need to read a textbook for.</li>
+<li><a href="https://cs559.github.io/559Tutorials/math/points-vectors/" target="_blank">CS559 Tutorial: Points, Vectors, Coordinate Systems</a> - something I wrote that might help connect between math you probably have already lead</li>
+<li>Sections 6.1 (but not 6.1.6) and 6.3 of <a href="https://canvas.wisc.edu/files/30140519/download?download_frd=1">Chapter 6 of Foundations of Computer Graphics</a></li>
+</ul>
+<p>Optional:</p>
+<ul>
+<li>Linear algebra refreshers: Practical Linear Algebra <a href="https://canvas.wisc.edu/files/30140529/download?download_frd=1">Chapter 1</a>, <a href="https://canvas.wisc.edu/files/30140530/download?download_frd=1">Chapter 2</a>, and <a href="https://canvas.wisc.edu/files/30140472/download?download_frd=1">Chapter 4</a></li>
+<li><a href="https://canvas.wisc.edu/files/30140562/download?download_frd=1">Chapter 5 of Hart&#39;s Big Fun Graphics Book</a> - this covers the same as FCG above. It might help to see the same content presented differently.</li>
+<li>Sections 6.4 and 6.5 of <a href="https://canvas.wisc.edu/files/30140519/download?download_frd=1">Chapter 6 of Foundations of Computer Graphics</a> - two pieces that are optional for class, but helpful if you really want a deeper understanding.</li>
+</ul>
+<h2 id="rubric-for-grading">Rubric for Grading</h2>
+<div class="page-rubric-container">
+<details class="page__rubric">
+<summary>Workbook Rubric (94 points total)</summary>
+<br/>
+<div class="page-rubric-grid">
+        <div class="page-rubric-grid-header rubric-box-regular">Points (86):</div><div class="page-rubric-grid-box rubric-box-regular"></div>
+            <div class="page-rubric-grid-points rubric-box-regular">40 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">correct hand-in</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-02-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-02-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-02-03</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-02-04</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-02-05</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-02-06</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-02-07</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-03-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">filled in correct answer for 3 matrices</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">red dot stays in red corner and black dot stays in black corner as dots are dragged; square remains square; done via translate, rotate, and scale</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">red dot stays in red corner and black dot stays in black corner as dots are dragged; square remains square; done via transform</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-03</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">red dot stays in red corner and green dot stays in green corner as dots are dragged; square remains square</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 1 matches</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 2 matches (freebie!)</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 3 matches</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 4 matches</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-04</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">parameters changed so that square 5 matches</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-04-05</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">shear-x implemented to draw sheared squares</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">Boids - add 10 boids when button is clicked, random locations and directions (but all with the correct speed)</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">Boids - clear when button is clicked</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">Draw boids so the direction they are facing is clear</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">Boids bounce, not wrap</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">Boids change color (briefly) when they hit a wall</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">Boids change color (briefly) when they hit another boid (either overlap or come very close)</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">time slider has range 0-2</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">something spins as time goes by</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">dots drawn - and can be dragged</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">lines connecting dots</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">initial hexagon - ui works</div>
+    <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (16 possible, of which you can earn a maximum of 8):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">Boids bounce off each other</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">Boids bounce off obstacles</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">Visually obvious flocking behavior (alignment, separation, cohesion)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">alignment flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">separation flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">cohesion flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">mouse attraction flocking behavior (adds to `visually obvious&#39;)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">other flocking behavior</div><div class="page-rubric-grid-box rubric-box-bonus">Box 04-05-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">added slider or checkbox that alters steering behavior</div></div>
+</details>
+</div>
+<h2 id="assessment">Assessment</h2>
+<p>The graders will check that you have done the required programs correctly. We&rsquo;ll use a local server for grading your workbooks.</p>
+<p>As you go through the workbook pages, feel free to tinker with the programs we have given you as a way to understand how they work!</p>
+<p>There are opportunities for advanced points on page 5.</p>
+<h2 id="get-started">Get Started</h2>
+<p>Don&rsquo;t forget to commit and push as you work!</p>
+
+        
+        
+        
+        
+        <h3 class="get__started">Get started on 
+            <a href="./docs/1/">Page &nbsp;1&nbsp; (Transformations as Math vs. Code)</a>!</h3>
+        
+	</div>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 4: Transformation Math</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Selected">Index (CS559 Workbook 4: Transformation Math) </li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Transformations as Math vs. Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Linear, Affine, Projective </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: Matrices in Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Matrix Exercises </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Lots of Flying Objects </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: The 559 2D UI Code </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

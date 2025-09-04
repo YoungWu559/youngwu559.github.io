@@ -1,0 +1,8 @@
+Please describe the buildings you created in this file 08-06-01.txt
+
+Explain how you made the buildings.
+
+House 1: A Box Geometry and an Extrude Geometry with simpleHouse1-front.png texture
+House 2: A Box Geometry and an Extrude Geometry with simpleHouse2-front.png and roof3.png textures
+House 3: A Box Geometry and a Cone Geometry (with 4 radial segments) with simpleHouse3-side.png and roof3.png textures
+Church: Two Box Geometries, an Extrude Geometry and a Cone Geometry with church-front.png and church-side.png textures

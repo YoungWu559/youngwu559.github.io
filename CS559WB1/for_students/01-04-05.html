@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <p>I make an empty "div" element on this page, so that I can put things in it.</p>
+        <div id="empty-div"></div>
+        <p>I put some text on the page so you can see where things go.</p>
+    </body>
+    <script type="module">
+        // find the div
+        /** @type{HTMLInputElement} */ let myDiv = (/** @type{HTMLInputElement} */ document.getElementById("empty-div"));
+
+        // make a button
+        let button = document.createElement("button");
+        // that did about the same as <button></button> 
+        // (1) we need to set it up 
+        // (give it text, give it an id so we can find it later, give it event handlers)
+        button.innerHTML = "My Button";
+        button.id = "my-button"
+        button.onclick = function() {
+                console.log("Button was clicked!");
+            }
+        // (2) we need to put it somewhere in the document - we'll put it in the div
+        myDiv.appendChild(button);
+    </script>
+    <!-- There is no reason this has to be a second script-->
+    <script type="module">
+        // we can also just stick things at the end of the document, 
+        // here I make a slider
+        let slider = document.createElement("input");
+        // notice to set up a slider we need to set many of its properties
+        slider.setAttribute("type", "range");
+        slider.setAttribute("min",0);
+        slider.setAttribute("max",100);
+        slider.setAttribute("step",1);    
+        // and stick it at the end of the document
+        // notice that we can't add it to "document" - we have to add to the body
+        // of the document
+        document.body.appendChild(slider);
+    </script>
+</html>

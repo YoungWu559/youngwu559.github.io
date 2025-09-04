@@ -1,0 +1,4 @@
+Provide the matrix for scaling by a factor of 2 (doubling in size) followed by rotation by 90 degrees:
+
+     0  -1     2  0       0  -2
+     1   0  x  0  2   =   2   0

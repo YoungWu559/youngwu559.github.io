@@ -1,0 +1,119 @@
+<!-- CS559 2023 Example Solution -->
+<!-- Jan.28 2023 -->
+
+
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     height="600px" width="600px">
+
+
+    <!-- defination of svg objects -->
+    <defs>
+        <!-- ROOF -->
+        <g id="whitebar"> <path d="M 0 0, V 100, A 25 25 0 0 0 50 100, V 0" fill="white" /> </g>
+        <g id="redbar"  > <path d="M 0 0, V 100, A 25 25 0 0 0 50 100, V 0" fill="red"   /> </g>
+
+        <!-- create a roof with whitebars and redbars -->
+        <g id="roof">
+            <use xlink:href="#whitebar" transform="translate(000,0)" />
+            <use xlink:href="#redbar"   transform="translate(050,0)" />
+            <use xlink:href="#whitebar" transform="translate(100,0)" />
+            <use xlink:href="#redbar"   transform="translate(150,0)" />
+            <use xlink:href="#whitebar" transform="translate(200,0)" />
+            <use xlink:href="#redbar"   transform="translate(250,0)" />
+            <use xlink:href="#whitebar" transform="translate(300,0)" />
+            <use xlink:href="#redbar"   transform="translate(350,0)" />
+            <use xlink:href="#whitebar" transform="translate(400,0)" />
+            <use xlink:href="#redbar"   transform="translate(450,0)" />
+            <use xlink:href="#whitebar" transform="translate(500,0)" />
+            <use xlink:href="#redbar"   transform="translate(550,0)" />
+        </g>
+
+
+        <!-- ICECREAM -->
+        <clipPath id="cut"> <polygon points="-50,0 50,0 0,150"/> </clipPath>
+        <g id="bar"> <rect width="200" height="7" fill="#A27336"/> </g>
+
+        <g id="waffleTexture">
+            <!--slash direction bars-->
+            <use xlink:href="#bar" transform="translate(-100,-20)" />
+            <use xlink:href="#bar" transform="translate(-100,  0)" />
+            <use xlink:href="#bar" transform="translate(-100, 20)" />
+            <use xlink:href="#bar" transform="translate(-100, 40)" />
+            <use xlink:href="#bar" transform="translate(-100, 60)" />
+            <use xlink:href="#bar" transform="translate(-100, 80)" />
+            <use xlink:href="#bar" transform="translate(-100,100)" />
+            <!--backslash direction bars-->
+            <use xlink:href="#bar" transform="translate(-30,150) rotate(-90)" />   
+            <use xlink:href="#bar" transform="translate(-10,150) rotate(-90)" />
+            <use xlink:href="#bar" transform="translate( 10,150) rotate(-90)" />
+            <use xlink:href="#bar" transform="translate( 30,150) rotate(-90)" />
+            <use xlink:href="#bar" transform="translate( 50,150) rotate(-90)" />
+            <use xlink:href="#bar" transform="translate( 70,150) rotate(-90)" />
+        </g>
+
+        <!--ICECREAM::waffle cone-->
+        <g id="cone">
+            <polygon points="-50 0, 50 0, 0 150" fill="#EFC144" stroke="#A27336" stroke-width="1"/> 
+            <use xlink:href="#waffleTexture" transform="rotate(30)"/>
+        </g>
+
+        <!--ICECREAM::ball-->
+        <g id="ball_*"><circle cx="0" cy="0" r="50" fill="#FFE5CC" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_0"><circle cx="0" cy="0" r="50" fill="#FF9999" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_1"><circle cx="0" cy="0" r="50" fill="#FFCCCC" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_2"><circle cx="0" cy="0" r="50" fill="#F9EBE6" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_3"><circle cx="0" cy="0" r="50" fill="#CCFFFF" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_4"><circle cx="0" cy="0" r="50" fill="#84E3FA" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_5"><circle cx="0" cy="0" r="50" fill="#CCCCFF" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_6"><circle cx="0" cy="0" r="50" fill="#FFFFCC" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_7"><circle cx="0" cy="0" r="50" fill="#BCFAE3" stroke="#FFFFFF" stroke-width="7" /></g>
+        <g id="ball_8"><circle cx="0" cy="0" r="50" fill="#331900" stroke="#FFFFFF" stroke-width="7" /></g>
+
+        <!-- make three flavor of icecreams with balls on the cone -->
+        <g id="strawberry">
+            <use xlink:href="#ball_*" transform="translate(0, -25)" />
+            <use xlink:href="#ball_0" transform="translate(0, -100)" />
+            <use xlink:href="#ball_1" transform="translate(-40, -55)" />
+            <use xlink:href="#ball_2" transform="translate(+40, -55)" />
+            <use xlink:href="#cone" clip-path="url(#cut)"/>
+        </g>
+
+        <g id="chocolate">
+            <use xlink:href="#ball_*" transform="translate(0, -25)" />
+            <use xlink:href="#ball_3" transform="translate(0, -100)" />
+            <use xlink:href="#ball_4" transform="translate(-40, -55)" />
+            <use xlink:href="#ball_5" transform="translate(+40, -55)" />
+            <use xlink:href="#cone" clip-path="url(#cut)"/>
+        </g>
+
+        <g id="blueberry">
+            <use xlink:href="#ball_*" transform="translate(0, -25)" />
+            <use xlink:href="#ball_6" transform="translate(0, -100)" />
+            <use xlink:href="#ball_7" transform="translate(-40, -55)" />
+            <use xlink:href="#ball_8" transform="translate(+40, -55)" />
+            <use xlink:href="#cone" clip-path="url(#cut)"/>
+        </g>
+
+    </defs>
+
+
+    <!-- draw the picture -->
+    <rect x="0" y="000" height="600" width="600" fill="#6ECCDB" opacity="0.4" />   <!-- background -->
+    
+    <use xlink:href="#roof" transform="translate(0,0)" />
+    <use xlink:href="#strawberry" transform="translate(300,320) rotate(0)"   />
+    <use xlink:href="#chocolate"  transform="translate(470,400) rotate(+20)" />
+    <use xlink:href="#blueberry"  transform="translate(130,400) rotate(-20)" />
+    
+    <rect x="0" y="490" height="600" width="600" fill="#66CCCC" opacity="1.0" />   <!-- foreground -->
+    <text x="300" y="550" 
+        font-family="sanif" 
+        font-size="30" 
+        font-weight="bold" 
+        text-anchor="middle"
+        alignment-baseline="middle"
+        fill="#FFFFFF" >
+        CS 559 ICE-CREAM SHOP
+    </text>
+
+</svg>

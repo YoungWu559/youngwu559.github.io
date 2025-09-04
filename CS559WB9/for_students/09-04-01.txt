@@ -1,0 +1,7 @@
+Explain where you got your textures and include any attributions here
+
+The environment maps came from the "HDRI Haven" web site - which is now part of polyhaven.com. 
+
+The rock and street scene came from this site - but I cannot recreate the links (need to use more modern things next year).
+
+The machine shop environment map on page 4/5 comes from the HRDI heaven web site https://polyhaven.com/a/machine_shop_02 (note: the old "hdri haven" now is part of polyhaven - I had gotten things from hdri haven). The texture is CC0

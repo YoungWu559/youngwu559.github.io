@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>
+        These three sliders correspond to the three methods described in the text: 
+        (1) just assume an update every 1/60th of a second, (2) measure the time
+        between steps, and (3) use a global clock.
+    </p>
+    <p> (1) This slider will either be a bit faster than 1 second end to end, or a bit slower than 2 seconds end to end (depending on your computer and browser).<br/>
+        <input type="range" min="0" max="100" id="slider1" value="0">
+    </p>
+ 
+    <p>
+        (2) This slider should take approximately 1 second, but will be off because of rounding errors.<br/>
+    <input type="range" min="0" max="100" id="slider2" value="0">
+    </p>
+    <p> (3) This slider should really take 1 second to go end to end...<br/>
+    <input type="range" min="0" max="100" id="slider3" value="0"></p>
+
+    <p> (4) This slider is the same as #1, except that we change the slider
+        resolution to avoid rounding errors. It should take either 1 or
+        2 seconds end to end, depending on the computer.<br>
+        <input type="range" min="0" max="100" id="slider4" value="0"><br/>
+    </p>
+    </p>
+    <p>
+        (5) This is the same as #2, except that we avoid rounding errors by 
+        changing slider resolution. It should take 1 second.<br/>
+        <input type="range" min="0" max="100" id="slider5" value="0"><br/>
+    </p>
+    <p>
+        (6) This is a version of strategy 2, except that rather than relying
+        on storing the value in a slider, we store it ourselves, so we don't 
+        have to deal with rounding. This is a more realistic scenario.<br/>
+        <input type="range" min="0" max="100" id="slider6" value="0"><br/>
+    </p>
+</body>
+<!-- I am making each script a separate module, so each one is a separate namespace
+     this lets me duplicate code
+  -->
+<script type="module">
+    /****************** Slider 1 */
+    // just assume we get an update 60 times a second
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider1"));
+    function advanceSLR(timestamp) {
+        // since we expect to be called 60 times per second, advance 1/60th of the way each
+        // step
+        const step = 100.0 / 60.0; // need to go to 100 in 60 steps
+        let newValue = (Number(slr.value)+step) % 100;
+        slr.value = newValue.toString();
+        // ask for this to be called again 16ms in the future
+        window.requestAnimationFrame(advanceSLR);
+    }
+    // note that just defined the function, now we need to call it
+    // to start the loop
+    // we do it this way so it gets called with the time stamp
+    window.requestAnimationFrame(advanceSLR);
+</script>
+
+<script type="module">
+        /* Slider 2 - measure the time between iterations */
+        let lasttime;  // time
+        /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider2"));
+        function advanceSLR(timestamp) {
+            let newValue;
+            if (lasttime === undefined) {
+                newValue = 0;
+            } else {
+                // doing this in steps to explain...
+                const delta = (timestamp - lasttime);       // how many milliseconds since last update
+                const change = delta / 1000.0 * 100.0;  // want the slider in 1000ms, but the slider is 100 units
+                newValue = (Number(slr.value)+change) % 100;   // move the slider forward
+            }
+            slr.value = newValue.toString();
+            window.requestAnimationFrame(advanceSLR);
+            lasttime = timestamp;      // remember the last update
+        }
+        window.requestAnimationFrame(advanceSLR);  
+</script>
+
+<script type="module">
+    /****************** Slider 3 - fixed time */
+    /* measure the total time running, and use that to determine the
+     * slider position
+     */
+    // keep track of the starting time - if it is undefined, set it as the start 
+    let start;
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider3"));
+    function advanceSLR(timestamp) {
+        if (start === undefined) start = timestamp;
+        let newValue = ((timestamp-start) % 1000) / 10.0;   // 1000ms = 100 slider units = 1 slider
+        slr.value = newValue.toString();
+        window.requestAnimationFrame(advanceSLR);
+    }
+    // remember to start the loop running
+    window.requestAnimationFrame(advanceSLR);
+</script>
+
+<script type="module">
+    /****************** Slider 4 */
+    // same code as Slider 1 - we just use a higher resolution slider
+    // just assume we get an update 60 times a second
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider4"));
+    slr.setAttribute("step",".001"); // increase the slider resolution
+    function advanceSLR(timestamp) {
+        // since we expect to be called 60 times per second, advance 1/60th of the way each
+        // step
+        const step = 100.0 / 60.0; // need to go to 100 in 60 steps
+        let newValue = (Number(slr.value)+step) % 100;
+        slr.value = newValue.toString();
+        // ask for this to be called again 16ms in the future
+        window.requestAnimationFrame(advanceSLR);
+    }
+    // note that just defined the function, now we need to call it
+    // to start the loop
+    // we do it this way so it gets called with the time stamp
+    window.requestAnimationFrame(advanceSLR);
+</script>
+
+<script type="module">
+        /* Slider 5 - measure the time between iterations */
+        /* this is the same as Slider 2 (it's the same code) - we just update 
+            the slider resolution */
+        let lasttime;  // time
+        /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider5"));
+        slr.setAttribute("step",".001"); // increase the slider resolution
+        function advanceSLR(timestamp) {
+            let newValue;
+            if (lasttime === undefined) {
+                newValue = 0;
+            } else {
+                // doing this in steps to explain...
+                const delta = (timestamp - lasttime);       // how many milliseconds since last update
+                const change = delta / 1000.0 * 100.0;  // want the slider in 1000ms, but the slider is 100 units
+                newValue = (Number(slr.value)+change) % 100;   // move the slider forward
+            }
+            slr.value = newValue.toString();
+            window.requestAnimationFrame(advanceSLR);
+            lasttime = timestamp;      // remember the last update
+        }
+        window.requestAnimationFrame(advanceSLR);
+</script>
+
+<script type="module">
+    /* Slider 6 - measure the time between iterations */
+    /* this is similar to slider 2, except that we store the "current value"
+        ourselves, so we are not subject to rounding errors
+     */
+    let lasttime;  // time
+    let value = 0;
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider6"));
+    function advanceSLR(timestamp) {
+        if (! (lasttime === undefined)) {
+            const delta = (timestamp - lasttime) / 10.0;
+            value = (value + delta) % 100;
+        }
+        slr.value = value.toString();
+        window.requestAnimationFrame(advanceSLR);
+        lasttime = timestamp;      // remember the last update
+    }
+    window.requestAnimationFrame(advanceSLR);
+</script>
+
+</html>
+

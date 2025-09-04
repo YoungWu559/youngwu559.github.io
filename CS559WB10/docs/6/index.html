@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 6: More Procedural Textures</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><h2 id="exercise-checkerboard">Exercise: Checkerboard</h2>
+<p>It&rsquo;s your turn to make a procedural texture. We&rsquo;ll start with something simple: make a checkerboard pattern. I&rsquo;ve started things for you in the files 
+    <a href="../../for_students/shaders/10-06-01.vs" class="for_students">shaders/10-06-01.vs</a> and 
+    <a href="../../for_students/shaders/10-06-01.fs" class="for_students">shaders/10-06-01.fs</a>. I&rsquo;ve also done the JavaScript part for you, including a slider for the number of checks over the 0-1 range (see 
+    <a href="../../for_students/10-06-01.js" class="for_students">10-06-01.js</a> (
+    <a href="../../for_students/10-06-01.html" class="for_students">10-06-01.html</a>)). You shouldn&rsquo;t have to modify the JavaScript file, but you can if you want to.</p>
+<p>A hint: on the next page, you will be asked to enhance your checkerboard. If you write your code to use the <code>step</code> and <code>mix</code> functions to compute the color (rather than using an <code>if</code> statement), the next page will be easier.</p>
+<iframe
+    title="10-06-01"
+    src="../../for_students/10-06-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>You should make this respond correctly to the <code>checks</code> uniform variable. Look at the dots for inspiration. The &ldquo;number of checks&rdquo; might mean either the number of squares (along an edge), or the number of dark/light pairs along an edge - whichever way you interpret it, it will be OK.</p>
+<h2 id="exercise-some-other-pattern">Exercise: Some Other Pattern</h2>
+<p>This time, you pick what pattern/texture you want to make! Something more complicated than a checkerboard. Try to make wood grain, plaid, or some wallpaper pattern - as long as it is more complicated than a checkerboard. You can look at various resources to get ideas. For example, <a href="https://canvas.wisc.edu/files/30140569/download?download_frd=1">OpenGLShading-Ch6.pdf (0.5mb)</a> gives a simple example of a brick texture, and many of the online tools provide galleries of cool examples. See <a href="../../docs/10/">Page &nbsp;10&nbsp; (Shader Tools and Examples)</a>.</p>
+<p>Transferring a shader from one of these websites to our framework can be tricky. <a href="../../docs/10/">Page &nbsp;10&nbsp; (Shader Tools and Examples)</a> will discuss it (and ask you to do it). For this page, please write the shader yourself. But, be sure to give attribution (in the text file below) if your shader is based on some example (even if you are just inspired by something). For this exercise, do not use image-based textures or animation.</p>
+<p>Again, we&rsquo;ve given you files to get started. If you need uniform variables, you&rsquo;ll need to make them yourself. The files are  
+    <a href="../../for_students/shaders/10-06-02.vs" class="for_students">shaders/10-06-02.vs</a> and  
+    <a href="../../for_students/shaders/10-06-02.fs" class="for_students">shaders/10-06-02.fs</a> as well as 
+    <a href="../../for_students/10-06-02.js" class="for_students">10-06-02.js</a> (
+    <a href="../../for_students/10-06-02.html" class="for_students">10-06-02.html</a>). Once you&rsquo;ve implemented the shader, explain your work in  
+    <a href="../../for_students/10-06-02.txt" class="for_students">10-06-02.txt</a></p>
+<iframe
+    title="10-06-02"
+    src="../../for_students/10-06-02.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<iframe
+    title="10-06-02"
+    src="../../for_students/10-06-02.txt"
+    class="includebox"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<h2 id="summary-procedural-textures">Summary: Procedural Textures</h2>
+<p>Procedural textures are one of the cooler things we can do with shaders. Let&rsquo;s look at a detail of using them on <a href="../../docs/7/" class="Next__Page">Next: Aliasing </a>.</p>
+
+            
+
+
+        
+        
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Page 6 Rubric (12 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (12):</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-06-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">looks like a checkerboard</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-06-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">responds to slider</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-06-02</div>
+                <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">some other pattern</div></div>
+    </details>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 10: Shaders</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Shaders)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Shader Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Simple Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: GLSL and THREE </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Lighting in Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Procedural Textures </a></li>
+        <li class="Side__Item Side__Selected"> 6: More Procedural Textures </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Aliasing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Using Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: All Together </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Shader Tools and Examples </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

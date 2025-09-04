@@ -1,0 +1,55 @@
+// @ts-check
+export {};
+
+// we'll keep track of a set of "dots"
+let dots = [];
+
+let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("boxcanvas"));
+let context = /** @type {CanvasRenderingContext2D}*/ (canvas.getContext('2d'));
+
+// when the mouse moves in the canvas, remember where it moves to
+canvas.onmousemove = function(event) {
+    let mouseX = event.clientX;
+    let mouseY = event.clientY;
+    // unfortunately, X,Y is relative to the overall window -
+    // we need the X,Y inside the canvas!
+    // we know that event.target is a HTMLCanvasElement, so tell typescript
+    let box = /** @type {HTMLCanvasElement} */(event.target).getBoundingClientRect();
+    mouseX -= box.left;
+    mouseY -= box.top;
+    dots.push({"x":mouseX,"y":mouseY});
+};
+
+function animate() {
+    // clear the canvas
+    context.clearRect(0,0,canvas.width,canvas.height);
+
+    // move each dot downwards
+    dots.forEach(function(dot) {
+        dot.y = dot.y + 2;
+    });
+    // remove dots that went below the bottom
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+    dots = dots.filter(
+        // this defines a function using "arrow notation"
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+        dot => (dot.y<canvas.height)
+        );
+
+    // draw all of the dots
+    dots.forEach(function(dot){
+        context.fillStyle = "#8888FF88";
+        context.fillRect(dot.x-3,dot.y-3,6,6);
+    });
+
+
+    window.requestAnimationFrame(animate);
+}
+animate();
+
+/** @type {HTMLButtonElement} */
+(document.getElementById("mybutton")).onclick = function() {
+    dots = [];
+};
+
+

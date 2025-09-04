@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 1: UI Exercises</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>This page has a simple exercise to help you learn how to control the UI code that we give you.</p>
+<h2 id="box-1-exercise-5-try-out-the-ui">Box 1: Exercise 5, Try out the UI</h2>
+<p>To write the demos, we provided some utility routines that augment a Canvas.</p>
+<p>One helper is called <code>runCanvas</code>. You&rsquo;ve actually been using that already. It provides a simple way to have an animation loop with a start/stop control and a time slider. Many of the boxes throughout the previous workbook had this. We&rsquo;ll continue to use <code>runCanvas</code> in workbooks throughout the semester.</p>
+<p>The other helper is called <code>dragPoints</code> - it keeps track of a list of points and allows the user to drag them around. The function in the <code>dragPoints</code> file is called <code>draggablePoints</code>.</p>
+<p>When <code>dragPoints</code> is integrated correctly, the user should be able to click near a point to drag it; Shift-Click to add a new point (at the end of the list); and Ctrl-Click (or Command-Click on a Mac) to delete a point.</p>
+<p>The <code>dragPoints</code> system needs the function you use to redraw the Canvas, and the list of points (it will change the list as needed). Your redraw function needs to draw the dots for the points. You pass the redraw function to <code>draggablePoints</code> so it gets called when the points are moved.</p>
+<p>You&rsquo;ve actually been using this for a while in the demos. But now, make sure you can use the code. Have a draw function that connects the points into a polygon (connect neighboring pairs of points with line segments). You also should draw circles for the points so you know where to click. Change the initial value for the points so the program draws a hexagon when it is loaded. You should edit 
+    <a href="../../for_students/tr-01-01.js" class="for_students">tr-01-01.js</a> (
+    <a href="../../for_students/tr-01-01.html" class="for_students">tr-01-01.html</a>).</p>
+<p>Your program might draw something like this:
+
+    
+    <figure class="">
+        <a href="../../images/hexagon.png">
+            <img src="../../images/hexagon_hu386e620f76885aa7aa2ae4262cb5d85a_6714_150x150_fit_box_3.png" alt="images/hexagon.png" />
+        </a>
+    </figure>
+
+It doesn&rsquo;t have to look exactly like this (any hexagon is OK, and you don&rsquo;t have to make everything all black).</p>
+<p><code>dragPoint</code> lets you move, add, and remove points - it does not let you re-order them.</p>
+<iframe
+    title="tr-01-01"
+    src="../../for_students/tr-01-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>You&rsquo;ll see more UI code on page 3 of the workbook.</p>
+<p><a href="../../docs/2/" class="Next__Page">Next: The Train: Intro </a></p>
+
+            
+
+<div>
+        <i>There are no points associated with this page.</i>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 6: 3D and Three</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (The Train Workbook)</a></li>
+        <li class="Side__Item Side__Selected"> 1: UI Exercises </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: The Train: Intro </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: The Train: Assignment </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

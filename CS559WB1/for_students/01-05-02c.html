@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>
+        <input type="range" min="0" max="100" id="slider1"><br/>
+        <input type="range" min="0" max="100" id="slider2"><br/>
+        <input type="range" min="0" max="100" id="slider3"><br/>
+        <br /><!-- make extra sliders for a second example -->
+        <input type="range" min="0" max="100" id="slider4"><br/>
+        <input type="range" min="0" max="100" id="slider5"><br/>
+        <input type="range" min="0" max="100" id="slider6"><br/>
+        
+    </p>
+</body>
+<script type="module">
+    // make 3 sliders run "in parallel" - we make the code for each be independent
+    //
+    // this is similar to the previous example, but we'll write it using
+    // nicer programming techniques - we'll have a loop that creates the functions
+    // 
+    // this is an excuse to try out Javascript's functional programming ability
+
+    // note how we can iterate over an array!
+    for (const slider of ['slider1', 'slider2', 'slider3']) {
+        /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById(slider));
+
+        // note that we're defining a function inside of a loop!
+        // we should be careful, because this is actually a pretty heavy weight
+        // operation (we are essentially running the compiler to create new
+        // functions with each iteration)
+        // also, notice that if this function refers to slr, it will refer to
+        // the SLR value of the loop - which will change on every iteration!
+        // we effectively get a new copy of the "slr" variable with each iteration
+        // of the loop
+        function advanceSLR() {
+            let newValue = (Number(slr.value)+1) % 100;
+            slr.value = newValue.toString();
+            window.requestAnimationFrame(advanceSLR);  
+        }
+        advanceSLR();
+    }
+
+    // the closure in the previous example is an important concept.
+    // the variable slr was defined outside of advanceSLR, but since it
+    // was within the loop's scope, we got a new variable each iteration
+    // 
+    // contrast that with the following code: where slr is defined outside
+    // of the loop, so that each copy of the advanceSLR function refers to
+    // the same variable - this means the same slider gets updated each time!
+    // (observe how it moves much faster)
+    /** @type{HTMLInputElement} */ 
+    let slr;    // define this variable outside of the loop
+    var flag = false;
+   
+    for (const slider of ['slider4', 'slider5', 'slider6']) {
+        // slr is declared outside of the loop - so we don't get a "new"
+        // variable with each iteration
+        slr = (/** @type{HTMLInputElement} */ document.getElementById(slider));
+
+        // notice that the slr variable refers to the slr variable defined
+        // outside of the loop 
+        function advanceSLR() {
+            if (!flag) {
+                console.log(slr.value);
+            }
+            let newValue = (Number(slr.value)+1) % 100;
+            slr.value = newValue.toString();
+
+            if (!flag) {
+                console.log(`${slider} and ${slr.id}`);
+                console.log(slr.value);
+                flag = true;
+            }
+            window.requestAnimationFrame(advanceSLR);
+        }
+        advanceSLR();
+    }
+
+
+</script>
+</html>
+

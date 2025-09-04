@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>    
+    
+    
+    <script type="text">
+        (function() {
+            var i, text, code, codes = document.getElementsByTagName('code');
+            for (i = 0; i &lt; codes.length;) {
+                code = codes[i];
+                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+                text = code.textContent;
+                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
+                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
+                    code.textContent = text;
+                }
+                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+                    /^\$(.|\s)+\$$/.test(text) ||
+                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+                    code.outerHTML = code.innerHTML;  // remove <code></code>
+                    continue;
+                }
+                }
+                i++;
+            }
+            })();
+    </script>
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            inlineMath: [['$','$'], ['\\(','\\)']],
+            displayMath: [['$$','$$'], ['\\[','\\]']],
+            processEscapes: true,
+            processEnvironments: true,
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            TeX: { equationNumbers: { autoNumber: "AMS" },
+                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+            }
+        });
+    </script>
+
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 6: The 559 2D UI Code</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>Next week, there will be a very big workbook. It&rsquo;s so big that it operates by special rules. (don&rsquo;t worry, you get extra time to do it).</p>
+<p>To prepare, we want you to get used to some of the software infrastructure we use in class - these are libraries that we have been using in demos, and you will use in next week&rsquo;s assignments. The boxes on this page are designed to give you some experience working with the libraries. That way you won&rsquo;t have to spend your time figuring them out next week when you are trying to use them in Workbook 5.</p>
+<p>You&rsquo;ll note at the top of the scripts in the programs on these pages they load the required code as a module from the <code>libs</code> directory - this is code we give you. <strong>You should not edit the library code.</strong> You should use it as is.</p>
+<p>While what we ask you to do is pretty trivial, it will be good for you to understand how to use these libraries, since you will need them in the future. And, it is good practice to learn how to work with code someone else wrote.</p>
+<h2 id="runcanvas">RunCanvas</h2>
+<p>The <code>runCanvas</code> library provides a simple way to have an animation loop with a start/stop control and a time slider. We’ll continue to use runCanvas in workbooks throughout the semester.</p>
+<p>The simple way to use <code>runCanvas</code> is to call the function - provide it the Canvas that you want this to be applied to, and a function that you want to be called every time the time changes. The function will be called with two parameters: the canvas, and the time. By default, the time goes between 0 and 1 (so you can assume the time will be between those) - but you can configure the range and step size through the paramters (read the code - the <code>runCanvas</code> function is at the end).</p>
+<p>Try it out. There is some starter code in 
+    <a href="../../for_students/04-06-01.js" class="for_students">04-06-01.js</a> (
+    <a href="../../for_students/04-05-01.html" class="for_students">04-05-01.html</a>) that you can edit. Edit these so that the time slider (1) goes between 0 and 2, and that as the time slider is moved (whether running or dragged), something spins around. (you should draw something and have its rotation be affected by time).</p>
+<iframe
+    title="04-06-01"
+    src="../../for_students/04-06-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<h2 id="dragpoints">DragPoints</h2>
+<p>The other helper is called <code>dragPoints</code> - it keeps track of a list of points and allows the user to drag them around. The function in the <code>dragPoints</code> file is called <code>draggablePoints</code>.</p>
+<p>When <code>dragPoints</code> is integrated correctly, the user will be able to click near a point to drag it; Shift-Click to add a new point (at the end of the list); and Ctrl-Click (or Command-Click on a Mac) to delete a point.</p>
+<p>The <code>dragPoints</code> system needs the function you use to redraw the Canvas, and the list of points (it will change the list as needed). Your redraw function needs to draw the dots for the points. You pass the redraw function to <code>draggablePoints</code> so it gets called when the points are moved. The redraw function should be the same kind of function that you pass to <code>requestAnimationFrame</code> - taking the same argument.</p>
+<p>You&rsquo;ve actually been using this for a while in the demos. But now, make sure you can use the code. Have a draw function that connects the points into a polygon (connect neighboring pairs of points with line segments). You also should draw circles for the points so you know where to click. Change the initial value for the points so the program draws a hexagon when it is loaded. You should edit 
+    <a href="../../for_students/04-06-02.js" class="for_students">04-06-02.js</a> (
+    <a href="../../for_students/04-06-02.html" class="for_students">04-06-02.html</a>).</p>
+<p>Your program might draw something like this:
+
+    
+    <figure class="">
+        <a href="../../images/hexagon.png">
+            <img src="../../images/hexagon_hu386e620f76885aa7aa2ae4262cb5d85a_6714_150x150_fit_box_3.png" alt="images/hexagon.png" />
+        </a>
+    </figure>
+
+It doesn&rsquo;t have to look exactly like this (any hexagon is OK, and you don&rsquo;t have to make everything all black).</p>
+<p><code>dragPoint</code> lets you move, add, and remove points - it does not let you re-order them.</p>
+<iframe
+    title="04-06-02"
+    src="../../for_students/04-06-02.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<h2 id="the-end">The End</h2>
+<p>That&rsquo;s the end of the workbook. Of course, commit and push to GitHub often! When you are done with the workbook (and committed and pushed the version you would like to have graded), complete the <a href="https://canvas.wisc.edu/courses/343665/assignments/1844770">Workbook 04 Handin (due Mon, Feb 20)</a> Survey on canvas.</p>
+
+            
+
+
+        
+        
+        
+        
+        <div class="page-rubric-container">
+    <details class="page__rubric">
+    <summary>Page 6 Rubric (5 points total)</summary>
+    <br/>
+    <div class="page-rubric-grid">
+            <div class="page-rubric-grid-header rubric-box-regular">Points (5):</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">time slider has range 0-2</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-01</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">something spins as time goes by</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-02</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">dots drawn - and can be dragged</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-02</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">lines connecting dots</div><div class="page-rubric-grid-box rubric-box-regular">Box 04-06-02</div>
+                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
+                <div class="page-rubric-grid-desc rubric-box-regular">initial hexagon - ui works</div></div>
+    </details>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 4: Transformation Math</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 4: Transformation Math)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Transformations as Math vs. Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Linear, Affine, Projective </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Matrices in Code </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Matrix Exercises </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Lots of Flying Objects </a></li>
+        <li class="Side__Item Side__Selected"> 6: The 559 2D UI Code </li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

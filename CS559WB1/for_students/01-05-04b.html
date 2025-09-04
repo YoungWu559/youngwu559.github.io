@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <p>
+        <input type="checkbox" id="check"> This checkbox turns the sliders on and off.
+    </p>
+    <p> (1) This slider checks the time between steps.<br/>
+        <input type="range" min="0" max="100" id="slider1" value="0">
+    </p>
+ 
+    <p>
+        (2) This uses a global time. It will jump when it is started.<br/>
+        <input type="range" min="0" max="100" id="slider2" value="0">
+    </p>
+</body>
+<!-- I am making each script a separate module, so each one is a separate namespace
+     this lets me duplicate code
+  -->
+  <script type="module">
+    /* Slider 1 - measure the time between steps */
+    let lasttime;  // time
+    let value = 0;
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider1"));
+    /** @type{HTMLInputElement} */ let gobut = (/** @type{HTMLInputElement} */ document.getElementById("check"));
+    function advanceSLR(timestamp) {
+        // only move if things are running
+        if (! (lasttime === undefined) && gobut.checked) {
+            //const delta = (timestamp - lasttime) / 10.0;      // <- original statement
+            const delta = (timestamp - lasttime) * 0.05;      // <- solution statement
+            value = (value + delta) % 100;
+            slr.value = value.toString();
+        }
+        // note that we update the last iteration - even if we didn't update
+        // the slider! that way if we restart the loop, we don't have a jump
+        lasttime = timestamp;      // remember the last update
+        window.requestAnimationFrame(advanceSLR);
+    }
+    window.requestAnimationFrame(advanceSLR);
+</script>
+
+<script type="module">
+    /****************** Slider 2 - fixed time */
+    /* measure the total time running, and use that to determine the
+     * slider position
+     */
+    // keep track of the starting time - if it is undefined, set it as the start 
+    let start;
+    /** @type{HTMLInputElement} */ let slr = (/** @type{HTMLInputElement} */ document.getElementById("slider2"));
+    /** @type{HTMLInputElement} */ let gobut = (/** @type{HTMLInputElement} */ document.getElementById("check"));
+    function advanceSLR(timestamp) {
+        if (start === undefined) start = timestamp;
+        if (gobut.checked) {
+            //let newValue = ((timestamp-start) % 1000) / 10.0;   // 1000ms = 100 slider units = 1 slider
+            let newValue = (((timestamp-start) / 2) % 1000) / 10.0;    // <- solution
+            slr.value = newValue.toString();
+        }
+        window.requestAnimationFrame(advanceSLR);
+    }
+    // remember to start the loop running
+    window.requestAnimationFrame(advanceSLR);
+</script>
+
+
+</html>
+

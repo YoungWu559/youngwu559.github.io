@@ -1,0 +1,21 @@
+Two kinds of objects created for this assignment:
+1. Stop sign.
+2. Street light.
+
+Five other kinds of objects that you created:
+3. House (3 types).
+4. Church.
+5. Car (SUV, HatchBack, Van).
+6. Tree.
+7. Road (StraightRoad, Intersection, RoundRoad, Lawn).
+
+At least on of each type of object:
+Building/structure: House.
+Vehicle: SUV.
+Natural Element: Tree.
+
+Object loaded from a model file:
+Model: ObjCube.
+
+An object with a shader that you wrote:
+ShaderObj: ShadedCube.

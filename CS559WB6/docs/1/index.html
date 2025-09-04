@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 1: The THREE.js library</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>On this page, we&rsquo;ll just deal with the mechanics of using the THREE.js library, and some of the issues specific to using the library in the way we&rsquo;ve been programming in class.</p>
+<h2 id="box-1-check-that-things-work">Box 1: Check that things work</h2>
+<p>Just to make sure that things work, here is a simple scene made with the THREE library (
+    <a href="../../for_students/06-01-01.html" class="for_students">06-01-01.html</a> and 
+    <a href="../../for_students/06-01-01.js" class="for_students">06-01-01.js</a>). You should see a spinning green cube.</p>
+
+<h3>06-01-01</h3><iframe
+    title=""
+    src="../../for_students/06-01-01.html"
+    js = "/for_students/06-01-01.js"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>If you don&rsquo;t see the picture (a spinning cube), something is wrong.</p>
+<p>The THREE.js library (or, rather, all of the parts of it that we will need for class) is included in the <code>libs/CS559-Three</code> folder of the workbook.</p>
+<p>The main parts of THREE are packaged as a JavaScript module. We can load it with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#f92672">*</span> <span style="color:#75af00">as</span> <span style="color:#75af00">THREE</span> <span style="color:#75af00">from</span> <span style="color:#d88200">&#34;../libs/CS559-Three/build/three.module.js&#34;</span><span style="color:#111">;</span></span></span></code></pre></div>
+<p>This creates a symbol (kind of like a variable) that allows us to access everything built in to THREE. Here, we&rsquo;ve decided to call it <code>THREE</code> , but we could pick a different variable name if we wanted to. In most of the examples it is called <code>T</code> to save typing. You will see:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">import</span> <span style="color:#f92672">*</span> <span style="color:#75af00">as</span> <span style="color:#75af00">T</span> <span style="color:#75af00">from</span> <span style="color:#d88200">&#34;../libs/CS559-Three/build/three.module.js&#34;</span><span style="color:#111">;</span></span></span></code></pre></div>
+<p>Some pieces of THREE (that we&rsquo;ll see later in this workbook, such as the <code>OrbitControl</code>) are not part of the THREE module and, therefore, need to be loaded separately.</p>
+<p>In prior versions of THREE, the library was not a module. This was a problem in earlier editions of this course.</p>
+<p>THREE also provides type information so we can use the TypeScript type checker (see <a href="https://cs559.github.io/559Tutorials/javascript/typed-js/" target="_blank">Typed JavaScript and CS559</a>).</p>
+<h2 id="box-2-three-and-html">Box 2: THREE and HTML</h2>
+<p>THREE actually draws into a Canvas element. It doesn&rsquo;t use the Canvas 2D API - it uses WebGL, a different API that we will learn about later.</p>
+<p>Normally, THREE creates the Canvas element for us. The example above includes the following code:</p>
+
+    
+    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">renderer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">WebGLRenderer</span><span style="color:#111">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">renderer</span><span style="color:#111">.</span><span style="color:#75af00">setSize</span><span style="color:#111">(</span><span style="color:#ae81ff">200</span><span style="color:#111">,</span> <span style="color:#ae81ff">200</span><span style="color:#111">);</span> <span style="color:#75715e">// was (window.innerWidth, window.innerHeight );
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;div1&#34;</span><span style="color:#111">).</span><span style="color:#75af00">appendChild</span><span style="color:#111">(</span><span style="color:#75af00">renderer</span><span style="color:#111">.</span><span style="color:#75af00">domElement</span><span style="color:#111">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>This creates a <code>WebGLRenderer</code> object, which has a property that is an <code>HTMLCanvasElement</code> (where the drawing will happen). The call to <code>setSize</code> sets the size of the Canvas (in HTML pixels). The last line finds a container element called <code>three1</code> (it&rsquo;s a <code>&lt;div&gt;</code>) that we put into the HTML where we want to put the newly created canvas, and inserts the Canvas into it.</p>
+<p>If we had a Canvas already, we could tell THREE to use it instead. So here is a Canvas in HTML:</p>
+
+<h3>06-01-02</h3><iframe
+    title=""
+    src="../../for_students/06-01-02.html"
+    js = "/for_students/06-01-02.js"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>And the code looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">canvas</span> <span style="color:#f92672">=</span> <span style="color:#75715e">/** @type {HTMLCanvasElement} */</span> <span style="color:#111">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;canvas1&#34;</span><span style="color:#111">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">renderer</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">WebGLRenderer</span><span style="color:#111">({</span> <span style="color:#75af00">canvas</span><span style="color:#f92672">:</span> <span style="color:#75af00">canvas</span> <span style="color:#111">});</span></span></span></code></pre></div>
+<p>Basically, we have to find the Canvas and pass it to the constructor of the renderer.</p>
+<p>You can view the full code in 
+    <a href="../../for_students/06-01-02.js" class="for_students">06-01-02.js</a> (
+    <a href="../../for_students/06-01-02.html" class="for_students">06-01-02.html</a>).</p>
+<h2 id="parameter-passing">Parameter Passing</h2>
+<p>There is one subtle thing here that is a common paradigm in THREE programming (in fact, in JavaScript programming in general). Note how we pass the parameters to the <code>WebGLRenderer</code> constructor as an object <code>{&quot;canvas&quot;:canvas}</code>. Since JavaScript doesn&rsquo;t support keyword arguments (like Python), we need some mechanism for specifying the parameters we want, without having to include the parameters that should take default values. So instead of passing a list of parameters, we pass an object that contains all of the parameters we want to control.</p>
+<p>For example, suppose we have a function like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">function</span> <span style="color:#75af00">foo</span><span style="color:#111">(</span><span style="color:#75af00">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#75af00">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#111">,</span> <span style="color:#75af00">c</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span><span style="color:#111">,</span> <span style="color:#75af00">d</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// do something with a, b, c and d
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span></span></span></code></pre></div>
+<p>and we want to call it with the default parameters for everything except <code>d</code>. In this case, we&rsquo;re stuck. If we wanted <code>d=7</code>, we would need to write <code>foo(1,2,3,7)</code>. If this were Python, we could write <code>foo(d=7)</code>, but it&rsquo;s not. So instead we define the function to take one object that holds the parameters:</p>
+<div class="highlight"><pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">function</span> <span style="color:#75af00">foo</span><span style="color:#111">(</span><span style="color:#75af00">object</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">let</span> <span style="color:#75af00">a</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;a&#34;</span> <span style="color:#00a8c8">in</span> <span style="color:#75af00">object</span> <span style="color:#f92672">?</span> <span style="color:#75af00">object</span><span style="color:#111">.</span><span style="color:#75af00">a</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">let</span> <span style="color:#75af00">b</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;b&#34;</span> <span style="color:#00a8c8">in</span> <span style="color:#75af00">object</span> <span style="color:#f92672">?</span> <span style="color:#75af00">object</span><span style="color:#111">.</span><span style="color:#75af00">b</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">let</span> <span style="color:#75af00">c</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;c&#34;</span> <span style="color:#00a8c8">in</span> <span style="color:#75af00">object</span> <span style="color:#f92672">?</span> <span style="color:#75af00">object</span><span style="color:#111">.</span><span style="color:#75af00">c</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#00a8c8">let</span> <span style="color:#75af00">d</span> <span style="color:#f92672">=</span> <span style="color:#d88200">&#34;d&#34;</span> <span style="color:#00a8c8">in</span> <span style="color:#75af00">object</span> <span style="color:#f92672">?</span> <span style="color:#75af00">object</span><span style="color:#111">.</span><span style="color:#75af00">d</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">4</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// do something with a, b, c and d
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#111">}</span></span></span></code></pre></div>
+<p>so we can write <code>foo({d:7})</code> (remember JavaScript quoting rules, we don&rsquo;t need quotes around d). This is a little bit of a hassle when we create the function, but very convenient when we use it (especially for functions with lots of arguments). Fortunately, the author of THREE wrote a lot of his code this way.</p>
+<h2 id="summary-using-three">Summary: Using THREE</h2>
+<p>So now, you can hopefully create a THREE program with the THREE library. Now let&rsquo;s try to figure out how to use THREE on <a href="../../docs/2/">Page &nbsp;2&nbsp; (Elements of 3D Graphics Programming)</a>.</p>
+<p><a href="../../docs/2/" class="Next__Page">Next: Elements of 3D Graphics Programming </a></p>
+
+            
+
+<div>
+        <i>There are no points associated with this page.</i>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 6: 3D and Three</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 6 - 3D and THREE)</a></li>
+        <li class="Side__Item Side__Selected"> 1: The THREE.js library </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Elements of 3D Graphics Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Making a Scene </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Primitive Objects and Basic Transformations </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Lights, Camera, Action! </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Materials </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Animation and THREE </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Snowman </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Space-Age Sculpture Museum </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

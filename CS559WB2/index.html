@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+	<meta name="generator" content="Hugo 0.121.1">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="./css/workbook.css">
+        <script src="./js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+
+
+<main class="main list" role="main">
+	<header class="main__header">
+		<h1 class="main__title">Workbook 2: Graphics APIs and Drawing Basics</h1>
+	</header>
+	<div class="content main__content clearfix">
+        
+
+        <div class="dimbox">
+                <h2>CS559 Spring 2023 Sample Solution</h2>
+                <p>This is a sample solution for the Workbook.
+                    You are welcome to refer to it to learn one way to do the assignment
+                    but only after you have turned in your own assignment
+                </p>
+            </div><div class="workbook-todo">
+    <strong>TODO:</strong><div> ask student to explain where transparency is</div>
+</div>
+
+<p>Remember to look at these web pages using a local web server!
+For more information on using a local server, see the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/559tools/" target="_blank">Tools for 559</a> page.</p>
+<p>You may have noticed from this week&rsquo;s assignment that we will be doing non-trivial JavaScript programming. If you feel like you need to accelerate your learning, see the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/javascript559/" target="_blank">Javascript in CS559</a>, specifically the &ldquo;Advice on Learning JavaScript&rdquo; section.</p>
+<h2>Learning Goals</h2>
+<ol>
+    <li>To introduce the idea of object-based graphics as opposed to image-based graphics</li>
+    <li>To show the two different types of graphics APIs, immediate mode and retained mode</li>
+    <li>To give you experience programming with the Canvas API that web browsers provide</li>
+    <li>To give you exposure to SVG, which we will look at more in the future</li>
+    <li>To see how the event and animation loop models introduced in the previous workbook are used in graphics</li>
+    <li>To introduce the concept of display lists</li>
+    <li>To practice with reading and writing JavaScript programs with actual <strong>graphics programs</strong></li>
+</ol>
+<h2 id="what-you-should-do-with-this-workbook">What you should do with this Workbook</h2>
+<p>This workbook assumes you&rsquo;ve already done the previous week&rsquo;s workbook, and are familiar with the mechanics of doing assignments and turning them in using GitHub, as well as looking at web pages with JavaScript programs. Remember to look at the workbook with a local web server.</p>
+<p>You are welcome to look at any of the files in the workbook. However, you can read the text of the pages in the web browser.
+The files for you to read the source code are stored in the <code>for_students/</code> folder. For this workbook, you probably just need to look at the JavaScript <code>.js</code> files.
+This includes files that need to be modified for the exercises, but also source files that you should read and understand to learn about web programming.
+We will ask you to make changes to some of the programs, and also write some of your own.</p>
+<p>For this workbook, you should not need to add any files to the workbook.</p>
+<p>This workbook also has links to required readings. Make sure you read them.
+Even if you don&rsquo;t need it to complete the workbook assignment, you will need the
+information for other parts of class (for example, you may see questions on the surveys or exams).
+Sometimes the readings are information you will need for future weeks.</p>
+<p>This workbook has 8 pages total. There are exercises for you to do scattered about.</p>
+<p>Don&rsquo;t forget to commit and push your work as you go - this way you&rsquo;ll have a backup in case something goes wrong. Also, don&rsquo;t forget to do <a href="https://canvas.wisc.edu/courses/343665/assignments/1819283">Workbook 02 Handin (due Mon, Feb 6)</a> when you are done to tell us that you&rsquo;ve completed the workbook and that we can grade it.</p>
+<h2 id="readings">Readings</h2>
+<p>In addition to the pages and code of the workbook, there are a number of things you will be asked to read. It may work best to read the workbook, and go to the external readings when they come up.</p>
+
+
+<details class="myexpand" >
+    <summary class="myexpand-head">The readings (in order of appearance):</summary>
+    <div class="markdown-inner myexpand-content">
+      <ul>
+<li>(optional) Chapter 1 of <em>Foundations of Computer Graphics</em> <a href="https://canvas.wisc.edu/files/30140516/download?download_frd=1">FCG4_Ch01.pdf (0.2mb)</a></li>
+<li><a href="https://cs559.github.io/559Tutorials/types-of-pictures/images-vs-objects/" target="_blank">CS559 Tutorial: Image-Based vs. Object-Based Graphics</a></li>
+<li><a href="https://cs559.github.io/559Tutorials/color/color1/" target="_blank">CS559 Color Tutorial</a></li>
+<li><a href="https://cs559.github.io/559Tutorials/types-of-pictures/pixels/" target="_blank">CS559 Tutorial: What is a Pixel</a></li>
+<li>(optional) Readings about SVG are for later in the semester, but you could look at <a href="https://cs559.github.io/559Tutorials/svg/svg1/" target="_blank">CS559 SVG Tutorial Part 1: Getting Started with SVG</a> if  you are curious</li>
+<li><a href="https://cs559.github.io/559Tutorials/math/points-vectors/" target="_blank">CS559 Tutorial: Points, Vectors, Coordinate Systems</a></li>
+<li>(optional) If you need a refresher on vector math (the basics of Linear Algebra), Chapters <a href="https://canvas.wisc.edu/files/30140529/download?download_frd=1">1</a>, <a href="https://canvas.wisc.edu/files/30140530/download?download_frd=1">2</a> and <a href="https://canvas.wisc.edu/files/30140472/download?download_frd=1">4</a> of <em>Practical Linear Algebra</em> are a good place to get it.</li>
+<li>(optional) Reference links for Canvas:
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" target="_blank">Mozilla (Official) Canvas API Documentation</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial" target="_blank">Mozilla (Official) Canvas Tutorial (top level)</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes" target="_blank">Mozilla (Official) Canvas Tutorial: Drawing Shapes</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors" target="_blank">Mozilla (Official) Canvas Tutorial: Styles</a></li>
+<li><a href="https://simon.html5.org/dump/html5-canvas-cheat-sheet.html" target="_blank">Canvas Cheat Sheet</a></li>
+<li><a href="https://joshondesign.com/p/books/canvasdeepdive/title.html" target="_blank">HTML Canvas Deep Dive</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</details>
+
+
+        
+        <h2>Rubric</h2>
+            
+<div class="page-rubric-container">
+<details class="page__rubric">
+<summary>Workbook Rubric (93 points total)</summary>
+<br/>
+<div class="page-rubric-grid">
+        <div class="page-rubric-grid-header rubric-box-regular">Points (86):</div><div class="page-rubric-grid-box rubric-box-regular"></div>
+            <div class="page-rubric-grid-points rubric-box-regular">40 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">correct hand-in</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">8 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">2 pts for each of 4 shapes</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">making a picture</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">shapes that aren&#39;t rectangles</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-02</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">transparency (must be obvious from looking at the picture)</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-07-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">making circles appear when the mouse is clicked</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-07-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">having the circles change color when the mouse is over them</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-07-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">having the circles change their color back when the mouse leaves them</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">user clicks mouse, firework shoots from the bottom towards mouse</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">firework moves to mouse position over time</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">firework disappears (explodes) when it gets to position</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">small moving pieces appear where big one explodes</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">pieces move outward from explosion</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">multiple fireworks at once (if user clicks quickly)</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-regular">fireworks are different colors</div>
+    <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (7):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-07-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">having the circle change color when clicked (advanced points), with the hover behavior still working</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">explosions fade out (or disappear) after a distance</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">fireworks start from random locations at bottom</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">random fireworks in addition to user clicks</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
+            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
+            <div class="page-rubric-grid-desc rubric-box-bonus">projectile motion</div></div>
+</details>
+</div>
+        
+        
+        
+        <h3 class="get__started">Get started on 
+            <a href="./docs/1/">Page &nbsp;1&nbsp; (Web Graphics APIs)</a>!</h3>
+        
+	</div>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Selected">Index (CS559 Workbook 2: Graphics APIs) </li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: Where did I draw </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Animation and Interaction with SVG and Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: Interactive 2D Scenes </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/7/">7: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/8/">8: Fireworks </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

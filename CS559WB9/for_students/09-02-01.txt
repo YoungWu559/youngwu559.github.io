@@ -1,0 +1,9 @@
+Explain how you incorporated a material property map here:
+
+We use a grid (black/white) to make the distinctions obvious. It's all or nothing, so the effects are drastic.
+
+The left sphere is a roughness map. The metalness is about 50%. Notice hour the rough areas are purely diffuse, while the other areas are shinier.
+
+The center is a metalness map. The metalness is either 0 or 100%. A metal surface doesn't give its surface color, so the specular highlight stands out more (and the non-highlight is much darker).
+
+The right combines the metalness map and a color map.

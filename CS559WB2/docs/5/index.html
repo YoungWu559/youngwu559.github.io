@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 5: Animation and Interaction with SVG and Canvas</h1>
+		</header>
+        
+        
+        
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                </div><p>Back on <a href="../../docs/1/">Page &nbsp;1&nbsp; (Web Graphics APIs)</a>, we saw animation with Canvas and SVG,
+and interaction with SVG. Now we will look at animation and
+interaction with Canvas in more detail.</p>
+<p>The tricky thing is that with Canvas, we don&rsquo;t store the objects.
+That means we don&rsquo;t have anything to change - it&rsquo;s up to the program
+to keep track of things and adjust them accordingly, and we need to redraw everything.
+Similarly, for interactions, there are no objects to generate events.
+The graphics &ldquo;objects&rdquo; only exist in our program, so we are responsible
+for creating events.</p>
+<p>We&rsquo;ll look at some implications of needing to represent objects in
+our own programs on this page.</p>
+<h2 id="box-1-animation-with-svg-and-canvas">Box 1: Animation with SVG and Canvas</h2>
+<p>When we animate, we need to change the image for each &ldquo;frame&rdquo;.
+With SVG, we modify the elements that change - and the picture gets
+updated accordingly.
+With Canvas, we have to update the picture ourselves.</p>
+<p>In general, we will do this by (1) clearing the canvas and (2) redrawing
+everything. Notice that this is wasteful: we redraw things that didn&rsquo;t change.
+If we really care about performance, we would try to figure out what
+changed and only change those parts.</p>
+<p>With graphics, figuring out what changed and only changing those parts can be
+hard (especially with 3D).
+For example, moving one object might reveal new things behind it.
+The complexity of keeping track of what has changed may outweigh the extra
+effort to redraw things that didn&rsquo;t change.</p>
+<p>In almost all cases in this class, we will just clear the whole canvas
+and re-draw everything. We&rsquo;ll just be careful to try to make &ldquo;drawing everything&rdquo;
+as fast as possible (which can be easier, since we don&rsquo;t need to think about
+what not to draw).</p>
+<p>Here&rsquo;s an example (that we will come back to later):</p>
+<iframe
+    title="02-05-01"
+    src="../../for_students/02-05-01.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+
+<p>Be sure to read the javascript code for this example (
+<a href="../../for_students/02-05-01.js" class="for_students">02-05-01.js</a>).
+Notice that we can use the same animation loop for both elements (created using the <code>box1animate</code> function, which schedules itself to be called using <code>window.requestAnimationFrame</code>).
+For Canvas, we clear and redraw everything, each time. That includes all the rectangles in the &ldquo;background&rdquo;.
+For SVG, we only change the things that move. The web browser may or may not decide
+to redraw everything.</p>
+<h2 id="box-2-events-for-svg-canvas">Box 2: Events for SVG Canvas</h2>
+<p>With SVG, because the graphics elements are HTML elements, we can assign events to them.
+In this example, I will handle all the <code>onclick</code> events for each of the objects.
+Try clicking on the rectangles.</p>
+<iframe
+    title="02-05-02a"
+    src="../../for_students/02-05-02a.html"
+    class="includebox includebox-standard"
+    width="100%"
+    height="100%"
+    scrolling="no"
+    frameborder="0"
+></iframe>
+<p>When you look at the code (
+    <a href="../../for_students/02-05-02a.js" class="for_students">02-05-02a.js</a>) notice how I make the rectangles (they are HTML elements), and I can add an <code>onclick</code> handler for them. In this case, the handler &ldquo;toggles&rdquo; a CSS class - which tells the browser to apply a style to the element (the style is defined in the html file).</p>
+<p>This is possible because SVG keeps the rectangles in its data structures. When the mouse is clicked, it can check to see which of the objects it knows about should get the click.</p>
+<p>The important point here is that SVG is keeping a list of objects (including the rectangles):</p>
+<ol>
+<li>For animation, we change the position of the objects that moved. Behind the scenes, SVG uses the list of objects to redraw the image when things changed.</li>
+<li>For interaction, we attach events to objects so they could respond to events. Behind the scenes, SVG uses the list of objects to check which one (if any) the mouse was in.</li>
+</ol>
+<p>With Canvas, things will be more complicated since it won&rsquo;t keep track of the objects for us. And those things that SVG is doing &ldquo;behind the scenes&rdquo; we&rsquo;ll have to do ourselves.</p>
+<p>We&rsquo;ll discuss this on the <a href="../../docs/6/" class="Next__Page">next page</a>.</p>
+
+            
+
+<div>
+        <i>There are no points associated with this page.</i>
+    </div>
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                <div class="sidebar">
+<h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (CS559 Workbook 2: Graphics APIs)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Web Graphics APIs </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Drawing with Canvas </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Where did I draw </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Canvas Drawing: Your Turn </a></li>
+        <li class="Side__Item Side__Selected"> 5: Animation and Interaction with SVG and Canvas </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Interactive 2D Scenes </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Try Canvas Programming </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Fireworks </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>
