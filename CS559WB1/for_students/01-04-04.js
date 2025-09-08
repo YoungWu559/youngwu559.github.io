@@ -9,3 +9,4 @@ slider41.onchange = function() {
 slider42.oninput = function() {
     slider41.value = slider42.value;
 };
+// CS559 2025 Workbook

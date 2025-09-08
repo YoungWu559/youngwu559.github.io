@@ -26,3 +26,5 @@ if (slider31 && slider32 && slider33) { // are we in box 3?
         document.getElementById("box3-li3").innerHTML = `Slider 3 - <b>onclick</b> - new value ${slider33.value}`;
     };
 }
+
+// CS559 2025 Workbook

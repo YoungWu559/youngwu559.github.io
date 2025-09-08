@@ -4,9 +4,9 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
-	<meta name="generator" content="Hugo 0.121.1">
+	<meta name="generator" content="Hugo 0.140.2">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/workbook.css">
         <script src="./js/resizeIFrames.js"></script>
@@ -23,12 +23,33 @@
         
 
         <div class="dimbox">
-                <h2>CS559 Spring 2023 Sample Solution</h2>
+                <h2>Spring 2025 Sample Solution</h2>
                 <p>This is a sample solution for the Workbook.
                     You are welcome to refer to it to learn one way to do the assignment
                     but only after you have turned in your own assignment
                 </p>
-            </div>
+            </div><h2 id="introduction">Introduction</h2>
+<p>Welcome to the first workbook for CS559!</p>
+<p>The right way to use this workbook, and any of the following ones, is to:</p>
+<ol>
+<li>Clone the workbook from GitHub</li>
+<li>Serve the folder using a local server</li>
+<li>Start by looking at the index.html file in the web browser</li>
+<li>Follow the instructions</li>
+<li>While working, you&rsquo;ll change files (generally only ones in the <code>for_students</code> directory)</li>
+<li>As you make changes, you should periodically commit them to GIT so you have a backup. You can push them to GitHub as well.</li>
+<li>When you are done, make sure everything it committed and pushed, then complete the Workbook Form.</li>
+</ol>
+<p>The fact that you are looking at this means you probably have done the first three of those steps!</p>
+<p>You probably want to do all this with Visual Studio Code and the Live Server extension. Open the workbook directory in VSCode and start LiveServer (it should know to open the index page in your browser)</p>
+<p>If you haven&rsquo;t already read the general instructions for workbooks, see the page on the course web site. It explains some of the things that you have to do.</p>
+<p>Note: this workbook is a little wordier and more &ldquo;make sure you know how to do things&rdquo; than future ones are likely to be. This workbook is to make sure you are ready to do programming. Later ones will be more about doing some programming.</p>
+<p>In the future, we&rsquo;ll be doing graphics programming.
+This workbook is about making sure you are ready!
+Future workbooks will have you do more programming, and less plain reading.</p>
+<h2 id="learning-goals">Learning Goals</h2>
+<p>Each workbook will start by telling you what it is trying to teach you.</p>
+
 <h2>Learning Goals</h2>
 <ol>
     <li>Understand and use the class mechanics (GitHub classroom links, Git, local servers, editing pages, &hellip;)</li>
@@ -39,136 +60,216 @@
     <li>Differentiate and use event-driven- and animation-loop-driven- programming</li>
     <li>Understand how to control timing with browser animation loops</li>
 </ol>
-
-            <h2 id="introduction">Introduction</h2>
-<p>Welcome to the first workbook for CS559!</p>
-<p>The right way to use this workbook, and any of the following ones, is to:</p>
-<ol>
-<li>Clone the workbook from GitHub</li>
-<li>Serve the folder using a local server</li>
-<li>Start by looking at the index.html file in the web browser</li>
-<li>Follow the instructions</li>
-<li>While working, you&rsquo;ll change files (generally only ones in the <code>for_students</code> directory)</li>
-<li>As you make changes, you should periodically commit them to GIT so you have a backup. You can push them to GitHub as well.</li>
-<li>When you are done, make sure everything it committed and pushed, then do the Quiz on Canvas <a href="https://canvas.wisc.edu/courses/343665/assignments/1819281">Workbook 01 Handin (due Mon, Jan 30)</a>.</li>
-</ol>
-<p>The fact that you are looking at this means you probably have done the first three of those steps!</p>
-<p>You probably want to do all this with Visual Studio Code and the Live Server extension. Open the workbook directory in VSCode and start LiveServer (it should know to open the index page in your browser)/</p>
-<p>If you haven&rsquo;t already read the general instructions for workbooks, see the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/workbooks/" target="_blank">Workbooks</a> page on the course web site. It explains some of the things that you have to do.</p>
-<p>Note: this workbook is a little wordier and more &ldquo;make sure you know how to do things&rdquo;
-than future ones are likely to be. This workbook is to make sure you are ready to do
-programming. Later ones will be more about doing some programming.</p>
-<p>In the future, we&rsquo;ll be doing graphics programming.
-This workbook is about making sure you are ready!
-Future workbooks will have you do more programming, and less plain reading.</p>
 <h2 id="local-server-check">Local Server Check</h2>
 <p>You should always &ldquo;run&rdquo; the web pages served by a local server.
-See the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/559tools/" target="_blank">Tools for 559</a> page for more information.
+See the <a href="https://cs559.github.io/559Tutorials/tools-and-setup/559tools/" target="_blank">Tools for 559</a> page for more information.
 Using a local server requires both running the server <em>and</em> having the web browser look at the server. If you don&rsquo;t use a local server (and instead you just open the file in the web browser), problems can happen.</p>
 <p>We have no way to check if you are using a local server. Some of the web pages will break in weird ways. Look at the URL bar in your browser: if this page says &ldquo;http://127.0.0.1:5500/&rdquo; or &ldquo;http://localhost:5500/&rdquo; or something similar, you are using a local server. If the URL starts with &ldquo;file:&rdquo; or something like that, you are not using a local server.</p>
 <p>Make sure that you know how to use a local server. That&rsquo;s a goal of this assignment -
-we will need it for future assignments. Re-read the  <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/559tools/" target="_blank">Tools for 559</a> page, and ask for help, if you need it.</p>
+we will need it for future assignments. Re-read the  <a href="https://cs559.github.io/559Tutorials/tools-and-setup/559tools/" target="_blank">Tools for 559</a> page, and ask for help, if you need it.</p>
 <h2 id="what-you-should-do-with-this-workbook">What you should do with this workbook</h2>
-<p>If you haven&rsquo;t already done it, please review the pages on the Course Website. The <a href="https://pages.graphics.cs.wisc.edu/559-sp23/posts/getting-started/" target="_blank">Getting Started</a> page is a good place to get started. You should do everything there. The fact that you found this workbook and got this far means you&rsquo;ve done at least some reading.</p>
-<p>The <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/workbooks/" target="_blank">Workbooks</a> page on the course web explains the workbooks in details, including the content, how you turn them in, what you should do with them, how they are graded, and the late policy. But the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/workbooks/" target="_blank">Workbooks</a> was part of <a href="https://pages.graphics.cs.wisc.edu/559-sp23/posts/getting-started/" target="_blank">Getting Started</a>, so hopefully you have read it.</p>
+<p>If you haven&rsquo;t already done it, please review the pages on the Course Website. The <strong>Getting Started</strong> page is a good place to get started. You should do everything there. The fact that you found this workbook and got this far means you&rsquo;ve done at least some reading.</p>
+<p>The course web explains the workbooks in detail, including the content, how you turn them in, what you should do with them, how they are graded, and the late policy. But the <strong>Workbooks</strong> page was part of the <strong>Getting Started</strong> list, so hopefully you have read it.</p>
 <p>Workbooks consist of a series of pages. There is always an &ldquo;index&rdquo; page (what you are reading). This is where you start. Then there is a series of &ldquo;regular&rdquo; pages for you to read. These will be numbered, and they will be linked together (so each one will lead to the next). You can see the list of pages in the &ldquo;navigation&rdquo; box (which should be in the upper right corner, unless your screen is too small). These pages will be in the <code>docs</code> directory of the workbook. You are welcome to look at the html for these files, but you generally don&rsquo;t have to.</p>
-<p>The workbook pages will contain &ldquo;boxes&rdquo;. These boxes contain examples that you should look at. Some of them you will just need to read (you will read code in order to learn how it works). Often, you will be asked to change the contents of these boxes. The contents of the boxes will be in the <code>for_students</code> directory. You should avoid changing files that are outside of the <code>for_students</code> directory. If you change a file (in the <code>for_students</code> directory) you need to commit these changes and push them back to GitHub for us to see the changes (see the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/git559/" target="_blank">Git and GitHub in CS559</a> page if you don&rsquo;t understand commit and push).</p>
+<p>The workbook pages will contain &ldquo;boxes&rdquo;. These boxes contain examples that you should look at. Some of them you will just need to read (you will read code in order to learn how it works). Often, you will be asked to change the contents of these boxes. The contents of the boxes will be in the <code>for_students</code> directory. You should avoid changing files that are outside of the <code>for_students</code> directory. If you change a file (in the <code>for_students</code> directory) you need to commit these changes and push them back to GitHub for us to see the changes (see the <a href="https://cs559.github.io/559Tutorials/tools-and-setup/git559/" target="_blank">Git and GitHub in CS559</a> page if you don&rsquo;t understand commit and push).</p>
 <p>Sometimes, we will ask you to add files to a workbook. When you add a file, put it into the <code>for_students</code> directory (or a subdirectory of it). Don&rsquo;t forget to use <code>git add</code> to add the file to the repository so you can commit and push it to GitHub. You will need to add files for this workbook for one of the boxes.</p>
 <p>You should work through the pages and their boxes in order.</p>
 <p>And when you&rsquo;re done, don&rsquo;t forget to commit your work and push it back to the GitHub repo that GitHub classroom made for you!</p>
 <h2 id="readings">Readings</h2>
-<p>The pages of this workbook are required reading! That includes reading the  web pages, but also, reading the source code of the boxes. (the pages will tell you which files you should read)</p>
+<p>The pages of this workbook are required reading! That includes reading the web pages, but also, reading the source code of the boxes. (the pages will tell you which files you should read)</p>
 <p>Other readings are sprinkled across the pages of this workbook. Some things that you should make sure that you read along the way:</p>
 <ul>
-<li>You should look at the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/" target="_blank">Course Web</a> in general, but particularly all the pages discussed on the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/posts/getting-started/" target="_blank">Getting Started</a>. I&rsquo;ve already said that multiple times.</li>
+<li>You should look at the course web and 559 tutorials web in general, but particularly all the pages discussed on the <strong>Getting Started</strong> page. I&rsquo;ve already said that multiple times.</li>
 <li>Some resources on HTML and CSS (if you aren&rsquo;t already familiar). You just need to know the basics. The <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML" target="_blank">Mozilla HTML Learning Guide</a> site is a great resource.</li>
 <li>If you don&rsquo;t understand how we are using colors (like why <code>#FF0000</code> is red), have a look at the <a href="https://cs559.github.io/559Tutorials/color/color1/" target="_blank">CS559 Color Tutorial</a>.</li>
-<li>If you are learning JavaScript, look at the resources on the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/javascript559/" target="_blank">Javascript in CS559</a> page.</li>
+<li>If you are learning JavaScript, look at the resources on the <a href="https://cs559.github.io/559Tutorials/javascript/javascript559/" target="_blank">Javascript in CS559</a> page.</li>
 <li>You should practice using the debugger. We have a separate tutorial on how to use the debugger in VSCode <a href="https://github.com/CS559/DebuggerTutorial" target="_blank">Debugger Tutorial (GitHub Repository)</a>. If you want to try using the debugger built into Chrome (easier to get started, but not as good when the programs get complicated), we have a video <a href="https://mediaspace.wisc.edu/media/Chrome&#43;Debugger&#43;Quick&#43;Start&#43;for&#43;CS&#43;559&#43;%282019%29/1_77oepxqr" target="_blank">Chrome Debugger Quick Start for CS 559 (2019 Video)</a></li>
 </ul>
 <p>For this week, there are no regular readings (book chapters). Those will start in the next week or two.</p>
 <h2 id="due-date-grading-and-rubric">Due Date, Grading and Rubric</h2>
-<p>This workbook, like all workbooks is due on Monday. Monday means anytime Monday (12:01am Tuesday is not Monday). Usually, workbook deadlines are strict. For this workbook, we understand that people may have problems with the mechanics, and there will be some leniency. Look for announcements on Canvas.</p>
-<p>Don&rsquo;t forget: to hand in this workbook you must both turn it in via GitHub (<code>commit</code> your work and <code>push</code> it to GitHub), but also complete the handin survey on Canvas: <a href="https://canvas.wisc.edu/courses/343665/assignments/1819281">Workbook 01 Handin (due Mon, Jan 30)</a>. The graders will not know your assignment is ready until you complete the survey! (it is also worth points for the workbook).</p>
+<p>Don&rsquo;t forget: to hand in this workbook you must both turn it in via GitHub (<code>commit</code> your work and <code>push</code> it to GitHub), but also complete the Workbook Form. The graders will not know your assignment is ready until you submit the Workbook Form!</p>
 <p>Please Figure out how to do workbooks now - we have many more this semester. It is important that you can keep up with the schedule.</p>
-<p>All workbooks are graded with points, not percentages. The scale is described at <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/grading/" target="_blank">Grading explanation</a>, but basically &gt;=90 is an A, &gt;= 85 (but less than 90) is an AB, etc. 86 points (which is &gt;= 85, but &lt;90) is an AB - it doesn&rsquo;t matter if the workbook has 120 or 91 points possible.</p>
-<p>You can see a rubric for the entire workbook at the bottom of this page. Notice that this workbook only has 91 points possible. That is the maximum you can score. There is no way to earn an A+ on this workbook. Some pther workbooks have more than 100 points possible.</p>
-<p>You should also notice that this workbook has both basic and adavanced points. Advanced points are more work to get (per point) - focus on getting the basic points first. It is difficult to make up for missing basic things by getting advanced points.</p>
-<p>You cannot earn advanced points for workbooks that you turn in late. If you fall behind, you are better off finishing the basic points and moving on to the next thing in class (otherwise, you will fall behind farther). We drop the lowest 2 workbook scores (but only for workbooks that you score 65 or more points).</p>
-<h2 id="getting-started">Getting Started</h2>
-<p>OK, enough talking about how to do the assignment, let&rsquo;s get started on <a href="./docs/1/">Page &nbsp;1&nbsp; (HTML and CS559)</a></p>
-
-        
-        <h2>Rubric</h2>
-            
-<div class="page-rubric-container">
+<p>The scale is described on the <strong>Grading</strong> page for the course web.</p>
+<p>You can see a rubric for the entire workbook at the bottom of this page. The rubric contains the list of basic and advanced items you can complete. Advanced items are more work to complete - focus on getting the basic items first. It is difficult to make up for missing basic things by getting advanced points.</p>
+<p>If you fall behind, you are better off finishing the basic items and moving on to the next thing in class (otherwise, you will fall behind farther).</p>
+<h2 id="rubric">Rubric</h2>
+              <div class="page-rubric-container">
 <details class="page__rubric">
-<summary>Workbook Rubric (91 points total)</summary>
-<br/>
-<div class="page-rubric-grid">
-        <div class="page-rubric-grid-header rubric-box-regular">Points (85):</div><div class="page-rubric-grid-box rubric-box-regular"></div>
-            <div class="page-rubric-grid-points rubric-box-regular">40 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">correct hand-in</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-01-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">change web page text</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-02-08</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">make a red button with your name in it</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-03-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">change text on button press</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-04-07</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">add a javascript file that says something</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-05-04b</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">change slider speed to half</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">making 3 sliders</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">making slider3 be slider2-slider1 (and update when either slider2 or slider1 is moved)</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">adjusting slider1 and slider2 when slider3 moves</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">making the 3 input elements</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">making the slider move (continuously) when start is pressed</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">making the slider stop when the stop button is pressed</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">making the slider starting again when the start button is pressed (after being stopped)</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">correct use of time delta</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">slider goes forward</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">slider goes backward</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">slider goes back and forth</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-04</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">correct use of time delta</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-04</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">fade between colors</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-04</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">colors transition in both directions (red-&gt;white, white-&gt;red - or others)</div>
-    <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (10 possible, of which you can earn a maximum of 6):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 01-07-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">fade between 3 different colors</div><div class="page-rubric-grid-box rubric-box-bonus">Box 01-07-02</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">buttons to cause fade to 3 colors</div><div class="page-rubric-grid-box rubric-box-bonus">Box 01-07-03</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">randomly change between colors with timing</div><div class="page-rubric-grid-box rubric-box-bonus">Box 01-07-03</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">put selected colors into the sequence</div></div>
+    <summary>Workbook Rubric (4 basic + 2 advanced (2 max) = 6 total)</summary>
+    <br/>
+    <table class="page-rubric-table" style="background-color: #f0f0f0;">
+        <thead>
+            <tr>
+                <th>Box</th>
+                <th>Basic</th>
+                <th>Advanced</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>correct WB1 Workbook Form submission on time</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-01-01-01">01-01-01</a></td>
+                <td></td>
+                <td></td>
+                <td>change web page text</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-01-02-08">01-02-08</a></td>
+                <td></td>
+                <td></td>
+                <td>make a red button with your name in it</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/3/#box-01-03-02">01-03-02</a></td>
+                <td></td>
+                <td></td>
+                <td>change text on button press</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/4/#box-01-04-07">01-04-07</a></td>
+                <td></td>
+                <td></td>
+                <td>add a javascript file that says something</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-01-05-04">01-05-04</a></td>
+                <td></td>
+                <td></td>
+                <td>Fix bug so that all the sliders work</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-01-05-07">01-05-07</a></td>
+                <td></td>
+                <td></td>
+                <td>change slider speed to half</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-01">01-06-01</a></td>
+                <td></td>
+                <td></td>
+                <td>making 3 sliders</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-01">01-06-01</a></td>
+                <td></td>
+                <td></td>
+                <td>making slider3 be slider2-slider1 (and update when either slider2 or slider1 is moved)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-01">01-06-01</a></td>
+                <td></td>
+                <td></td>
+                <td>adjusting slider1 and slider2 when slider3 moves</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-02">01-06-02</a></td>
+                <td></td>
+                <td></td>
+                <td>making the 3 input elements</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-02">01-06-02</a></td>
+                <td></td>
+                <td></td>
+                <td>making the slider move (continuously) when start is pressed</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-02">01-06-02</a></td>
+                <td></td>
+                <td></td>
+                <td>making the slider stop when the stop button is pressed</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-02">01-06-02</a></td>
+                <td></td>
+                <td></td>
+                <td>making the slider starting again when the start button is pressed (after being stopped)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-03">01-06-03</a></td>
+                <td></td>
+                <td></td>
+                <td>correct use of time delta</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-03">01-06-03</a></td>
+                <td></td>
+                <td></td>
+                <td>slider goes forward</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-03">01-06-03</a></td>
+                <td></td>
+                <td></td>
+                <td>slider goes backward</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-03">01-06-03</a></td>
+                <td></td>
+                <td></td>
+                <td>slider goes back and forth</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-04">01-06-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>correct use of time delta</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-04">01-06-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>fade between colors</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-01-06-04">01-06-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>colors transition in both directions (red-&gt;white, white-&gt;red - or others)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/7/#box-01-07-01">01-07-01</a></td>
+                <td></td>
+                <td></td>
+                <td>fade between 3 different colors</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/7/#box-01-07-02">01-07-02</a></td>
+                <td></td>
+                <td></td>
+                <td>buttons to cause fade to 3 colors</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/7/#box-01-07-03">01-07-03</a></td>
+                <td></td>
+                <td>1</td>
+                <td>randomly change between colors with timing</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/7/#box-01-07-03">01-07-03</a></td>
+                <td></td>
+                <td>1</td>
+                <td>put selected colors into the sequence</td>
+            </tr>
+        </tbody>
+    </table>
 </details>
 </div>
-        
-        
-        
-        <h3 class="get__started">Get started on 
-            <a href="./docs/1/">Page &nbsp;1&nbsp; (HTML and CS559)</a>!</h3>
+<h2 id="getting-started">Getting Started</h2>
+<p>OK, enough talking about how to do the assignment, let&rsquo;s get started on <a href="./docs/1/">Page &nbsp;1&nbsp; (HTML and CS559)</a>!</p>
+
         
 	</div>
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 1: Introduction (Pre-Graphics)</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -179,7 +280,7 @@ we will need it for future assignments. Re-read the  <a href="https://pages.grap
         <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Doing things to HTML </a></li>
         <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Animation Loops </a></li>
         <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: Try it Yourself </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/7/">7: Advanced Points </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/7/">7: Advanced Items </a></li>
 </ul>
 </div>
 </div>

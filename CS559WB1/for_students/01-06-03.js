@@ -57,3 +57,7 @@ function bounce(currtime) {
     lasttime = currtime;
 }
 window.requestAnimationFrame(bounce);
+
+// CS559 2025 Workbook
+
+// CS559 2025 Example Solution

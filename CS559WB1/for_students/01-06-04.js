@@ -71,3 +71,7 @@ function colorInterpolation(c0, c1, t) {
 function getRGB(color) {
     return `rgb(${color[0]},${color[1]},${color[2]})`;
 }
+
+// CS559 2025 Workbook
+
+// CS559 2025 Example Solution

@@ -26,3 +26,4 @@ function future3() {
     document.getElementById("future3").innerHTML = 
         `Hello from ${(performance.now() - timestamp).toFixed(1)} ms in the future`;
     }
+// CS559 2025 Workbook

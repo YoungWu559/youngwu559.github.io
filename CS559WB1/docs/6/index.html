@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,11 +16,8 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 6: Try it Yourself</h1>
 		</header>
-        
-        
-        
 		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                    <h3>Spring 2025 Sample Solution</h3>
                 </div><p>So far, this workbook has mainly been you reading code (and html).
 Hopefully, you also took the opportunity to
 do some extra reading (for example, reading some JavaScript references).
@@ -29,157 +26,150 @@ make changes to see how things work.</p>
 <p>On this page, we have three boxes that you need to do yourself.</p>
 <p>To help you check that you are getting the concepts, here are a few
 little programming things to try. In each box, we will ask you to do
-something. You should edit the</p>
-<pre><code>&lt;a href=&quot;/for_students/01-06-01.html&quot; class=&quot;for_students&quot;&gt;01-06-01.html&lt;/a&gt;, 
-&lt;a href=&quot;/for_students/01-06-02.html&quot; class=&quot;for_students&quot;&gt;01-06-02.html&lt;/a&gt;, and 
-&lt;a href=&quot;/for_students/01-06-03.html&quot; class=&quot;for_students&quot;&gt;01-06-03.html&lt;/a&gt; files
-</code></pre>
-<p>accordingly to do it. These will be the things that the grader will check.</p>
+something. You should edit the HTML and JavaScript files
+accordingly to do it. These will be the things that the grader will check.</p>
 <p>These little exercises are simple - and not very interesting.
 But make sure you understand what you are doing, since they will
 be the building blocks for doing more interesting things later.</p>
 <p>And of course, to correctly use GIT to commit your work and push it
 back to the repository on GitHub.</p>
 <p>Note that the rubric for the boxes on this page is at the bottom. In fact, all workbook pages have the rubrics at the bottom.</p>
-<h2 id="box-1-sliders">Box 1: Sliders</h2>
-<p>In this box (
-<a href="../../for_students/01-06-01.html" class="for_students">01-06-01.html</a>), make 3 sliders. Add event handlers such that the third
-slider shows the difference in value between the first two.
-So that slider3 = slider2 - slider1. Slider3 should move whenever
-slider1 or slider2 are moved. Making it such that slider1 and/or slider2 move
-when slider3 moves is a little trickier (and worth more points) - you need to figure out how to make reasonable values for slider 1 and 2 given a new value for slider 3. Write your code in
-<a href="../../for_students/01-06-01.js" class="for_students">01-06-01.js</a></p>
-<iframe
-    title="01-06-01"
-    src="../../for_students/01-06-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<h2 id="sliders">Sliders</h2>
 
+
+
+<p>In this box (<a href="../../for_students/01-06-01.html" class="box-html" data-tag="6-1">01-06-01.html</a>), make 3 sliders. Add event handlers such that the third
+slider shows the difference in value between the first two.
+So that slider3=slider2 - slider1. Slider3 should move whenever
+slider1 or slider2 are moved. Making it such that slider1 and/or slider2 move
+when slider3 moves is a little trickier (and worth more points) - you need to figure out how to make reasonable values for slider 1 and 2 given a new value for slider 3. Write your code in 
+<a href="../../for_students/01-06-01.js" class="box-html" data-tag="6-1">01-06-01.js</a>
+</p>
+<p>
+<div id="box-01-06-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-06-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-06-01.html class="boxtitlelink">01-06-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/01-06-01.js" class="boxtitlelink">01-06-01.js</a>
+    <iframe
+        title="6-1"
+        src="../../for_students/01-06-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-06-01"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 01-06-01.</i>
+    </div></p>
 <p><strong>Hint:</strong> Box 3 on <a href="../../docs/4/">Page &nbsp;4&nbsp; (Doing things to HTML)</a>  is a good starting point.
 The lower of the two sliders there has a nicer behavior for this exercise.
 Consider setting the <code>min</code> and <code>max</code>
 properties of the sliders so that the third slider has the right range.
 The <code>min</code> can be negative.</p>
-<h2 id="box-2-start-stop">Box 2: Start Stop</h2>
-<p>In this box (
-<a href="../../for_students/01-06-02.html" class="for_students">01-06-02.html</a>), make a slider and two buttons. One labeled &ldquo;start&rdquo; the other labeled &ldquo;stop&rdquo;.
+<h2 id="start-stop">Start Stop</h2>
+
+
+
+<p>In this box (<a href="../../for_students/01-06-02.html" class="box-html" data-tag="6-2">01-06-02.html</a>), make a slider and two buttons. One labeled &ldquo;start&rdquo; the other labeled &ldquo;stop&rdquo;.
 When you press &ldquo;start&rdquo;, the slider starts moving.
 When you press &ldquo;stop&rdquo; the slider stops.
 This is sortof like the last slider in Box 3 on <a href="../../docs/5/">Page &nbsp;5&nbsp; (Animation Loops)</a>, except that you should
-use two buttons, rather than one checkbox. Write your code in
-<a href="../../for_students/01-06-02.js" class="for_students">01-06-02.js</a></p>
-<iframe
-    title="01-06-02"
-    src="../../for_students/01-06-02.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
-
-<h2 id="box-3-bounce">Box 3: Bounce</h2>
+use two buttons, rather than one checkbox. Write your code in 
+<a href="../../for_students/01-06-02.js" class="box-html" data-tag="6-2">01-06-02.js</a>
+</p>
+<p>
+<div id="box-01-06-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-06-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-06-02.html class="boxtitlelink">01-06-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/01-06-02.js" class="boxtitlelink">01-06-02.js</a>
+    <iframe
+        title="6-2"
+        src="../../for_students/01-06-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-06-02"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 01-06-02.</i>
+    </div></p>
+<h2 id="bounce">Bounce</h2>
 <p>The sliders on <a href="../../docs/5/">Page &nbsp;5&nbsp; (Animation Loops)</a> all went from left to right, and then restarted at the left.</p>
-<p>In this box (
-<a href="../../for_students/01-06-03.html" class="for_students">01-06-03.html</a>), make the slider move from left to right, but when it hits the right edge, have it move right to left. It should repeat (so it goes back and forth - as if it &ldquo;bounces&rdquo; when it hits the edge). <b>You must use a time delta</b>, as explained on <a href="../../docs/5/">Page &nbsp;5&nbsp; (Animation Loops)</a>, to control timing. Write your code in
-<a href="../../for_students/01-06-03.js" class="for_students">01-06-03.js</a></p>
-<iframe
-    title="01-06-03"
-    src="../../for_students/01-06-03.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
-<h2 id="box-4-throb-not-blink">Box 4: Throb, not blink</h2>
-<p>The &ldquo;blinking&rdquo; in Box 5 of <a href="../../docs/5/">Page &nbsp;5&nbsp; (Animation Loops)</a> is really annoying. Instead let&rsquo;s make
+
+
+<p>In this box (<a href="../../for_students/01-06-03.html" class="box-html" data-tag="6-3">01-06-03.html</a>), make the slider move from left to right, but when it hits the right edge, have it move right to left. It should repeat (so it goes back and forth - as if it &ldquo;bounces&rdquo; when it hits the edge). <b>You must use a time delta</b>, as explained on <a href="../../docs/5/">Page &nbsp;5&nbsp; (Animation Loops)</a>, to control timing. Write your code in 
+<a href="../../for_students/01-06-03.js" class="box-html" data-tag="6-3">01-06-03.js</a>
+</p>
+<p>
+<div id="box-01-06-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-06-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-06-03.html class="boxtitlelink">01-06-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/01-06-03.js" class="boxtitlelink">01-06-03.js</a>
+    <iframe
+        title="6-3"
+        src="../../for_students/01-06-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-06-03"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 01-06-03.</i>
+    </div></p>
+<h2 id="throb-not-blink">Throb, not blink</h2>
+<p>
+
+
+The &ldquo;blinking&rdquo; in Box 5 of <a href="../../docs/5/">Page &nbsp;5&nbsp; (Animation Loops)</a> is really annoying. Instead let&rsquo;s make
 something a little less annoying: instead of just changing to another color
 in a flash, have the color slowly (but not too slowly) change from one color to another and back. <b>There should be a continuous fade between colors, not discrete jumps.</b> It should repeat. Again, <b>you must use a time delta</b>, as explained on <a href="../../docs/5/">Page &nbsp;5&nbsp; (Animation Loops)</a>, to control timing.</p>
 <p>The basic version of this would have the color go between red and white. This is basically the same as Box 3, except that rather than changing the position of the slider, you are changing the background color of the text (or the blue and green components of the color).</p>
-<p>The box below is
-<a href="../../for_students/01-06-04.html" class="for_students">01-06-04.html</a> Write your code in
-<a href="../../for_students/01-06-04.js" class="for_students">01-06-04.js</a></p>
-<iframe
-    title="01-06-04"
-    src="../../for_students/01-06-04.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
-
-<p><strong>Hint:</strong> To move between two numbers a and b, you can weigh them with a parameter t which goes between 0 and 1, and the formula t*a + (1-t)*b. If you plug in t=0, you get b, and if you plug in t=1, you get a. If you plug in a value in between, you get some weighted value in between a and b. For example, t=0.5 gives you 0.5*a + 0.5*b = (a+b)/2, which is the average of the two. This concept is called <strong>linear interpolation</strong>, and we&rsquo;ll cover it more later in the class.</p>
+<p>The box below is <a href="../../for_students/01-06-04.html" class="box-html" data-tag="6-4">01-06-04.html</a> Write your code in 
+<a href="../../for_students/01-06-04.js" class="box-html" data-tag="6-4">01-06-04.js</a>
+</p>
+<p>
+<div id="box-01-06-04" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-06-04</b>&nbsp;
+        (3 basic + 0 advanced)&nbsp&nbsp;
+        <a href=../../for_students/01-06-04.html class="boxtitlelink">01-06-04.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/01-06-04.js" class="boxtitlelink">01-06-04.js</a>
+    <iframe
+        title="6-4"
+        src="../../for_students/01-06-04.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-06-04"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are basic or advanced items to be completed for Box 01-06-04.</i>
+    </div></p>
+<p><strong>Hint:</strong> To move between two numbers a and b, you can weigh them with a parameter t which goes between 0 and 1, and the formula t*a + (1-t)*b. If you plug in t=0, you get b, and if you plug in t=1, you get a. If you plug in a value in between, you get some weighted value in between a and b. For example, t=0.5 gives you 0.5*a + 0.5*b=(a+b)/2, which is the average of the two. This concept is called <strong>linear interpolation</strong>, and we&rsquo;ll cover it more later in the class.</p>
 <p><strong>Hint:</strong> We&rsquo;ve been using HTML colors as hex (so red is #FF0000).
-You&rsquo;ll may want to do your math with regular numbers and convert.
-<a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString">Here</a>
-is a reference page that might be useful.
+You&rsquo;ll may want to do your math with regular numbers and convert. <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toString">Here</a> is a reference page that might be useful.
 Or, you might find a more convenient way to specify colors using numbers. Also see <a href="https://cs559.github.io/559Tutorials/color/color1/" target="_blank">CS559 Color Tutorial</a>.</p>
-<p>Note: you need to make the text alternate between white and red. It should take 1 second to make the transition in each direction (use the clock!).</p>
+<p>Note: you need to make the text background alternate between white and red. It should take 1 second to make the transition in each direction (use the clock!).</p>
 <p>Note: you should not try to use any fancy HTML animation/transition features to cause the fading.
 You should write a program that changes the color every time step.</p>
 <h2 id="the-end">The End?</h2>
 <p>This is the end of the basic part of the workbook. There are some &ldquo;advanced&rdquo; exercises on the next page that you can use to earn advanced points and get more practice with web programming.</p>
-<p>When you&rsquo;re done with your work, remember to commit everything and push it back to GitHub. And, when you&rsquo;re done, don&rsquo;t forget to do the &ldquo;handin survey&rdquo; on Canvas (<a href="https://canvas.wisc.edu/courses/343665/assignments/1819281">Workbook 01 Handin (due Mon, Jan 30)</a>) that tells us that your assignment is ready to be graded.</p>
+<p>When you&rsquo;re done with your work, remember to commit everything and push it back to GitHub. And, when you&rsquo;re done, don&rsquo;t forget to do the WB1 hand-in Canvas Assignment that tells us that your assignment is ready to be graded.</p>
+<a href="../../docs/7/" class="Next__Page">Next: Advanced Items </a>
 
             
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Page 6 Rubric (33 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (33):</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making 3 sliders</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making slider3 be slider2-slider1 (and update when either slider2 or slider1 is moved)</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">adjusting slider1 and slider2 when slider3 moves</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making the 3 input elements</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making the slider move (continuously) when start is pressed</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making the slider stop when the stop button is pressed</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making the slider starting again when the start button is pressed (after being stopped)</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">correct use of time delta</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">slider goes forward</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">slider goes backward</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-03</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">slider goes back and forth</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-04</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">correct use of time delta</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-04</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">fade between colors</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-06-04</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">colors transition in both directions (red-&gt;white, white-&gt;red - or others)</div></div>
-    </details>
-    </div>
 			
 			
 		</div>
@@ -187,7 +177,7 @@ You should write a program that changes the color every time step.</p>
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 1: Introduction (Pre-Graphics)</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -198,7 +188,7 @@ You should write a program that changes the color every time step.</p>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
         <li class="Side__Item Side__Selected"> 6: Try it Yourself </li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Advanced Points </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Advanced Items </a></li>
 </ul>
 </div>
 </div>

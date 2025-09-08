@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,11 +16,8 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 2: HTML Basics</h1>
 		</header>
-        
-        
-        
 		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
+                    <h3>Spring 2025 Sample Solution</h3>
                 </div><p>This page is a quick review of how HTML and web pages work. Hopefully, it&rsquo;s a review for you.</p>
 <p>If anything on this page isn&rsquo;t a review for you, you should look at the resources on the previous page (or any HTML tutorial).</p>
 <h2 id="the-basic-elements-of-html-you-should-know">The Basic Elements of HTML you should know</h2>
@@ -44,140 +41,190 @@
 You should read each box in the workbook page in the web browser to see how it looks.
 You should also read the &ldquo;source&rdquo; (html file and css files) for each box, to see how they work.</p>
 <p>Part of the idea of this page is to get you used to looking inside of HTML files when you read (and work on) workbooks. So, even if you know HTML well, please have a look at these examples.</p>
-<h2 id="box-1-identifying-elements">Box 1: Identifying Elements</h2>
-<p>In this box, we are showing
-<a href="../../for_students/01-02-01.html" class="for_students">01-02-01.html</a> (the 1st box on page 2). Make sure you can find the html file. You should look at it in the text editor.</p>
-<iframe
-    title="01-02-01"
-    src="../../for_students/01-02-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<h2 id="identifying-elements">Identifying Elements</h2>
+<p> 
 
+
+In this box, we are showing <a href="../../for_students/01-02-01.html" class="box-html" data-tag="2-1">01-02-01.html</a> (the 1st box on page 2). Make sure you can find the html file. You should look at it in the text editor.</p>
+
+<div id="box-01-02-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-01.html class="boxtitlelink">01-02-01.html</a>
+    <iframe
+        title="2-1"
+        src="../../for_students/01-02-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-01"
+    ></iframe>
+</div>
 <p>In that example, some of the text elements have <code>id</code> and <code>class</code> attributes associated with them. You should know what these are: they become important when we start programming for the web.</p>
 <p>The <code>id</code> of an element is a unique identifier. Each element can have exactly one <code>id</code>, and every page should have only one element with a given <code>id</code>. In contrast, an element can have many <code>class</code> attributes, and a page can have many elements with a given <code>class</code>.</p>
-<h2 id="box-2-styling">Box 2: Styling</h2>
-<p>As you might guess, this is
-<a href="../../for_students/01-02-02.html" class="for_students">01-02-02.html</a>, a simple example that uses styling to change the appearance (in  this case the colors of text).</p>
-<iframe
-    title="01-02-02"
-    src="../../for_students/01-02-02.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<h2 id="styling">Styling</h2>
+<p> 
 
+
+As you might guess, this is <a href="../../for_students/01-02-02.html" class="box-html" data-tag="2-2">01-02-02.html</a>, a simple example that uses styling to change the appearance (in  this case the colors of text).</p>
+
+<div id="box-01-02-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-02.html class="boxtitlelink">01-02-02.html</a>
+    <iframe
+        title="2-2"
+        src="../../for_students/01-02-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-02"
+    ></iframe>
+</div>
 <p>Experiment with changing the styles of the text in this box.
 We won&rsquo;t do too much with styling text
 in class, but we will want to style other things.</p>
-<h2 id="box-3-style-sheets">Box 3: Style Sheets</h2>
+<h2 id="style-sheets">Style Sheets</h2>
 <p>In this example, we combine those two ideas: naming things (with id and class), and using a style sheet. Style sheets allow us to apply the same style to different things.</p>
-<iframe
-    title="01-02-03"
-    src="../../for_students/01-02-03.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
-<p>We won&rsquo;t do much with CSS in class, but you should be able to use the basic idea. You can experiment with
-<a href="../../for_students/01-02-03.html" class="for_students">01-02-03.html</a> and
-<a href="../../for_students/01-02-03.css" class="for_students">01-02-03.css</a> to make sure you know how to do these things.</p>
-<h2 id="box-4-color">Box 4: Color</h2>
+
+
+<div id="box-01-02-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-03.html class="boxtitlelink">01-02-03.html</a>
+    <iframe
+        title="2-3"
+        src="../../for_students/01-02-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-03"
+    ></iframe>
+</div></p>
+<p>We won&rsquo;t do much with CSS in class, but you should be able to use the basic idea. You can experiment with <a href="../../for_students/01-02-03.html" class="box-html" data-tag="2-3">01-02-03.html</a> and 
+<a href="../../for_students/01-02-03.css" class="box-html" data-tag="2-3">01-02-03.css</a>
+ to make sure you know how to do these things.</p>
+<h2 id="color">Color</h2>
 <p>As you might guess, color is important for doing computer graphics.
 We&rsquo;ll learn a lot more about color later in the class. But for now, we
 need some basics to give things colors.</p>
 <p>Read the <a href="https://cs559.github.io/559Tutorials/color/color1/" target="_blank">CS559 Color Tutorial</a> which will give you the basic ideas we need for now. In HTML, we can specify colors by name (e.g. &ldquo;red&rdquo;, &ldquo;blue&rdquo;, &ldquo;darkred&rdquo;, &ldquo;blueviolet&rdquo;).
 This is convenient in a web page, but isn&rsquo;t always available when programming. This box will let you practice with using Hex strings for colors.</p>
-<iframe
-    title="01-02-04"
-    src="../../for_students/01-02-04.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
-<p>By now, you should know that the code for that box is
-<a href="../../for_students/01-02-04.html" class="for_students">01-02-04.html</a>.</p>
-<h2 id="box-5-layout">Box 5: Layout</h2>
-<iframe
-    title="01-02-05"
-    src="../../for_students/01-02-05.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
-<h2 id="box-6-buttons">Box 6: Buttons</h2>
+
+<div id="box-01-02-04" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-04</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-04.html class="boxtitlelink">01-02-04.html</a>
+    <iframe
+        title="2-4"
+        src="../../for_students/01-02-04.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-04"
+    ></iframe>
+</div></p>
+<p>By now, you should know that the code for that box is <a href="../../for_students/01-02-04.html" class="box-html" data-tag="2-4">01-02-04.html</a>.</p>
+<h2 id="layout">Layout</h2>
+<p> 
+
+
+
+<div id="box-01-02-05" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-05</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-05.html class="boxtitlelink">01-02-05.html</a>
+    <iframe
+        title="2-5"
+        src="../../for_students/01-02-05.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-05"
+    ></iframe>
+</div></p>
+<h2 id="buttons">Buttons</h2>
 <p>HTML has input elements, like buttons and sliders and type-in boxes.
 They can be used with straight HTML for making forms.
 We will use them with JavaScript programs.</p>
-<iframe
-    title="01-02-06"
-    src="../../for_students/01-02-06.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+
+<div id="box-01-02-06" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-06</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-06.html class="boxtitlelink">01-02-06.html</a>
+    <iframe
+        title="2-6"
+        src="../../for_students/01-02-06.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-06"
+    ></iframe>
+</div></p>
 <p>By themselves, buttons don&rsquo;t do much. We need to connect them to JavaScript
-programs to make them more exciting. But make sure that you looked at the html for
-<a href="../../for_students/01-02-06.html" class="for_students">01-02-06.html</a></p>
-<h2 id="box-7-sliders">Box 7: Sliders</h2>
+programs to make them more exciting. But make sure that you looked at the html for <a href="../../for_students/01-02-06.html" class="box-html" data-tag="2-6">01-02-06.html</a></p>
+<h2 id="sliders">Sliders</h2>
 <p>One last HTML element before we move on to programming: sliders.
 Sliders are mainly useful when we have programs to read them.</p>
-<iframe
-    title="01-02-07"
-    src="../../for_students/01-02-07.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+
+<div id="box-01-02-07" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-07</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-07.html class="boxtitlelink">01-02-07.html</a>
+    <iframe
+        title="2-7"
+        src="../../for_students/01-02-07.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-07"
+    ></iframe>
+</div></p>
 <p>Sliders are pretty boring without programs that use them.
 We&rsquo;ll make use of sliders soon enough.
-But be sure to look at
-<a href="../../for_students/01-02-07.html" class="for_students">01-02-07.html</a> to see how we make them
+But be sure to look at <a href="../../for_students/01-02-07.html" class="box-html" data-tag="2-7">01-02-07.html</a> to see how we make them
 on web pages.</p>
 <h2 id="your-turn-make-your-own-button">Your Turn: Make Your Own Button</h2>
-<p>In the box
-<a href="../../for_students/01-02-08.html" class="for_students">01-02-08.html</a> below, make your own button that is red and has your name in it. It can be whatever style you like.</p>
-<iframe
-    title="01-02-08"
-    src="../../for_students/01-02-08.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+ 
 
 
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Box 01-02-08 Rubric (2 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (2):</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-02-08</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">make a red button with your name in it</div></div>
-    </details>
-    </div>
+<p>In the box <a href="../../for_students/01-02-08.html" class="box-html" data-tag="2-8">01-02-08.html</a> below, make your own button that is red and has your name in it. It can be whatever style you like.</p>
+<p>
+<div id="box-01-02-08" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 01-02-08</b>&nbsp;&nbsp;
+        <a href=../../for_students/01-02-08.html class="boxtitlelink">01-02-08.html</a>
+    <iframe
+        title="2-8"
+        src="../../for_students/01-02-08.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-01-02-08"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 01-02-08.</i>
+    </div></p>
 <h2 id="further-readings-on-html-optional">Further Readings on HTML (Optional)</h2>
 <p>If you aren&rsquo;t already familiar with HTML, please find a resource on the web and learn about the basics. Here are some suggestions:</p>
 <ul>
@@ -188,21 +235,9 @@ on web pages.</p>
 <h2 id="moving-on">Moving on&hellip;</h2>
 <p>Make sure that you understand how those simple html files work, since we will use those
 basic aspects of web pages to make things for our graphics programs. Then move on to the <a href="../../docs/3/" class="Next__Page">Next Page</a>.</p>
-<p><a href="../../docs/3/" class="Next__Page">Next: HTML and JavaScript </a></p>
+<a href="../../docs/3/" class="Next__Page">Next: HTML and JavaScript </a>
 
             
-
-
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Page 2 Rubric (2 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (2):</div><div class="page-rubric-grid-box rubric-box-regular">Box 01-02-08</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">make a red button with your name in it</div></div>
-    </details>
-    </div>
 			
 			
 		</div>
@@ -210,7 +245,7 @@ basic aspects of web pages to make things for our graphics programs. Then move o
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 1: Introduction (Pre-Graphics)</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -221,7 +256,7 @@ basic aspects of web pages to make things for our graphics programs. Then move o
         <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Advanced Points </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Advanced Items </a></li>
 </ul>
 </div>
 </div>

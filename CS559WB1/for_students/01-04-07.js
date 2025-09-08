@@ -12,3 +12,7 @@ document.body.appendChild(para);            // append it to the HTML body
 
 // add expected text
 para.innerHTML = '<b style="color:rgb(34, 31, 196)">Graphics</b> was here';  
+
+// CS559 2025 Workbook
+
+// CS559 2025 Example Solution
