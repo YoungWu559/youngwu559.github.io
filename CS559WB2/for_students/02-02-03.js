@@ -1,14 +1,14 @@
 // @ts-check
 export {};
 
-
 /**
  * Example 2 (Insides and Outsides) - Squares with style
  * Part B
  */
 
+/** @type {HTMLCanvasElement} */
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("box2canvas2"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+let context = canvas.getContext('2d');
 
 context.fillStyle = "yellow";
 context.strokeStyle = "goldenrod";
@@ -27,3 +27,5 @@ context.restore();
 // now we're back to think yellow
 context.fillRect(130,30,30,30);
 context.strokeRect(130,30,30,30);
+
+// CS559 2025 Workbook

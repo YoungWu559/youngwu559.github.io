@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,12 +16,7 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 2: Drawing with Canvas</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>Now that we understand that Canvas is an immediate mode graphics API,
+		<div class="content post__content clearfix"><p>Now that we understand that Canvas is an immediate mode graphics API,
 we can look more at what commands it gives us for drawing.</p>
 <p>Canvas provides a rich set of options for creating shapes and coloring
 and styling them. We won&rsquo;t talk about all of them here, and only cover
@@ -43,18 +38,28 @@ You should also be able to use the debugger.</p>
 <p>But this means that (1) you will actually have to go looking at the source code files, and (2) when we do put a snippet of code on a web page, it will be &ldquo;marked up&rdquo; as HTML and not interactive.</p>
 <h2 id="review-the-basics">Review the Basics</h2>
 <p>On <a href="../../docs/1/">Page &nbsp;1&nbsp; (Web Graphics APIs)</a> we saw a few simple examples. The simplest one was this:</p>
-<iframe
-    title="02-02-01"
-    src="../../for_students/02-02-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+
+<div id="box-02-02-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-02-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-02-01.html class="boxtitlelink">02-02-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-02-01.js" class="boxtitlelink">02-02-01.js</a>
+    <iframe
+        title="02-02-01"
+        src="../../for_students/02-02-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-02-01"
+    ></iframe>
+</div></p>
 <p>Understanding this is quite important. Be sure to find the code in 
-    <a href="../../for_students/02-02-01.js" class="for_students">02-02-01.js</a>. This is the actual drawing code (without the comments - the code starts at line 29 in the file):
+<a href="../../for_students/02-02-01.js" class="box-html" data-tag="02-02-01">02-02-01.js</a>
+. This is the actual drawing code (without the comments - the code starts at line 9 in the file):
 <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -77,7 +82,8 @@ You should also be able to use the debugger.</p>
 <li>Line 3 sets the color for filling objects. Canvas is a <em>stateful</em> drawing model. For example, we pick a color and then we draw with that color. In contrast, a stateless drawing model would pass everything we need to know to draw to the actual drawing command.</li>
 <li>Line 4 actually draws the rectangle. It uses the &ldquo;current state&rdquo; of the context (such as the color we set on the previous line). Conceptually, the square is drawn immediately - changing the pixels on the screen. After the function completes, there is no memory that these pixels should be associated with a rectangle. The only representation of the rectangle is in the code. In practice, the drawing may happen asynchronously - we might not see the changes in the pixels until the system gets around to it.</li>
 <li>Notice that the code displayed above varies slightly from the code in 
-    <a href="../../for_students/02-02-01.js" class="for_students">02-02-01.js</a>. In the actual file, we include a type checking comment, <code>/** @type {HTMLCanvasElement} */</code>, which is enabled in vs code by the <code>// @ts-check</code> comment at the top of the file. This comment tells the type checker that canvas is of type HTMLCanvasElement, which then allows auto-complete and checks that function names are valid, for example <code>canvas.getContext()</code> on the next line.</li>
+<a href="../../for_students/02-02-01.js" class="box-html" data-tag="02-02-01">02-02-01.js</a>
+. In the actual file, we include a type checking comment, <code>/** @type {HTMLCanvasElement} */</code>, which is enabled in vs code by the <code>// @ts-check</code> comment at the top of the file. This comment tells the type checker that canvas is of type HTMLCanvasElement, which then allows auto-complete and checks that function names are valid, for example <code>canvas.getContext()</code> on the next line.</li>
 </ol>
 <p>You can look at the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage" target="_blank">Mozilla (Official) Canvas Tutorial: Getting Started</a>
 (optional) to get more details. You can see a few differences - these are worth pointing out:</p>
@@ -88,18 +94,28 @@ You should also be able to use the debugger.</p>
 <h2 id="insides-and-outsides">Insides and Outsides</h2>
 <p>You may have noticed that when we drew the rectangle, we &ldquo;filled&rdquo; its inside with red color (<code>#F00</code>).</p>
 <p>In Canvas, we can apply styles (like colors) to both the insides and outsides of shapes (like rectangles). The inside is the &ldquo;fill&rdquo; and the outside is the &ldquo;stroke&rdquo; (as in, you make a stroke with a pen to draw the outline or boundary of a shape).</p>
-<p>With Canvas, we need to do the stroke and fill separately. They are different commands, and get their styles from different properties. Here are some examples. Look at the JavaScript code (you can find it in 
-    <a href="../../for_students/02-02-02a.js" class="for_students">02-02-02a.js</a>)!</p>
-<iframe
-    title="02-02-02a"
-    src="../../for_students/02-02-02a.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+With Canvas, we need to do the stroke and fill separately. They are different commands, and get their styles from different properties. Here are some examples. Look at the JavaScript code (you can find it in 
+<a href="../../for_students/02-02-02.js" class="box-html" data-tag="02-02-02a">02-02-02.js</a>
+)!</p>
+
+<div id="box-02-02-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-02-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-02-02.html class="boxtitlelink">02-02-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-02-02.js" class="boxtitlelink">02-02-02.js</a>
+    <iframe
+        title="02-02-02a"
+        src="../../for_students/02-02-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-02-02"
+    ></iframe>
+</div>
 <p>You can look at the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors" target="_blank">Mozilla (Official) Canvas Tutorial: Styles</a> (optional) to see more about what styles are available (including non-constant fills).</p>
 <p>There&rsquo;s another key concept hidden in that example.
 When you set a drawing state, it stays for the next object.
@@ -110,75 +126,125 @@ complex example, the state might get set by some code somewhere very different.<
 <p>Since the green square didn&rsquo;t know what happened before it, if it wants
 something specific, it has to reset all of the different pieces of the
 state!</p>
-<p>Instead, a better idea is to have drawing an object &ldquo;clean up&rdquo; after itself.
+<p> 
+
+
+Instead, a better idea is to have drawing an object &ldquo;clean up&rdquo; after itself.
 If we set some state to draw an object, we set it back before going on to the
 next one. Unless we&rsquo;re sure it wants our changes.
 To simplify this convention, stated APIs (like Canvas) allow us to &ldquo;save&rdquo; and &ldquo;restore&rdquo;
-the state. Observe (and look at the source code!
-<a href="../../for_students/02-02-02b.js" class="for_students">02-02-02b.js</a>):</p>
-<iframe
-    title="02-02-02b"
-    src="../../for_students/02-02-02b.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+the state. Observe (and look at the source code! 
+<a href="../../for_students/02-02-03.js" class="box-html" data-tag="02-02-02b">02-02-03.js</a>
+):</p>
 
+<div id="box-02-02-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-02-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-02-03.html class="boxtitlelink">02-02-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-02-03.js" class="boxtitlelink">02-02-03.js</a>
+    <iframe
+        title="02-02-02b"
+        src="../../for_students/02-02-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-02-03"
+    ></iframe>
+</div>
 <p>Saving and restoring works like a stack: if you save twice, it makes a stack of the two saves. Each restore takes something else off of the stack.</p>
-<iframe
-    title="02-02-02c"
-    src="../../for_students/02-02-02c.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
-<p>Notice (in
-<a href="../../for_students/02-02-02c.js" class="for_students">02-02-02c.js</a>) how this leads to nesting, or &ldquo;hierarchy&rdquo;. We will use this concept (save/restore with a stack) for many things in graphics.</p>
+
+
+<div id="box-02-02-04" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-02-04</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-02-04.html class="boxtitlelink">02-02-04.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-02-04.js" class="boxtitlelink">02-02-04.js</a>
+    <iframe
+        title="02-02-02c"
+        src="../../for_students/02-02-04.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-02-04"
+    ></iframe>
+</div></p>
+<p>Notice (in 
+<a href="../../for_students/02-02-04.js" class="box-html" data-tag="02-02-02c">02-02-04.js</a>
+) how this leads to nesting, or &ldquo;hierarchy&rdquo;. We will use this concept (save/restore with a stack) for many things in graphics.</p>
 <h2 id="drawing-order-and-transparency">Drawing Order and Transparency</h2>
-<p>If rectangles (or any shape, for that matter) overlap, the shape that is drawn last covers over anything that was drawn before it. This is like painting with thick paint - we see the last thing drawn. Here is an example (in 
-    <a href="../../for_students/02-02-03a.js" class="for_students">02-02-03a.js</a>):</p>
-<iframe
-    title="02-02-03a"
-    src="../../for_students/02-02-03a.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+If rectangles (or any shape, for that matter) overlap, the shape that is drawn last covers over anything that was drawn before it. This is like painting with thick paint - we see the last thing drawn. Here is an example (in 
+<a href="../../for_students/02-02-05.js" class="box-html" data-tag="02-02-03a">02-02-05.js</a>
+):</p>
+
+<div id="box-02-02-05" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-02-05</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-02-05.html class="boxtitlelink">02-02-05.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-02-05.js" class="boxtitlelink">02-02-05.js</a>
+    <iframe
+        title="02-02-03a"
+        src="../../for_students/02-02-05.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-02-05"
+    ></iframe>
+</div>
 <p>Of course, if we don&rsquo;t fill, then we don&rsquo;t cover over things inside the rectangle.</p>
-<p>Drawing order even effects commands that draw the same rectangle (remember, we draw the stroke and the fill separately). The stroke and fill share some of the same area. Since the stroke is centered on the line around the filled area, the fill covers half the stroke. Here is an example where we switched the order of stroke and fill (
-    <a href="../../for_students/02-02-03b.js" class="for_students">02-02-03b.js</a>):</p>
-<iframe
-    title="02-02-03b"
-    src="../../for_students/02-02-03b.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+Drawing order even effects commands that draw the same rectangle (remember, we draw the stroke and the fill separately). The stroke and fill share some of the same area. Since the stroke is centered on the line around the filled area, the fill covers half the stroke. Here is an example where we switched the order of stroke and fill (
+<a href="../../for_students/02-02-06.js" class="box-html" data-tag="02-02-03b">02-02-06.js</a>
+):</p>
+
+<div id="box-02-02-06" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-02-06</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-02-06.html class="boxtitlelink">02-02-06.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-02-06.js" class="boxtitlelink">02-02-06.js</a>
+    <iframe
+        title="02-02-03b"
+        src="../../for_students/02-02-06.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-02-06"
+    ></iframe>
+</div>
 <p>All of our colors so far have been opaque - they cover over what is behind them. We can also make semi-transparent colors. That is, the color lets through some of what&rsquo;s behind it. To do this, we extend our colors with an extra number: the opacity (or alpha). In addition to an amount of red, green, and blue, we add a fourth number that is the amount that it covers what is behind it. By default, this is 100% (or 255/255), so things are opaque. But most places where we specify 3 numbers, we can specify a fourth - so to make red that only blocks 50% of what it covers, we can say <code>#FF00007F</code> (where <code>7F</code> is 127, or about half of 255).</p>
 <p>Remember that drawing order matters - the transparent thing covers what was there before it. Things drawn afterwards will cover the transparent thing. Also, the transparent things will let the background (white) through if that is what they cover.</p>
-<p>Here is a simple example (
-    <a href="../../for_students/02-02-03c.js" class="for_students">02-02-03c.js</a>):</p>
-<iframe
-    title="02-02-03c"
-    src="../../for_students/02-02-03c.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+Here is a simple example (
+<a href="../../for_students/02-02-07.js" class="box-html" data-tag="02-02-03c">02-02-07.js</a>
+):</p>
+
+<div id="box-02-02-07" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-02-07</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-02-07.html class="boxtitlelink">02-02-07.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-02-07.js" class="boxtitlelink">02-02-07.js</a>
+    <iframe
+        title="02-02-03c"
+        src="../../for_students/02-02-07.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-02-07"
+    ></iframe>
+</div>
 <p>We are using the simple math for transparency (it&rsquo;s called alpha-blending).
 There are more ways to combine the colors.
 Canvas supports many of them, but we might not get to learn about all of them in class.</p>
@@ -208,10 +274,6 @@ This is the &ldquo;official&rdquo; documentation. Everything is in here, somewhe
 <p>Ok, now move on to <a href="../../docs/3/" class="Next__Page">Next: Where did I draw </a></p>
 
             
-
-<div>
-        <i>There are no points associated with this page.</i>
-    </div>
 			
 			
 		</div>
@@ -219,7 +281,7 @@ This is the &ldquo;official&rdquo; documentation. Everything is in here, somewhe
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

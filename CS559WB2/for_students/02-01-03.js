@@ -3,12 +3,12 @@
 export {};  // export nothing, so that we know that this is a module
 
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+let context = canvas.getContext('2d');
 // note that we don't need to draw - it will just get over-drawn by the
 // first time through the animation loop!
 
 // with SVG we have to make the rect element - just like in box 2 
-let svg = /** @type {HTMLElement} */ (document.getElementById("svg1"));
+let svg = document.getElementById("svg1");
 const svgns = "http://www.w3.org/2000/svg";
 let square = document.createElementNS(svgns, 'rect');
 square.setAttribute("x", "30");
@@ -43,5 +43,6 @@ function onTick(timestamp) {
 }
 // start the "loop" by doing the initial iteration
 // (which will schedule the second iteration, ...)
-onTick(0);
+window.requestAnimationFrame(onTick);
     
+// CS559 2025 Workbook

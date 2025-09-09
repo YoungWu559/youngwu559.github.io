@@ -19,7 +19,7 @@ export {};
 function box1canvDrawAll(xpos) {
     // for real speed, these could be put outside the loop
     let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("box1canvas1"));
-    let context = /** @type {CanvasRenderingContext2D}*/ (canvas.getContext('2d'));
+    let context = canvas.getContext('2d');
     // clear the canvas
     context.clearRect(0,0,canvas.width,canvas.height);
     // draw the static rectangles
@@ -73,7 +73,7 @@ function box1animate2(timestamp) {
     // now the drawing - we are responsible for redrawing
     // but that's easy since we just need to use the list
     let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("box1canvas2"));
-    let context = /** @type {CanvasRenderingContext2D}*/ (canvas.getContext('2d'));
+    let context = canvas.getContext('2d');
     // clear the canvas
     context.clearRect(0,0,canvas.width,canvas.height);
    
@@ -85,3 +85,5 @@ function box1animate2(timestamp) {
     window.requestAnimationFrame(box1animate2);
 }
 window.requestAnimationFrame(box1animate2);
+
+// CS559 2025 Workbook

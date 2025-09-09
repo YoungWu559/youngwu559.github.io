@@ -5,7 +5,7 @@ export {};
 let dots = [];
 
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("boxcanvas"));
-let context = /** @type {CanvasRenderingContext2D}*/ (canvas.getContext('2d'));
+let context = canvas.getContext('2d');
 
 // when the mouse moves in the canvas, remember where it moves to
 canvas.onmousemove = function(event) {
@@ -14,7 +14,7 @@ canvas.onmousemove = function(event) {
     // unfortunately, X,Y is relative to the overall window -
     // we need the X,Y inside the canvas!
     // we know that event.target is a HTMLCanvasElement, so tell typescript
-    let box = /** @type {HTMLCanvasElement} */(event.target).getBoundingClientRect();
+    let box = /** @type {HTMLCanvasElement} */ (event.target).getBoundingClientRect();
     mouseX -= box.left;
     mouseY -= box.top;
     dots.push({"x":mouseX,"y":mouseY});
@@ -34,9 +34,10 @@ function animate() {
 }
 animate();
 
-/** @type {HTMLButtonElement} */
-(document.getElementById("mybutton")).onclick = function() {
+document.getElementById("mybutton").onclick = function() {
     dots = [];
 };
 
 
+
+// CS559 2025 Workbook

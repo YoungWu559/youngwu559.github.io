@@ -7,7 +7,7 @@ export {};
  */
 /** @type {HTMLCanvasElement} */
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("box2canvas3"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+let context = canvas.getContext('2d');
 
 context.fillStyle = "yellow";
 context.strokeStyle = "goldenrod";
@@ -34,3 +34,5 @@ context.save();
 context.restore();
 context.fillRect(230,30,30,30);
 context.strokeRect(230,30,30,30);
+
+// CS559 2025 Workbook

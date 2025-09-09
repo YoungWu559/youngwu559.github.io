@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,16 +16,14 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 8: Fireworks</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>This exercise is more challenging, but has advanced points. You should only try for advanced points after completing the rest of the workbook. Think of the advanced points as a way to get from an AB to an A or A+.</p>
+		<div class="content post__content clearfix"><p>This exercise is more challenging, but has advanced items. You should only try for advanced items after completing the rest of the workbook.</p>
 <h2 id="exercise-2-fireworks">Exercise 2: Fireworks</h2>
+ 
+
+
 <p>Put all your code into 
-    <a href="../../for_students/02-08-01.js" class="for_students">02-08-01.js</a>. You can edit 
-    <a href="../../for_students/02-08-01.html" class="for_students">02-08-01.html</a> if you want to, but you shouldn&rsquo;t need to. You should use the canvas API to draw, not SVG.</p>
+<a href="../../for_students/02-08-01.js" class="box-html" data-tag="02-08-01">02-08-01.js</a>
+. You can edit <a href="../../for_students/02-08-01.html" class="box-html" data-tag="02-08-01">02-08-01.html</a> if you want to, but you shouldn&rsquo;t need to. You should use the canvas API to draw, not SVG.</p>
 <p>Your job is to make something that looks like fireworks.</p>
 <ol>
 <li>When the user clicks the mouse in the canvas (rectangle), a circle (a firework) starts at the bottom edge of the screen and travels to the mouse position.</li>
@@ -40,9 +38,10 @@
 <li>Add random fireworks in addition to the ones created by user clicks.</li>
 <li>Make the fireworks follow projectile motion (have downward acceleration due to gravity) - this means that the fireworks move in parabolic arcs, not straight lines. (If you want to do this, you&rsquo;ll need to remember your high school physics).</li>
 </ul>
-<p>You can see some examples on the <a href="https://pages.graphics.cs.wisc.edu/559-sp21/gallery/wb02/" target="_blank">2021 Workbook 2 Gallery</a> and <a href="https://pages.graphics.cs.wisc.edu/559-sp22/gallery/gallery02/" target="_blank">2022 Workbook 2 Gallery</a>.</p>
+<p>You can see some examples on the galleries page on the course website.</p>
 
 
+<div class="">
 <details class="myexpand" >
     <summary class="myexpand-head">Hints</summary>
     <div class="markdown-inner myexpand-content">
@@ -57,61 +56,29 @@
 
     </div>
 </details>
-
-<iframe
-    title="02-08-01"
-    src="../../for_students/02-08-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Box 02-08-01 Rubric (24 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (18):</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">user clicks mouse, firework shoots from the bottom towards mouse</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">firework moves to mouse position over time</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">firework disappears (explodes) when it gets to position</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">small moving pieces appear where big one explodes</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">pieces move outward from explosion</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">multiple fireworks at once (if user clicks quickly)</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">fireworks are different colors</div>
-            <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (6):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">explosions fade out (or disappear) after a distance</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">fireworks start from random locations at bottom</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">random fireworks in addition to user clicks</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-08-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">projectile motion</div></div>
-    </details>
-    </div>
+</div>
+<p>
+<div id="box-02-08-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-08-01</b>&nbsp;
+        (7 basic + 4 advanced)&nbsp&nbsp;
+        <a href=../../for_students/02-08-01.html class="boxtitlelink">02-08-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-08-01.js" class="boxtitlelink">02-08-01.js</a>
+    <iframe
+        title="02-08-01"
+        src="../../for_students/02-08-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-08-01"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are basic or advanced gallery items to be completed for Box 02-08-01. To get full points, please add explanations of what you did in the .html file (or as notes in the Workbook Form) and submit at least one screenshot and one video recording of the box to the Workbook Canvas Assignment.</i>
+    </div></p>
 <h2 id="summary-fireworks">Summary: Fireworks</h2>
-<p>This is the end of the workbook. Don&rsquo;t forget to commit and push your work to GitHub, and to do <a href="https://canvas.wisc.edu/courses/343665/assignments/1819283">Workbook 02 Handin (due Mon, Feb 6)</a> to let us know that you are done and ready to be graded!</p>
+<p>This is the end of the workbook. Don&rsquo;t forget to commit and push your work to GitHub, and to complete the Workbook Form to let us know that you are done and ready to be graded!</p>
 
             
 			
@@ -120,7 +87,7 @@
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

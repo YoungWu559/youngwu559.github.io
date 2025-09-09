@@ -8,7 +8,7 @@ export {};
  */
 /** @type {HTMLCanvasElement} */
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("box2canvas1"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+let context = canvas.getContext('2d');
 
 // a yellow rectangle with a darker border
 context.fillStyle = "yellow";

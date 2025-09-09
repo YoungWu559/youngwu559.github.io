@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,27 +16,29 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 3: Where did I draw</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>There is one detail we glossed over: with either Canvas or SVG, we referred to positions (such as the center of a circle, or corner of a rectangle) using two numbers. What do these mean?</p>
-<p>Notice that they don&rsquo;t always mean the same thing: here are two SVG elements, each with a circle at position (30, 30).
-Look in the HTML (
-    <a href="../../for_students/02-03-01.html" class="for_students">02-03-01.html</a>) - you&rsquo;ll see the exact same line is repeated twice.
+		<div class="content post__content clearfix"><p>There is one detail we glossed over: with either Canvas or SVG, we referred to positions (such as the center of a circle, or corner of a rectangle) using two numbers. What do these mean?</p>
+<p> 
+
+
+Notice that they don&rsquo;t always mean the same thing: here are two SVG elements, each with a circle at position (30, 30).
+Look in the HTML (<a href="../../for_students/02-03-01.html" class="box-html" data-tag="02-03-01">02-03-01.html</a>) - you&rsquo;ll see the exact same line is repeated twice.
 Yet the two circles aren&rsquo;t in the same place.
 You can see both of them on the page.</p>
-<iframe
-    title="02-03-01"
-    src="../../for_students/02-03-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+<div id="box-02-03-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-03-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-03-01.html class="boxtitlelink">02-03-01.html</a>
+    <iframe
+        title="02-03-01"
+        src="../../for_students/02-03-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-03-01"
+    ></iframe>
+</div>
 <p>It should be obvious that we interpret position x=30, y=30 differently in each one.</p>
 <p>For SVG and Canvas, we interpret coordinates (x,y pairs) as follows:</p>
 <ul>
@@ -47,6 +49,7 @@ You can see both of them on the page.</p>
 <p>These three parts (where is the origin, how to interpret x, how to interpret y) are critical - if we don&rsquo;t know them, we cannot interpret x, y numbers as places to draw!</p>
 
 
+<div class="">
 <details class="myexpand" >
     <summary class="myexpand-head">A pesky detail...</summary>
     <div class="markdown-inner myexpand-content">
@@ -59,21 +62,17 @@ You can see both of them on the page.</p>
 
     </div>
 </details>
-
+</div>
 <p>We call this information about how to interpret coordinates a <strong>coordinate system</strong>. The official tutorial uses the term &ldquo;coordinate space&rdquo;. A key idea in computer graphics is that we need to understand coordinate systems and always try to work in a convenient coordinate system. For example, when drawing, having a coordinate system relative to the current element we&rsquo;re drawing in is very convenient. Having to talk about things relative to the position on the screen would be inconvenient. We&rsquo;d have to move everything if the page was scrolled or the window was moved.</p>
 <p>In class, we will see how to work with coordinate systems mathematically. The trick will be to use matrices to represent coordinate systems, which requires us to use vector algebra. To make sure you&rsquo;re ready for that, please read up on some vector algebra basics (it should be a review from your math classes).</p>
 <p>Specifically:</p>
 <ul>
 <li>Read the <a href="https://cs559.github.io/559Tutorials/math/points-vectors/" target="_blank">CS559 Tutorial: Points, Vectors, Coordinate Systems</a> to get a sense of the terms we are using</li>
-<li>(optional) If you aren&rsquo;t fluent with matrices and vectors (or, if you want a refresher), we recommend reading through chapters 1, 2 and 4 of Practical Linear Algebra (available at the <a href="https://search.library.wisc.edu/catalog/9911163667202121" target="_blank">Practical Linear Algebra at the UW Library</a>. Chapters <a href="https://canvas.wisc.edu/files/30140529/download?download_frd=1">pla_chapter_1.pdf (0.3mb)</a>, <a href="https://canvas.wisc.edu/files/30140530/download?download_frd=1">pla_chapter_2.pdf (0.5mb)</a> and <a href="https://canvas.wisc.edu/files/30140472/download?download_frd=1">pla_chapter_4.pdf (0.4mb)</a> are also available on Canvas.</li>
+<li>(optional) If you aren&rsquo;t fluent with matrices and vectors (or, if you want a refresher), we recommend reading through chapters 1, 2 and 4 of Practical Linear Algebra (available at the <a href="https://search.library.wisc.edu/catalog/9911163667202121" target="_blank">Practical Linear Algebra at the UW Library</a>.</li>
 </ul>
-<p><a href="../../docs/4/" class="Next__Page">Next: Canvas Drawing: Your Turn </a></p>
+<a href="../../docs/4/" class="Next__Page">Next: Canvas Drawing: Your Turn </a>
 
             
-
-<div>
-        <i>There are no points associated with this page.</i>
-    </div>
 			
 			
 		</div>
@@ -81,7 +80,7 @@ You can see both of them on the page.</p>
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,14 +16,13 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 7: Try Canvas Programming</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>This page has one simple programming exercise. The next page has a more difficult exercise, and the opportunity for advanced points.</p>
+		<div class="content post__content clearfix"> 
+
+
+<p>This page has one simple programming exercise. The next page has a more difficult exercise, and the opportunity for advanced items.</p>
 <p>You should do this exercise by editing the file 
-    <a href="../../for_students/02-07-01.js" class="for_students">02-07-01.js</a>.</p>
+<a href="../../for_students/02-07-01.js" class="box-html" data-tag="02-07-01">02-07-01.js</a>
+.</p>
 <h2 id="box-1-canvas-event-programming">Box 1: Canvas Event Programming</h2>
 <p>In the Canvas element box (with id <code>box1canvas</code>), please implement the following behavior:</p>
 <ol>
@@ -39,12 +38,13 @@ Circles get added, so the user can make lots of circles. When I say circle, I me
 </li>
 </ol>
 <p>If you do parts 1 and 2 (which everyone should do), (these colors are examples): when you click, a green circle appears; when the mouse enters a green circle, it changes to yellow, when it leaves the yellow circle it changes back to green. In part 3, if you click on a yellow circle (if you try to click on a green circle, it would change to yellow when you enter), it may change to red. The red circle would change to orange (or yellow) when the mouse enters it, but would change back to red, not green, when the mouse leaves. Of course, you need to let the user make lots of circles - and they should all work correctly.</p>
-<p>All of your code for this exercise should go into the file
-<a href="../../for_students/02-07-01.js" class="for_students">02-07-01.js</a>. You should not need to change
-<a href="../../for_students/02-07-01.html" class="for_students">02-07-01.html</a>
+<p>All of your code for this exercise should go into the file 
+<a href="../../for_students/02-07-01.js" class="box-html" data-tag="02-07-01">02-07-01.js</a>
+. You should not need to change <a href="../../for_students/02-07-01.html" class="box-html" data-tag="02-07-01">02-07-01.html</a>
 We&rsquo;ve started things for you. You should use the canvas API to draw, not SVG.</p>
 
 
+<div class="">
 <details class="myexpand" >
     <summary class="myexpand-head">Hints</summary>
     <div class="markdown-inner myexpand-content">
@@ -61,38 +61,26 @@ We&rsquo;ve started things for you. You should use the canvas API to draw, not S
 
     </div>
 </details>
-
-<iframe
-    title="02-07-01"
-    src="../../for_students/02-07-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
-
-
-        
-        
-        
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Box 02-07-01 Rubric (11 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (10):</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making circles appear when the mouse is clicked</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">having the circles change color when the mouse is over them</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">having the circles change their color back when the mouse leaves them</div>
-            <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (1):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 02-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">having the circle change color when clicked (advanced points), with the hover behavior still working</div></div>
-    </details>
-    </div>
+</div>
+<p>
+<div id="box-02-07-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-07-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-07-01.html class="boxtitlelink">02-07-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-07-01.js" class="boxtitlelink">02-07-01.js</a>
+    <iframe
+        title="02-07-01"
+        src="../../for_students/02-07-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-07-01"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 02-07-01.</i>
+    </div></p>
 <p>That&rsquo;s all for this page. <a href="../../docs/8/" class="Next__Page">Next: Fireworks </a></p>
 
             
@@ -102,7 +90,7 @@ We&rsquo;ve started things for you. You should use the canvas API to draw, not S
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

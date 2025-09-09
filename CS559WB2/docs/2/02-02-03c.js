@@ -1,4 +1,15 @@
+/**
+ * page 02-02-03c.js - a simple JavaScript file that gets loaded with
+ * page 2 of Workbook 2 (CS559)
+ * 
+ * written by Michael Gleicher, January 2019
+ * modified by Florian Heimerl, August 2019
+ * modified by Wiley Corning and Gleicher, January 2021
+ */
+
+// make vscode happy - see other files for details
 // @ts-check
+/* jshint -W069, -W141, esversion:6 */
 export {};
 
 /**
@@ -6,8 +17,9 @@ export {};
  * Part C
  */
 // alpha blending example
+/** @type {HTMLCanvasElement} */
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("box3canvas3"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+let context = canvas.getContext('2d');
 
 // make some things to cover over
 context.lineWidth = 3;

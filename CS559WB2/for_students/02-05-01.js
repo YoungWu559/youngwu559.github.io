@@ -25,14 +25,13 @@ function makeSVGrect(x,y,w,h,fill,click) {
     return rect;
 }
 
-// no need for onload, since we use defer
 /**
  * Box 1 (Animation with SVG & Canvas) - animate something moving, and many things not moving
  * in both SVG and Canvas
  */
 
 // set up the "scene" in svg
-let svg1 = /** @type {HTMLElement}*/ (document.getElementById("box1svg"));
+let svg1 = document.getElementById("box1svg");
 for(let c=0; c<4; c++) {
     for(let r=0; r<3; r++) {
         svg1.appendChild(makeSVGrect(30+c*50,20+r*20,30,10,"#888"));
@@ -45,14 +44,13 @@ svg1.appendChild(svg1rect);
 // which redraws everything.
 // we need to know the position of the moving box
 /**
- * draw everythign for Box 1 Canvas
+ * draw everything for Box 1 Canvas
  * @param {number} xpos
  */
 function box1canvDrawAll(xpos) {
     // for real speed, these could be put outside the loop
-    /** @type {HTMLCanvasElement} */
     let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("box1canvas"));
-    let context = /** @type {CanvasRenderingContext2D}*/ (canvas.getContext('2d'));
+    let context = canvas.getContext('2d');
     // clear the canvas
     context.clearRect(0,0,canvas.width,canvas.height);
     // draw the static rectangles
@@ -83,3 +81,5 @@ function box1animate(timestamp) {
 window.requestAnimationFrame(box1animate);
 
 
+
+// CS559 2025 Workbook

@@ -1,5 +1,5 @@
 // we enable typescript type checking - see
-// https://graphics.cs.wisc.edu/Courses/559-sp2021/pages/typed-js/
+// https://pages.graphics.cs.wisc.edu/559-sp22/pages/typed-js/
 // https://github.com/Microsoft/TypeScript/wiki/Type-Checking-JavaScript-Files
 // @ts-check
 
@@ -13,7 +13,7 @@ export {};  // export nothing, so that we know that this is a module
 // and then find the drawing context inside it
 // to understand the next funky comment see http://usejsdoc.org/tags-type.html
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+let context = canvas.getContext('2d');
 
 // now that we have the context, we can use it to issue drawing commands
 // the results appear "immediately"
@@ -22,8 +22,7 @@ context.fillRect(30,30,30,30);
 
 /** now with SVG  */
 // first we need to get the canvas element
-
-let svg = /** @type {HTMLElement} */ (document.getElementById("svg1"));
+let svg = document.getElementById("svg1");
 
 // now we can create a square to add
 // note that in practice, we'd use a library to make this (see https://svgjs.dev/ for example)
@@ -41,3 +40,5 @@ square.setAttribute("fill", "#F00");
 // now add the square to the svg, like any other DOM element
 svg.appendChild(square);
 
+
+// CS559 2025 Workbook

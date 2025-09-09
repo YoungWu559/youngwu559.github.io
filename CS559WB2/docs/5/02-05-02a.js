@@ -1,4 +1,4 @@
-// @ts-check
+ // @ts-check
 export {};
 
 // useful constant for doing SVG
@@ -33,7 +33,7 @@ function makeSVGrect(x,y,w,h,fill) {
 function handleClick(event) {
     event.target.classList.toggle("lightredwithborder");
 }
-let svg2 = /** @type {HTMLElement} */ (document.getElementById("boxsvg"));
+let svg2 = document.getElementById("boxsvg");
 for(let c=0; c<4; c++) {
     for(let r=0; r<3; r++) {
         let rect = makeSVGrect(30+c*50,20+r*20,30,10,"#888");

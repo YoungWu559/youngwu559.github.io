@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,18 +16,16 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 4: Canvas Drawing: Your Turn</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>Now that you&rsquo;ve learned to draw, you&rsquo;ll get to draw something!</p>
+		<div class="content post__content clearfix"><p>Now that you&rsquo;ve learned to draw, you&rsquo;ll get to draw something!</p>
 <p>There are two exercises - you must make a picture for each.
 In the first one, you have to make the picture you&rsquo;re asked for.
 In the second one, you can make anything you want.</p>
 <p>You do not need to use Canvas concepts that we haven&rsquo;t learned about yet (transformations or curves). You can use images or text if you want. If you use an image file, make sure you add it to the GitHub repo!</p>
 <p>You should not use the Canvas SVG Path functionality (where you put SVG into Canvas - this is not the same as Canvas path that you should use).</p>
-<h2 id="box-exercise-1-a-simple-picture">Box (Exercise) 1: A Simple Picture</h2>
+<h2 id="exercise-1-a-simple-picture">Exercise 1: A Simple Picture</h2>
+ 
+
+
 <p>Make a picture that contains:</p>
 <ol>
 <li>a circle</li>
@@ -44,58 +42,61 @@ In the second one, you can make anything you want.</p>
     <path d="M 100 150 L 200 150 L 200 125 L 175 100 L 150 125 L 125 100 L 100 125 Z" style="stroke:black; fill:gray; stroke-width:5" />
 </svg>
 <p>Create the picture using 2D Canvas drawing, by editing the 
-    <a href="../../for_students/02-04-01.js" class="for_students">02-04-01.js</a> file that appears on 
-    <a href="../../for_students/02-04-01.html" class="for_students">02-04-01.html</a> (and shown in the box). The id of the canvas element is <code>canvas1</code>.</p>
+<a href="../../for_students/02-04-01.js" class="box-html" data-tag="02-04-01">02-04-01.js</a>
+ file that appears on <a href="../../for_students/02-04-01.html" class="box-html" data-tag="02-04-01">02-04-01.html</a> (and shown in the box). The id of the canvas element is <code>canvas1</code>.</p>
 <p>If you want to match the colors (not required), they are: circle (fill: #F8E; stroke:#846), triangle (fill:sandybrown; stroke:darkgoldenrod), capsule (style=&ldquo;stroke:darkred; fill:lightpink&rdquo;), and sawtooth (stroke:black; fill:gray). The SVG has linewidth 5, if you want to match that (again, not required).</p>
-<iframe
-    title="02-04-01"
-    src="../../for_students/02-04-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p>
+<div id="box-02-04-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-04-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/02-04-01.html class="boxtitlelink">02-04-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-04-01.js" class="boxtitlelink">02-04-01.js</a>
+    <iframe
+        title="02-04-01"
+        src="../../for_students/02-04-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-04-01"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 02-04-01.</i>
+    </div></p>
 <h2 id="box-exercise-2-your-own-picture">Box (Exercise) 2: Your own Picture</h2>
+ 
+
+
 <p>Make any picture you want to show off how well you&rsquo;ve learned Canvas. Make it by editing the 
-    <a href="../../for_students/02-04-02.js" class="for_students">02-04-02.js</a> file which is used in 
-    <a href="../../for_students/02-04-02.html" class="for_students">02-04-02.html</a> (and shown in the box). The Canvas element has id &ldquo;canvas1&rdquo; and size 500x500.</p>
+<a href="../../for_students/02-04-02.js" class="box-html" data-tag="02-04-02">02-04-02.js</a>
+ file which is used in <a href="../../for_students/02-04-02.html" class="box-html" data-tag="02-04-02">02-04-02.html</a> (and shown in the box). The Canvas element has id &ldquo;canvas1&rdquo; and size 500x500.</p>
 <p>You can draw anything you want. But please show off that you know how to: use styles, use transparency, use drawing order, and use complicated shapes. The grader will check that Canvas has some of those things.</p>
 <p>Also, you must &ldquo;color in the lines&rdquo; - don&rsquo;t change the HTML file (the canvas is 500x500). And just make a static picture - no interaction or animation. You should use the canvas API, not SVG. We&rsquo;ll learn about that on the next page. This is not the end of this workbook - be sure to go on to the other pages when you&rsquo;re done.</p>
-<p>Yes, you can make a simple picture. But, you will learn more and have more fun if you try to make something creative. We will not reward you with extra points, however, there might be other rewards. We will select some interesting pictures for the gallery (you can see a few examples from the <a href="https://pages.graphics.cs.wisc.edu/559-sp21/gallery/wb02/" target="_blank">2021 Workbook 2 Gallery</a> and <a href="https://pages.graphics.cs.wisc.edu/559-sp22/gallery/gallery02/" target="_blank">2022 Workbook 2 Gallery</a>).</p>
-<iframe
-    title="02-04-02"
-    src="../../for_students/02-04-02.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p>Yes, you can make a simple picture. But, you will learn more and have more fun if you try to make something creative. We will not reward you with extra points, however, there might be other rewards. We will select some interesting pictures for the gallery (you can see a few examples from the <a href="https://pages.graphics.cs.wisc.edu/559-sp24/pages/galleries/">Galleries</a> ).</p>
+<p>
+<div id="box-02-04-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 02-04-02</b>&nbsp;
+        (2 basic + 1 advanced)&nbsp&nbsp;
+        <a href=../../for_students/02-04-02.html class="boxtitlelink">02-04-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/02-04-02.js" class="boxtitlelink">02-04-02.js</a>
+    <iframe
+        title="02-04-02"
+        src="../../for_students/02-04-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-02-04-02"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are basic or advanced gallery items to be completed for Box 02-04-02. To get full points, please add explanations of what you did in the .html file (or as notes in the Workbook Form) and submit at least one screenshot and one video recording of the box to the Workbook Canvas Assignment.</i>
+    </div></p>
 <p>Now you can go on to <a href="../../docs/5/" class="Next__Page">Page 5</a>.</p>
 
             
-
-
-        
-        
-        
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Page 4 Rubric (18 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (18):</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">8 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">2 pts for each of 4 shapes</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">making a picture</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">shapes that aren&#39;t rectangles</div><div class="page-rubric-grid-box rubric-box-regular">Box 02-04-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">transparency (must be obvious from looking at the picture)</div></div>
-    </details>
-    </div>
 			
 			
 		</div>
@@ -103,7 +104,7 @@ In the second one, you can make anything you want.</p>
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 2: Graphics APIs and Drawing Basics</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

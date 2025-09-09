@@ -45,7 +45,7 @@ function drawRectList(context,rectList) {
 // rectangles
 function canvasAnimate(timestamp) {
     let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("boxcanvas"));
-    let context = /** @type {CanvasRenderingContext2D}*/ (canvas.getContext('2d'));
+    let context = canvas.getContext('2d');
     // clear the canvas
     context.clearRect(0,0,canvas.width,canvas.height);
     // update the moving rectangle's position
@@ -79,14 +79,13 @@ function clickRectList(x,y,rectList) {
 }
 
 // now handle the clicks on the Canvas
-/** @type {HTMLButtonElement} */
-(document.getElementById("boxcanvas")).onclick = function(event) {
+document.getElementById("boxcanvas").onclick = function(event) {
     let x = event.clientX;
     let y = event.clientY;
     // unfortunately, X,Y is relative to the overall window -
     // we need the X,Y inside the canvas!
     // we know that event.target is a HTMLCanvasElement, so tell typescript
-    let box = /** @type {HTMLCanvasElement} */(event.target).getBoundingClientRect();
+    let box = /** @type {HTMLCanvasElement} */ (event.target).getBoundingClientRect();
     x -= box.left;
     y -= box.top;
     // now we can see if we clicked on a rectangle
@@ -95,3 +94,5 @@ function clickRectList(x,y,rectList) {
 
 
 
+
+// CS559 2025 Workbook

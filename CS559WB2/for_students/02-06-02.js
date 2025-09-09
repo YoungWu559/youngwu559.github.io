@@ -1,5 +1,3 @@
-// canvas events example
-/* jshint -W069, -W141, esversion:6 */
 export {};
 
 let canvas1 = document.getElementById("box2canvas1");
@@ -32,3 +30,5 @@ canvas2.onclick = function(event) {
 
     span1.innerHTML = `click in box2 event@(${x},${y}) - in canvas@(${mx.toFixed(0)},${my.toFixed(0)})`;
 };
+
+// CS559 2025 Workbook
