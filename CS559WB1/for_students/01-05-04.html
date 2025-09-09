@@ -2,13 +2,13 @@
 <html>
 <body>
     <p>
-        <input type="range" min="0" max="1000" id="slider1"><br/>
-        <input type="range" min="0" max="1000" id="slider2"><br/>
-        <input type="range" min="0" max="1000" id="slider3"><br/>
+        <input type="range" min="0" max="100" id="slider1"><br/>
+        <input type="range" min="0" max="100" id="slider2"><br/>
+        <input type="range" min="0" max="100" id="slider3"><br/>
         <br /><!-- make extra sliders for a second example -->
-        <input type="range" min="0" max="1000" id="slider4"><br/>
-        <input type="range" min="0" max="1000" id="slider5"><br/>
-        <input type="range" min="0" max="1000" id="slider6"><br/>
+        <input type="range" min="0" max="100" id="slider4"><br/>
+        <input type="range" min="0" max="100" id="slider5"><br/>
+        <input type="range" min="0" max="100" id="slider6"><br/>
         
     </p>
 </body>
@@ -33,7 +33,7 @@
         // we effectively get a new copy of the "slr" variable with each iteration
         // of the loop
         function advanceSLR() {
-            let newValue = (Number(slr.value)+1) % 1000;
+            let newValue = (Number(slr.value)+1) % 100;
             slr.value = newValue.toString();
             window.requestAnimationFrame(advanceSLR);  
         }
@@ -50,6 +50,8 @@
     // (observe how it moves much faster)
     /** @type{HTMLInputElement} */ 
     let slr;    // define this variable outside of the loop
+    var flag = false;
+   
     for (const slider of ['slider4', 'slider5', 'slider6']) {
         // slr is declared outside of the loop - so we don't get a "new"
         // variable with each iteration
@@ -58,9 +60,18 @@
         // notice that the slr variable refers to the slr variable defined
         // outside of the loop 
         function advanceSLR() {
-            let newValue = (Number(slr.value)+1) % 1000;
+            if (!flag) {
+                console.log(slr.value);
+            }
+            let newValue = (Number(slr.value)+1) % 100;
             slr.value = newValue.toString();
-            window.requestAnimationFrame(advanceSLR);  
+
+            if (!flag) {
+                console.log(`${slider} and ${slr.id}`);
+                console.log(slr.value);
+                flag = true;
+            }
+            window.requestAnimationFrame(advanceSLR);
         }
         advanceSLR();
     }
@@ -71,3 +82,5 @@
 
 
 <!-- CS559 2025 Workbook -->
+
+<!-- CS559 2025 Example Solution -->
