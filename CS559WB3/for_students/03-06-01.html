@@ -6,33 +6,22 @@
 </head>
 
 <body>
-    <p>The first simple example implements the basic requirements.
-    </p>
-
     <canvas id="canvas1" height="600px" width="600px"></canvas>
-    <script src="03-06-01bs.js" type="module" defer></script>
 
-    <p>Another example (note: this does not fill all the requirements, so it would not get all the basic points!): </p>
-    <ul>
-        <li>Click mouse to pick a target position, the quadcopter moves there.
-        <li>You can click another position before the quadcopter reaches its current target position.
-    </ul>
-
-    <canvas id="canvas2" height="600px" width="600px"></canvas>
-    <script src="03-06-01ad.js" type="module" defer></script>
-
-    <p>The next example implements the following features with three QuadCopters:</p>
-    <ol>
-        <li>The first one (best attempt to look like the Helicarrier from the Avengers) responds to mouse clicks. Each
-            mouse click adds a person waving at the QuadCopter. While there are no mouse clicks, a random person could
-            be added with a small probability.
-        <li>The second one (best attempt to look like the Gunship from Avatar) responds to arrow keys and the WASD keys
-            (QEZC also works).
-        <li>The third one (plain QuadCopter with Red-Green-Blue colors) just flies in circles.</li>
-    </ol>
-
-    <canvas id="canvas3" height="600px" width="600px"></canvas>
     <script src="03-06-01.js" type="module" defer></script>
+
+<!-- The screenshot and record buttons -->
+    <br><button onclick="screenshot('canvas1')">Screenshot</button> <button
+        onclick="record('canvas1','time')">Record</button> <input id="time" type="text" size="2" value="10"> seconds.
+    <script type="module">
+        import { screenshot, record } from "../libs/CS559/saveCanvas.js";
+        window.screenshot = screenshot;
+        window.record = record;
+    </script>
+
 </body>
 
 </html>
+
+
+<!-- CS559 2025 Workbook -->

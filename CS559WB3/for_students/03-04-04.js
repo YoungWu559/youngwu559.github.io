@@ -97,7 +97,7 @@ function drawTorso(context) {
  */
 function drawPart(element, func) {
     const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById(element));
-    const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
+    const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
     context.translate(20, canvas.height / 2);
@@ -140,3 +140,5 @@ slider2.oninput = sliderChange;
 slider3.oninput = sliderChange;
 
 sliderChange();
+
+// CS559 2025 Workbook

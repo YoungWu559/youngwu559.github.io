@@ -1,21 +1,6 @@
 // @ts-check
 
-/**
- * 
- * This is for drawTriSquare - it loads in a separate module that holds the code for the function
- * so we can put that code into a separate file (called "03-01-TriSquare.js")
- * 
- * Now is a good time to learn about modules!
- * 
- * Check your favorite JavaScript book (if it is up to date with ES6).
- * https://github.com/nzakas/understandinges6/blob/master/manuscript/13-Modules.md
- * is a nice tutorial.
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
- * is an official reference
- */
 export {};
-
-import * as trisquare from "./03-01-TriSquare.js";
 
 /**
  * Draw the triangle and square at a specific X position
@@ -23,25 +8,29 @@ import * as trisquare from "./03-01-TriSquare.js";
  * @param {CanvasRenderingContext2D} context 
  * @param {number} xval 
  */
-function drawTriSquareTransform(context, xval) {
-    context.save();
-    context.translate(xval, 0);
-    trisquare.drawTriSquare(context);
-    context.restore();
+// @@Snippet:drawTriSquareParameter
+function drawTriSquareParameter(context, xval) {
+    context.fillStyle = "goldenrod";
+    context.fillRect(20 + xval, 20, 20, 20);
+    context.fillStyle = "red";
+    context.beginPath();
+    context.moveTo(25 + xval, 25);
+    context.lineTo(25 + xval, 35);
+    context.lineTo(35 + xval, 30);
+    context.fill();
 }
+// @@Snippet:end
 
-/** @type {HTMLCanvasElement} */
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+const context = canvas.getContext('2d');
 
 
-/** @type {HTMLInputElement} */
 const slider = /** @type {HTMLInputElement} */ (document.getElementById("slider1"));
 
 // draw the initial things
 const xval = Number(slider.value);
 // draw the boxes
-drawTriSquareTransform(context, xval);
+drawTriSquareParameter(context, xval);
 
 /** Set up the callback function to move the squares */
 slider.oninput = function () {
@@ -50,5 +39,7 @@ slider.oninput = function () {
     // get the X position and convert to a number
     const xval = Number(slider.value);
     // draw the boxes
-    drawTriSquareTransform(context, xval);
+    drawTriSquareParameter(context, xval);
 };
+
+// CS559 2025 Workbook

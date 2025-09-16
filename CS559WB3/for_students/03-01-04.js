@@ -1,8 +1,9 @@
 // @ts-check
-/**
+
+/** moving the triangle and square - with a transform
  * 
  * This is for drawTriSquare - it loads in a separate module that holds the code for the function
- * so we can put that code into a separate file (called "03-01-TriSquare.js")
+ * so we can put that code into a separate file (called "TriSquare.js")
  * 
  * Now is a good time to learn about modules!
  * 
@@ -14,15 +15,41 @@
  */
 export {};
 
-import * as trisquare from "./03-01-TriSquare.js";
+import * as trisquare from "./TriSquare.js";
+
+/**
+ * Draw the triangle and square at a specific X position
+ * 
+ * @param {CanvasRenderingContext2D} context 
+ * @param {number} xval 
+ */
+// @@Snippet:transform
+function drawTriSquareTransform(context, xval) {
+    context.save();
+    context.translate(xval, 0);
+    trisquare.drawTriSquare(context);
+    context.restore();
+}
+// @@Snippet:end
 
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
-trisquare.drawTriSquare(context);
-context.translate(40, 0);
-trisquare.drawTriSquare(context);
-context.translate(40, 0);
-trisquare.drawTriSquare(context);
-context.translate(40, 0);
-trisquare.drawTriSquare(context);
+const context = canvas.getContext('2d');
 
+const slider = /** @type {HTMLInputElement} */ (document.getElementById("slider1"));
+
+// draw the initial things
+const xval = Number(slider.value);
+// draw the boxes
+drawTriSquareTransform(context, xval);
+
+/** Set up the callback function to move the squares */
+slider.oninput = function () {
+    // clear the canvases
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    // get the X position and convert to a number
+    const xval = Number(slider.value);
+    // draw the boxes
+    drawTriSquareTransform(context, xval);
+};
+
+// CS559 2025 Workbook

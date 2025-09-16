@@ -2,7 +2,7 @@
 export {};
 
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
+let context = canvas.getContext("2d");
 
 let slider = /** @type {HTMLInputElement} */ (document.getElementById("slider1"));
 
@@ -45,3 +45,5 @@ function sliderChange() {
 slider.oninput = sliderChange;
 slider.value = "0";
 sliderChange();
+
+// CS559 2025 Workbook

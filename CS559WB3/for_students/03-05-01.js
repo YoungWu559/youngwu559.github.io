@@ -96,9 +96,9 @@ function drawBody(context,variables) {
 }
 
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
+const context = canvas.getContext("2d");
 
-const controls = /** @type {HTMLInputElement} */ (document.getElementById("controls_box"));
+const controls = document.getElementById("controls_box");
 const sliders = [];
 for (let sl=0; sl<12; sl++) {
     const slider = document.createElement("input");
@@ -125,3 +125,5 @@ sliders.forEach(sl => sl.oninput = function() {
     drawBody(context, sliders.map(slider => Number(slider.value)));
 });
 drawBody(context, sliders.map(slider => Number(slider.value)));
+
+// CS559 2025 Workbook

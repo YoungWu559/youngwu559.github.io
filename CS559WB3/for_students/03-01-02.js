@@ -1,42 +1,27 @@
+// we do enable typescript type checking - see
+// https://graphics.cs.wisc.edu/Courses/559-sp2020/pages/typed-js/
+// and
+// https://github.com/Microsoft/TypeScript/wiki/Type-Checking-JavaScript-Files
 // @ts-check
-export {};
 
 /**
- * Draw the triangle and square at a specific X position
  * 
- * @param {CanvasRenderingContext2D} context 
- * @param {number} xval 
+ * This is for drawTriSquare - it loads in a separate module that holds the code for the function
+ * so we can put that code into a separate file (called "TriSquare.js")
+ * 
+ * Now is a good time to learn about modules!
+ * 
+ * Check your favorite JavaScript book (if it is up to date with ES6).
+ * https://github.com/nzakas/understandinges6/blob/master/manuscript/13-Modules.md
+ * is a nice tutorial.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+ * is an official reference
  */
-function drawTriSquareParameter(context, xval) {
-    context.fillStyle = "goldenrod";
-    context.fillRect(20 + xval, 20, 20, 20);
-    context.fillStyle = "red";
-    context.beginPath();
-    context.moveTo(25 + xval, 25);
-    context.lineTo(25 + xval, 35);
-    context.lineTo(35 + xval, 30);
-    context.fill();
-}
+export {};
 
-/** @type {HTMLCanvasElement} */
+import * as trisquare from "./TriSquare.js";
+
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
-
-
-/** @type {HTMLInputElement} */
-const slider = /** @type {HTMLInputElement} */ (document.getElementById("slider1"));
-
-// draw the initial things
-const xval = Number(slider.value);
-// draw the boxes
-drawTriSquareParameter(context, xval);
-
-/** Set up the callback function to move the squares */
-slider.oninput = function () {
-    // clear the canvases
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    // get the X position and convert to a number
-    const xval = Number(slider.value);
-    // draw the boxes
-    drawTriSquareParameter(context, xval);
-};
+const context = canvas.getContext('2d');
+trisquare.drawTriSquare(context);
+// CS559 2025 Workbook

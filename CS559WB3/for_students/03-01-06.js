@@ -1,49 +1,48 @@
-/**
- * @description: CS559 2023 Spring Workbook Solution
- * @date: Jan.27 2023
- */
-
 // @ts-check
+
 export {};
 
-// get HTML elements
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
-const button = /** @type {HTMLButtonElement} */ (document.getElementById("button1"));
+const context = canvas.getContext('2d');
 
-/**
- * draw the box with a triangle in it - the jump flag says if the
- * button is pressed (if it is, the triangle should move to the right)
- * 
- * The student should fix this function - without using any negative numbers!
- * 
- * @param {number} jump - 0 or 1, representing false or true
- */
-function draw(jump) {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // solution: we use a pair of context.save() and context.restore()
-    // to wrap the code that modifies context transformations or
-    // context styles
+// draw squares with triangles in them
+// access "context" because its in scope
+// note that these both draw at the origin!
+function drawUpArrow() {
     context.save();
-    {
-        if (jump) {
-            context.translate(20, 0);
-            context.fillStyle = "blue";
-        } else {
-            context.fillStyle = "red";
-        }
-        context.beginPath();
-        context.moveTo(20, 10);
-        context.lineTo(10, 30);
-        context.lineTo(30, 30);
-        context.fill();
-    }
+    context.fillStyle = "goldenrod";
+    context.fillRect(0, 0, 20, 20);
+    context.fillStyle = "red";
+    context.beginPath();
+    context.moveTo(10, 5);
+    context.lineTo(5, 15);
+    context.lineTo(15, 15);
+    context.fill();
     context.restore();
 }
-// draw the initial triangle
-draw(0);
 
-// now make the button work
-button.onmousedown = () => draw(1);
-button.onmouseup   = () => draw(0);
+function drawDownArrow() {
+    context.save();
+    context.fillStyle = "goldenrod";
+    context.fillRect(0, 0, 20, 20);
+    context.fillStyle = "green";
+    context.beginPath();
+    context.moveTo(10, 15);
+    context.lineTo(5, 5);
+    context.lineTo(15, 5);
+    context.fill();
+    context.restore();
+}
+
+for (let r = 0; r < 4; r++) {
+    for (let c = 0; c < 4; c++) {
+        context.save();
+        context.translate(20 + c * 40, 20 + r * 40);
+        // this is intentionally funky code:
+        // note how I compute what function to call, then I call it!
+        (((r + c) % 2) ? drawUpArrow : drawDownArrow)();
+        context.restore();
+    }
+}
+
+// CS559 2025 Workbook

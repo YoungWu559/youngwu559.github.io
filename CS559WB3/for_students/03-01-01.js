@@ -7,7 +7,7 @@
 /**
  * 
  * This is for drawTriSquare - it loads in a separate module that holds the code for the function
- * so we can put that code into a separate file (called "03-01-TriSquare.js")
+ * so we can put that code into a separate file (called "TriSquare.js")
  * 
  * Now is a good time to learn about modules!
  * 
@@ -19,8 +19,9 @@
  */
 export {};
 
-import * as trisquare from "./03-01-TriSquare.js";
+import * as trisquare from "./TriSquare.js";
 
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+const context = canvas.getContext('2d');
 trisquare.drawTriSquare(context);
+// CS559 2025 Workbook

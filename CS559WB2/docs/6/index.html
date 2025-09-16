@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 6: Interactive 2D Scenes</h1>
 		</header>
-		<div class="content post__content clearfix"><p>In an immediate-mode API like Canvas, when we draw a primitive, the API converts the primitive (for example, by coloring the pixels) - it doesn&rsquo;t save the primitive itself. This means if we want to refer to the primitive later, we need to keep track of it ourselves. The standard way to do this is to keep a list of the objects we want to have on the display. We call this list of objects a <strong>display list</strong>.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>In an immediate-mode API like Canvas, when we draw a primitive, the API converts the primitive (for example, by coloring the pixels) - it doesn&rsquo;t save the primitive itself. This means if we want to refer to the primitive later, we need to keep track of it ourselves. The standard way to do this is to keep a list of the objects we want to have on the display. We call this list of objects a <strong>display list</strong>.</p>
 <p>In general, the display list might store more complicated objects that we want to keep track of. And it might have a more complex structure than just a list. For example, often it is a tree because we allow objects to be made of other objects. For this reason, the data structure is sometimes called a <strong>scene graph</strong> (because it is a graph that stores information about the items that make up the scene).</p>
 <p>I will use these two terms loosely.</p>
 <p>An API like SVG is sometime called a <em>scene graph</em> or <em>display list</em> API because it keeps the data structure for you. Canvas is not a display list API because the program has to keep a display list itself (if the programmer wants one).</p>

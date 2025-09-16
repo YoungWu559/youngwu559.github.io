@@ -1,10 +1,11 @@
 // @ts-check
+
 export {};
 
-import * as trisquare from "./03-02-TriSquare.js";
+import * as trisquare from "./TriSquare.js";
 
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+const context = canvas.getContext('2d');
 trisquare.drawTriSquare(context);
 
 const slider = /** @type {HTMLInputElement} */ (document.getElementById("slider1"));
@@ -22,3 +23,5 @@ function sliderChange() {
 }
 slider.oninput = sliderChange;
 sliderChange();
+
+// CS559 2025 Workbook

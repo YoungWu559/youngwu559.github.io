@@ -2,7 +2,7 @@
 export {};
 
 let canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-let context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
+let context = canvas.getContext("2d");
 
 // parameters of the windmill
 const height = 100;
@@ -66,3 +66,5 @@ function drawScene() {
     window.requestAnimationFrame(drawScene);
 }
 drawScene();
+
+// CS559 2025 Workbook

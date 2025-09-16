@@ -1,39 +1,17 @@
-/**
- * @description: CS559 2023 Spring Workbook Solution
- * @date: Jan.27 2023
- */
-
 // @ts-check
-export { };
+export {};
 
 /**
  *
  * @param {HTMLCanvasElement} canvas
  */
 function picture(canvas) {
-    const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
+    const context = canvas.getContext("2d");
     // student should use translate and scale to
     // change the coordinate system to [-100,100] [-100,100]
     // you online need to change line 1 and line 2
-
-    //console.log("Student will replace this line");  // line 1
-    //console.log("Student will replace this line");  // line 2
-
-    // Solution:
-    {
-        // 1. translate the origin to center:
-        context.translate(canvas.width / 2, canvas.height / 2);
-
-        // 2.1 flip the coordinate upside down, letting y-axis point to top:
-        // context.scale(1, -1)
-
-        // 2.2 set the coordinate in range [-100, 100] [-100, 100]:
-        // context.scale(canvas.width / 200, canvas.height / 200)
-
-        // multiply 2.1 and 2.2, we have:
-        context.scale(canvas.width / 200, -canvas.height / 200);
-    }
-
+    console.log("Student will replace this line");  // line 1
+    console.log("Student will replace this line");  // line 2
     // now I'll draw something...
     context.fillStyle = "lightgray";
     context.beginPath();
@@ -66,3 +44,5 @@ function picture(canvas) {
     picture( /** @type {HTMLCanvasElement} */ (document.getElementById(name)));
 });
 
+
+// CS559 2025 Workbook

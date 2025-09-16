@@ -1,9 +1,8 @@
 // @ts-check
 export {};
 
-/** @type {HTMLCanvasElement} */
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+const context = canvas.getContext('2d');
 
 const slider = /** @type {HTMLInputElement} */ (document.getElementById("slider1"));
 const text = /** @type {HTMLInputElement} */ (document.getElementById("text1"));
@@ -32,3 +31,5 @@ function sliderChange() {
 slider.value = "1";
 slider.oninput = sliderChange;
 sliderChange();
+
+// CS559 2025 Workbook

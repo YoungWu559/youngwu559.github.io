@@ -1,46 +1,32 @@
+/**
+ * 
+ * This is for drawTriSquare - it loads in a separate module that holds the code for the function
+ * so we can put that code into a separate file (called "TriSquare.js")
+ * 
+ * Now is a good time to learn about modules!
+ * 
+ * Check your favorite JavaScript book (if it is up to date with ES6).
+ * https://github.com/nzakas/understandinges6/blob/master/manuscript/13-Modules.md
+ * is a nice tutorial.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
+ * is an official reference
+ */
 // @ts-check
 
 export {};
 
+import * as trisquare from "./TriSquare.js";
+
 const canvas = /** @type {HTMLCanvasElement} */ (document.getElementById("canvas1"));
-const context = /** @type {CanvasRenderingContext2D} */ (canvas.getContext('2d'));
+const context = canvas.getContext('2d');
+// @@Snippet:repeat
+trisquare.drawTriSquare(context);
+context.translate(40, 0);
+trisquare.drawTriSquare(context);
+context.translate(40, 0);
+trisquare.drawTriSquare(context);
+context.translate(40, 0);
+trisquare.drawTriSquare(context);
+// @@Snippet:end
 
-// draw squares with triangles in them
-// access "context" because its in scope
-// note that these both draw at the origin!
-function drawUpArrow() {
-    context.save();
-    context.fillStyle = "goldenrod";
-    context.fillRect(0, 0, 20, 20);
-    context.fillStyle = "red";
-    context.beginPath();
-    context.moveTo(10, 5);
-    context.lineTo(5, 15);
-    context.lineTo(15, 15);
-    context.fill();
-    context.restore();
-}
-
-function drawDownArrow() {
-    context.save();
-    context.fillStyle = "goldenrod";
-    context.fillRect(0, 0, 20, 20);
-    context.fillStyle = "green";
-    context.beginPath();
-    context.moveTo(10, 15);
-    context.lineTo(5, 5);
-    context.lineTo(15, 5);
-    context.fill();
-    context.restore();
-}
-
-for (let r = 0; r < 4; r++) {
-    for (let c = 0; c < 4; c++) {
-        context.save();
-        context.translate(20 + c * 40, 20 + r * 40);
-        // this is intentionally funky code:
-        // note how I compute what function to call, then I call it!
-        (((r + c) % 2) ? drawUpArrow : drawDownArrow)();
-        context.restore();
-    }
-}
+// CS559 2025 Workbook
