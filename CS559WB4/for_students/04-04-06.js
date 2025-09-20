@@ -10,7 +10,7 @@
 // @ts-check
 /* jshint -W069, esversion:6 */
 
-import * as utilities from "../libs/CS559/dots.js";
+import * as utilities from "./04-04-utilities.js";
 
 /**
  *

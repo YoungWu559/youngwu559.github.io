@@ -1,5 +1,5 @@
 /**
- * 04-04-utilities.js - a simple JavaScript file that gets loaded with
+ * dots.js - a simple JavaScript file that gets loaded with
  * page 4 of Workbook 4 (CS559).
  *
  * written by Michael Gleicher, January 2019
@@ -12,7 +12,7 @@
 
 import {
     draggablePoints
-} from "../libs/CS559/dragPoints.js";
+} from "./dragPoints.js";
 
 const circRadius = 7;
 

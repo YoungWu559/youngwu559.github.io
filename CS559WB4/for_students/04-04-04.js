@@ -1,9 +1,4 @@
 /**
- * CS559 Spring 2023 Example Solution
- * Written by CS559 course staff
- */
-
-/**
  * 04-04-04.js - a simple JavaScript file that gets loaded with
  * page 4 of Workbook 4 (CS559).
  *
@@ -15,7 +10,7 @@
 // @ts-check
 /* jshint -W069, esversion:6 */
 
-import * as utilities from "./04-04-utilities.js";
+import * as utilities from "../libs/CS559/dots.js";
 
 // draw the original ones using translate, rotate, scale
 // students don't need to change this
@@ -85,9 +80,8 @@ import * as utilities from "./04-04-utilities.js";
     // Square #1
     context.save();
     // matrix version (student should replace the numbers)
-    // Begin Example Solution
-    context.transform(4, 0, 0, 4, 20, 20); // CS559 Example Code
-    // End Example Solution
+    context.transform(1, 0, 0, 1, 20, 0);
+    //
     utilities.markedSquare(context);
     context.restore();
 
@@ -102,27 +96,25 @@ import * as utilities from "./04-04-utilities.js";
     // Square #3
     context.save();
     // matrix version (student should replace the numbers)
-    // Begin Example Solution
-    context.transform(0, 4, -4, 0, 180, 20); // CS559 Example Code
-    // End Example Solution
+    context.transform(1, 0, 0, 1, 40, 0);
+    //
     utilities.markedSquare(context);
     context.restore();
 
     // Square #4
     context.save();
     // matrix version (student should replace the numbers)
-    // Begin Example Solution
-    context.transform(0, -4, 4, 0, 200, 60); // CS559 Example Code
-    // End Example Solution
+    context.transform(1, 0, 0, 1, 60, 0);
+    //
     utilities.markedSquare(context);
     context.restore();
 
     // Square #5
     context.save();
     // matrix version (student should replace the numbers)
-    // Begin Example Solution
-    context.transform(0, -4, -4, 0, 300, 60); // CS559 Example Code
-    // End Example Solution
+    context.transform(1, 0, 0, 1, 80, 0);
+    //
     utilities.markedSquare(context);
     context.restore();
 }
+// CS559 2025 Workbook

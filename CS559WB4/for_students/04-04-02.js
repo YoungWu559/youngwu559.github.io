@@ -1,9 +1,4 @@
 /**
- * CS559 Spring 2023 Example Solution
- * Written by CS559 course staff
- */
-
-/**
  * 04-04-02.js - a simple JavaScript file that gets loaded with
  * page 4 of Workbook 4 (CS559).
  *
@@ -15,7 +10,7 @@
 // @ts-check
 /* jshint -W069, esversion:6 */
 
-import * as utilities from "./04-04-utilities.js";
+import * as utilities from "../libs/CS559/dots.js";
 
 /**
  * TwoDots - a function for the student to write
@@ -32,34 +27,13 @@ import * as utilities from "./04-04-utilities.js";
  * @param {number} y2
  */
 function twoDots(context, x1, y1, x2, y2) {
-    const dx = x2 - x1;
-    const dy = y2 - y1;
-
-    // Suppose O is the origin
-    // RBGN is any arbitrary square, where
-    // R: red-dot, B: Black-dot, G: green-dot
-    //
-    //   O  .  e  .  U  .  .  .  .  .  .  .  .
-    //   .  .  .  .  f  .  .  .  .  .  .  .  .
-    //   .  .  W  c (R) .  a  .  V  .  .  .  .
-    //   .  .  .  .  #  #  #  .  b  .  .  .  .
-    //   .  .  d  #  #  #  #  # (B) .  .  .  .
-    //   .  .  .  #  #  #  #  #  .  .  .  .  .
-    //   .  . (N) #  #  #  #  #  .  .  .  .  .
-    //   .  .  .  .  #  #  #  .  .  .  .  .  .
-    //   .  .  .  .  .  . (G) .  .  .  .  .  .
-    //   .  .  .  .  .  .  .  .  .  .  .  .  .
-  
-    //   a  c  e
-    // [ b  d  f ]
-    //   0  0  1
-    const a = (dx / 10);
-    const b = (dy / 10);
-    const c = -b;
-    const d =  a;
-    const e = x1;
-    const f = y1;
-    // please leave this line - you should CHANGE the 6 lines above
+    let a = 5;
+    let b = 0;
+    let c = 0;
+    let d = 5;
+    let e = x2;
+    let f = y2;
+    // please leave this line - you should CHANGE the 6 lines above. Add additional math/logic code as needed.
     context.transform(a, b, c, d, e, f);
 }
 
@@ -67,3 +41,5 @@ function twoDots(context, x1, y1, x2, y2) {
 // setup and start the program
 utilities.setup("canvas1", twoDots, "black");
 
+
+// CS559 2025 Workbook

@@ -4,4 +4,5 @@ context.scale(2,3);
 is equivalent to:
 
 context.scale(2,3);
-context.translate(3/2,4/3);
+context.translate(??, ??);
+<!-- CS559 2025 Workbook -->

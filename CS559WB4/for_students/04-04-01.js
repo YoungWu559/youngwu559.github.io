@@ -1,9 +1,4 @@
 /**
- * CS559 Spring 2023 Example Solution
- * Written by CS559 course staff
- */
-
-/**
  * 04-04-01.js - a simple JavaScript file that gets loaded with
  * page 4 of Workbook 4 (CS559).
  *
@@ -15,7 +10,7 @@
 // @ts-check
 /* jshint -W069, esversion:6 */
 
-import * as utilities from "./04-04-utilities.js";
+import * as utilities from "../libs/CS559/dots.js";
 
 /**
  * TwoDots - a function for the student to write
@@ -34,22 +29,12 @@ function twoDots(context, x1, y1, x2, y2) {
     // these two lines are placeholders
     // students should delete these two lines
     // and replace them with different transformation commands
-    // context.translate(x1, y1);
-    // context.scale(5, 5);
-
-
-
-    // Begin Example Solution
     context.translate(x1, y1);
-    /** @type {number} */ const dx = x2 - x1;
-    /** @type {number} */ const dy = y2 - y1;
-    /** @type {number} */ const scale = Math.sqrt(dx * dx + dy * dy) / 10.0; // CS559 Example Code
-    context.scale(scale, scale);
-    /** @type {number} */ const angle = Math.atan2(dy, dx); // CS559 Example Code
-    context.rotate(angle);
-    // End Example Solution
+    context.scale(5, 5);
 }
 
 utilities.setup("canvas1", twoDots, "black");
 
 
+
+// CS559 2025 Workbook
