@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 3: Composition</h1>
 		</header>
-		<div class="content post__content clearfix"><p>Now that we&rsquo;ve learned <code>scale</code> and <code>translate</code>, let&rsquo;s try to put them together!</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>Now that we&rsquo;ve learned <code>scale</code> and <code>translate</code>, let&rsquo;s try to put them together!</p>
 <p>The idea of putting transformations together is a very important part of computer graphics. It&rsquo;s important to understand it in the simple case (scale and translate), so that when we get to more complex transformations and more complex combinations, you will be able to appreciate what is happening.</p>
 <p>As a reminder, you should be looking at the code for each of these examples.</p>
 <h2 id="scale-and-translate">Scale and Translate</h2>
@@ -99,7 +101,7 @@ We can apply transformations one after the other. For example, here we can scale
 <p>A warning: most programs cannot be run backwards. It is a special trick we can do in the <a href="https://cs559.github.io/2DTransformDemos/" target="_blank">2D Transform Demos</a>. Use it to understand how transformations work going forward. Don&rsquo;t try to write code this way.</p>
 <h2 id="exercise-another-example">Exercise: Another Example</h2>
 <p>The original box with a triangle function puts the box at the origin. Suppose we want to make a grid of them (on the same (20,20) spacing), but with the boxes being half size.</p>
-<p> 
+<p>
 
 
 
@@ -153,7 +155,7 @@ Here&rsquo;s three pictures - the first with the regular canvas coordinate syste
 <h2 id="exercise-one-more">Exercise: One more</h2>
 <p>In computer graphics, we often like to have a coordinate system with the origin in the center of the &ldquo;window&rdquo; (in our case, the Canvas we&rsquo;re working in), and the x and y coordinates ranging from -1 to 1. That way, we can draw things with the same coordinates no matter how big the window is.</p>
 <p>Unfortunately, this is a bad idea in Canvas for many reasons. One problem is that some browsers do some of the drawing using integer arithmetic. So, for this exercise, we&rsquo;ll go from -100 to 100 instead.</p>
-<p> 
+<p>
 
 
 You can create the coordinate system for canvas using a translation and a scale (in either order). In 
