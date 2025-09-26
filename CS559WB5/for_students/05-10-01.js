@@ -1,14 +1,4 @@
-/**
- * 05-10-01.js - a simple JavaScript file that gets loaded with
- * page 10 of Workbook 5 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- *
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import { RunCanvas } from "../libs/CS559/runCanvas.js";
 
@@ -78,3 +68,5 @@ rc.setupSlider(0, 4, 0.05);
 rc.setValue(0);
 
 
+
+// CS559 2025 Workbook

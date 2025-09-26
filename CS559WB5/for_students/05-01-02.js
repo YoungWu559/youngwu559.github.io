@@ -5,13 +5,15 @@
  * written by Michael Gleicher, January 2019
  * modified January 2020
  *
+ * This is identical to 05-01-01.js, except that it draws the tangents
+ * (by changing the last parameter to functionGallery).
  */
 
 // @ts-check
 /* jshint -W069, esversion:6 */
 
 import { runCanvas } from "../libs/CS559/runCanvas.js";
-import { functionGallery } from "./05-01-curves.js";
+import { functionGallery } from "./05-01-02-curves.js";
 
 // note that checking that canvas is the right type of element tells typescript
 // that this is the right type - it's a form of a safe cast 
@@ -30,3 +32,5 @@ function draw1(canvas, t) {
 }
 runCanvas(canvas, draw1, 0, true, 0, 1, 0.02);
 
+
+// CS559 2025 Workbook

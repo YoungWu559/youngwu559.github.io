@@ -4,53 +4,11 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
-        <script src="../../js/resizeIFrames.js"></script>    
-    
-    
-    <script type="text">
-        (function() {
-            var i, text, code, codes = document.getElementsByTagName('code');
-            for (i = 0; i &lt; codes.length;) {
-                code = codes[i];
-                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-                text = code.textContent;
-                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
-                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
-                    code.textContent = text;
-                }
-                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-                    /^\$(.|\s)+\$$/.test(text) ||
-                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-                    code.outerHTML = code.innerHTML;  // remove <code></code>
-                    continue;
-                }
-                }
-                i++;
-            }
-            })();
-    </script>
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-    
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
-            processEscapes: true,
-            processEnvironments: true,
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            TeX: { equationNumbers: { autoNumber: "AMS" },
-                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
-            }
-        });
-    </script>
-
+        <script src="../../js/resizeIFrames.js"></script>
     </head>
     <body>
         <div class="container container--outer"><div class="maincolumn">
@@ -58,51 +16,54 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 11: Drawing Curves</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>On this page, we&rsquo;ll consider how we actually program curves in practice.</p>
+		<div class="content post__content clearfix"><p>On this page, we&rsquo;ll consider how we actually program curves in practice.</p>
 <h2 id="discretizing-curves">Discretizing Curves</h2>
-<p>If we draw a parametric curve <code>$\mathbf{x} = \mathbf{f}(u)$</code>, the obvious thing to do is to pick a set of <code>$u$</code> values, find the corresponding positions <code>$\mathbf{x}$</code>, and plot those points. The simplest way to do this is to choose a number of points ahead of time, and make equally spaced <code>$u$</code> values.</p>
-<p>This approach has problems. If you pick too many <code>$u$</code> values, it is wasteful: they will all end up in the same place (because ultimately, we have finite sized pixels). If you pick too few <code>$u$</code> values, you will get gaps between the points. Worse, if the curve varies in how fast it changes (it isn&rsquo;t arc length parameterized), there may be some places where you have too many and other places where you have too few.</p>
+<p>If we draw a parametric curve <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">x</mi><mo>=</mo><mi mathvariant="bold">f</mi><mo stretchy="false">(</mo><mi>u</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{x} = \mathbf{f}(u)</annotation></semantics></math></span>, the obvious thing to do is to pick a set of <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> values, find the corresponding positions <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">x</mi></mrow><annotation encoding="application/x-tex">\mathbf{x}</annotation></semantics></math></span>, and plot those points. The simplest way to do this is to choose a number of points ahead of time, and make equally spaced <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> values.</p>
+<p>This approach has problems. If you pick too many <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> values, it is wasteful: they will all end up in the same place (because ultimately, we have finite sized pixels). If you pick too few <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> values, you will get gaps between the points. Worse, if the curve varies in how fast it changes (it isn&rsquo;t arc length parameterized), there may be some places where you have too many and other places where you have too few.</p>
 <p>Things look slightly better if you connect the dots with lines - no more gaps. However, if you have too few points, your curve won&rsquo;t look smooth, and if you have too many points, it is still wasteful.</p>
-<p>In this box, we want you to try out the idea of changing the number of points. We want you to draw a spiral that circles around the origin 4 times, expanding outward. Here&rsquo;s the function to use:
-<code>$$ \mathbf{x} = \mathbf{f}(u) = \left( 200 + u*180*cos(2*\pi*4*u), 200+180*u*sin(2*\pi*4*u) \right)$$</code>
-If you let <code>$u$</code> go in the range from 0 to 1, this will make a sprial that fits nicely into the 400x400 canvas in 
-    <a href="../../for_students/05-11-01.js" class="for_students">05-11-01.js</a>  and 
-    <a href="../../for_students/05-11-01.html" class="for_students">05-11-01.html</a>.</p>
+<p>In this box, we want you to try out the idea of changing the number of points. We want you to draw a spiral that circles around the origin 4 times, expanding outward. Here&rsquo;s the function to use:</p>
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="bold">x</mi><mo>=</mo><mi mathvariant="bold">f</mi><mo stretchy="false">(</mo><mi>u</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">(</mo><mn>200</mn><mo>+</mo><mi>u</mi><mo>∗</mo><mn>180</mn><mo>∗</mo><mi>c</mi><mi>o</mi><mi>s</mi><mo stretchy="false">(</mo><mn>2</mn><mo>∗</mo><mi>π</mi><mo>∗</mo><mn>4</mn><mo>∗</mo><mi>u</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mn>200</mn><mo>+</mo><mn>180</mn><mo>∗</mo><mi>u</mi><mo>∗</mo><mi>s</mi><mi>i</mi><mi>n</mi><mo stretchy="false">(</mo><mn>2</mn><mo>∗</mo><mi>π</mi><mo>∗</mo><mn>4</mn><mo>∗</mo><mi>u</mi><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex"> \mathbf{x} = \mathbf{f}(u) = \left( 200 + u*180*cos(2*\pi*4*u), 200+180*u*sin(2*\pi*4*u) \right)</annotation></semantics></math></span>
+ 
+
+
+<p>If you let <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> go in the range from 0 to 1, this will make a sprial that fits nicely into the 400x400 canvas in 
+<a href="../../for_students/05-11-01.js" class="box-html" data-tag="05-11-01">05-11-01.js</a>
+  and <a href="../../for_students/05-11-01.html" class="box-html" data-tag="05-11-01">05-11-01.html</a>.</p>
 <p>Drawing the spiral is pretty easy - but, we want you to add 2 features to make it more interesting.</p>
 <ol>
-<li>First, add a checkbox on the page (
-    <a href="../../for_students/05-11-01.html" class="for_students">05-11-01.html</a>) that switches between drawing dots for each point and connecting the dots with lines.</li>
+<li>First, add a checkbox on the page (<a href="../../for_students/05-11-01.html" class="box-html" data-tag="05-11-01">05-11-01.html</a>) that switches between drawing dots for each point and connecting the dots with lines.</li>
 <li>Second, add a slider that controls the number of points that gets drawn. Make sure the slider has a range that goes from too few points (so you can see the spiral, but it looks jagged) to enough points that it looks smooth the whole way around.</li>
 </ol>
-<iframe
-    title="05-11-01"
-    src="../../for_students/05-11-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+<div id="box-05-11-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 05-11-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/05-11-01.html class="boxtitlelink">05-11-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/05-11-01.js" class="boxtitlelink">05-11-01.js</a>
+    <iframe
+        title="05-11-01"
+        src="../../for_students/05-11-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-05-11-01"
+    ></iframe>
+</div>
 <p>One of the goals here is to make sure you can write programs that use sliders and checkboxes to control your graphics.</p>
 <p>If you&rsquo;re curious, here&rsquo;s what my example solution looks like:</p>
 <p>
     
     <figure class="">
         <a href="../../images/spiral-dots.png">
-            <img src="../../images/spiral-dots_hu500dc595bf520aa96054fbd6062340cd_17066_250x250_fit_box_3.png" alt="/images/spiral-dots.png" />
+            <img src="../../images/spiral-dots_hu4333985266805633847.png" alt="/images/spiral-dots.png" />
         </a>
     </figure>
  
      
      <figure class="">
          <a href="../../images/spiral-lines.png">
-             <img src="../../images/spiral-lines_hu690f816019e0a411e37702bbcd498b0c_37708_250x250_fit_box_3.png" alt="/images/spiral-lines.png" />
+             <img src="../../images/spiral-lines_hu17805152280619637220.png" alt="/images/spiral-lines.png" />
          </a>
      </figure>
 </p>
@@ -122,34 +83,11 @@ If you let <code>$u$</code> go in the range from 0 to 1, this will make a sprial
 <p>For something like a spiral, dividing the curve into Bezier segments still is just an approximation to the original curve. It might be a nicer approximation (since we won&rsquo;t have the jagged edges we see with line segments), but it is still an approximation.</p>
 <p>There is a tradeoff: we can make a nice approximation of a complicated curve by dividing it into very small pieces and  using simple pieces (line segments). If we use nicer pieces (like Beziers), we might need fewer pieces, but computing them may be more expensive.</p>
 <p>Advanced point opportunity for box 05-11-01: <em>warning: this is much harder than the small number of points it is worth</em></p>
-<p>Try making the spiral with Bezier segments, rather than line segments. You can use the Canvas <code>bezierCurveTo</code> command. Figuring out the derivatives of the spiral is easy - it&rsquo;s just calculus like you did on page 1 of the workbook. The harder problem is to convert these derivatives from being with respect to the parameter of the spiral to being with respect to the Bezier curve segment. Hint: with the spiral, <code>$u$</code> goes between 0 and 1, with each Bezier segment it also goes between 0 and 1. The Canvas <code>bezierCurveTo</code> command is discussed below.</p>
+<p>Try making the spiral with Bezier segments, rather than line segments. You can use the Canvas <code>bezierCurveTo</code> command. Figuring out the derivatives of the spiral is easy - it&rsquo;s just calculus like you did on page 1 of the workbook. The harder problem is to convert these derivatives from being with respect to the parameter of the spiral to being with respect to the Bezier curve segment. Hint: with the spiral, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> goes between 0 and 1, with each Bezier segment it also goes between 0 and 1. The Canvas <code>bezierCurveTo</code> command is discussed below.</p>
 <p>Note: if you implement the Bezier segments, you must have a checkbox that allows the user to switch between line segments and Beziers. If things work correctly, the spiral should look smoother when you use the curve segments.</p>
-<p>Next, <a href="../../docs/12/" class="Next__Page">Page 12: Curve review</a></p>
+<p>Next, <a href="../../docs/12/" class="Next__Page">Next: Curve review </a></p>
 
             
-
-
-        
-        
-        
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Page 11 Rubric (11 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (8):</div><div class="page-rubric-grid-box rubric-box-regular">Box 05-11-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">draw the spiral</div><div class="page-rubric-grid-box rubric-box-regular">Box 05-11-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">checkbox control of lines</div><div class="page-rubric-grid-box rubric-box-regular">Box 05-11-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">slider control of number of points</div>
-            <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (3) 
-                 (maximum 20 can be earned in this workbook):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 05-11-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">approximate spiral with Beziers, have a switch for lines/Beziers</div></div>
-    </details>
-    </div>
 			
 			
 		</div>
@@ -157,7 +95,7 @@ If you let <code>$u$</code> go in the range from 0 to 1, this will make a sprial
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 5: Curves in 2D</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -168,14 +106,13 @@ If you let <code>$u$</code> go in the range from 0 to 1, this will make a sprial
         <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Interpolation and Hermite Cubics </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Cardinal Cubics and Interpolation </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Bézier Curves </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: DeCasteljau Constructions </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Bézier Cubics </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Béziers in APIs </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Arc-Length Parameterizations </a></li>
         <li class="Side__Item Side__Selected"> 11: Drawing Curves </li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Curve review </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: The Train: Intro </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: The Train: Assignment </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: The 559 2D UI Code </a></li>
 </ul>
 </div>
 </div>

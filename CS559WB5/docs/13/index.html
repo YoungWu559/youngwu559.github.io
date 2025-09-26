@@ -4,114 +4,96 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
-        <script src="../../js/resizeIFrames.js"></script>    
-    
-    
-    <script type="text">
-        (function() {
-            var i, text, code, codes = document.getElementsByTagName('code');
-            for (i = 0; i &lt; codes.length;) {
-                code = codes[i];
-                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-                text = code.textContent;
-                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
-                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
-                    code.textContent = text;
-                }
-                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-                    /^\$(.|\s)+\$$/.test(text) ||
-                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-                    code.outerHTML = code.innerHTML;  // remove <code></code>
-                    continue;
-                }
-                }
-                i++;
-            }
-            })();
-    </script>
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-    
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
-            processEscapes: true,
-            processEnvironments: true,
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            TeX: { equationNumbers: { autoNumber: "AMS" },
-                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
-            }
-        });
-    </script>
-
+        <script src="../../js/resizeIFrames.js"></script>
     </head>
     <body>
         <div class="container container--outer"><div class="maincolumn">
 <main class="main" role="main">
 	<article class="post">
-		<header class="post__header"><h1 class="post__title">Page 13: The Train: Intro</h1>
+		<header class="post__header"><h1 class="post__title">Page 13: The 559 2D UI Code</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>In this assignment, you&rsquo;ll make a train that goes around a track. We&rsquo;ve had students make trains since the first offering of CS559 (see the <a href="https://research.cs.wisc.edu/graphics/Courses/638-f1999/Projects/proj3.htm" target="_blank">1999 Train Assignment</a> for historical perspective). If you&rsquo;re really curious about the old assignment, you can see the <a href="http://graphics.cs.wisc.edu/WP/cs559-fall2014/2014/10/13/project-1-trains-and-roller-coasters/" target="_blank">2014 Train Assignment</a> (and the fun picture of <a href="https://graphics.cs.wisc.edu/Courses/559-f2008/pubs/pub_train_samtrain.jpg" target="_blank">the train expert</a> from the <a href="https://graphics.cs.wisc.edu/Courses/559-f2008/posts/assignments-p3-train/" target="_blank">2008 Train Assignment</a>). In the past, the train was later in the semester when we were already working in 3D. In 3D, the trains are more like roller coasters. Don&rsquo;t worry, this is a much smaller assignment than the old 3D projects.</p>
-<p>For this assignment, you&rsquo;ll make a train in 2D with a top down view. You can make a 3D train or roller coaster later in the semester.</p>
-<p>Before we actually have you make the train, I will let you play with one I made a few years ago. This was made as a test before we made the assignment, so it doesn&rsquo;t meet all the requirements. And it&rsquo;s from 2019. But it gives the basic ideas. You can play with it at the <a href="https://graphics.cs.wisc.edu/Courses/559-sp2021/Demos/train.html">train demo</a>. Note: the code is obfuscated, so you cannot refer to it in creating your own train.</p>
-<p>My train uses the <code>draggablePoints</code> UI code from the last workbook. You can drag the control points (the black dots). You can add more (by shift clicking), and delete points (by ctrl clicking). When you make your train, you also need to use <code>draggablePoints</code>.</p>
-<p>You can use this demo to get an idea of some of the key features of the assignment on the next page. You may want to go back to the demo as you work on the assignment.</p>
-<p>Here, I want to use the demo to show off some key curve ideas. The idea of the train assignment is that it lets you implement these curve ideas. But, just playing with the program can help you appreciate them. And since you haven&rsquo;t made your own train yet, you can use mine.</p>
-<ol>
-<li>
-<p>The track is a <strong>cardinal cubic spline</strong>. Move the control points around to get a feel for how a cardinal spline behaves. To see the actual curve, click the simple track option. The track is a loop.The &ldquo;simple track&rdquo; option converts the cardinal spline to a series of Beziers (just like you did on the previous page).  I do not show the Bezier control points.</p>
-</li>
-<li>
-<p>The position of the train is determined by evaluating the cardinal spline. We compute the cardinal cubic at the parameter value to get the position. We evaluate the tangent at the parameter value to determine which direction the train is pointing (the train points in the direction it is moving). The assignment says the train must have an obvious front - for me it&rsquo;s the side with the light on it.</p>
-</li>
-<li>
-<p>To understand the parameters of the cardinal spline, turn off arc length parameterization. Notice that the slider (for the parameter) goes from 0 to the number of points. For example, a value of 2.5 says the train is between points 2 and 3, with $u$ value 0.5.</p>
-</li>
-<li>
-<p>In case you haven&rsquo;t figured it out already: use the slider to change the parameter value and make the train go around the track. If you click the button on the left of the slider it runs continually. This is a feature of the UI code that you will get.</p>
-</li>
-<li>
-<p>To understand arc length parameterization&hellip; notice how (in the initial layout at least) the three points at the bottom are closer together than the points at the top. The spline segment between two of the close points at the bottom is much shorter than the segment between the points on top. Yet, each segment has the same $u$ range, so it takes the same amount of time to traverse. When you run the train (with arc-length parameterization off), it slows down on the parts where the points are close together, and speeds up when they are farther apart. If you turn  on arc-length parameterization, the train goes at a constant speed around the track.</p>
-</li>
-<li>
-<p>If you turn off &ldquo;simple-track&rdquo;, you&rsquo;ll see my track with parallel rails and rail ties (the thing that go across the two rails). The rail ties always use arc-length parameterization, so they are spaced apart evenly. The rail ties are perpendicular to the track - we can use the tangent, and turn 90 degrees. If you don&rsquo;t use arc-length parameterization, they are spaced unevenly and look silly.</p>
-</li>
-<li>
-<p>The parallel rails are interesting because they turn out to be complex mathematically. To have &ldquo;parallel curves&rdquo; we need to have the curves be spaced apart, along the &ldquo;normal&rdquo; direction (the direction perpendicular to the tangent) by a fixed amount. This is called an <strong>offset curve</strong>. It turns out that the offset curve to a Bezier cubic (or any cubic), is (in general) not a cubic. (I&rsquo;ve seen places say its a 10th degree polynomial). What I&rsquo;ve done is approximate the offset curves by taking steps along the curve, computing the normal (by computing the tangent and turning 90 degrees), and then moving in that direction a bit. It&rsquo;s kind of like connecting the ends of the rail ties, except that it&rsquo;s smaller.</p>
-</li>
-<li>
-<p>The smoke is a hack. You can watch it and figure out how simple and silly it is. I think it&rsquo;s kind of fun.</p>
-</li>
-<li>
-<p>Notice that the $C(1)$ interpolating cardinal spline isn&rsquo;t very smooth - it still turns pretty sharply at the control points. To get a smoother track, we really need $C(2)$. I implemented a different type of curve, called B-Splines. If you click the B-Splines button, you will get this curve type. Notice that the B-Spline is much smoother, but it is an <strong>approximating</strong> curve: it is influenced by the control points, but it does not interpolate them. You can learn about B-Splines in the book; we will discuss the basics in lecture.</p>
-</li>
-<li>
-<p>An important feature of my demo: all of the fancier features (parallel rails, rail ties, smoke, arc-length parameterization, B-Splines) can be turned on and off. Click the checkboxes, and you can see the basic train. If a grader were grading it, they could check that I did the basic assignment.</p>
-</li>
-</ol>
-<p>Hopefully, following along with that both gives you a sense of what the train is like, and also how it connects to many of the curve concepts we&rsquo;ve seen. So you should be ready to <a href="../../docs/14/" class="Next__Page">try it yourself on the next page</a>.</p>
-<p><a href="../../docs/14/" class="Next__Page">Next: The Train: Assignment </a></p>
+		<div class="content post__content clearfix"><p>Next week, there will be a project.</p>
+<p>To prepare, we want you to get used to some of the software infrastructure we use in class - these are libraries that we have been using in demos, and you will use in next week&rsquo;s assignments. The boxes on this page are designed to give you some experience working with the libraries. That way you won&rsquo;t have to spend your time figuring them out next week when you are trying to use them in Project 1.</p>
+<p>You&rsquo;ll note at the top of the scripts in the programs on these pages they load the required code as a module from the <code>libs</code> directory - this is code we give you. <strong>You should not edit the library code.</strong> You should use it as is.</p>
+<p>While what we ask you to do is pretty trivial, it will be good for you to understand how to use these libraries, since you will need them in the future. And, it is good practice to learn how to work with code someone else wrote.</p>
+<h2 id="runcanvas">RunCanvas</h2>
+<p>The <code>runCanvas</code> library provides a simple way to have an animation loop with a start/stop control and a time slider. We’ll continue to use runCanvas in workbooks throughout the semester.</p>
+<p>The simple way to use <code>runCanvas</code> is to call the function - provide it the Canvas that you want this to be applied to, and a function that you want to be called every time the time changes. The function will be called with two parameters: the canvas, and the time. By default, the time goes between 0 and 1 (so you can assume the time will be between those) - but you can configure the range and step size through the paramters (read the code - the <code>runCanvas</code> function is at the end).</p>
+ 
+
+
+<p>Try it out. There is some starter code in 
+<a href="../../for_students/05-13-01.js" class="box-html" data-tag="05-13-01">05-13-01.js</a>
+ (<a href="../../for_students/05-13-01.html" class="box-html" data-tag="05-13-01">05-13-01.html</a>) that you can edit. Edit these so that the time slider (1) goes between 0 and 2, and that as the time slider is moved (whether running or dragged), something spins around. (you should draw something and have its rotation be affected by time).</p>
+
+<div id="box-05-13-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 05-13-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/05-13-01.html class="boxtitlelink">05-13-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/05-13-01.js" class="boxtitlelink">05-13-01.js</a>
+    <iframe
+        title="05-13-01"
+        src="../../for_students/05-13-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-05-13-01"
+    ></iframe>
+</div>
+<h2 id="dragpoints">DragPoints</h2>
+<p>The other helper is called <code>dragPoints</code> - it keeps track of a list of points and allows the user to drag them around. The function in the <code>dragPoints</code> file is called <code>draggablePoints</code>.</p>
+<p>When <code>dragPoints</code> is integrated correctly, the user will be able to click near a point to drag it; Shift-Click to add a new point (at the end of the list); and Ctrl-Click (or Command-Click on a Mac) to delete a point.</p>
+<p>The <code>dragPoints</code> system needs the function you use to redraw the Canvas, and the list of points (it will change the list as needed). Your redraw function needs to draw the dots for the points. You pass the redraw function to <code>draggablePoints</code> so it gets called when the points are moved. The redraw function should be the same kind of function that you pass to <code>requestAnimationFrame</code> - taking the same argument.</p>
+ 
+
+
+<p>You&rsquo;ve actually been using this for a while in the demos. But now, make sure you can use the code. Have a draw function that connects the points into a polygon (connect neighboring pairs of points with line segments). You also should draw circles for the points so you know where to click. Change the initial value for the points so the program draws a hexagon when it is loaded. You should edit 
+<a href="../../for_students/05-13-02.js" class="box-html" data-tag="05-13-02">05-13-02.js</a>
+.</p>
+<p>Your program might draw something like this:
+
+    
+    <figure class="">
+        <a href="../../images/hexagon.png">
+            <img src="../../images/hexagon_hu14456250802221102162.png" alt="images/hexagon.png" />
+        </a>
+    </figure>
+
+It doesn&rsquo;t have to look exactly like this (any hexagon is OK, and you don&rsquo;t have to make everything all black).</p>
+<p><code>dragPoint</code> lets you move, add, and remove points - it does not let you re-order them.</p>
+
+<div id="box-05-13-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 05-13-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/05-13-02.html class="boxtitlelink">05-13-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/05-13-02.js" class="boxtitlelink">05-13-02.js</a>
+    <iframe
+        title="05-13-02"
+        src="../../for_students/05-13-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-05-13-02"
+    ></iframe>
+</div>
+<h2 id="the-end">The End</h2>
+<p>That&rsquo;s the end of the workbook. Of course, commit and push to GitHub often! When you are done with the workbook (and committed and pushed the version you would like to have graded), complete the WB5 and WB5G assignments on canvas.</p>
 
             
+			
 			
 		</div>
 	</article>
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 5: Curves in 2D</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -122,14 +104,13 @@
         <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Interpolation and Hermite Cubics </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Cardinal Cubics and Interpolation </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Bézier Curves </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: DeCastlejau Constructions </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: DeCasteljau Constructions </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Bézier Cubics </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Béziers in APIs </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Arc-Length Parameterizations </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Drawing Curves </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Curve review </a></li>
-        <li class="Side__Item Side__Selected"> 13: The Train: Intro </li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: The Train: Assignment </a></li>
+        <li class="Side__Item Side__Selected"> 13: The 559 2D UI Code </li>
 </ul>
 </div>
 </div>

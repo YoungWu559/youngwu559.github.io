@@ -11,7 +11,7 @@
 /* jshint -W069, esversion:6 */
 
 import { runCanvas } from "../libs/CS559/runCanvas.js";
-import { decastle } from "./05-07-decastlejau.js";
+import { decastle } from "./05-06-01-decastlejau.js";
 import { draggablePoints } from "../libs/CS559/dragPoints.js";
 
 
@@ -85,3 +85,5 @@ let slider = /** @type {HTMLInputElement} */ (document.getElementById("canvas1-s
 draggablePoints(canvas, pts, function() {
     draw(canvas, Number(slider.value));
 });
+
+// CS559 2025 Workbook

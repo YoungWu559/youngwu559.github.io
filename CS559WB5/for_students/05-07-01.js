@@ -1,17 +1,7 @@
-/**
- * 05-07-01.js - a simple JavaScript file that gets loaded with
- * page 7 of Workbook 5 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- *
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import { runCanvas } from "../libs/CS559/runCanvas.js";
-import { decastle } from "./05-07-decastlejau.js";
+import { decastle } from "05-07-01-decastlejau.js";
 
 
 /* no need for onload - we use defer */
@@ -76,3 +66,5 @@ function draw(canvas, t) {
 runCanvas(canvas, draw, 0, true, 0, 1, 0.02);
 
 
+
+// CS559 2025 Workbook

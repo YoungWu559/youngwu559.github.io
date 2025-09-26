@@ -1,18 +1,7 @@
-/**
- * 05-10-02.js - a simple JavaScript file that gets loaded with
- * page 10 of Workbook 5 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- *
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import { RunCanvas } from "../libs/CS559/runCanvas.js";
 
-/* no need for onload - we use defer */
 // note that checking that canvas is the right type of element tells typescript
 // that this is the right type - it's a form of a safe cast 
 let canvas = document.getElementById("canvas1");
@@ -49,3 +38,5 @@ rc.setupSlider(0, 1, 0.02);
 rc.setValue(0);
 
 
+
+// CS559 2025 Workbook

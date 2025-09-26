@@ -38,7 +38,7 @@ function circ(u) {
     50 * Math.cos(ur)
   ];
 }
-function twoQuarterCircles(u) {
+export function twoQuarterCircles(u) {
   let pu = Math.PI * u;
   if (u < 0.5)
     return [
@@ -73,13 +73,10 @@ function disconnect(u) {
 function parabola(u) {
     return [20+80 * u, 100 - 400 * (u - 0.5) * (u - 0.5), 
         // student changes these numbers to something else
+        // 40,40];
         //begin example solution
         80, - 800 * (u-.5)];
-        // End Example Solution
-
-    // Begin Example Solution
-  return [100 * u, 400 * (u - 0.5) * (u - 0.5), 100, 800 * (u - 0.5)];
-  
+        // End Example Solution  
 }
 
 /**
@@ -92,7 +89,7 @@ function parabola(u) {
  * @param {Number} param - draw the square at this parameter value
  * @param {Number} [scaleTangent] - size to draw the tangent vector
  */
-function plotter(context, func, steps, param, scaleTangent = 0) {
+export function plotter(context, func, steps, param, scaleTangent = 0) {
   context.save();
   context.lineWidth = 3;
   context.strokeStyle = "black";

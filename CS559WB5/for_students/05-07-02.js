@@ -2,7 +2,7 @@
 
 import { draggablePoints } from "../libs/CS559/dragPoints.js";
 import { runCanvas } from "../libs/CS559/runCanvas.js";
-import { decastle } from "./05-07-decastlejau.js";
+import { decastle } from "05-07-02-decastlejau.js";
 
 /* no need for onload - we use defer */
 
@@ -32,3 +32,5 @@ draggablePoints(canvas, pts, function() {
 });
 
 
+
+// CS559 2025 Workbook

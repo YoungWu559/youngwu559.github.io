@@ -1,7 +1,6 @@
 /**
- * 05-01-01.js - a simple JavaScript file that gets loaded with
- * page 1 of Workbook 5 (CS559).
- *
+ * adapted from 05-01-01.js
+ * 
  * written by Michael Gleicher, January 2019
  * modified January 2020
  * modified July 2025
@@ -10,7 +9,7 @@
 // @ts-check
 /* jshint -W069, esversion:6 */
 
-import { functionGallery } from "./05-01-01-curves.js";
+import { plotter, twoQuarterCircles } from "./05-02-02-curves.js";
 
 //////////////////////////////////////////////////////////////////
 import { runCanvas } from "../libs/CS559/runCanvas.js";
@@ -23,12 +22,6 @@ if (!(canvas instanceof HTMLCanvasElement))
 
 let context = canvas.getContext("2d");
 
-// use the library code to set up a drawing canvas with a time slider, a start/stop button
-// and an animation loop that makes it go.
-// the important thing is that it takes a function that is called for drawing
-// the content of the canvas
-// this will be explained more later in the workbook
-
 // a function to fill in a canvas (do the drawing) in an animation
 // loop - the form of this function is meant to be used with
 // "runcanvas" which is defined in another file
@@ -39,10 +32,14 @@ function draw1(canvas, t) {
 
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.save();
-    context.translate(20, 40);
-    functionGallery(context, t, 0);
+    context.translate(40, 40);
+    context.fillStyle = "green";
+    context.lineWidth = 3;
+    plotter(context, twoQuarterCircles, 50, t, 1);
     context.restore();
+    console.log("Hello?")
 }
+console.log("Yes, Really here!");
 
 // this actually runs the animation loop
 runCanvas(canvas, draw1, 0, true, 0, 1, 0.02);
