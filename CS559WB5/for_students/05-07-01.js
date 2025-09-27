@@ -1,7 +1,7 @@
 // @ts-check
 
 import { runCanvas } from "../libs/CS559/runCanvas.js";
-import { decastle } from "05-07-01-decastlejau.js";
+import { decastle } from "../libs/CS559/decastlejau.js";
 
 
 /* no need for onload - we use defer */

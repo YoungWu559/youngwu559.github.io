@@ -11,7 +11,7 @@
 /* jshint -W069, esversion:6 */
 
 import { runCanvas } from "../libs/CS559/runCanvas.js";
-import { decastle } from "./05-06-01-decastlejau.js";
+import { decastle } from "../libs/CS559/decastlejau.js";
 import { draggablePoints } from "../libs/CS559/dragPoints.js";
 
 
