@@ -4,9 +4,9 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
-	<meta name="generator" content="Hugo 0.121.1">
+	<meta name="generator" content="Hugo 0.140.2">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/workbook.css">
         <script src="./js/resizeIFrames.js"></script>
@@ -17,147 +17,185 @@
 
 <main class="main list" role="main">
 	<header class="main__header">
-		<h1 class="main__title">Workbook 6: 3D and Three</h1>
+		<h1 class="main__title">Workbook 11: The Train Workbook</h1>
 	</header>
 	<div class="content main__content clearfix">
         
 
-        <div class="dimbox">
-                <h2>CS559 Spring 2023 Sample Solution</h2>
-                <p>This is a sample solution for the Workbook.
-                    You are welcome to refer to it to learn one way to do the assignment
-                    but only after you have turned in your own assignment
-                </p>
-            </div>
-<h2>Learning Goals</h2>
-<ol>
-    <li>Get you set up with the mechanics of using THREE.js</li>
-    <li>Get you to make some basics 3D pictures and animations using THREE.js and the basic pieces</li>
-    <li>Provide experience with the basic concepts of 3D Graphics</li>
-    <li>Be able to work with standard camera models, lighting models, and primitives used in computer graphics</li>
-</ol>
-
-            <div class="workbook-todo">
-    <strong>TODO:</strong><div> make sure it is clear that requirements are required</div>
-</div>
-
-<div class="workbook-todo">
-    <strong>TODO:</strong><div> rethink advanced points only - make droppable</div>
-</div>
-
-<div class="workbook-todo">
-    <strong>TODO:</strong><div> clearer about offset curves and rails must really be computed</div>
-</div>
-
-<div class="workbook-todo">
-    <strong>TODO:</strong><div> update gallery and demos</div>
-</div>
-
-<div class="workbook-todo">
-    <strong>TODO:</strong><div> regular scoring, lots of advanced points. you can drop the workbook (even if you get zero). You can keep your advanced points even if you drop, providing you get at least 60 basic</div>
-</div>
-
-<p><strong>This workbook is for advanced points only</strong></p>
-<p>This workbook continues our study of curves in 2D. Last week&rsquo;s workbook went through the key ideas. This week, we&rsquo;ll put those ideas into action in a programming assignment: making a train that goes around a track.</p>
-<p>Unlike all other workbooks, this workbook only has advanced points. If you are satisfied with your grade without earning advanced points, you can consider this workbook optional. However, even if you choose not to do this workbook, you should still read through it: the concepts discussed will help you understand curves better.</p>
-<p>You should also note that the &ldquo;basic&rdquo; parts of this assignment (the things that were basic points in last year&rsquo;s version of the class), are worth a very small amount of advanced points this year. It&rsquo;s a lot of work for a few points. But it&rsquo;s worth it.</p>
-<p>In the past, students have found the train to be a fun and rewarding assignment. But we decided to try making it &ldquo;advanced only&rdquo; this year because we didn&rsquo;t want to have a hard workbook required right before the midterm.</p>
-<p>Note that this workbook has a non-standard late policy. The due date is Monday (March 7), as usual. However, since there are only advanced points in this workbook, you can still earn advanced points if you turn the workbook in on or before Friday, March 11th. Assignments turned in after this date must apply for &ldquo;very late&rdquo; grading.</p>
+        <p>This workbook is due on Thursday, March 7, 2024.</p><p>This project continues our study of curves in 2D. Last week&rsquo;s workbook went through the key ideas. This week, we&rsquo;ll put those ideas into action in a programming assignment: making a train that goes around a track.</p>
 <h2 id="required-reading">Required Reading</h2>
-<p>There is no new required reading for this week. The readings on curves were part of Workbook 5. You may want to review these readings (including the workbook itself). If you haven&rsquo;t read them, now is a good time to do it. Doing the train will require you to understand the key concepts of curves. Some curve topics are less important for the train, but will come back on exams, or, if you ever do something in computer graphics beyond class.</p>
-<p><strong>Textbook:</strong> Curves are covered in <a href="https://canvas.wisc.edu/files/30140455/download?download_frd=1">FCG4_Ch15.pdf (0.5mb)</a>.   We won&rsquo;t cover all the material in class. The sections are:</p>
+<p>There is no new required reading for this week. The readings on curves were part of Workbook 5. You may want to review these readings (including the workbook itself). If you haven&rsquo;t read them, now is a good time to do so. Doing the train will require you to understand the key concepts of curves. Some curve topics are less important for the train, but will come back on exams, or, if you ever do something in computer graphics beyond class.</p>
+<p><strong>Textbook:</strong> Curves are covered in FCG4 Chapter 15. We won&rsquo;t cover all the material in class. The sections are:</p>
 <ol>
 <li>FCG 15.1 - basic ideas of curves, including parameterizations and piecewise representations</li>
 <li>FCG 15.2 - curve properties (especially continuity)</li>
-<li>FCG 15.3 - polynomial pieces - you need to have the basic intuitions, however, you will not need to do the derivations yourself.</li>
+<li>FCG 15.3 - polynomial pieces - you need to have the basic intuitions but you will not need to do the derivations yourself</li>
 <li>FCG 15.4 - putting pieces together - this makes things sound more complicated than they are</li>
 <li>FCG 15.5 - cubics - you&rsquo;ll need cardinals for the train</li>
-<li>FCG 15.6.1 - Bézier curves - very important, since they are what gets used in Canvas and many other things.</li>
-<li>FCG 15.6.2 - B-Spline curves - (and 15.6.3 and 15.6.4 which are advanced kinds of B-Spline curves) is optional.</li>
-</ol>
-<p><a href="https://canvas.wisc.edu/files/30140486/download?download_frd=1">Hart20-jan19.pdf (2.4mb)</a> covers much of the same material in a different way. You should read this to clarify and reinforce the required material above.</p>
-<ol>
-<li>Hart 20.0 - basics of curves, a good review of the terms discussed in FCG 15.1-15.3</li>
-<li>Hart 20.1 - the wiggle theorem - make sure you have the intuition that an nth degree polynomial has (at most) n-1 wiggles.</li>
-<li>Hart 20.2 - Lagrangian curves - this is also 15.3.6 in FCG - understand the basic idea to know why we don&rsquo;t use these things.</li>
-<li>Hart 20.3 - Hermite curves - these are in 15.3.4 and 15.5.2 of FCG. You won&rsquo;t need to derive them, but understanding what they are will be useful for Beziers and Cardinals, which we will use a lot.</li>
-<li>Hart 20.4 - Bézier curves - these are important, so seeing them more than once may help.</li>
+<li>FCG 15.6.1 - Bézier curves - very important, since they are what gets used in Canvas and many other things</li>
+<li>FCG 15.6.2 - B-Spline curves - (and 15.6.3 and 15.6.4 which are advanced kinds of B-Spline curves) is optional</li>
 </ol>
 <h2 id="rubrics-for-grading">Rubrics for Grading</h2>
-<p>Note: some of the rubric items have zero points. In prior years, these earned basic points. You still need to do these items because they are required for the more advanced features that do earn points.</p>
-<div class="page-rubric-container">
+  <div class="page-rubric-container">
 <details class="page__rubric">
-<summary>Workbook Rubric (93 points total)</summary>
-<br/>
-<div class="page-rubric-grid">
-        <div class="page-rubric-grid-header rubric-box-regular">Points (86):</div><div class="page-rubric-grid-box rubric-box-regular"></div>
-            <div class="page-rubric-grid-points rubric-box-regular">40 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">correct hand-in</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-02-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">move the yellow cube</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-04-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">stacking the boxes as described</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-05-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">add lights to scene so that sides of the cubes appear in different colors</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">give each sphere a different, non-white material (1/2 pt each, 1/2 pt for all different)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Visible Objects (requires lights, camera, at least some shapes)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Different materials used (everything isn&#39;t the same color</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">There is a ground, Snowman on ground</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Snowman Body as 3 stacked spheres</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Snowman Face (eyes, nose, mouth</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum cameras work (1/2 pt per camera)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects (1 pt for each object that is more than a simple primitive)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects correctly placed (1 pt per new object)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects move correctly (1 pt per new object), not all the same</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects each have spotlights (1/2 pt per object)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Each new object has its own material</div>
-    <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (9 possible, of which you can earn a maximum of 7):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Animated snowman</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Second, creative snowman</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">At least one object has articulated motion</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Artistic merit: Cool museum objects (grader&#39;s discretion)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Artistic merit: Cool museum object motions  (grader&#39;s discretion)</div></div>
+    <summary>Workbook Rubric (9 basic + 12 advanced (12 max) = 21 total)</summary>
+    <br/>
+    <table class="page-rubric-table" style="background-color: #f0f0f0;">
+        <thead>
+            <tr>
+                <th>Box</th>
+                <th>Basic</th>
+                <th>Advanced</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>correct P1 Workbook Form submission on time</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Drawing the track as a single simple curve (cardinal spline) that interpolates the control points</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Train goes around the track correctly (&#39;evenly in parameter space&#39; - continuous looping motion)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>The interface still works (the track can be moved and the run slider works, even while the train is in motion)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Train has a front</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Train points in the right direction as it goes around the track</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Train direction and motion is correct even as points are added/removed</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Default (change the initial points) track configuration shows off arc length (train should speed up and slow down if arc length parameterization is turned off or not implemented)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Arc Length parameterization (train goes at a relatively constant speed as it goes around the track, no matter what the control point spacing is). You must add a checkbox to turn this on and off.</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Rail Ties drawn perpendicular to track</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Rail Ties drawn with correct spacing (this is simple once you have arc-length</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Parallel rails</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Multiple cars all of them centered on the track</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Multiple cars that are fixed distance apart)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Trucked wheels (requires keeping the pairs of wheels the correct distance apart and on the track, and having the train car positioned appropriately - this is only for people who are into trains and appreciate this detail)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Slider to control tension</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Switchable B-Splines</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Smoke</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Scenery</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Scenery adapts to the track</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-TR-01-01">TR-01-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Disappearing or fading track as the train moves farther away</td>
+            </tr>
+        </tbody>
+    </table>
 </details>
 </div>
 <h2 id="get-started">Get Started</h2>
 <p>Don&rsquo;t forget to commit and push as you work!</p>
+<p>Get started on <a href="./docs/1/">Page &nbsp;1&nbsp; (The Train: Intro)</a>!</p>
 
-        
-        
-        
-        
-        <h3 class="get__started">Get started on 
-            <a href="./docs/1/">Page &nbsp;1&nbsp; (UI Exercises)</a>!</h3>
         
 	</div>
 </main>
 
                 </div>
-                <div class="sidebar">
-<h2 class="Side_Title">Workbook 6: 3D and Three</h2>
+                    <div class="sidebar">
+<h2 class="Side_Title">Workbook 11: The Train Workbook</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
     <li class="Side__Item Side__Selected">Index (The Train Workbook) </li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: UI Exercises </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: The Train: Intro </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: The Train: Assignment </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: The Train: Intro </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: The Train: Assignment </a></li>
 </ul>
 </div>
 </div>

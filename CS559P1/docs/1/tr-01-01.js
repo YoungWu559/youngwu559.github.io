@@ -95,5 +95,3 @@ runcanvas.setValue(0);
 // add the point dragging UI
 draggablePoints(canvas, thePoints, wrapDraw, 10, setNumPoints);
 
-
-// CS559 2025 Workbook
