@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 5: Animation Loops</h1>
+		</header>
+		<div class="content post__content clearfix"><p>Thus far, we can do things in response to the user.
+Our code runs in response to an event happening.
+This is important in the web browser, because we want the browser to do
+other things, rather than just waiting around for the user to do something.
+Therefore, most web programming is event-based.</p>
+<p>But what happens if we want things to happen without the user doing anything?
+For example, when we want to animate something (have it move on its own).</p>
+<p>We might make a loop - having things move each step, over and over until its
+done. This is bad because we have to handle events in the loop or ignore the user.</p>
+<p>Instead, the web paradigm is to use events - but have events that are not tied to
+user actions. Our program requests an event some time in the future. It&rsquo;s kindof like a timer - the event is when the time goes off.
+Our program gives up control - we schedule the event and return to the browser so it can handle other events. Once the &ldquo;timer&rdquo; event goes off, it gets put in the queue to be processed.</p>
+<p><code>RequestAnimationFrame</code> requests an &ldquo;event&rdquo; for the next
+screen redraw - it&rsquo;s basically saying &ldquo;call me in approximately 16ms&rdquo;.
+If something happens every 16 milliseconds, that means it happens 60 times per second, which is a common target rate. The exact rate is not constant (it&rsquo;s when the browser things it&rsquo;s time to repaint). See the <a href="https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame" target="_blank">Official RequestAnimationFrame Docs</a> if you want more information.</p>
+<p>Understanding this model of web programming is important - we&rsquo;ll discuss it in lecture. In  web programming, we write our code to do work in small chunks, and when it does, it &ldquo;returns&rdquo; to the browser main loop. That way the &ldquo;browser main loop&rdquo; can make sure that all of the different things can run. Historically, web browsers didn&rsquo;t actually do things in parallel.</p>
+<h2 id="a-toy-example">A Toy Example</h2>
+<p>This box has a simple example of RequestAnimationFrame.</p>
+<p> 
+
+
+
+<div id="box-GT-05-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-01.html class="boxtitlelink">GT-05-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-05-01.js" class="boxtitlelink">GT-05-01.js</a>
+    <iframe
+        title="5-animation"
+        src="../../for_students/GT-05-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-01"
+    ></iframe>
+</div></p>
+<p>If you read the code (and you should, you can figure out that this is page 5 box 1, so the file is 
+<a href="../../for_students/GT-05-01.js" class="box-html" data-tag="5-animation">GT-05-01.js</a>
+) you&rsquo;ll see that when the button is clicked, the first line is changed and a timer is set to call the function <code>future1</code> in the future. When <code>future1</code> is called, it changes line 2, and schedules an event to call <code>future2</code> in the future. And this repeats a 3rd time.</p>
+<h2 id="a-more-realistic-example">A more realistic example</h2>
+<p>Here is some actual animation (using a slider, since that&rsquo;s all we know).</p>
+<p> 
+
+
+
+<div id="box-GT-05-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-02.html class="boxtitlelink">GT-05-02.html</a>
+    <iframe
+        title="5-realistic"
+        src="../../for_students/GT-05-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-02"
+    ></iframe>
+</div></p>
+<p>The pattern that we see here in <a href="../../for_students/GT-05-02.html" class="box-html" data-tag="5-realistic">GT-05-02.html</a> is a common one: we create an infinite loop by having a function schedule itself to be called in the future. Notice how we also need to call the function the first time. And read the comments, since there are some tips about dealing with a JavaScript weirdness.</p>
+<p>You may wonder why we don&rsquo;t do a more traditional loop, such as&hellip;</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#00a8c8">while</span><span style="color:#111">(</span><span style="color:#00a8c8">true</span><span style="color:#111">)</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#00a8c8">let</span> <span style="color:#75af00">newValue</span> <span style="color:#f92672">=</span> <span style="color:#111">(</span><span style="color:#111">Number</span><span style="color:#111">(</span><span style="color:#75af00">slr1</span><span style="color:#111">.</span><span style="color:#75af00">value</span><span style="color:#111">)</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#111">)</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">100</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">slr1</span><span style="color:#111">.</span><span style="color:#75af00">value</span> <span style="color:#f92672">=</span> <span style="color:#75af00">newValue</span><span style="color:#111">.</span><span style="color:#75af00">toString</span><span style="color:#111">();</span>   
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Don&rsquo;t try this! (for me it crashed the browser) While it makes an infinite loop, it makes an infinite loop that blocks everything else. It never returns control to the browser (to allow other events to happen). In fact, you&rsquo;ll never even see the slider move, since the browser is so busy running this infinite loop that it never gets around to redrawing things (redrawing actually happens as part of event processing).</p>
+<h2 id="parallelism">Parallelism</h2>
+<p>Really understanding that example is so critical, that I am going to have another example: lets make multiple sliders all go at once.</p>
+<p> 
+
+
+
+<div id="box-GT-05-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-03.html class="boxtitlelink">GT-05-03.html</a>
+    <iframe
+        title="5-parallelism"
+        src="../../for_students/GT-05-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-03"
+    ></iframe>
+</div></p>
+<p>Of course, we could put the sliders all in the loop from the previous box. But, let&rsquo;s pretend each slider was some more complicated thing, so we wanted to keep the code separate and independent. In the idea world, we could have the code for each slider run in parallel.</p>
+<p>Make sure you are understanding what is happening in <a href="../../for_students/GT-05-03.html" class="box-html" data-tag="5-parallelism">GT-05-03.html</a>. Including the way that I used separate modules (even though they are in the same file), so I could re-use the function names.</p>
+<p>This &ldquo;psuedo-parallelism&rdquo; is really a key aspect of browser based programming: we write our code to do work in small chunks, and when it does, it &ldquo;returns&rdquo; to the browser main loop. That way the &ldquo;browser main loop&rdquo; can make sure that all of the different things can run in &ldquo;parallel&rdquo; - even though the really are not really running in parallel, they are taking turns.  (Geeky point: at least in the old days, each web page was really a single thread. Modern web browsers might actually parallelize things in some cases.)</p>
+<h2 id="programming-practice">Programming Practice</h2>
+<p>This is a good opportunity to discuss some programming concepts. Event programming means we write little functions to do things (since each little function does a little bit).</p>
+<p>Here is a re-write of the previous example. Except that rather than write 3 functions, we&rsquo;ll write a loop that creates the three functions we need. This example has two sets of sliders: one that is written correctly (the top one), and a second version of the code that has a bug in it (the lower set of three sliders). You need to fix the bug.</p>
+<p> 
+
+
+
+<div id="box-GT-05-04" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-04</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-04.html class="boxtitlelink">GT-05-04.html</a>
+    <iframe
+        title="5-ex-paralellism"
+        src="../../for_students/GT-05-04.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-04"
+    ></iframe>
+</div></p>
+<p>Read the code for <a href="../../for_students/GT-05-04.html" class="box-html" data-tag="5-ex-paralellism">GT-05-04.html</a>.</p>
+<p>This code uses <strong>closures</strong> which are an important programming concept. They are, admittedly, tricky. If you have never seen closures before, it will take some practice before you understand them. However, once you do understand them, they are extremely useful. Try to understand how the loop for the top sliders works. Try to understand why the second loop does not - even though they are very similar.</p>
+<p>To help you learn about closures, there is a <a href="https://mediaspace.wisc.edu/media/Lecture%2002%3A%2001_28_2021%20Bonus%20video%3A%20Closures/1_6e7qmca0" target="_blank">Closure Tutorial Video</a>, and an optional <a href="https://github.com/CS559/FunctionalTutorial" target="_blank">Functional Programming Tutorial (repo)</a> which is a small workbook that covers the important concepts..</p>
+<p>There are a lot of comments in the code for <a href="../../for_students/GT-05-04.html" class="box-html" data-tag="5-ex-paralellism">GT-05-04.html</a>. Take the time to try to understand this code.</p>
+<p>While programming techniques, like closures, are not necessarily &ldquo;graphics&rdquo; - learning them is part of the class. You can expect exam questions about closures.</p>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box GT-05-04.</i>
+    </div>
+<h2 id="even-more-infinite-loop-examples">Even more infinite loop examples</h2>
+ 
+
+
+<p>The box <a href="../../for_students/GT-05-05.html" class="box-html" data-tag="5-infinite">GT-05-05.html</a> has some more complex versions of that infinite loop from the previous box.
+Be sure to look at the code to understand how it works! These kinds of things (looking at input elements within animation loops) will happen all of the time when we start doing graphics programming.</p>
+
+<div id="box-GT-05-05" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-05</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-05.html class="boxtitlelink">GT-05-05.html</a>
+    <iframe
+        title="5-infinite"
+        src="../../for_students/GT-05-05.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-05"
+    ></iframe>
+</div>
+<h2 id="keeping-time">Keeping Time</h2>
+<p>So far, we&rsquo;ve been using <code>RequestAnimationFrame</code> to create a &ldquo;loop&rdquo; - which goes as fast as it can.
+What if we want control over how fast things go?</p>
+<p>Above, we said that <code>RequestAnimationFrame</code> generates an event &ldquo;approximately&rdquo; 16 milliseconds in the future. It might be longer than that (if the computer is slow, or busy doing other things). In some cases, it might be faster than that. The key thing is we cannot count on <code>RequestAnimationFrame</code> calling us at a constant rate, or at a known rate. If we want things to move evenly, or we want things to take a certain amount of time, we need to be more careful.</p>
+<div class="dimbox">
+<p>It turns out to be even worse: on some computers with 30hz refresh
+(one of mine!) some browsers only generate <code>RequestAnimationFrame</code> 30 times a second (approximately 33ms delays).</p>
+<p>So, on different computers, I get very different behaviors! Which is not at all desirable.</p>
+</div>
+<p>The basic idea is that we look at the actual time (by checking the clock) to see how much time has elapsed. In old code, we would check the actual clock time using <code>performance.now()</code> - which returns the clock time. You may see this in old workbook code. Since almost everything that uses <code>RequestAnimationFrame</code> needed to access the time, it now passes a timer value as an argument to the function that gets called.</p>
+<p>Technically, all of the examples so far have a type error, because the function passed to <code>RequestAnimationFrame</code> should take an argument. So rather than something like this:</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">requestAnimationFrame</span><span style="color:#111">(</span> <span style="color:#00a8c8">function</span><span style="color:#111">()</span> <span style="color:#111">{</span> <span style="color:#75715e">/* do something */</span><span style="color:#111">}</span> <span style="color:#111">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+it should be
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#111">window</span><span style="color:#111">.</span><span style="color:#75af00">requestAnimationFrame</span><span style="color:#111">(</span> <span style="color:#00a8c8">function</span><span style="color:#111">(</span><span style="color:#75af00">time</span><span style="color:#111">)</span> <span style="color:#111">{</span> <span style="color:#75715e">/* do something */</span><span style="color:#111">}</span> <span style="color:#111">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>There are many ways to make use of the time stamp. The most common pattern is to remember the previous time stamp and see how much time has elapsed, and &ldquo;advance&rdquo; things by an appropriate amount.</p>
+<p>Here is a simple example. We would like to have the speed of the motion of the slider be such that it takes 1 second for the slider to cover its distance. This is implemented in three different ways:</p>
+<ol>
+<li>We assume that each iteration take 16ms and hope for the best. If the computer slows down, or gets busy or runs at a different rate, you get a different result.</li>
+<li>We look at how long it has been since the last step, and move the slider accordingly.</li>
+<li>We look at the total time the program has been running, and base the position on that (so it wraps around every second)</li>
+</ol>
+<p>There is actually another catch: because the slider actually moves in steps, we end up with rounding errors. The default sliders have 100 steps. If we assume 1/60th of a second, this means each step should move the slider 1/60th of the overall distance, or 1.6 - which gets rounded up to 2. If you have a 60hz browser (like my laptop) things appear to go too fast. If you have a 30hz computer (3.3 gets rounded down to 3), things go too slow.</p>
+<p>So, even though all of these sliders should move the length of the slider in 1 second, they will all appear different. In fact, the top 2 will look different on different computers!</p>
+<p> 
+
+
+
+<div id="box-GT-05-06" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-06</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-06.html class="boxtitlelink">GT-05-06.html</a>
+    <iframe
+        title="5-time"
+        src="../../for_students/GT-05-06.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-06"
+    ></iframe>
+</div></p>
+<p>So, what do you do? You must be careful with time. Do not assume the frame rate is constant (do not use strategy #1). Keep track of time, and move things accordingly. There is a reason why the &ldquo;compute deltas&rdquo; strategy (strategy #2, sliders 2,5,6) is advantageous. We&rsquo;ll see it in the next box.</p>
+<p>But make sure you understand the code in <a href="../../for_students/GT-05-06.html" class="box-html" data-tag="5-time">GT-05-06.html</a>. You will write lots of code like this over the course of the semester.</p>
+<h2 id="why-time-deltas">Why time deltas?</h2>
+<p>Here is an example of why you might want to use the &ldquo;time delta&rdquo; strategy rather than just using a &ldquo;global time.&rdquo; Here we mix box 3 and 4 to add a stop button. Notice what happens when you turn things off and back on - because the global time kept going when things were stopped, the slider &ldquo;jumps&rdquo; to a new position!</p>
+<p> 
+
+
+
+<div id="box-GT-05-07" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-07</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-07.html class="boxtitlelink">GT-05-07.html</a>
+    <iframe
+        title="5-ex-time"
+        src="../../for_students/GT-05-07.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-07"
+    ></iframe>
+</div></p>
+<p>Of course, you could do something to avoid the jumps even with the global clock (for example, by appropriately resetting the start time).</p>
+<p>Again, make sure you understand this code (in <a href="../../for_students/GT-05-07.html" class="box-html" data-tag="5-ex-time">GT-05-07.html</a>). Next week, we&rsquo;ll be using strategies like this to make graphics move.</p>
+<p>Also, notice that the loops run even if the sliders aren&rsquo;t being updated. In the real world, this may be a bad idea, since it is wasteful.</p>
+<p>To make sure you&rsquo;re still paying attention, and you understand what&rsquo;s going on, modify the JavaScript code in <a href="../../for_students/GT-05-07.html" class="box-html" data-tag="5-ex-time">GT-05-07.html</a> so that both the sliders move at half their current speed. Hint: you should only have to edit lines 27 and 51.</p>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box GT-05-07.</i>
+    </div>
+<h2 id="intentionally-annoying">Intentionally Annoying&hellip;</h2>
+<p>This example makes text blink, because sliders were getting boring.</p>
+<p>From a technique perspective, the important point is the idea of controlling for timing (as discussed in Box 4 above).
+Because <code>window.requestAnimationFrame</code> doesn&rsquo;t provide a constant rate,
+we need to check the actual &ldquo;clock&rdquo; time to see if enough time has passed.</p>
+<p> 
+
+
+
+<div id="box-GT-05-08" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-05-08</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-05-08.html class="boxtitlelink">GT-05-08.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-05-08.js" class="boxtitlelink">GT-05-08.js</a>
+    <iframe
+        title="5-blink"
+        src="../../for_students/GT-05-08.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-05-08"
+    ></iframe>
+</div></p>
+<p>The box 
+<a href="../../for_students/GT-05-08.js" class="box-html" data-tag="5-blink">GT-05-08.js</a>
+ is an important example to read.
+It makes use of closures and other functional programming tricks.
+And it uses the &ldquo;clock time&rdquo; to control speed, independently of how fast
+<code>window.requestAnimationFrame</code> triggers events. These are the kinds of
+techniques you will use a lot when we do graphics programming.
+But, you won&rsquo;t have to wait that long. You&rsquo;ll get some things to try
+on the <a href="../../docs/6/" class="Next__Page">Next Page</a>.</p>
+<a href="../../docs/6/" class="Next__Page">Next: Try it Yourself </a>
+
+            
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                    <div class="sidebar">
+<h2 class="Side_Title">Workbook 12: Graphics Town</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Workbook Group: Game)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: HTML and JavaScript </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
+        <li class="Side__Item Side__Selected"> 5: Animation Loops </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Advanced Items </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

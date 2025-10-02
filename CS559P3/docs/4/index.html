@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 4: Doing things to HTML</h1>
+		</header>
+		<div class="content post__content clearfix"><p>On the last page, we added JavaScript to a web page, but we didn&rsquo;t do much with the JavaScript. Here&rsquo;s we&rsquo;ll see how we connect between JavaScript programs and web pages to make the code do things that we can see. Eventually, we&rsquo;ll make it do graphics, but for now, we&rsquo;ll do some simpler things.</p>
+<p>And yes, I am putting the javascript code right into the HTML for these simple examples. We won&rsquo;t do this in the future.</p>
+<h2 id="referring-to-html">Referring to HTML</h2>
+<p> 
+
+
+We often need our JavaScript code to be able to refer to elements on the page so we can do things to them. The web browser provides many functions that allow us to search through the DOM (<em>Document Object Model</em>, the data structure that represents the web page). The most useful for us is to find an element by id. Remember from <a href="../../docs/1/">Page &nbsp;1&nbsp; (HTML and CS559)</a>, that we can label elements with an id attribute. In our JavaScript code, we can search for an element by Id and do something to it. The box has an example (and as you can guess, you should read the code in 
+<a href="../../for_students/GT-04-01.js" class="box-html" data-tag="4-html">GT-04-01.js</a>
+).</p>
+
+<div id="box-GT-04-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-04-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-04-01.html class="boxtitlelink">GT-04-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-04-01.js" class="boxtitlelink">GT-04-01.js</a>
+    <iframe
+        title="4-html"
+        src="../../for_students/GT-04-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-04-01"
+    ></iframe>
+</div>
+<p>If you look at the code, you&rsquo;ll see a pattern: we find an element, and we do something to it. We changed the text of a span named <code>span1</code>, we changed the color of <code>span2</code> and added a click handler to the button. Read the code and make sure you understand how it works.</p>
+<p>There are many other ways to find elements on web pages - this is the simplest one, and the one we will use for almost everything in class.</p>
+<p>Here&rsquo;s a hint for looking at the code in the debugger: if you open the inner page (<a href="../../for_students/GT-04-01.html" class="box-html" data-tag="4-html">GT-04-01.html</a> for this one, you can right-click -&gt; open in new tab), it still works in the browser. But the browser is working on this page. If you use &ldquo;view source&rdquo;, you&rsquo;ll see only the page&rsquo;s source. If you go to the browser console, you can also see the code - and use the debugger to set a breakpoint.</p>
+<p>This is a good time to practice using the debugger. Put a breakpoint before the text in <code>span1</code> is changed (stop on line 19). And you&rsquo;ll see the that HTML says something different before it is changed.</p>
+<p>If you need more help with the VS Code debugger, check out the optional workbook <a href="https://github.com/CS559/DebuggerTutorial" target="_blank">Debugger Tutorial (GitHub Repository)</a>.</p>
+<h2 id="button-events">Button Events</h2>
+ 
+
+
+<p>We saw this on the last page, but when a button is clicked
+it calls the <code>onclick</code> handler.
+More generally, when something happens (to almost any element),
+it creates an event.
+We can tie a function (called a handler) to the event, and do things
+when the event happens.
+The style of programming is called <em>event driven programming</em> - we basically write code that does things in response to events.</p>
+<p>Different elements have different events associated with them. Buttons actually have a several different events (<code>onclick</code> that we&rsquo;ve seen, as well as <code>onmousedown</code>, <code>onmouseup</code>, and <code>onmouseleave</code> and several others). This box uses them in different ways to get different behaviors. Try moving the mouse while clicking. And then make sure to read the code in 
+<a href="../../for_students/GT-04-02.js" class="box-html" data-tag="4-event">GT-04-02.js</a>
+.</p>
+
+<div id="box-GT-04-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-04-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-04-02.html class="boxtitlelink">GT-04-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-04-02.js" class="boxtitlelink">GT-04-02.js</a>
+    <iframe
+        title="4-event"
+        src="../../for_students/GT-04-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-04-02"
+    ></iframe>
+</div>
+<p>An obvious, but important thing here is that our code only gets
+run when an event happens. Otherwise, we don&rsquo;t do anything.
+This is called <strong>event-driven</strong> programming.</p>
+<p>Different kinds of HTML elements generate different kinds of events.</p>
+<h2 id="slider-events">Slider Events</h2>
+<p> 
+
+
+
+<div id="box-GT-04-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-04-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-04-03.html class="boxtitlelink">GT-04-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-04-03.js" class="boxtitlelink">GT-04-03.js</a>
+    <iframe
+        title="4-slider"
+        src="../../for_students/GT-04-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-04-03"
+    ></iframe>
+</div></p>
+<p>When you look at the code, you will see some weird looking comments with
+type information. See <a href="https://cs559.github.io/559Tutorials/javascript/typed-js/" target="_blank">Typed JavaScript and CS559</a> for an explanation.</p>
+<h2 id="sliders-as-outputs">Sliders as Outputs</h2>
+ 
+
+
+<p>Just as you can read a slider&rsquo;s value, you can also set it&rsquo;s value in order to move it.</p>
+
+<div id="box-GT-04-04" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-04-04</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-04-04.html class="boxtitlelink">GT-04-04.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-04-04.js" class="boxtitlelink">GT-04-04.js</a>
+    <iframe
+        title="4-output"
+        src="../../for_students/GT-04-04.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-04-04"
+    ></iframe>
+</div>
+<p>Again, read the code (in 
+<a href="../../for_students/GT-04-04.js" class="box-html" data-tag="4-output">GT-04-04.js</a>
+) and understand what is going on. Notice the difference between handling <code>onchange</code> events versus <code>oninput</code> events with sliders. One creates an event for every movement of the slider, the other only creates an event when the user is done dragging.</p>
+<h2 id="making-things">Making Things</h2>
+ 
+
+
+<p>In the examples so far, we put the HTML elements in the HTML, and the script found it.
+Often, we will want the script to make new elements. Here is a simple example:</p>
+
+<div id="box-GT-04-05" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-04-05</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-04-05.html class="boxtitlelink">GT-04-05.html</a>
+    <iframe
+        title="4-button-slider"
+        src="../../for_students/GT-04-05.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-04-05"
+    ></iframe>
+</div>
+<p>Be sure to look at <a href="../../for_students/GT-04-05.html" class="box-html" data-tag="4-button-slider">GT-04-05.html</a> and understand it.</p>
+<p>There are two main steps to adding an element: first we need to create the element
+(and set it up appropriately), and then we need to insert it into the document
+somewhere.
+Although the <code>createElement</code> method is a method of <code>document</code>, it only
+creates the element (as a data structure). We still need to place it on the page.</p>
+<h2 id="putting-code-in-a-better-place">Putting Code in a Better Place</h2>
+<p>Most of the examples so far, put the Javascript code right onto the HTML pages.
+This is convenient for short programs, but often it is nice to keep languages separate.</p>
+<p>We saw an example of loading a script from a page on a previous page (box 01-03-03, to be precise).</p>
+<p>In general for class, we will separate code and HTML. A &ldquo;style&rdquo; we will use is to make the HTML
+be very simple, and make the work happen in a separate JavaScript file. While we can put the <code>&lt;script&gt;</code> tags
+anywhere, we tend to put them at the beginning or end of the html file (outside of the body).</p>
+<p>Here&rsquo;s a simple example - one that might have been better just to put things into html.</p>
+ 
+
+
+<p>You can see that this could have been a few lines of HTML. But, has been spread among <a href="../../for_students/GT-04-06.html" class="box-html" data-tag="4-better">GT-04-06.html</a> and two Javascript files 
+<a href="../../for_students/GT-04-06-a.js" class="box-html" data-tag="4-better">GT-04-06-a.js</a>
+ and 
+<a href="../../for_students/GT-04-06-b.js" class="box-html" data-tag="4-better">GT-04-06-b.js</a>
+.
+There was no good reason to spread it across 3 files, other than to show you that we can do it
+(and you should get used to seeing things this way).</p>
+<p>This is also a time to acknowledge that the html in these examples is <strong>very</strong> minimal.
+We are trying to make things as simple as possible.</p>
+<h2 id="oops-i-forgot">Oops, I forgot&hellip;</h2>
+<p>This box is a public service announcement: sometimes you will need to create files as part of the workbook.
+If you do this, you should:</p>
+<ol>
+<li>Always make the files in the <code>for_students</code> directory</li>
+<li>Remember to <code>add</code> them to your git repository so that you can commit and push them!</li>
+</ol>
+<p>So, to practice that, here is a box for you to fill in. I&rsquo;ve made the html, but I &ldquo;forgot&rdquo; the Javascript file.
+(I didn&rsquo;t actually forget, I intentionally left it out)
+Add the Javascript file to put the sentence &ldquo;NAME was here&rdquo; (where NAME is your name) into the box. You should do this by adding a Javascript file (like box 01-04-06 did). Make sure you add the new file to GIT so we can see it for grading!</p>
+<p> 
+ 
+
+
+ <div id="box-GT-04-07" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+     <b>Box GT-04-07</b>&nbsp;&nbsp;
+         <a href=../../for_students/GT-04-07.html class="boxtitlelink">GT-04-07.html</a>
+     <iframe
+         title="4-ex-add-js"
+         src="../../for_students/GT-04-07.html"
+         class="includebox includebox-standard"
+         width="100%"
+         height="100%"
+         scrolling="no"
+         frameborder="0"
+         id="box-iframe-GT-04-07"
+     ></iframe>
+ </div></p>
+<p>Yes, you could have done this by editing <a href="../../for_students/GT-04-07.html" class="box-html" data-tag="4-ex-add-js">GT-04-07.html</a>, but we want you to practice adding Javascript files to a workbook. (yes, you get points for doing this)</p>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box GT-04-07.</i>
+    </div>
+<h2 id="moving-on-">Moving On &hellip;</h2>
+<p>Being able to manipulate web pages is important. And buttons and sliders will be useful for controlling our graphics programs. On the <a href="../../docs/5/" class="Next__Page">Next Page</a>, we&rsquo;ll talk about animation loops - trying to make things change without user intervention.</p>
+<a href="../../docs/5/" class="Next__Page">Next: Animation Loops </a>
+
+            
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                    <div class="sidebar">
+<h2 class="Side_Title">Workbook 12: Graphics Town</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Workbook Group: Game)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: HTML and JavaScript </a></li>
+        <li class="Side__Item Side__Selected"> 4: Doing things to HTML </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Advanced Items </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

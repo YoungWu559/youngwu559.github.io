@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 3: HTML and JavaScript</h1>
+		</header>
+		<div class="content post__content clearfix"><p>On the <a href="../../docs/2/" class="Prev__Page">Previous page</a> we made simple web pages, here we&rsquo;ll see how to put JavaScript programs on them.</p>
+<p>JavaScript can be tricky to learn because not only must you learn a new language, but usually the programming happens in the context of a web page in a web browser.</p>
+<p>The <a href="https://cs559.github.io/559Tutorials/javascript/javascript559/" target="_blank">Javascript in CS559</a> has all sorts of resources about JavaScript, including the rationale for why we are using it in class. If you are already a JavaScript expert, that page will tell you some rules for how we use JavaScript in class. If you are just learning JavaScript, the page has links to some good tutorials. You will also be able to figure a lot out from the examples we provide in the workbooks.</p>
+<p>The goal of this page is to help you understand where JavaScript programs go, when they run, and how they work with the workbooks. If anything is too unfamiliar, you might want to review some of the Javascript resources on the <a href="https://cs559.github.io/559Tutorials/javascript/javascript559/" target="_blank">Javascript in CS559</a> page.</p>
+<h2 id="where-does-my-code-go">Where does my code go?</h2>
+ 
+
+
+<p>Here is a miniature web page <a href="../../for_students/GT-03-01.html" class="box-html" data-tag="3-code">GT-03-01.html</a>. It&rsquo;s boring but it does have a little program in it.</p>
+
+<div id="box-GT-03-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-03-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-03-01.html class="boxtitlelink">GT-03-01.html</a>
+    <iframe
+        title="3-code"
+        src="../../for_students/GT-03-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-03-01"
+    ></iframe>
+</div>
+<p>The output of this program, from the <code>console.log</code> function, will be in the &ldquo;console&rdquo; of your web browser. Now is a good time to look for it (it should say &ldquo;Box 1&rsquo;s initial message to the console&rdquo;, but you&rsquo;ll also see the output from box 3 and 4). You might try opening the box as a separate web page (here&rsquo;s a <a href="../../for_students/GT-03-01.html" class="box-html" data-tag="3-code">GT-03-01.html</a>). See what the console shows for this.</p>
+<p>If you&rsquo;re not familiar with the console, now is a good time to find it and try it out. You can type JavaScript into the console to try things out. To open the console in Chrome and Firefox on Windows machines it is typically CTRL-SHIFT-I (the letter I). The console is also important because it&rsquo;s where compilation and runtime errors are displayed. <b> Make sure you understand how to access the console and what gets printed to it. </b></p>
+<h2 id="another-place-to-put-code">Another place to put code</h2>
+ 
+
+
+<p>When you make a button (or other element), you can attach code to it right in place, as in this example (again, look at the console and the code <a href="../../for_students/GT-03-02.html" class="box-html" data-tag="3-ex-code">GT-03-02.html</a>). Since this is the second box,</p>
+
+<div id="box-GT-03-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-03-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-03-02.html class="boxtitlelink">GT-03-02.html</a>
+    <iframe
+        title="3-ex-code"
+        src="../../for_students/GT-03-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-03-02"
+    ></iframe>
+</div>
+<p>In general, we prefer not to put much code hidden inside of the html. It&rsquo;s fine for short things, but when the code gets complicated (as it will), it&rsquo;s easier to have it in a separate file.</p>
+<p>Just to make sure you&rsquo;re reading along, change this box so that when you press the button, the message in the console is a grammatically complete sentence like &ldquo;Button one was pressed.&rdquo;.</p>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box .</i>
+    </div>
+<h2 id="where-to-put-code">Where to put code</h2>
+<p>If we&rsquo;re not supposed to put JavaScript into the HTML files, the next
+question is where to put it.</p>
+<p>We will put JavaScript programs into separate files - dividing them up into
+smaller chunks (roughly &ldquo;modules&rdquo;), but that will come later.
+By convention, I will always name my JavaScript files with &lsquo;.js&rsquo;, although
+other people will do other things (for example, we might name the files
+with &lsquo;.es6&rsquo; to signify that we&rsquo;re using the ES6 version of JavaScript).</p>
+<p>Here&rsquo;s another simple example:</p>
+<p> 
+
+
+
+<div id="box-GT-03-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-03-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-03-03.html class="boxtitlelink">GT-03-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-03-03.js" class="boxtitlelink">GT-03-03.js</a>
+    <iframe
+        title="3-code-too"
+        src="../../for_students/GT-03-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-03-03"
+    ></iframe>
+</div></p>
+<p>For something this simple, having things split between <a href="../../for_students/GT-03-03.html" class="box-html" data-tag="3-code-too">GT-03-03.html</a> and 
+<a href="../../for_students/GT-03-03.js" class="box-html" data-tag="3-code-too">GT-03-03.js</a>
+ may not be a big deal, but its a good habit to get into.</p>
+<p>If you&rsquo;re curious (and you should be) the <code>type=&quot;module&quot;</code>
+in the <code>&lt;script&gt;</code> tag tells the browser that we want the &ldquo;modern&rdquo; version of JavaScript, and that we want to treat the file as a separate module. You can see the explanation in the  <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script" target="_blank">HTML documentation for the script tag</a>, but, basically for class we&rsquo;ll always use it.</p>
+<h2 id="when-to-run-code">When to run code</h2>
+
+
+
+<p>There is a question of when those little snippets of code get run. In some cases, it&rsquo;s simple: for the button in Box 2, we assigned code to the <code>onclick</code> event of the button, so the code was run when this even happened (we&rsquo;ll discuss events more later). But, for the code in the script tags (especially when the script tag loads another file), the code will be executed when the script tag is processed. This becomes even more complicated because the web browser can do things <em>asynchronously</em> - it doesn&rsquo;t wait until the first thing finishes before starting the second.
+This creates a potential problem: we want our JavaScript program
+to access our web page, but we don&rsquo;t know if the web page has finished
+loaded (and is ready to be accessed) when our program is run.</p>
+<p>If you look at <a href="../../for_students/GT-03-04.html" class="box-html" data-tag="3-defer">GT-03-04.html</a>, you will see that the html file specified loading the script first and then provides the html elements that the script refers to. We use the <code>defer</code> option to make sure that the script is executed after the page is done loading. Defer is the default for module loading. In the past, we had to do more complicated things to make sure the script didn&rsquo;t run until the page is done loading.</p>
+<p>Normally, a script tag that loads a file, such as <code>&lt;script src=&quot;01-03-03.js&quot;&gt;&lt;/script&gt;</code>, gives the browser some flexibility in when it chooses to run the script. However, we can add the <code>defer</code> flag like this: <code>&lt;script src=&quot;01-03-03.js&quot; defer&gt;&lt;/script&gt;</code> which tells the browser to run the script only after the page has finished loading. This is explained on the <a href="https://www.w3schools.com/tags/att_script_defer.asp" target="_blank">W3 Schools documentation on defer</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script" target="_blank">Office Script Tag Documentation</a>.</p>
+<p>The box <a href="../../for_students/GT-03-04.html" class="box-html" data-tag="3-defer">GT-03-04.html</a> below gives an example of defer being used. Try removing it (you need to remove the <code>defer</code> and the <code>type=&quot;module&quot;</code> and see what happens (you will get an error, because 
+<a href="../../for_students/GT-03-04.js" class="box-html" data-tag="3-defer">GT-03-04.js</a>
+ can&rsquo;t find the paragraph element it&rsquo;s looking for). The error isn&rsquo;t reliable: sometimes (because of asynchronous browser execution), the page will finish loading before the script executes (since the script is delayed while it gets read in). To make things reliable and predictable, we will just always use <code>defer</code> in class.</p>
+
+<div id="box-GT-03-04" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-03-04</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-03-04.html class="boxtitlelink">GT-03-04.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/GT-03-04.js" class="boxtitlelink">GT-03-04.js</a>
+    <iframe
+        title="3-defer"
+        src="../../for_students/GT-03-04.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-03-04"
+    ></iframe>
+</div>
+<h2 id="functional-programming-javascript-and-cs559">Functional Programming, Javascript, and CS559</h2>
+<p>We are introducing functional programming concepts early on, and will make a big deal about them. This is partially because they are a nice feature of Javascript. Historically, they were the flexible building block that were used before Javascript had other features.</p>
+<p>But, the big reason for emphasizing them early in the class is that they really are a convenient way to do graphics programming. They will come up a lot in the programming we do for class. So, it&rsquo;s good to get familiar with them now.</p>
+<p>To help you learn about these things, there is an optional workbook: <a href="https://github.com/CS559/FunctionalTutorial">Closures Workbook</a>. You can clone the repository and work through the examples, or you can just read the <a href="https://cs559.github.io/FunctionalTutorial/">tutorial on the web</a>. There is also a video lecture <a href="https://mediaspace.wisc.edu/media/Lecture%2002%3A%2001_28_2021%20Bonus%20video%3A%20Closures/1_6e7qmca0" target="_blank">Closure Tutorial Video</a>, and the associated slides <a href="https://cs559.github.io/FunctionalTutorial/lecture_slides/02closures-post.pdf">here</a>.</p>
+<p>You should expect questions on functional programming concepts (like closures) on the exams.</p>
+<p>Part of the reason for this is that we like to (or, as we will see on the next page, are often forced to) think about out programs in terms of functions that get called when <strong>events</strong> happen. In the examples so far, we had functions that executed when a button was pressed or when the page finished loading - each of these are events.</p>
+<p>It&rsquo;s worth looking at a simple example before we move on&hellip; Here is Box 01-03-02, re-written to put the script in a different place.</p>
+<p> 
+
+
+
+<div id="box-GT-03-05" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-03-05</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-03-05.html class="boxtitlelink">GT-03-05.html</a>
+    <iframe
+        title="3-function"
+        src="../../for_students/GT-03-05.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-03-05"
+    ></iframe>
+</div></p>
+<p>This is now example <a href="../../for_students/GT-03-05.html" class="box-html" data-tag="3-function">GT-03-05.html</a>. Let&rsquo;s look at the key lines&hellip;</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">button</span> <span style="color:#f92672">=</span> <span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;button1&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">button</span><span style="color:#111">.</span><span style="color:#75af00">onclick</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">function</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#d88200">&#34;Button 1 Pressed!&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Line 15 finds the button by searching for an HTML element on the page with the name button1. Good programming practice would have checked that button was actually found. We&rsquo;ll do this often - we find objects on the web page by ID and do things to them.</p>
+<p>The more interesting thing is what we do to the button: we assign something to its <code>onclick</code> property. This stores a <strong>function</strong> that gets called when the button is pressed. But notice that we put the definition right in the assignment. We are defining the function in place. You can think of the <code>function</code> keyword not just as defining a function, but as effectively running the compiler and producing a &ldquo;function object&rdquo; that can be stored in an attribute of the button (or any other variable).</p>
+<p>Effectively, the code inside the braces on lines 16-18 doesn&rsquo;t get compiled until the <code>function</code> expression is executed. Line 17 doesn&rsquo;t get executed when this code is run - it just gets fed to the compiler. The output of the compiler - which is a &ldquo;function object&rdquo; - can be produced and stored somewhere, and called later.</p>
+<p>(note: this idea of &ldquo;running the compiler&rdquo; is a simplification of what really happens in order to give you a mental model of how things work)</p>
+<p>The fact that we&rsquo;re effectively running the compiler as our code runs brings up interesting possibilities. We can define new functions as our program is running, and those functions have access to the current state of the program.</p>
+<p>Here&rsquo;s a slightly different example&hellip;</p>
+<p> 
+
+
+
+<div id="box-GT-03-06" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box GT-03-06</b>&nbsp;&nbsp;
+        <a href=../../for_students/GT-03-06.html class="boxtitlelink">GT-03-06.html</a>
+    <iframe
+        title="3-literal"
+        src="../../for_students/GT-03-06.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-GT-03-06"
+    ></iframe>
+</div></p>
+<p>You can see this in <a href="../../for_students/GT-03-06.html" class="box-html" data-tag="3-literal">GT-03-06.html</a>. The code is a little different&hellip;</p>
+<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">button</span> <span style="color:#f92672">=</span> <span style="color:#111">document</span><span style="color:#111">.</span><span style="color:#75af00">getElementById</span><span style="color:#111">(</span><span style="color:#d88200">&#34;button1&#34;</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">button</span><span style="color:#111">.</span><span style="color:#75af00">onclick</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">function</span><span style="color:#111">()</span> <span style="color:#111">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75af00">console</span><span style="color:#111">.</span><span style="color:#75af00">log</span><span style="color:#111">(</span><span style="color:#d88200">`Button </span><span style="color:#d88200">${</span><span style="color:#75af00">number</span><span style="color:#d88200">}</span><span style="color:#d88200"> Pressed!`</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#111">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#111">;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>The first difference you may notice is line 16 - rather than printing a normal string, I am printing a string with a variable in it. The back ticks &ldquo;`&rdquo; tell Javascript that this is a <strong>template literal</strong> - a cool javascript feature that lets me access data within a string. You can read the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank">Template Literals Documentation</a> to find out about them (recommended, they are quite useful). However, for now, trust me that what this does is print the value of the variable <code>number</code> in the middle of the string.</p>
+<p>So, the big question&hellip; what is the value of this variable?</p>
+<p>A thing to notice is that the variable <code>number</code> is declared outside of the function we are creating. When we &ldquo;compile&rdquo; the function, the variables that <em>enclose</em> the function (defined outside, but available inside) are kept. This is called <strong>closure</strong> - it is a fundamental functional programming concept. It is tricky to learn. Most students have to hear it several times before they get it. I will explain it multiple times during class. There will (almost certainly) be exam questions involving closure.</p>
+<p>Consider what happens with this program. When the code is executed, <code>function</code> calls the compiler. At this point, the variable <code>number</code> is 1. However, line 16 doesn&rsquo;t execute - it is just compiled. It keeps a reference to the variable <code>number</code>. This is closure. After the compiler is done creating the function <code>number</code> is set to 2. Later on, when the button is pressed, the function is executed. At this time, it refers to the <code>number</code>, which has value 2.</p>
+<p>That&rsquo;s a closure. It lets functions access data defined outside. We&rsquo;ll see a lot more examples. Don&rsquo;t worry if you don&rsquo;t get it the first time.</p>
+<p>If you would like more explanation now, see this video <a href="https://mediaspace.wisc.edu/media/Lecture%2002%3A%2001_28_2021%20Bonus%20video%3A%20Closures/1_6e7qmca0" target="_blank">Closure Tutorial Video</a>, and the associated slides <a href="https://cs559.github.io/FunctionalTutorial/lecture_slides/02closures-post.pdf">here</a>.</p>
+<h2 id="moving-on">Moving On&hellip;</h2>
+<p>So now we&rsquo;ve seen where code can go and how functional programming lets us define the functions we can put in various places. Now let&rsquo;s see how to make it do something useful on the <a href="../../docs/4/" class="Next__Page">Next Page</a></p>
+<a href="../../docs/4/" class="Next__Page">Next: Doing things to HTML </a>
+
+            
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                    <div class="sidebar">
+<h2 class="Side_Title">Workbook 12: Graphics Town</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Workbook Group: Game)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: HTML and CS559 </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: HTML Basics </a></li>
+        <li class="Side__Item Side__Selected"> 3: HTML and JavaScript </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Doing things to HTML </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Animation Loops </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Try it Yourself </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Advanced Items </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>
