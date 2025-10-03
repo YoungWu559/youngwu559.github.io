@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 3: Matrices in Code</h1>
 		</header>
-		<div class="content post__content clearfix"><h2 id="vectors-and-matrices-in-javascript">Vectors and Matrices in JavaScript</h2>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><h2 id="vectors-and-matrices-in-javascript">Vectors and Matrices in JavaScript</h2>
 <p>By itself, JavaScript doesn&rsquo;t deal with matrices very well. We will almost always want to use a library that implements matrices. However, for now, we will do it ourselves. Part of this is so that we don&rsquo;t need to take the time to learn about a matrix library until later in the class when we&rsquo;ll get one as part of a graphics API. Part of this is so that we can understand what happens inside.</p>
 <p>Part of the problem is that arrays in JavaScript are very flexible. You can use them to store sets of numbers, but they aren&rsquo;t necessarily optimized to do that: they are designed to be very flexible.</p>
 <p>For 1D arrays of numbers (that we use to represent points and vectors), we can just use JavaScript arrays. There are some efficiency reasons why we might prefer something fancier, but for now, this will be fine. (If you&rsquo;re curious, check out <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray" target="_blank">TypedArray objects</a>).</p>

@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 5: Lots of Walking Objects</h1>
 		</header>
-		<div class="content post__content clearfix"><p>This page and its exercise and advanced problems are more about graphics programming than fundamental graphics concepts.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>This page and its exercise and advanced problems are more about graphics programming than fundamental graphics concepts.</p>
 <p>Basically, the methods you&rsquo;re going to experiment with have a bunch of simple objects that each make individual &ldquo;steering&rdquo; decisions, and maintain their speeds. This is sometimes referred to as &ldquo;flocking.&rdquo; The first person to really write about it in the graphics literature was <a href="http://www.red3d.com/cwr/" target="_blank">Craig Reynolds</a> who not only wrote the original <a href="https://dl.acm.org/citation.cfm?id=37406" target="_blank">flocking paper</a>, but also maintains a good <a href="http://www.red3d.com/cwr/boids/" target="_blank">page</a> with information about it. The &ldquo;creatures&rdquo; that flock are sometimes referred to as &ldquo;boids&rdquo; since they aren&rsquo;t always birds (sometimes they are fish, or pedestrians, or &hellip;).</p>
 <p>Boids are a fun programming project, and thus there are a number of implementations on the web. If you want, check out this pretty <a href="https://hughsk.io/boids/" target="_blank">Online Boids Demo</a> or this fun <a href="https://www.youtube.com/watch?v=bqtqltqcQhw&amp;" target="_blank">YouTube video by Sebastian Lague</a>.</p>
 <p>See also <a href="https://cs559.github.io/2008Boids/" target="_blank">2008 Boids Demo</a> for a more interactive demo. You can see the source code, but it&rsquo;s so archaic that it probably won&rsquo;t help you - we don&rsquo;t recommend looking at it.</p>
@@ -27,7 +29,7 @@
 </ul>
 <p>Those projects were multi-week things, with pairs of students. This assignment has lower ambitions. But, if you want to learn more about flocking, it can be fun.</p>
 <h2 id="walking-boids">Walking Boids</h2>
- 
+
 
 
 <p>As an initial step, we&rsquo;ll keep a collection of objects. Each one has a position, and a velocity. Unlike in previous workbooks, we will create this using an actual JavaScript class. The code is in 

@@ -4,5 +4,7 @@ context.rotate(Math.PI / 2);
 is equivalent to:
 
 context.rotate(Math.PI / 2);
-context.translate(??, ??);
+context.translate(3,-2);
 <!-- CS559 2025 Workbook -->
+
+<!-- CS559 2025 Example Solution -->

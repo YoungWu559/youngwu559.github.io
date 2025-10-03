@@ -16,11 +16,13 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 4: Matrix Exercises</h1>
 		</header>
-		<div class="content post__content clearfix"><p>Over the past few pages, you saw the connection between the math of transformations and the code we write to draw using Canvas. On this page, you&rsquo;ll get to try writing some code to test it out.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>Over the past few pages, you saw the connection between the math of transformations and the code we write to draw using Canvas. On this page, you&rsquo;ll get to try writing some code to test it out.</p>
 <p>Hint for some of these: remember that the canvas <code>transform</code> allows you to specify an affine transformation as a matrix. It&rsquo;s up to you to figure out what the matrix should be and put it into the 6 values that are passed to <code>transform</code>. You may want to review the required readings to see the standard forms of the matrices. You can often figure out what the entries of the resulting matrix are using the methods in &ldquo;Reading Matrices&rdquo; on page 2, without having to build the matrix up from simple transformations.</p>
 <p>In cases where you do need to figure out the transformations&hellip; The JavaScript Math library has a useful function that does a 2-argument arctangent - see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2"><code>Math.atan2</code></a>. Given <code>x</code> and <code>y</code> it tells you the angle to rotate to.</p>
 <h2 id="box-1-exercise-1-two-dots-with-translate-rotate-and-scale">Box 1: Exercise 1, Two Dots with Translate, Rotate, and Scale</h2>
-<p> 
+<p>
 
 
 For this box, you should edit 
@@ -76,7 +78,7 @@ For this box, you should edit
 
 </div>
 <h2 id="box-2-exercise-2-two-dots-with-transform">Box 2: Exercise 2, Two Dots with Transform</h2>
-<p> 
+<p>
 
 
 Now, do that again, but this time do it using <code>context.transform</code> - compute the 6 numbers that need to be passed. Do this in the <code>twoDots</code> in 
@@ -102,7 +104,7 @@ Now, do that again, but this time do it using <code>context.transform</code> - c
         <i>There are no points associated with Box 04-04-02.</i>
     </div>
 <h2 id="box-3-exercise-3-two-dots-a-little-harder">Box 3: Exercise 3, Two Dots a Little Harder</h2>
-<p> 
+<p>
 
 
 This is same as box 2 - except that the corner opposite the upper left (e.g., the 10,10 corner) should appear at the green dot. That is, the corner of the square closest to the green square should be close to the green dot. You may choose how you make the transformation - but make sure it keeps the square a square. The function to edit is <code>twoDots</code> in 
@@ -158,7 +160,7 @@ This is same as box 2 - except that the corner opposite the upper left (e.g., th
         <i>There are no points associated with Box 04-04-03.</i>
     </div>
 <h2 id="box-4-exercise-4-convert-to-transform">Box 4: Exercise 4, Convert to Transform</h2>
- 
+
 
 
 <p>In the code for this box (<a href="../../for_students/04-04-04.html" class="box-html" data-tag="04-04-04">04-04-04.html</a> and 
@@ -185,7 +187,7 @@ This is same as box 2 - except that the corner opposite the upper left (e.g., th
         <i>There are no points associated with Box 04-04-04.</i>
     </div>
 <h2 id="box-5-exercise-5-shearskew">Box 5: Exercise 5, Shear/Skew</h2>
- 
+
 
 
 <p>Shear (sometimes called skew) is a fundamental linear transformation. It is discussed in the textbook, specifically FCG4 Chapter 6. Unfortunately, Canvas doesn&rsquo;t have it.</p>
