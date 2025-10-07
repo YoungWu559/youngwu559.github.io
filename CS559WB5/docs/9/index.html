@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 9: Béziers in APIs</h1>
 		</header>
-		<div class="content post__content clearfix"><p>Both Canvas and SVG support Bézier curves. Both APIs provide commands for both cubic and quadratic Béziers. Technically, they support linear Béziers, but we usually call these lines.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>Both Canvas and SVG support Bézier curves. Both APIs provide commands for both cubic and quadratic Béziers. Technically, they support linear Béziers, but we usually call these lines.</p>
 <h2 id="bézier-curves-in-canvas">Bézier Curves in Canvas</h2>
 <p>The HTML Canvas API provides both quadratic and cubic Bézier curves. It allows you to use these curves as pieces of longer paths.</p>
 <p>One thing that is slightly surprising about Bézier segments in Canvas is that they take one fewer control point as an argument than the curve needs. The first control point is always the most recent pen position. So, if you want to give the four points of a Bézier segment, you need to do a <code>moveTo</code> first to get that first point:</p>
@@ -63,7 +65,7 @@ The file is
 </p>
 <p>Notice that the shape is a single path, made up of 4 quadratic Bézier segments. The path description is in a string, broken up over lines 6-12. You can see it starts with a move to (M) command (line 6), and then the 4 quadraticBezierCurveTo commands (Q). It also has a &ldquo;close path&rdquo; (Z) command at the end.</p>
 <p>Notice that the quadratic Bézier commands take two points as parameters. Like the Canvas commands, the first point is the current pen position. The first curve starts at the move to position. The others connect to the ends of the previous segments, so they have <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false">(</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C(0)</annotation></semantics></math></span> continuity. Because of the positions of the control points, most connections are <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C(1)</annotation></semantics></math></span> (except for the ones that obviously aren&rsquo;t).</p>
- 
+
 
 
 <p><strong>Practice:</strong> To practice reading SVG and writing Canvas Bezier curves, I would like you to reproduce the picture above (in 
@@ -94,7 +96,7 @@ The file is
     </div>
 <h2 id="your-turn-a-picture">Your turn: A Picture</h2>
 <p>In this box, you can practice using the canvas Bézier drawing commands. The canvas context has functions that put Bézier segments onto the end of the current path. Just as <code>context.lineTo(x,y)</code> extends the current path with a line segment from the current end of the path to <code>x,y</code>, the <code>context.bezierCurveTo</code> function extends the path with a cubic Bézier segment. The function takes 3 points (the segment uses 4 points as it includes the end of the path before the function is called). Paths with curves can be stroked and filled like any other paths.</p>
-<p> 
+<p>
 
 
 Make a picture in the box below using Canvas drawing commands. Your picture must use curves (cubic Bézier curves - with the Canvas <code>bezierCurveTo</code> function). You should edit 

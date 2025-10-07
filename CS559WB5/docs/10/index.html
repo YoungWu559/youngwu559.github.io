@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 10: Arc-Length Parameterizations</h1>
 		</header>
-		<div class="content post__content clearfix"><p>Arc length parameterization is discussed in Section 15.1.1 of FCG4 Chapter 15. <a href="https://www.youtube.com/watch?v=aVwxzDHniEw" target="_blank">The Beauty of Bezier Curves</a> has a nice animated explanation, including the approximation methods I describe here.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>Arc length parameterization is discussed in Section 15.1.1 of FCG4 Chapter 15. <a href="https://www.youtube.com/watch?v=aVwxzDHniEw" target="_blank">The Beauty of Bezier Curves</a> has a nice animated explanation, including the approximation methods I describe here.</p>
 <h2 id="arc-length-and-non-arc-length">Arc-length and non-arc length</h2>
 <p>We usually like to define our parameterizations such that each piece goes from 0 to 1. But this means that if we move at a constant speed in the parameter, the pen would move at a variable speed. An arc-length parameterization is a parameterization where the pen moves at a constant speed (assuming the parameter changes at a constant speed).</p>
  
@@ -165,7 +167,7 @@
 <p>If we wanted to know where halfway in distance was (s = 147.6 / 2 = 73.8), we look it up in the table and see that it&rsquo;s between t=.6 and t=.8. Since it is (73.8-72)/(106.4-72)=.052 of the way between rows, we can approximate that as .052*.2 +.6 = .61. Note that .2 is the step between rows of t.</p>
 <p>You&rsquo;ll get to implement this to arc-length parameterize the train track when we do that later in the workbook.</p>
 <h2 id="arc-length-parameterize-me">Arc-Length Parameterize Me</h2>
- 
+
 
 
 <p>Function <code>myTri</code> in 

@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 8: Bézier Cubics</h1>
 		</header>
-		<div class="content post__content clearfix"><p>So far, we&rsquo;ve described Bézier curves as these very general things. They can be any degree and give us a whole bunch of nice properties.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>So far, we&rsquo;ve described Bézier curves as these very general things. They can be any degree and give us a whole bunch of nice properties.</p>
 <p>In computer graphics practice, we almost always use cubic and quadratic Béziers. To it makes sense to focus on them. Quadratics are less common then cubics: they were used in places where efficiency was critical (like drawing fonts).</p>
 <p>Cubics are a good tradeoff for computer graphics: they are flexible enough to provide for <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">C(1)</annotation></semantics></math></span> continuity, but not much bigger than is necessary. Cubic Béziers have a nice parallel to Hermite cubics that we learned about earlier in the workbook.</p>
 <h2 id="cubic-bézier-curves">Cubic Bézier Curves</h2>

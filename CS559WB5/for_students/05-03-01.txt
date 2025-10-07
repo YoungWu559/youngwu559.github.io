@@ -1,8 +1,10 @@
-a0 = ?, ?
-a1 = ?, ?
-a2 = ?, ?
-a3 = ?, ?
+a0 = 10, 5
+a1 = 0, 0
+a2 = 0, 0
+a3 = 40, 70
 
 please replace the ? with numbers
 
 <!-- CS559 2025 Workbook -->
+
+<!-- CS559 2025 Example Solution -->

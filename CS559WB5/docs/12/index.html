@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 12: Curve review</h1>
 		</header>
-		<div class="content post__content clearfix"><p>We covered a lot about curves this week. To make sure you got everything, this page has a summary, and a few exercises to test your understanding.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>We covered a lot about curves this week. To make sure you got everything, this page has a summary, and a few exercises to test your understanding.</p>
 <h2 id="outline-of-curve-topics">Outline of Curve Topics</h2>
 <p>The main points in the workbooks / lectures about curves:</p>
 <ol>
@@ -39,7 +41,7 @@
 </ol>
 <p>These are all important, and it&rsquo;s a lot, so some practice may be worthwhile.</p>
 <h2 id="drawing-cardinal-splines">Drawing Cardinal Splines</h2>
- 
+
 
 
 <p>Cardinal splines are very useful, but they are not built into the Web APIs. This isn&rsquo;t a problem because it is easy to convert Cardinal segments to Bézier segments, and APIs can draw Béziers well.</p>
@@ -47,7 +49,6 @@
 <p>There are two catches here:</p>
 <ol>
 <li>Canvas doesn&rsquo;t have Cardinal Splines - you must convert each Cardinal segment to a Bezier segment. You need to replace each of the <code>lineTo</code> commands in 
-<a href="../../for_students/05-12-01.js" class="box-html" data-tag="05-12-01">05-12-01.js</a>
  with a <code>bezierCurveTo</code> command, and compute the positions of the control points.</li>
 <li>The spline is &ldquo;looped&rdquo; - the last point connects to the first. This means when you need to get the &ldquo;next&rdquo; point after the last point, you go around the loop.</li>
 </ol>
@@ -56,7 +57,6 @@
     <b>Box 05-12-01</b>&nbsp;
         (1 basic + 2 advanced)&nbsp&nbsp;
         <a href=../../for_students/05-12-01.html class="boxtitlelink">05-12-01.html</a>
-        &nbsp;&nbsp;<a href="../../for_students/05-12-01.js" class="boxtitlelink">05-12-01.js</a>
     <iframe
         title="05-12-01"
         src="../../for_students/05-12-01.html"
@@ -72,7 +72,6 @@
         <i>There are basic or advanced items to be completed for Box 05-12-01.</i>
     </div>
 <p>Edit 
-<a href="../../for_students/05-12-01.js" class="box-html" data-tag="05-12-01">05-12-01.js</a>
  to do this exercise.</p>
 <p>Observe how the the cardinal spline does not fit within the original &ldquo;control polygon&rdquo;. You will have Bézier control points outside of the original cardinal control polygon - since the Bézier curve does stay inside of its control polygon.</p>
 <p>To earn advanced points and also practice arc-length parameterization which is useful for the next workbook (Project 1), draw 20 points that are equally spaced (equal arc-length between consecutive points) along the curve. The points should have a different color than the curve itself (so they are clearly visible) and they can be either squares or circles. You can earn some of the advanced points if you have 20 points along the curve that are not equally spaced.</p>
