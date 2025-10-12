@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,61 +16,70 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 4: Primitive Objects and Basic Transformations</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><h2 id="objects">Objects</h2>
+		<div class="content post__content clearfix"><h2 id="objects">Objects</h2>
 <p>Objects in THREE are subclasses of <a href="https://threejs.org/docs/index.html#api/en/core/Object3D" target="_blank">Object3D</a>. This same base class is used for all the things we put into the world: lights, camera, the actual &ldquo;things&rdquo; we see.</p>
 <p>The nice part of this is that all objects get the same common functionality.</p>
 <p>The main kind of &ldquo;thing&rdquo; we&rsquo;ll put in the world is a <a href="https://threejs.org/docs/index.html#api/en/objects/Mesh" target="_blank">Mesh</a>. A Mesh basically is a collection of triangles (in the form of a <code>Geometry</code>) combined with a <code>Material</code> (that tells THREE how those triangles should look) and other information required to place them in the scene, such as transformations and hierarchy information.</p>
 <p>To make a Mesh, we first need to create a <code>Geometry</code> object, and then we can create a <code>Mesh</code> by pairing it with a <code>Material</code>. THREE has many different kinds of <code>Geometry</code> objects built in (such as Boxes, Circles, Cones, Spheres, &hellip;); see the Documentation for the full list. We can also make our own Geometry by defining the triangles in the correct way. We&rsquo;ll do that later in the class.</p>
-<h2 id="box-1-transformations">Box 1: Transformations</h2>
+<h2 id="transformations">Transformations</h2>
 <p>Objects in 3D have associated transformations as part of the <code>Object3D</code> class. You can read about it <a href="https://threejs.org/docs/#manual/en/introduction/Matrix-transformations" target="_blank">here</a>.</p>
 <p>Each object has its own transformation. The transformation is between the coordinate system of the object&rsquo;s parent and the coordinate system of the object itself (so everything is relative). If we place the object in the world (by adding it directly to the <code>Scene</code>), the transformation is relative to the world coordinate system.</p>
 <p>Each object has a matrix inside of it that stores its transformation. We can access that matrix. However, we usually don&rsquo;t change the matrix directly: the matrix is computed as needed from the 3 transformations applied to the object: Translate, Scale, and Rotate.</p>
 <p>One slightly confusing thing: objects have both &ldquo;transformation&rdquo; functions (that apply transformations to the current transformation) as well as the ability to set the position and/or rotation to a particular value. If you use a <code>translate</code> command, the position gets updated - and the way it is updated is affected by the current rotation. Or, you can just set the position to a particular value.</p>
 <p>The way to think of this is to differentiate &ldquo;transformation&rdquo; (something that changes something) from <strong>state</strong> (where something is). So, a transformation modifies the state.</p>
+<p> 
 
-<h3>06-04-01</h3><iframe
-    title=""
-    src="../../for_students/06-04-01.html"
-    js = "/for_students/06-04-01.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+
+<div id="box-06-04-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-04-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-04-01.html class="boxtitlelink">06-04-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-04-01.js" class="boxtitlelink">06-04-01.js</a>
+    <iframe
+        title="06-04-01"
+        src="../../for_students/06-04-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-04-01"
+    ></iframe>
+</div></p>
 <p>In this example in 
-    <a href="../../for_students/06-04-01.js" class="for_students">06-04-01.js</a> (
-    <a href="../../for_students/06-04-01.html" class="for_students">06-04-01.html</a>), the purple cube is first rotated by 45 degrees, and then its position is set (to have X = 2). The position given is the position the object gets. The red cube is also rotated 45 degrees, and then undergoes a <code>translateX</code> which causes it to be moved by 2 units along the X axis. But since the X axis has been rotated, the motion is along the direction of the <em>rotated</em> X axis. The <code>translateX</code> function (and its counterparts) all translate in the current coordinate system of the object.</p>
+<a href="../../for_students/06-04-01.js" class="box-html" data-tag="06-04-01">06-04-01.js</a>
+ (<a href="../../for_students/06-04-01.html" class="box-html" data-tag="06-04-01">06-04-01.html</a>), the purple cube is first rotated by 45 degrees, and then its position is set (to have X = 2). The position given is the position the object gets. The red cube is also rotated 45 degrees, and then undergoes a <code>translateX</code> which causes it to be moved by 2 units along the X axis. But since the X axis has been rotated, the motion is along the direction of the <em>rotated</em> X axis. The <code>translateX</code> function (and its counterparts) all translate in the current coordinate system of the object.</p>
 <p>The ability to either set positions and orientations or apply translations and rotations gives a lot of flexibility. Sometimes it&rsquo;s easier to describe how you want the object to move, other times it&rsquo;s easier to specify where you want it to be. Sometimes its confusing because THREE interprets each one in a different manner. To make things even more complicated, THREE is very flexible in how it handles transformations, allowing them to be specified in different ways and converting them between formats automatically. This can be convenient.</p>
 <p>We&rsquo;ll come back to explore transformations in 3D extensively in a later workbook.</p>
-<h2 id="box-2-loading-objects">Box 2: Loading Objects</h2>
+<h2 id="loading-objects">Loading Objects</h2>
 <p>If we want an object that isn&rsquo;t built in, THREE gives us the ability to load it from a file.</p>
 <p>A common file format for 3D models (as collections of triangles) is the <code>obj</code> file format. The THREE loader is part of their &ldquo;examples&rdquo; - we include it in the parts of THREE we provide for class, but the documentation isn&rsquo;t very complete.</p>
-<p>The trick with loading an object is that it may take time. So when we start the loader, we also provide a function that gets called when loading is finished. This function needs to set the object up (put it into the scene, position and scale it, &hellip;). Here&rsquo;s an example in 
-    <a href="../../for_students/06-04-02.js" class="for_students">06-04-02.js</a> (
-    <a href="../../for_students/06-04-02.html" class="for_students">06-04-02.html</a>):</p>
+<p> 
 
-<h3>06-04-02</h3><iframe
-    title=""
-    src="../../for_students/06-04-02.html"
-    js = "/for_students/06-04-02.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+The trick with loading an object is that it may take time. So when we start the loader, we also provide a function that gets called when loading is finished. This function needs to set the object up (put it into the scene, position and scale it, &hellip;). Here&rsquo;s an example in 
+<a href="../../for_students/06-04-02.js" class="box-html" data-tag="06-04-02">06-04-02.js</a>
+ (<a href="../../for_students/06-04-02.html" class="box-html" data-tag="06-04-02">06-04-02.html</a>):</p>
+
+<div id="box-06-04-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-04-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-04-02.html class="boxtitlelink">06-04-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-04-02.js" class="boxtitlelink">06-04-02.js</a>
+    <iframe
+        title="06-04-02"
+        src="../../for_students/06-04-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-04-02"
+    ></iframe>
+</div>
 <p>The relevant code:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
@@ -95,14 +104,13 @@
 </div>
 <p>Notice that this code creates a loader, and then asks the loader to load the file <code>./objects/07-astronaut.obj</code>. In this call it passes another (anonymous) function that will be called when loading is complete. This function is passed the loaded object. Note how the function positions the object (setting its position), scales it, and places it into the scene. We didn&rsquo;t have to rotate the object since it was already oriented the right way. Also, notice that we have to call <code>render</code> to draw the object <strong>after</strong> the object is loaded. If <code>render</code> is being called continuously (for example, in an animation loop), that can take care of making sure drawing happens after the object is loaded.</p>
 <p>One other tricky thing: notice that the <code>astronaut</code> variable is a local variable. If you want to access the astronaut after it&rsquo;s loaded (for example, to animate it), you need to have some way to access it from elsewhere in your program. For example, you might want to store it in a global variable. Be careful: remember that your code continues to run while the object is getting loaded.</p>
-
-<div class="expandbox">
-    <details class="myexpand" >
-        <summary class="myexpand-head">Hint on Async Loading from Piazza 2022</summary>
-        <div class="markdown-inner myexpand-content">
-        <p>Loading objects in THREE can be tricky. You can see some of the complexity in Workbook 6 page 4, where we load the astronaut. The workbook text explains some of it, but if you actually look into the file (06-04-02.js) you will see some more interesting things.</p>
-<p>The first complexity is that load is asynchronous: it doesn&rsquo;t happen instantly. In the workbook text, we set a callback for when the object is loaded and ready to be used. If you look into the code of
-<a href="../../for_students/06-04-02.js" class="for_students">06-04-02.js</a>, you will see two more &ldquo;modern&rdquo; ways to do this. If you don&rsquo;t want to learn about Promises you don&rsquo;t have to&hellip; it is totally fine to use the callback approach.</p>
+<h2 id="hint-on-async-loading">Hint on Async Loading</h2>
+<p>Loading objects in THREE can be tricky. You can see some of the complexity in Workbook 6 page 4, where we load the astronaut. The workbook text explains some of it, but if you actually look into the file (
+<a href="../../for_students/06-04-02.js" class="box-html" data-tag="06-04-02">06-04-02.js</a>
+) you will see some more interesting things.</p>
+<p>The first complexity is that load is asynchronous: it doesn&rsquo;t happen instantly. In the workbook text, we set a callback for when the object is loaded and ready to be used. If you look into the code of 
+<a href="../../for_students/06-04-02.js" class="box-html" data-tag="06-04-02">06-04-02.js</a>
+, you will see two more &ldquo;modern&rdquo; ways to do this. If you don&rsquo;t want to learn about Promises you don&rsquo;t have to&hellip; it is totally fine to use the callback approach.</p>
 <p>The workbook doesn&rsquo;t explain these more modern ways to do asynchronous programming. We will discuss them in lecture (but maybe later than the workbook).</p>
 <p>But, there are two other things to be aware of (spoiler alert, discovering these on your own is good practice learning to understand a program / API):</p>
 <ol>
@@ -110,45 +118,43 @@
 <p>Sometimes THREE requires you to tell it when you change an object. THREE aggressively avoids re-computing things - so you need to tell it when something changes so it knows to recompute. Matrices and materials are two examples.</p>
 </li>
 <li>
-<p>The loaders don&rsquo;t always create the object types you think they will. Inspect what object you get (for example, look at the type of <code>astronaut</code> after it is loaded (lines 37 and 48). Use the debugger to place a break point (good practice!). You can do this for <code>astro</code> on line 60 as well. At the end of
-<a href="../../for_students/06-04-02.js" class="for_students">06-04-02.js</a> you will see examples that change the material to a yellow color.</p>
+<p>The loaders don&rsquo;t always create the object types you think they will. Inspect what object you get (for example, look at the type of <code>astronaut</code> after it is loaded (lines 37 and 48). Use the debugger to place a break point (good practice!). You can do this for <code>astro</code> on line 60 as well. At the end of 
+<a href="../../for_students/06-04-02.js" class="box-html" data-tag="06-04-02">06-04-02.js</a>
+ you will see examples that change the material to a yellow color.</p>
 </li>
 </ol>
 <p>In both cases, THREE is doing something smart. For 1, it is trying to be efficient. For 2, it allows loading in files that contain multiple meshes.</p>
+<p><strong>A Note on File Formats:</strong> In this example, we are using a &ldquo;.OBJ&rdquo; file - which is a historic format for triangle data. Three.JS has importers for many different file formats.</p>
+<h2 id="exercise-1-stacking-boxes">Exercise 1, Stacking Boxes</h2>
+<p> 
 
-        </div>
-    </details>
-</div>      
-    
-<h2 id="box-3-exercise-1-stacking-boxes">Box 3: Exercise 1, Stacking Boxes</h2>
-<p>In 
-    <a href="../../for_students/06-04-03.js" class="for_students">06-04-03.js</a> (
-    <a href="../../for_students/06-04-03.html" class="for_students">06-04-03.html</a>), there is a scene that has 5 boxes. Change the positions of the boxes so they are a stack (with the smaller boxes on top of the bigger boxes). Pay attention to both the initial sizes of the boxes and their scaling. The result should be a stack of 5 boxes on top of the ground (each box on top of the next larger box).</p>
-<iframe
-    title="06-04-03"
-    src="../../for_students/06-04-03.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+In 
+<a href="../../for_students/06-04-03.js" class="box-html" data-tag="06-04-03">06-04-03.js</a>
+ (<a href="../../for_students/06-04-03.html" class="box-html" data-tag="06-04-03">06-04-03.html</a>), there is a scene that has 5 boxes. Change the positions of the boxes so they are a stack (with the smaller boxes on top of the bigger boxes). Pay attention to both the initial sizes of the boxes and their scaling. The result should be a stack of 5 boxes on top of the ground (each box on top of the next larger box).</p>
+<p>
+<div id="box-06-04-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-04-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-04-03.html class="boxtitlelink">06-04-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-04-03.js" class="boxtitlelink">06-04-03.js</a>
+    <iframe
+        title="06-04-03"
+        src="../../for_students/06-04-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-04-03"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 06-04-03.</i>
+    </div></p>
 <p>Now that we have objects, let&rsquo;s discuss the cameras and lights on <a href="../../docs/5/">Page &nbsp;5&nbsp; (Lights, Camera, Action!)</a>.</p>
+<a href="../../docs/5/" class="Next__Page">Next: Lights, Camera, Action! </a>
 
             
-
-
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Page 4 Rubric (5 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (5):</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-04-03</div>
-                <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">stacking the boxes as described</div></div>
-    </details>
-    </div>
 			
 			
 		</div>
@@ -156,7 +162,7 @@
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 6: 3D and Three</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

@@ -61,7 +61,7 @@ scene.add(m3);
 // some lights
 scene.add(new T.AmbientLight("white", 0.2));
 
-let light = new T.PointLight("white", 1);
+let light = new T.PointLight("white", 1, 0, 0); // no decay
 light.position.y = 5;
 light.position.z = 2.5;
 light.position.x = -2.5;
@@ -90,3 +90,5 @@ camera2.lookAt(0, 0, 0);
 renderer2.render(scene, camera2);
 
 
+
+// CS559 2025 Workbook

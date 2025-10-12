@@ -104,7 +104,7 @@ export class GrWorld {
         this.scene.background = new T.Color(params.background ? params.background : "black")
 
         // make a renderer if it isn't given
-        /** @type THREE.WebGLRenderer */
+        /** @type T.WebGLRenderer */
         this.renderer =
             "renderer" in params
                 ? params.renderer
@@ -158,7 +158,7 @@ export class GrWorld {
         let lookat = params.lookat;
 
         // make a camera
-        /** @type {THREE.PerspectiveCamera} */
+        /** @type {T.PerspectiveCamera} */
         this.camera = undefined;
         if ("camera" in params) {
             this.camera = params.camera;
@@ -206,7 +206,9 @@ export class GrWorld {
             );
             this.fly_controls.dragToLook = true;
             this.fly_controls.rollSpeed = 0.1;
-            this.fly_controls.dispose();
+            // this.fly_controls.dispose();
+            this.fly_controls.disconnect();
+            this.fly_controls.enabled = false;
             let flySaveState = function () {
                 this.position0 = new T.Vector3(
                     this.object.position.x,
@@ -224,37 +226,10 @@ export class GrWorld {
                 }
                 this.update(0.1);
             };
-            let register = function () {
-                function bind(scope, fn) {
-                    return function () {
-                        fn.apply(scope, arguments);
-                    };
-                }
-                this.domElement.addEventListener(
-                    "mousemove",
-                    bind(this, this.mousemove),
-                    false
-                );
-                this.domElement.addEventListener(
-                    "mousedown",
-                    bind(this, this.mousedown),
-                    false
-                );
-                this.domElement.addEventListener(
-                    "mouseup",
-                    bind(this, this.mouseup),
-                    false
-                );
-
-                window.addEventListener("keydown", bind(this, this.keydown), false);
-                window.addEventListener("keyup", bind(this, this.keyup), false);
-            };
+            // the old fly controls register doesn't work
             if (!this.fly_controls.saveState) {
                 this.fly_controls.saveState = flySaveState;
                 this.fly_controls.reset = flyReset;
-            }
-            if (!this.fly_controls.register) {
-                this.fly_controls.register = register;
             }
         } // only make controls for PerspectiveCameras
 
@@ -508,7 +483,8 @@ export class GrWorld {
             // @ts-ignore
             this.fly_controls.reset();
         }
-        this.fly_controls.register();
+        this.fly_controls?.connect();
+        this.fly_controls.enabled = true;
     }
 
     flyControlOff() {
@@ -516,7 +492,8 @@ export class GrWorld {
             // @ts-ignore
             this.fly_controls.saveState();
         }
-        this.fly_controls.dispose();
+        this.fly_controls?.disconnect();
+        this.fly_controls.enabled = false;
     }
 
     followObjectOn() {

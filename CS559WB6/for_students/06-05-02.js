@@ -1,13 +1,4 @@
-/**
- * 06-05-02.js - a simple JavaScript file that gets loaded with
- * page 5 of Workbook 7 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
 import { OrbitControls } from "../libs/CS559-Three/examples/jsm/controls/OrbitControls.js";
@@ -44,14 +35,14 @@ function spots(div) {
   scene.add(groundMesh);
 
   // first spot light: points at the origin
-  let spot1 = new T.SpotLight("red");
+  let spot1 = new T.SpotLight("red", 10);
   spot1.angle = Math.PI / 36; // narrow (5 degrees)
   spot1.position.set(0, 4, 0);
   // note this uses the default target of 0,0,0
   scene.add(spot1);
 
   // the second spot light: starts above the center and points closer to the edge
-  let spot2 = new T.SpotLight("aqua");
+  let spot2 = new T.SpotLight("aqua", 10);
   spot2.angle = Math.PI / 36; // narrow (5 degrees)
   spot2.position.set(0, 4, 0);
   spot2.target.position.set(2, 0, 0);
@@ -60,7 +51,7 @@ function spots(div) {
   scene.add(spot2);
 
   // the third spot light: shines downward from around edge
-  let spot3 = new T.SpotLight("yellow");
+  let spot3 = new T.SpotLight("yellow", 10);
   spot3.angle = Math.PI / 36; // narrow (5 degrees)
   spot3.position.set(-2, 4, 0);
   spot3.target.position.set(-2, 0, 0);
@@ -73,7 +64,7 @@ function spots(div) {
   // so the target's position is relative
   // to do this, we need to create a "group" with the spotlight and target together
   // and move that around (rather than the light)
-  let spot4 = new T.SpotLight("green");
+  let spot4 = new T.SpotLight("green", 10);
   spot4.angle = Math.PI / 36; // narrow (5 degrees)
   spot4.position.set(0, 4, 0);
   spot4.target.position.set(0, 0, 0);
@@ -108,3 +99,5 @@ function spots(div) {
 
 spots("div1");
 
+
+// CS559 2025 Workbook

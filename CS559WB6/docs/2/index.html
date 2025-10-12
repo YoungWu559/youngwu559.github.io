@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,12 +16,7 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 2: Elements of 3D Graphics Programming</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>On this page, we&rsquo;ll try to understand what those programs on the prior page actually did. This page is somewhat redundant with all of the THREE.js tutorials out there, but we try to organize it to emphasize how the things that we need to do in the API will connect with the graphics concepts we&rsquo;ll learn about in class (and that exist no matter what the API is).</p>
+		<div class="content post__content clearfix"><p>On this page, we&rsquo;ll try to understand what those programs on the prior page actually did. This page is somewhat redundant with all of the THREE.js tutorials out there, but we try to organize it to emphasize how the things that we need to do in the API will connect with the graphics concepts we&rsquo;ll learn about in class (and that exist no matter what the API is).</p>
 <h2 id="elements-of-3d-drawing">Elements of 3D Drawing</h2>
 <p>THREE.js is a scene-graph API, like SVG. We create pictures by creating &ldquo;scenes&rdquo; with graphics objects in them. We animate those scenes by altering the objects.</p>
 <p>To draw in 3D with a scene graph API, we need to have the following pieces in place:</p>
@@ -36,25 +31,32 @@
 <p>So, basically, in order to do anything, we need to be able to do those six steps. THREE has nice abstractions for all of them. Different APIs may do things differently, but all six of those pieces need to be in place.</p>
 <h2 id="box-1-the-most-basic-drawing">Box 1: The most basic drawing</h2>
 <p>Here&rsquo;s the simplest picture we can make:</p>
+<p> 
 
-<h3>06-02-01</h3><iframe
-    title=""
-    src="../../for_students/06-02-01.html"
-    js = "/for_students/06-02-01.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+
+<div id="box-06-02-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-02-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-02-01.html class="boxtitlelink">06-02-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-02-01.js" class="boxtitlelink">06-02-01.js</a>
+    <iframe
+        title="06-02-01"
+        src="../../for_students/06-02-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-02-01"
+    ></iframe>
+</div></p>
 <p>This might look like it&rsquo;s just a square, but it&rsquo;s really a cube that we&rsquo;re viewing from one side. The cube is solid green (it has no lighting).</p>
 <p>Let&rsquo;s walk through the code in 
-    <a href="../../for_students/06-02-01.js" class="for_students">06-02-01.js</a> (
-    <a href="../../for_students/06-02-01.html" class="for_students">06-02-01.html</a>). <code>T</code> is our THREE.js import, and we&rsquo;re skipping most of the lines with comments:</p>
+<a href="../../for_students/06-02-01.js" class="box-html" data-tag="06-02-01">06-02-01.js</a>
+ (<a href="../../for_students/06-02-01.html" class="box-html" data-tag="06-02-01">06-02-01.html</a>). <code>T</code> is our THREE.js import, and we&rsquo;re skipping most of the lines with comments:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
@@ -72,8 +74,8 @@
 <p>In these lines, we create the renderer, which will create a canvas for us. We set the size, and then add the canvas to our DOM. Our HTML had a <code>&lt;div&gt;</code> that we put the canvas inside of.</p>
 <p>Next we create our &ldquo;world&rdquo; - an empty <code>Scene</code> to put things in:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span></code></pre></td>
@@ -84,8 +86,8 @@
 </div>
 <p>The next line we create a &ldquo;camera&rdquo; to take a picture of our world. The camera is a &ldquo;viewing transformation&rdquo; that transforms points in the world to locations on the screen:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
 </span></code></pre></td>
@@ -97,8 +99,8 @@
 <p>The viewing transform is set by <code>OrthographicCamera</code> which basically scales the X and Y axis to fit the Canvas. We set the range of x from -2 to 2 and y from -2 to 2. The center is at the center of the window (since we go from -2 to 2), and y is up (-2 is top). We also map the range of z from -2 to 2. The negative z axis goes into the screen (so we have a right handed coordinate system).</p>
 <p>In this picture, we use a <code>BasicMaterial</code> which shows up as its given color, ignoring any lighting.</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
 </span></code></pre></td>
@@ -109,8 +111,8 @@
 </div>
 <p>Next, we need to make our cube. First we define a geometry (the collection of triangles that make up the cube). The box geometry has sides of length 1. By default, the box is placed with its center at the origin. The <code>Mesh</code> attaches the geometry to a material, making an object, that we place into the scene:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
@@ -123,8 +125,8 @@
 </div>
 <p>The <code>renderer.render</code> call draws the scene using the camera.</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
 </span></code></pre></td>
@@ -134,26 +136,33 @@
 </div>
 </div>
 <h2 id="box-2-is-this-really-3d">Box 2: Is this really 3D?</h2>
-<p>We could have drawn the same square using the 2D canvas. How can we convince you this is really 3D?</p>
-<p>In this picture (
-    <a href="../../for_students/06-02-02.html" class="for_students">06-02-02.html</a> and 
-    <a href="../../for_students/06-02-02.js" class="for_students">06-02-02.js</a>), we are going to make another box - this time out of yellow stuff, and put the box behind (and a little to the right) of the green box.</p>
+<p>We could have drawn the same square using the 2D canvas. How can we convince ourselves this is really 3D?</p>
+<p> 
 
-<h3>06-02-02-solution</h3><iframe
-    title=""
-    src="../../for_students/06-02-02-solution.html"
-    js = "/for_students/06-02-02-solution.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+
+<div id="box-06-02-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-02-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-02-02.html class="boxtitlelink">06-02-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-02-02.js" class="boxtitlelink">06-02-02.js</a>
+    <iframe
+        title="06-02-02"
+        src="../../for_students/06-02-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-02-02"
+    ></iframe>
+</div></p>
+<p>In this picture (<a href="../../for_students/06-02-02.html" class="box-html" data-tag="06-02-02">06-02-02.html</a> and 
+<a href="../../for_students/06-02-02.js" class="box-html" data-tag="06-02-02">06-02-02.js</a>
+), we are going to make another box - this time out of yellow stuff, and put the box behind (and a little to the right) of the green box.</p>
 <p>The code we added was:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
@@ -179,79 +188,108 @@
 <li>Objects in front block out objects in back. This is called visibility testing. Later, we&rsquo;ll learn about the Z-buffer algorithm that is being used to do this.</li>
 </ol>
 <p>OK, to be sure that it really is doing visibility, and not just showing the last object added, <u>change the z position of the yellow cube to have value <code>z=1</code> so it is in front of the green object</u>.</p>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 06-02-02.</i>
+    </div>
 <p>Hopefully, you noticed that THREE objects have their own transforms that allow us to rotate, translate and scale them. If you look at the <a href="https://threejs.org/docs/index.html#api/en/core/Object3D" target="_blank">documentation for `Object3D`</a> (which is the base class of objects), you will see that objects have a <code>matrix</code> inside of them (actually multiple matrices, for reasons we&rsquo;ll learn about later). These matrices get built from the transformation data (e.g., <code>position</code>, <code>scale</code>, and <code>rotation</code>), so generally we don&rsquo;t deal with the matrices directly.</p>
 <h2 id="box-3-who-turned-the-lights-off">Box 3: Who turned the lights off?</h2>
 <p>In the previous boxes, we used a <code>BasicMaterial</code> which just shows up as a color. It doesn&rsquo;t respond to light. In the real world, different parts of the object get different amounts of light, so they appear different colors/brightnesses. This is one way that we can interpret 3D shape.</p>
-<p>In 
-    <a href="../../for_students/06-02-03.js" class="for_students">06-02-03.js</a> (
-    <a href="../../for_students/06-02-03.html" class="for_students">06-02-03.html</a>), we switch from using <code>BasicMaterial</code> to using <code>StandardMaterial</code>, so we will get lighting effects. However, if we try it, we&rsquo;ll first just get a black Canvas&hellip;</p>
+<p> 
 
-<h3>06-02-03</h3><iframe
-    title=""
-    src="../../for_students/06-02-03.html"
-    js = "/for_students/06-02-03.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+In 
+<a href="../../for_students/06-02-03.js" class="box-html" data-tag="06-02-03">06-02-03.js</a>
+ (<a href="../../for_students/06-02-03.html" class="box-html" data-tag="06-02-03">06-02-03.html</a>), we switch from using <code>BasicMaterial</code> to using <code>StandardMaterial</code>, so we will get lighting effects. However, if we try it, we&rsquo;ll first just get a black Canvas&hellip;</p>
+
+<div id="box-06-02-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-02-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-02-03.html class="boxtitlelink">06-02-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-02-03.js" class="boxtitlelink">06-02-03.js</a>
+    <iframe
+        title="06-02-03"
+        src="../../for_students/06-02-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-02-03"
+    ></iframe>
+</div>
 <h2 id="box-4-turning-the-lights-on">Box 4: Turning the lights on</h2>
-<p>&hellip;because we don&rsquo;t have any lights on, and we can&rsquo;t see. This is a mistake that all graphics programmers make at some point. So here we&rsquo;ll add not one, but two lights in 
-    <a href="../../for_students/06-02-04.js" class="for_students">06-02-04.js</a> (
-    <a href="../../for_students/06-02-04.html" class="for_students">06-02-04.html</a>):</p>
+<p> 
 
-<h3>06-02-04</h3><iframe
-    title=""
-    src="../../for_students/06-02-04.html"
-    js = "/for_students/06-02-04.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+&hellip;because we don&rsquo;t have any lights on, and we can&rsquo;t see. This is a mistake that all graphics programmers make at some point. So here we&rsquo;ll add not one, but two lights in 
+<a href="../../for_students/06-02-04.js" class="box-html" data-tag="06-02-04">06-02-04.js</a>
+ (<a href="../../for_students/06-02-04.html" class="box-html" data-tag="06-02-04">06-02-04.html</a>):</p>
+
+<div id="box-06-02-04" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-02-04</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-02-04.html class="boxtitlelink">06-02-04.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-02-04.js" class="boxtitlelink">06-02-04.js</a>
+    <iframe
+        title="06-02-04"
+        src="../../for_students/06-02-04.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-02-04"
+    ></iframe>
+</div>
 <p>The lights are just like other objects, they get added to the scene.</p>
-<div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">ambientLight</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">AmbientLight</span><span style="color:#111">(</span><span style="color:#ae81ff">0xffffff</span><span style="color:#111">,</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">);</span>
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">// create the lights
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#00a8c8">let</span> <span style="color:#75af00">ambientLight</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">AmbientLight</span><span style="color:#111">(</span><span style="color:#ae81ff">0xffffff</span><span style="color:#111">,</span> <span style="color:#ae81ff">0.5</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#75af00">scene</span><span style="color:#111">.</span><span style="color:#75af00">add</span><span style="color:#111">(</span><span style="color:#75af00">ambientLight</span><span style="color:#111">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">pointLight</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">PointLight</span><span style="color:#111">(</span><span style="color:#ae81ff">0xffffff</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">pointLight</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">PointLight</span><span style="color:#111">(</span><span style="color:#ae81ff">0xffffff</span><span style="color:#111">,</span> <span style="color:#ae81ff">1</span><span style="color:#111">,</span> <span style="color:#ae81ff">0</span><span style="color:#111">,</span><span style="color:#ae81ff">0</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#75af00">pointLight</span><span style="color:#111">.</span><span style="color:#75af00">position</span><span style="color:#111">.</span><span style="color:#75af00">set</span><span style="color:#111">(</span><span style="color:#ae81ff">0</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">20</span><span style="color:#111">,</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">10</span><span style="color:#111">);</span>
-</span></span><span style="display:flex;"><span><span style="color:#75af00">scene</span><span style="color:#111">.</span><span style="color:#75af00">add</span><span style="color:#111">(</span><span style="color:#75af00">pointLight</span><span style="color:#111">);</span></span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span><span style="color:#75af00">scene</span><span style="color:#111">.</span><span style="color:#75af00">add</span><span style="color:#111">(</span><span style="color:#75af00">pointLight</span><span style="color:#111">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div>
 <p>First, we made an <code>AmbientLight</code> with color <code>0xffffff</code> (white) and intensity <code>0.5</code>. An ambient light source is a special kind of light that shines in all directions equally. It&rsquo;s useful because it will light everything.</p>
-<p>The second light is a <code>PointLight</code>, also with the white color. A point light is like a light bulb. The rays of light shine outwards from a particular location. We use the object&rsquo;s position to move it into the right place (just as we can move the cubes).</p>
+<p>The second light is a <code>PointLight</code>, also with the white color. A point light is like a light bulb. The rays of light shine outwards from a particular location. We use the object&rsquo;s position to move it into the right place (just as we can move the cubes). The zeros at the end turn off decay (the light does not fall off as you get farther from it).</p>
 <p>We&rsquo;ll learn more about lights later.</p>
 <p>One of the things that is interesting about THREE is that all objects - whether they are graphics objects (Meshes), lights, or cameras - are treated the same way. Lights, cameras and meshes are all &ldquo;Objects&rdquo; that are added to the scene.</p>
 <h2 id="box-5-getting-a-better-view">Box 5: Getting a better View</h2>
 <p>Until now, the transform for mapping the world onto the screen just flattened things on the Z axis. Instead, we might want to look at our world from a little bit higher up, so we can look down on the two cubes in order to see their shape better. We also will want a more &ldquo;regular&rdquo; camera that has perspective (things that are far away look smaller).</p>
+<p> 
 
-<h3>06-02-05</h3><iframe
-    title=""
-    src="../../for_students/06-02-05.html"
-    js = "/for_students/06-02-05.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+
+<div id="box-06-02-05" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-02-05</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-02-05.html class="boxtitlelink">06-02-05.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-02-05.js" class="boxtitlelink">06-02-05.js</a>
+    <iframe
+        title="06-02-05"
+        src="../../for_students/06-02-05.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-02-05"
+    ></iframe>
+</div></p>
 <p>Here we changed the camera to:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
@@ -265,66 +303,73 @@
 </div>
 </div>
 <p>You can see in 
-    <a href="../../for_students/06-02-05.js" class="for_students">06-02-05.js</a> (
-    <a href="../../for_students/06-02-05.html" class="for_students">06-02-05.html</a>) we made a <code>PerspectiveCamera</code> (the normal kind of camera). We positioned the camera at <code>(3, 5, 5)</code> (up and to the right of the cubes, and still in front of them). The <code>lookat</code> function sets the rotation of the object (in this case the camera) so that the Z axis points towards a given point. In this case, we point the camera at the origin, since that&rsquo;s where the green cube is centered.</p>
+<a href="../../for_students/06-02-05.js" class="box-html" data-tag="06-02-05">06-02-05.js</a>
+ (<a href="../../for_students/06-02-05.html" class="box-html" data-tag="06-02-05">06-02-05.html</a>) we made a <code>PerspectiveCamera</code> (the normal kind of camera). We positioned the camera at <code>(3, 5, 5)</code> (up and to the right of the cubes, and still in front of them). The <code>lookat</code> function sets the rotation of the object (in this case the camera) so that the Z axis points towards a given point. In this case, we point the camera at the origin, since that&rsquo;s where the green cube is centered.</p>
 <p>We&rsquo;ll learn a lot more about cameras later.</p>
 <h2 id="box-6-spinning">Box 6: Spinning</h2>
-<p>In order to animate things, we need to create an animation loop (like we did with Canvas), and redraw the image each time (using <code>renderer.render</code>). We don&rsquo;t need to re-create the objects: we just need to move them a little. Here&rsquo;s an example in 
-    <a href="../../for_students/06-02-06.js" class="for_students">06-02-06.js</a> (
-    <a href="../../for_students/06-02-06.html" class="for_students">06-02-06.html</a>):</p>
+<p> 
 
-<h3>06-02-06</h3><iframe
-    title=""
-    src="../../for_students/06-02-06.html"
-    js = "/for_students/06-02-06.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+In order to animate things, we need to create an animation loop (like we did with Canvas), and redraw the image each time (using <code>renderer.render</code>). We don&rsquo;t need to re-create the objects: we just need to move them a little. Here&rsquo;s an example in 
+<a href="../../for_students/06-02-06.js" class="box-html" data-tag="06-02-06">06-02-06.js</a>
+ (<a href="../../for_students/06-02-06.html" class="box-html" data-tag="06-02-06">06-02-06.html</a>):</p>
+
+<div id="box-06-02-06" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-02-06</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-02-06.html class="boxtitlelink">06-02-06.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-02-06.js" class="boxtitlelink">06-02-06.js</a>
+    <iframe
+        title="06-02-06"
+        src="../../for_students/06-02-06.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-02-06"
+    ></iframe>
+</div>
 <p>The code (in the <code>box6</code> function) should look like the animation loop code you saw for 2D Canvas programming, except that rather than redrawing all of the objects, we simply change the ones we want to move and then use <code>renderer.render</code> to redraw everything.</p>
 <p>Note the line <code>mesh1.rotateY(0.8 * timeDelta).</code> This line updates the transformation of the <code>mesh1</code> object (the green cube), by post-multiplying it with a small rotation about the Y axis (vertical). The rotation gets added to the previous rotation (we never reset the objects transformation back to the start).</p>
 <h2 id="box-7-interaction">Box 7: Interaction</h2>
-<p>In the following box (
-    <a href="../../for_students/06-02-07.js" class="for_students">06-02-07.js</a>) try dragging with the left mouse button in the window. You&rsquo;ll see the camera &ldquo;orbits&rdquo; around the center, letting you look around. This is called an <code>OrbitControl</code> and is provided by THREE. The controls themselves aren&rsquo;t the easiest to use, but they are simple and do let you look around (getting this right is hard). You can also use the middle and right mouse buttons to control the camera (middle zooms, right translates).</p>
+<p> 
 
-<h3>06-02-07</h3><iframe
-    title=""
-    src="../../for_students/06-02-07.html"
-    js = "/for_students/06-02-07.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+In the following box (
+<a href="../../for_students/06-02-07.js" class="box-html" data-tag="06-02-07">06-02-07.js</a>
+) try dragging with the left mouse button in the window. You&rsquo;ll see the camera &ldquo;orbits&rdquo; around the center, letting you look around. This is called an <code>OrbitControl</code> and is provided by THREE. The controls themselves aren&rsquo;t the easiest to use, but they are simple and do let you look around (getting this right is hard). You can also use the middle and right mouse buttons to control the camera (middle zooms, right translates).</p>
+
+<div id="box-06-02-07" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 06-02-07</b>&nbsp;&nbsp;
+        <a href=../../for_students/06-02-07.html class="boxtitlelink">06-02-07.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/06-02-07.js" class="boxtitlelink">06-02-07.js</a>
+    <iframe
+        title="06-02-07"
+        src="../../for_students/06-02-07.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-06-02-07"
+    ></iframe>
+</div>
 <p>There are a few catches to using THREE&rsquo;s orbit controls (you can see the <a href="https://threejs.org/docs/#examples/controls/OrbitControls" target="_blank">documentation</a>):</p>
 <ol>
 <li>You must import OrbitControls from the <code>OrbitControls.js</code> file when loading THREE. It is a separate module and not part of the THREE &ldquo;namespace.&rdquo;</li>
 <li>Your program must run an animation loop - the <code>OrbitControl</code> object updates the camera based on the mouse movements, but doesn&rsquo;t cause redraws to happen. There are ways around this, but the animation loop is the easier way.</li>
 <li>You need to set up the <code>OrbitControl</code> after you make your camera and renderer.</li>
 </ol>
+<p>Note: There is an issue where <code>orbitControls.js</code> references THREE as <code>three</code> which is not the correct path to the <code>three.module.js</code>. A solution to this is something called &ldquo;import maps&rdquo;.  We added <code>&lt;script type=&quot;importmap&quot;&gt; {&quot;import&quot;: {&quot;three&quot;: &quot;...&quot;}}&lt;/script&gt;</code> in the HTML files. See <a href="https://sbcode.net/threejs/importmap/">Using Import Maps</a> for more details.</p>
 <h2 id="summary-the-basics-of-three">Summary: The Basics of THREE</h2>
 <p>This should give you the basic ideas of how we make things with THREE. You might want to look at a THREE tutorial which will show off more stuff, or start to look at the THREE documentation. Or you can continue on to the next pages, which will give more details.</p>
 <p><a href="../../docs/3/">Page &nbsp;3&nbsp; (Making a Scene)</a> will talk more about 3D Worlds and THREE&rsquo;s scenes.</p>
-<p><a href="../../docs/3/" class="Next__Page">Next: Making a Scene </a></p>
+<p><div class="page-rubric-container">
+        <i>There are no points associated with Page 2.</i>
+    </div>
+<a href="../../docs/3/" class="Next__Page">Next: Making a Scene </a></p>
 
             
-
-
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Page 2 Rubric (1 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (1):</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-02-02</div>
-                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">move the yellow cube</div></div>
-    </details>
-    </div>
 			
 			
 		</div>
@@ -332,7 +377,7 @@
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 6: 3D and Three</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

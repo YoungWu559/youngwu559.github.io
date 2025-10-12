@@ -4,9 +4,9 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
-	<meta name="generator" content="Hugo 0.121.1">
+	<meta name="generator" content="Hugo 0.140.2">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/workbook.css">
         <script src="./js/resizeIFrames.js"></script>
@@ -22,16 +22,8 @@
 	<div class="content main__content clearfix">
         
 
-        <div class="dimbox">
-                <h2>CS559 Spring 2023 Sample Solution</h2>
-                <p>This is a sample solution for the Workbook.
-                    You are welcome to refer to it to learn one way to do the assignment
-                    but only after you have turned in your own assignment
-                </p>
-            </div><p>In this workbook, we&rsquo;ll move on to doing some 3D programming. To do this, we&rsquo;ll use a Javascript library called <strong>THREE.js</strong> (we&rsquo;ll just say THREE from now on).</p>
+        <p>This workbook is due on Tuesday, October 21, 2025.</p><p>In this workbook, we&rsquo;ll move on to doing some 3D programming. To do this, we&rsquo;ll use a Javascript library called <strong>THREE.js</strong> (we&rsquo;ll just say THREE from now on).</p>
 <p>There are two major goals in this workbook: we both want you to get the idea of the specific THREE library, but also to see the general graphics concepts.</p>
-<p>Note: because of the timing with Spring Break, this workbook is due a week later than you might expect. However, the next workbook will also be due that week - doing both at the same time might be a lot! Both Workbook 6 and Workbook 7 are due <strong>
-Mon, Mar 27.</strong></p>
 <h2>Learning Goals</h2>
 <ol>
     <li>Get you set up with the mechanics of using THREE.js</li>
@@ -57,106 +49,27 @@ The official documentation can be found <a href="https://threejs.org/docs" targe
 <li>
 <p><a href="https://tympanus.net/codrops/2016/04/26/the-aviator-animating-basic-3d-scene-threejs/" target="_blank">Aviator Game</a> - this is a complicated example that builds things up from scratch. It&rsquo;s a bit of a fancy application to start with, but you can see how the author builds something pretty cool using the pieces we&rsquo;ll learn about.</p>
 </li>
-</ul>
-
-
-<details class="myexpand" >
-    <summary class="myexpand-head">A Note on THREE versions</summary>
-    <div class="markdown-inner myexpand-content">
-      <div class="dimbox">
-<p>In class, we use the same version of three to use for the whole semester, to avoid switching versions in the middle. That way the workbooks all use the same, consistent version.</p>
-<p>When we chose for Spring 2023, we chose version r148. This is already not the most recent release (you can see what changed on the <a href="https://github.com/mrdoob/three.js/releases">THREE Releases Page</a>). The differences probably do not matter for class.</p>
-<p>Because the official documentation is for the most recent version, if you look at the <a href="https://threejs.org/docs/">&ldquo;official&rdquo;</a> docs, you will see something newer than what we provide. It should be OK.</p>
-<p>You can see information about the version of THREE we provide at <a href="https://github.com/CS559/CS559-Three">The CS559 THREE GitHub Repo</a>. Of particular note: we provide typing information for THREE, and we provide a subset of the overall library (since it gets cloned into a workbook for every student).</p>
-</div>
-
-    </div>
-</details>
-
-<p><strong>The textbooks:</strong> Between now and the exam, you need to understand transformations in 3D and viewing and projection (which will turn out to be a special case of transformations). THREE takes care of a lot of this for us, so you may not see it when you program. THREE does a good job of hiding the matrices if you don&rsquo;t want to see them (unlike 2D Canvas, it will let you see them).</p>
-<p>When we learned about transformations, we skipped 3D transformations. Now is a good time to come back to them. You are <em>required</em> to read:</p>
-<ul>
 <li>
-<p><a href="https://canvas.wisc.edu/files/30140487/download?download_frd=1">The Big Fun Book of Computer Graphics, Chapter 6</a>. This Chapter mixes in many different, but important things, including a review of the vector algebra basics. Most of the chapter is essential and required. This will tell you what you can skip.</p>
-<ul>
-<li>6.1 - Scale and Translation - important, but a simple extension of 2D</li>
-<li>6.2 - Handedness of Coordinate Systems - important</li>
-<li>6.3 - Vector Arithmetic - a good review including dot products and cross products. The section on Gramm-Schmidt Orthonormalization is optional (but it is a useful advanced topic).</li>
-<li>6.4 - Rotation about a Coordinate Axis - important</li>
-<li>6.5 - Properties of Rotation Matrices - the first part is important. The part on Cayley&rsquo;s Formula is optional.</li>
-<li>6.6 - Rotation about an Arbitrary Axis - this is very valuable, and good for getting the intuitions about rotations, but is optional since we won&rsquo;t discuss it in detail in class.</li>
-</ul>
+<p><a href="https://discoverthreejs.com/" target="_blank">Discover ThreeJS</a> - this is an online textbook that walks through learning THREE, and does a nice job of connecting to the graphics background (in places). In particular, the <a href="https://discoverthreejs.com/book/first-steps/built-in-geometries/" target="_blank">the threejs built-in geometry tutorial (with train)</a> talks about using the build in geometries, and <a href="https://discoverthreejs.com/book/first-steps/transformations/" target="_blank">the threejs transformations tutorial</a> discusses transformations.</p>
 </li>
 </ul>
-<p>The following are also required. You may not need it immediately for the workbook, but it will come back for the exams:</p>
+<p><strong>The textbooks:</strong> Between now and the exam, you need to understand transformations in 3D and viewing and projection (which will turn out to be a special case of transformations). THREE takes care of a lot of this for us, so you may not see it when you program. THREE does a good job of hiding the matrices if you don&rsquo;t want to see them (unlike 2D Canvas, it will let you see them).</p>
+<p>When we learned about transformations, we skipped 3D transformations. Now is a good time to come back to them. You are <em>required</em> to read:</p>
+<p>The following are required. You may not need it immediately for the workbook, but it will come back for the exams:</p>
 <ul>
-<li><a href="https://canvas.wisc.edu/files/30140519/download?download_frd=1">Fundamentals of CG - Chapter 6 Section 6.2</a> - &ldquo;3D Linear Transformations&rdquo;, which mainly just gives the matrices for 2D and 3D transformations. You might want to go over other parts of the Chapter (they were required in the past).</li>
-<li><a href="https://canvas.wisc.edu/files/30140520/download?download_frd=1">Fundamentals of CG - Chapter 7</a>: Viewing - this will explain how cameras work. This chapter is short.</li>
-<li><a href="https://canvas.wisc.edu/files/30140527/download?download_frd=1">Fundamentals of CG - Chapter 12 Section 12.2</a>: Scene Graphs - this reiterates what we&rsquo;ve seen about using transformations to create hierarchical models. You only need Section 12.2 - we&rsquo;ll come back to other parts of this chapter later in the semester.</li>
+<li>Fundamentals of CG - Chapter 6 Section 6.2 - &ldquo;3D Linear Transformations&rdquo;, which mainly just gives the matrices for 2D and 3D transformations. You might want to go over other parts of the Chapter (they were required in the past).</li>
+<li>Fundamentals of CG - Chapter 7: Viewing - this will explain how cameras work. This chapter is short.</li>
+<li>Fundamentals of CG - Chapter 12 Section 12.2: Scene Graphs - this reiterates what we&rsquo;ve seen about using transformations to create hierarchical models. You only need Section 12.2 - we&rsquo;ll come back to other parts of this chapter later in the semester.</li>
 </ul>
 <p>These readings are optional:</p>
 <ul>
-<li><a href="https://canvas.wisc.edu/files/30140525/download?download_frd=1">FCG4_Ch08.pdf (0.6mb)</a>: The Graphics Pipeline - this will explain how drawing actually happens, with all the steps that the APIs are taking care of for us.</li>
-<li><a href="https://canvas.wisc.edu/files/30140550/download?download_frd=1">Hart07-jan19.pdf (14.5mb)</a>: More examples of using transformations, since getting practice is useful.</li>
-<li><a href="https://canvas.wisc.edu/files/30140468/download?download_frd=1">Hart08-jan19.pdf (1.7mb)</a>: Hart&rsquo;s explanation of viewing. This provides another version of what is in FCG Ch. 7 - useful if you want to see it multiple ways.</li>
+<li>FCG4 Chapter 8: The Graphics Pipeline - this will explain how drawing actually happens, with all the steps that the APIs are taking care of for us.</li>
 </ul>
 <h2 id="exercises">Exercises</h2>
 <p>Most pages have code examples - make sure you understand how they work.</p>
 <p>Pages 2, 4, 5 and 6 have simple examples on them. Make sure they work, and that you understand them.</p>
-<p>Pages <a href="./docs/8/">8</a> and <a href="./docs/9/">9</a> ask you to make pictures. For now, please focus on understanding the basic features: you will have plenty of time later to use fancier features.</p>
-<h2 id="rubric-for-grading">Rubric for Grading</h2>
-<div class="page-rubric-container">
-<details class="page__rubric">
-<summary>Workbook Rubric (93 points total)</summary>
-<br/>
-<div class="page-rubric-grid">
-        <div class="page-rubric-grid-header rubric-box-regular">Points (86):</div><div class="page-rubric-grid-box rubric-box-regular"></div>
-            <div class="page-rubric-grid-points rubric-box-regular">40 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">correct hand-in</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-02-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">move the yellow cube</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-04-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">stacking the boxes as described</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-05-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">add lights to scene so that sides of the cubes appear in different colors</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">give each sphere a different, non-white material (1/2 pt each, 1/2 pt for all different)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Visible Objects (requires lights, camera, at least some shapes)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Different materials used (everything isn&#39;t the same color</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">There is a ground, Snowman on ground</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Snowman Body as 3 stacked spheres</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Snowman Face (eyes, nose, mouth</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum cameras work (1/2 pt per camera)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects (1 pt for each object that is more than a simple primitive)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects correctly placed (1 pt per new object)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects move correctly (1 pt per new object), not all the same</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Museum objects each have spotlights (1/2 pt per object)</div><div class="page-rubric-grid-box rubric-box-regular">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Each new object has its own material</div>
-    <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (9 possible, of which you can earn a maximum of 7):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Animated snowman</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-08-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Second, creative snowman</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">At least one object has articulated motion</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Artistic merit: Cool museum objects (grader&#39;s discretion)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 06-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Artistic merit: Cool museum object motions  (grader&#39;s discretion)</div></div>
-</details>
-</div>
-<h2 id="ground-rules-for-workbook-6">Ground Rules for Workbook 6</h2>
+<p><a href="./docs/8/">Page &nbsp;8&nbsp; (Snowman)</a> and <a href="./docs/9/">Page &nbsp;9&nbsp; (Space-Age Sculpture Museum)</a> ask you to make pictures. For now, please focus on understanding the basic features: you will have plenty of time later to use fancier features.</p>
+<h2 id="ground-rules">Ground Rules</h2>
 <p>For the programming assignment, we are going to ask you to make some pictures by writing programs that use THREE. We want you to focus on using the parts that we&rsquo;ve discussed, not trying to show off that you can figure out the fancier features on your own.</p>
 <p>You must:</p>
 <ul>
@@ -169,21 +82,160 @@ The official documentation can be found <a href="https://threejs.org/docs" targe
 <li>Do not make your own new kinds of materials (by writing shaders).</li>
 </ul>
 <p>You&rsquo;ll get to do all of these things later in the class. For now, you can be creative and make sure you understand how to put together the basic pieces.</p>
+                <div class="page-rubric-container">
+<details class="page__rubric">
+    <summary>Workbook Rubric (12 basic + 5 advanced (4 max) = 16 total)</summary>
+    <br/>
+    <table class="page-rubric-table" style="background-color: #f0f0f0;">
+        <thead>
+            <tr>
+                <th>Box</th>
+                <th>Basic</th>
+                <th>Advanced</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>correct WB6 Workbook Form submission on time</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-06-02-02">06-02-02</a></td>
+                <td></td>
+                <td></td>
+                <td>move the yellow cube</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/4/#box-06-04-03">06-04-03</a></td>
+                <td></td>
+                <td></td>
+                <td>stacking the boxes as described</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-06-05-03">06-05-03</a></td>
+                <td></td>
+                <td></td>
+                <td>add lights to scene so that sides of the cubes appear in different colors</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-06-06-01">06-06-01</a></td>
+                <td></td>
+                <td></td>
+                <td>give each sphere a different, non-white material (1/2 pt each, 1/2 pt for all different)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-06-08-01">06-08-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Visible Objects (requires lights, camera, at least some shapes)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-06-08-01">06-08-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Different materials used (everything isn&#39;t the same color</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-06-08-01">06-08-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>There is a ground, Snowman on ground</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-06-08-01">06-08-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Snowman Body as 3 stacked spheres</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-06-08-01">06-08-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Snowman Face (eyes, nose, mouth</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Museum cameras work (1/2 pt per camera)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Museum objects (1 pt for each object that is more than a simple primitive)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Museum objects correctly placed (1 pt per new object)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Museum objects move correctly (1 pt per new object), not all the same</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Museum objects each have spotlights (1/2 pt per object)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Each new object has its own material</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-06-08-01">06-08-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Animated snowman</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-06-08-01">06-08-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Second, creative snowman</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>At least one object has articulated motion</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Complex museum objects</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-06-09-01">06-09-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Complex museum object motions</td>
+            </tr>
+        </tbody>
+    </table>
+</details>
+</div>
 <h2 id="get-started">Get Started</h2>
-<p>Don&rsquo;t forget to commit and push as you work! And don&rsquo;t forget to do the handin quiz <a href="https://canvas.wisc.edu/courses/343665/assignments/1844798">Workbook 06 Handin (due Mon, Mar 27)</a> when you are done!</p>
+<p>Don&rsquo;t forget to commit and push as you work! And don&rsquo;t forget to submit the Workbook Form when you are done!</p>
+<a href="./docs/1/">Page &nbsp;1&nbsp; (The THREE.js library)</a>
 
-        
-        
-        
-        
-        <h3 class="get__started">Get started on 
-            <a href="./docs/1/">Page &nbsp;1&nbsp; (The THREE.js library)</a>!</h3>
         
 	</div>
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 6: 3D and Three</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

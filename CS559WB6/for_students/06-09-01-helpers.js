@@ -1,4 +1,4 @@
-// Helper functions for 06-09-01
+// Helper functions
 // Students do not need to change these - but they may need to read the 
 // code to understand where things are
 // @ts-check

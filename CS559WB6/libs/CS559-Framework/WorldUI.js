@@ -16,6 +16,7 @@ import * as InputHelpers from "../CS559/inputHelpers.js";
 import { GrWorld } from "./GrWorld.js";
 import * as T from "../CS559-Three/build/three.module.js";
 import { panel } from "./AutoUI.js";
+import { GUI } from '../CS559-Three/examples/jsm/libs/lil-gui.module.min.js';
 
 // allow for adding a "remote" button for grading
 function remoteButton(button, url, world, where) {
@@ -24,15 +25,15 @@ function remoteButton(button, url, world, where) {
     // refer to...
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import
     const but = InputHelpers.makeButton(button, where);
-    but.onclick = function() {
+    but.onclick = function () {
         /* jshint ignore:start */
         import(url)
-            .then(function(mod) {
-                mod.logme(world,T);
+            .then(function (mod) {
+                mod.logme(world, T);
             })
-        .catch(err => {
+            .catch(err => {
                 alert("Grading Script not Available - students don't need to worry about this.");
-                console.log(`error loading grading module ${err}`); 
+                console.log(`error loading grading module ${err}`);
             });
         /* jshint ignore:end */
     };
@@ -56,7 +57,7 @@ export class WorldUI {
      * @param {number} [width=300]
      * @param {InputHelpers.WhereSpec} [where] - where to place the panel in the DOM (at the end of the page by default)
      */
-    constructor(world, width = 500, where = undefined, grading=true) {
+    constructor(world, width = 500, where = undefined, grading = false) {
         const self = this;
         this.world = world;
 
@@ -105,10 +106,11 @@ export class WorldUI {
                 _world.showWorld();
             }
         };
+        world.chkSolo = this.chkSolo;
 
         if (grading) {
-            InputHelpers.makeSpan("replace",this.selectionChkList).innerHTML="&nbsp;&nbsp;&nbsp;&nbsp;";
-            remoteButton("Grader","https://graphics.cs.wisc.edu/test/grading.js",world,this.selectionChkList);
+            InputHelpers.makeSpan("replace", this.selectionChkList).innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;";
+            remoteButton("Grader", "https://graphics.cs.wisc.edu/test/grading.js", world, this.selectionChkList);
         }
         //
         //
@@ -121,7 +123,7 @@ export class WorldUI {
             // note that we need to do this before setting the mode
             if (
                 self.selectViewMode.value == "Drive Object" ||
-                self.selectViewMode.value  == "Follow Object"
+                self.selectViewMode.value == "Follow Object"
             ) {
                 _world.setActiveObject(self.selectRideable.value);
             }
@@ -129,6 +131,7 @@ export class WorldUI {
             _world.setViewMode(self.selectViewMode.value);
         };
         this.selectViewMode.onchange(null);
+        world.selectViewMode = this.selectViewMode;
 
         InputHelpers.makeBreak(this.div);
 
@@ -145,6 +148,7 @@ export class WorldUI {
             _world.setViewMode("Drive Object");
             self.selectViewMode.value = "Drive Object";
         };
+        world.selectRideable = this.selectRideable;
 
         // create a selector for isolate
         // because there are often too many objects, we
@@ -180,7 +184,8 @@ export class WorldUI {
                 camparams[5]
             );
         }
-        this.selectLook.onchange = onSelectLook; 
+        this.selectLook.onchange = onSelectLook;
+        world.selectLook = this.selectLook;
 
         // get a list of the names of highlighted objects
         let highObjs = world.objects.filter(ob => ob.highlighted);
@@ -192,6 +197,31 @@ export class WorldUI {
                 this.div
             );
             this.selectLookHigh.onchange = onSelectLook;
-        } 
+        }
+
+        const gui = new GUI({ title: "WorldUI" });
+        let obj = { run: true, speed: 1, solo: false, camera: "Orbit Camera", drive: rideable[0].name, look: world.objects[0].name, time: 0 };
+        gui.add(obj, "run").name("Run").onChange(function (value) {
+            world.runbutton.checked = value;
+        });
+        gui.add(obj, "speed", Number(this.runslider.range.min) || 0, Number(world.speedcontrol.max) || 1, Number(world.speedcontrol.step) || 0.01).onChange(function (value) {
+            world.speedcontrol.value = value;
+        });
+        gui.add(obj, "solo").name("View Solo Object").onChange(function (value) {
+            world.chkSolo.checked = value;
+            world.chkSolo.onclick();
+        });
+        gui.add(obj, "camera", ["Orbit Camera", "Fly Camera", "Follow Object", "Drive Object"]).onChange(function (value) {
+            world.selectViewMode.value = value;
+            world.selectViewMode.onchange();
+        });
+        gui.add(obj, "drive", rideable.map(ob => ob.name).sort()).name("Drive").onChange(function (value) {
+            world.selectRideable.value = value;
+            world.selectRideable.onchange();
+        });
+        gui.add(obj, "look", world.objects.map(ob => ob.name).sort()).name("LookAt").onChange(function (value) {
+            world.selectLook.value = value;
+            world.selectLook.onchange();
+        });
     }
 }

@@ -1,13 +1,4 @@
-/**
- * 06-05-01.js - a simple JavaScript file that gets loaded with
- * page 5 of Workbook 7 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
 import { OrbitControls } from "../libs/CS559-Three/examples/jsm/controls/OrbitControls.js";
@@ -30,7 +21,7 @@ let point = new T.PointLight("white", 1, 0, 0);
 point.position.set(20, 10, 15);
 scene.add(point);
 
-let spot = new T.SpotLight("white", 1, 0, Math.PI / 15, 0); // ,0,Math.PI/9);
+let spot = new T.SpotLight("white", 1, 0, Math.PI / 15, 0, 0); // ,0,Math.PI/9);
 spot.position.set(0, 7, 0);
 scene.add(spot);
 let sh = new T.SpotLightHelper(spot);
@@ -101,3 +92,5 @@ function animate(timestamp) {
     window.requestAnimationFrame(animate);
 }
 window.requestAnimationFrame(animate);
+
+// CS559 2025 Workbook

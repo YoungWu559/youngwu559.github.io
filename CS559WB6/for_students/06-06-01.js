@@ -1,18 +1,4 @@
-/**
- * CS559 Spring 2023 Example Solution
- * Written by CS559 course staff
- */
-
-/**
- * 06-06-01.js - a simple JavaScript file that gets loaded with
- * page 6 of Workbook 7 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
 
@@ -39,16 +25,6 @@ materials[6] = new T.MeshStandardMaterial();
 materials[7] = new T.MeshStandardMaterial();
 materials[8] = new T.MeshStandardMaterial();
 
-// Begin Example Solution
-for (let i = 0; i < 9; i ++)
-{
-    materials[i].color = new T.Color(Math.random(), Math.random(), Math.random());
-    materials[i].emissive = new T.Color(Math.random(), Math.random(), Math.random());
-    materials[i].metalness = Math.random();
-    materials[i].roughness = Math.random();
-}
-// End Example Solution
-
 // make spheres to show off the materials
 let geometry = new T.SphereGeometry(1, 20, 20);
 
@@ -62,7 +38,7 @@ for (let i = 0; i < 9; i++) {
 
 // make some lights
 let l1 = new T.DirectionalLight();
-let l2 = new T.PointLight();
+let l2 = new T.PointLight(0xffffff,1,0,0);  // white light, no decay
 l2.position.set(10, 10, 10);
 scene.add(l1);
 scene.add(l2);
@@ -75,3 +51,5 @@ camera.lookAt(0, -2, 0);
 renderer.render(scene, camera);
 
 
+
+// CS559 2025 Workbook

@@ -1,18 +1,4 @@
-/**
- * CS559 Spring 2023 Example Solution
- * Written by CS559 course staff
- */
-
-/**
- * 06-05-03.js - a simple JavaScript file that gets loaded with
- * page 5 of Workbook 7 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
 import { OrbitControls } from "../libs/CS559-Three/examples/jsm/controls/OrbitControls.js";
@@ -35,19 +21,6 @@ let controls = new OrbitControls(camera, renderer.domElement);
 // scene.add(new T.AmbientLight("white",0.2));
 
 //** STUDENT: Add some lights here */
-// Begin Example Solution
-let add = function(c = "white", x = 0, y = 0, z = 0)
-{
-    let dir = new T.DirectionalLight(c,1);
-    dir.position.set(x,y,z);
-    scene.add(dir);
-};
-add("red", 5, 0, 0);
-add("green", -5, 0, 0);
-add("blue", 0, 0, 5);
-add("yellow", 0, 0, -5);
-add("purple", 0, 5, 0);
-// End Example Solution
 
 // make a ground plane
 let groundBox = new T.BoxGeometry(6, 0.1, 6);
@@ -101,3 +74,5 @@ function animate(timestamp) {
 }
 window.requestAnimationFrame(animate);
 
+
+// CS559 2025 Workbook

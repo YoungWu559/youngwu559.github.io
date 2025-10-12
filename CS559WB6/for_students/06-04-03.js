@@ -1,18 +1,4 @@
-/**
- * CS559 Spring 2023 Example Solution
- * Written by CS559 course staff
- */
-
-/**
- * 06-04-03.js - a simple JavaScript file that gets loaded with
- * page 4 of Workbook 7 (CS559).
- *
- * written by Michael Gleicher, January 2019
- * modified January 2020
- */
-
 // @ts-check
-/* jshint -W069, esversion:6 */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
 
@@ -67,13 +53,6 @@ box4.scale.set(0.8, 0.8, 0.8);
   );
 
 // STUDENT: position them into a stack (biggest on the bottom)
-// Begin Example Solution
-box1.translateY(2 / 2);
-box2.translateY(2 + 1.5 / 2);
-box3.translateY(2 + 1.5 + 1 / 2);
-box4.translateY(2 + 1.5 + 1 + 0.8 / 2);
-box5.translateY(2 + 1.5 + 1 + 0.8 + 0.5 / 2);
-// End Example Solution
 
 // add the boxes to the scene
 scene.add(box1);
@@ -85,4 +64,4 @@ scene.add(box5);
 document.getElementById("div1").appendChild(renderer.domElement);
 renderer.render(scene, camera);
 
-
+// CS559 2025 Workbook

@@ -35,13 +35,17 @@ mesh2.position.x = 0.2;
 mesh2.position.z = -1;
 scene.add(mesh2);
 
+// @@Snippet:lights
 // create the lights
 let ambientLight = new T.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
-let pointLight = new T.PointLight(0xffffff, 1);
+let pointLight = new T.PointLight(0xffffff, 1, 0,0);
 pointLight.position.set(0, -20, -10);
 scene.add(pointLight);
+//@@Snippet:end
 
 // now we just need to draw the scene with the camera
 renderer.render(scene, camera);
 
+
+// CS559 2025 Workbook

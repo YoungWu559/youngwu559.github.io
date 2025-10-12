@@ -14,12 +14,14 @@ import * as T from "../libs/CS559-Three/build/three.module.js";
 //    - lines are re-ordered
 // in this version, I pass an existing canvas
 
+// @@Snippet:canvas
 let canvas = document.getElementById("canvas1");
 if (!(canvas instanceof HTMLCanvasElement))
   throw new Error("Canvas is not HTML Element");
 
 // Set up the renderer, which will create the Canvas for us
 let renderer = new T.WebGLRenderer({ canvas: canvas });
+// @@Snippet:end
 
 // the aspect ratio is set to 1 - since we're making the window 200x200
 let camera = new T.PerspectiveCamera(50, 1, 0.1, 1000);
@@ -35,7 +37,7 @@ scene.add(cube);
 // we don't see anything if there is no light
 let ambientLight = new T.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
-let pointLight = new T.PointLight(0xffffff, 1);
+let pointLight = new T.PointLight(0xffffff, 1,0,0); // no decay
 pointLight.position.set(25, 50, 25);
 scene.add(pointLight);
 
@@ -55,3 +57,5 @@ function animate(timestamp) {
 }
 
 window.requestAnimationFrame(animate);
+
+// CS559 2025 Workbook

@@ -44,7 +44,7 @@ scene.add(mesh2);
 
 let ambientLight = new T.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
-let pointLight = new T.PointLight(0xffffff, 1);
+let pointLight = new T.PointLight(0xffffff, 1, 0, 0); // no decay
 pointLight.position.set(0, 10, 5);
 scene.add(pointLight);
 
@@ -68,3 +68,4 @@ function animate(timestamp) {
   window.requestAnimationFrame(animate);
 }
 window.requestAnimationFrame(animate);
+// CS559 2025 Workbook

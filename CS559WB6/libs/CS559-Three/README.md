@@ -1,42 +1,86 @@
-# CS559-Three -  a version of the THREE.js library for CS559 Workbooks
+# three.js
 
-**This is the Spring23 version!**
+[![NPM Package][npm]][npm-url]
+[![Build Size][build-size]][build-size-url]
+[![NPM Downloads][npm-downloads]][npmtrends-url]
+[![Discord][discord]][discord-url]
+[![DeepWiki][deepwiki]][deepwiki-url]
 
-These files are taken from the THREE distribution. 
+#### JavaScript 3D library
 
-They are the pieces that are required for the CS559 workbooks. This is the minimum.
-If you want other things (like the sources or the documentations or examples), download the entire three package.
+The aim of the project is to create an easy-to-use, lightweight, cross-browser, general-purpose 3D library. The current builds only include WebGL and WebGPU renderers but SVG and CSS3D renderers are also available as addons.
 
-This archive was created by downloading three.js-master on January 10, 2023.
-It is THREE version **148**.
+[Examples](https://threejs.org/examples/) &mdash;
+[Docs](https://threejs.org/docs/) &mdash;
+[Manual](https://threejs.org/manual/) &mdash;
+[Wiki](https://github.com/mrdoob/three.js/wiki) &mdash;
+[Migrating](https://github.com/mrdoob/three.js/wiki/Migration-Guide) &mdash;
+[Questions](https://stackoverflow.com/questions/tagged/three.js) &mdash;
+[Forum](https://discourse.threejs.org/) &mdash;
+[Discord](https://discord.gg/56GBJwAnUS)
 
-The version of THREE for class is in the [2023 CS 559 Three Repo](https://github.com/CS559/CS559-Three23). 
+### Usage
 
-The choices of files are based on last year (which might not be an informed choice).
+This code creates a scene, a camera, and a geometric cube, and it adds the cube to the scene. It then creates a `WebGL` renderer for the scene and camera, and it adds that viewport to the `document.body` element. Finally, it animates the cube within the scene for the camera.
 
-What's here (all copied from the THREE distribution):
-1. The Three README.md and LICENSE files (renamed)
-1. `build/three.module.js`
-1. the src folder (mainly to get the typing information)
-1. some of the examples (not all of them) - all from the jsm folder
-    - controls (in the past, it was a subset - this year I included more)
-    - curves
-    - libs
-    - loaders
-    - webxr
-1. the fonts (just the json for helvetiker) - this was added later in the semester
+```javascript
+import * as THREE from 'three';
 
-## Type Information
+const width = window.innerWidth, height = window.innerHeight;
 
-The `build/types` folder is copied from this [repository](https://github.com/three-types/three-ts-types). 
+// init
 
-The following steps were taken:
-1. copied `index.d.ts` and renamed it to `three.module.d.ts`
-2. copy `src` and renamed it to `types`
-3. edit `three.module.d.ts` to refer to `types` (rather than `src`)
+const camera = new THREE.PerspectiveCamera( 70, width / height, 0.01, 10 );
+camera.position.z = 1;
 
-This has not yet been tested fully... A few of the demos do work.
+const scene = new THREE.Scene();
 
-Note: step 3 (editing the files to point to the right thing) was not an elegant approach.
-In the future, we should use the library "as is" and then use an "import map" to load things
-correctly.  (see https://threejs.org/docs/index.html#manual/en/introduction/Installation "Addons")
+const geometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+const material = new THREE.MeshNormalMaterial();
+
+const mesh = new THREE.Mesh( geometry, material );
+scene.add( mesh );
+
+const renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( width, height );
+renderer.setAnimationLoop( animate );
+document.body.appendChild( renderer.domElement );
+
+// animation
+
+function animate( time ) {
+
+	mesh.rotation.x = time / 2000;
+	mesh.rotation.y = time / 1000;
+
+	renderer.render( scene, camera );
+
+}
+```
+
+If everything goes well, you should see [this](https://jsfiddle.net/w43x5Lgh/).
+
+### Cloning this repository
+
+Cloning the repo with all its history results in a ~2 GB download. If you don't need the whole history you can use the `depth` parameter to significantly reduce download size.
+
+```sh
+git clone --depth=1 https://github.com/mrdoob/three.js.git
+```
+
+### Change log
+
+[Releases](https://github.com/mrdoob/three.js/releases)
+
+
+[npm]: https://img.shields.io/npm/v/three
+[npm-url]: https://www.npmjs.com/package/three
+[build-size]: https://badgen.net/bundlephobia/minzip/three
+[build-size-url]: https://bundlephobia.com/result?p=three
+[npm-downloads]: https://img.shields.io/npm/dw/three
+[npmtrends-url]: https://www.npmtrends.com/three
+[discord]: https://img.shields.io/discord/685241246557667386
+[discord-url]: https://discord.gg/56GBJwAnUS
+[deepwiki]: https://deepwiki.com/badge.svg
+[deepwiki-url]: https://deepwiki.com/mrdoob/three.js
+

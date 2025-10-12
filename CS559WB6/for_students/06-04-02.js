@@ -76,3 +76,5 @@ astro.traverse(obj => {
 
 // note that we have to render
 renderer.render(scene, camera);
+
+// CS559 2025 Workbook
