@@ -31,7 +31,7 @@ scene.add(cube);
 // we don't see anything if there is no light
 let ambientLight = new T.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
-let pointLight = new T.PointLight(0xffffff, 1);
+let pointLight = new T.PointLight(0xffffff, 1, 0,0); // no decay
 pointLight.position.set(25, 50, 25);
 scene.add(pointLight);
 
@@ -53,3 +53,5 @@ function animate(timestamp) {
 // @@Snippet:end
 
 window.requestAnimationFrame(animate);
+
+// CS559 2025 Workbook

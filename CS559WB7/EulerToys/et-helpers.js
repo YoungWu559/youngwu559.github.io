@@ -195,3 +195,24 @@ export function slidersAx(str, el, draw) {
 
     return [x1, y1, z1, t1];
 }
+
+// convert Quaternion to Axis Angle
+// taken from "google AI overview" when searching "three.js get axis angle"
+export function getAxisAngle(quaternion) {
+    const axis = new T.Vector3();
+    const angle = 2 * Math.acos(quaternion.w);
+    const s = Math.sqrt(1 - quaternion.w * quaternion.w);
+  
+    if (s < 0.0001) {
+      axis.x = quaternion.x;
+      axis.y = quaternion.y;
+      axis.z = quaternion.z;
+    } else {
+      axis.x = quaternion.x / s;
+      axis.y = quaternion.y / s;
+      axis.z = quaternion.z / s;
+    }
+  
+    return { axis, angle };
+  }
+  

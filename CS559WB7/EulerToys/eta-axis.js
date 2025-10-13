@@ -19,11 +19,12 @@ import {
   makeFlexDiv,
   makeButton
 } from "../libs/CS559/inputHelpers.js";
-import { spinnableObject, degToRad, doEuler, etScene, sliders, slidersAx } from "./et-helpers.js";
+import { spinnableObject, degToRad, doEuler, etScene, sliders, slidersAx, getAxisAngle } from "./et-helpers.js";
 import { GrObject, paramObjFromParam } from "../libs/CS559-Framework/GrObject.js";
 import { GrGroup } from "../libs/CS559-Framework/SimpleObjects.js";
 import { AutoUI } from "../libs/CS559-Framework/AutoUI.js";
 import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
+import { radToDeg } from "../libs/CS559-Three/src/math/MathUtils.js";
 
 
 let et = etScene("div1");
@@ -67,7 +68,7 @@ let x2,y2,z2,t2;
  * this draws the objects - given the current state of the sliders
  */
 let myvec = new T.Vector3();
- function draw() {
+function draw() {
     // because this might get called in setup, make sure things are set up
     if (x1 && x2) {
         let x1a = degToRad(Number(x1.value()));
@@ -92,6 +93,30 @@ let myvec = new T.Vector3();
 
 [x1, y1, z1, s1] = sliders("1", divL, draw);
 [x2, y2, z2, t2] = slidersAx("2", divR, draw);
+
+let b1=makeButton("To AxAng", divL);
+b1.onclick = function() {
+    if (x1 && x2) {
+        let q = getAxisAngle(objLeft.quaternion);
+        x2.set(q.axis.x);
+        y2.set(q.axis.y);
+        z2.set(q.axis.z);
+        t2.set(radToDeg(q.angle));
+        console.log("T2 set to",radToDeg(q.angle))
+    }
+    draw();
+};
+
+let b2=makeButton("To Euler", divR);
+b2.onclick = function() {
+    if (x1 && x2) {
+        let euler = objRight.rotation;
+        x1.set(radToDeg(euler.x));
+        y1.set(radToDeg(euler.y));
+        z1.set(radToDeg(euler.z));
+    }
+    draw();
+};
 
 // draw to get started
 draw();

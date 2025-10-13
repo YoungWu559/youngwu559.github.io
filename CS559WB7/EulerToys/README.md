@@ -16,6 +16,8 @@ be used as a module in other things (like workbooks and websites and lecture not
 This module is just the EulerToys code. It assumes that the CS559 version of THREE
 and the CS559 Framework and the CS559 workbook style library are all in ../libs.
 
+A warning... the module (EulerToys) doesn't "run" by itself because it assumes that there is a "libs" folder adjacent to it.
+
 ### What's here
 
 + `et1` - the basic Euler Toy, 1 set of Euler Angles

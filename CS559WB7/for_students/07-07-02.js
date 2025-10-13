@@ -31,3 +31,5 @@ cube.objects[0].position.y = 1;
 
 world.go();
 // @@Snippet:end
+
+// CS559 2025 Workbook

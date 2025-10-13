@@ -4,53 +4,11 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
-        <script src="../../js/resizeIFrames.js"></script>    
-    
-    
-    <script type="text">
-        (function() {
-            var i, text, code, codes = document.getElementsByTagName('code');
-            for (i = 0; i &lt; codes.length;) {
-                code = codes[i];
-                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-                text = code.textContent;
-                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
-                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
-                    code.textContent = text;
-                }
-                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-                    /^\$(.|\s)+\$$/.test(text) ||
-                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-                    code.outerHTML = code.innerHTML;  // remove <code></code>
-                    continue;
-                }
-                }
-                i++;
-            }
-            })();
-    </script>
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-    
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
-            processEscapes: true,
-            processEnvironments: true,
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            TeX: { equationNumbers: { autoNumber: "AMS" },
-                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
-            }
-        });
-    </script>
-
+        <script src="../../js/resizeIFrames.js"></script>
     </head>
     <body>
         <div class="container container--outer"><div class="maincolumn">
@@ -58,44 +16,49 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 7: The CS559 Framework Code (GraphicsTown)</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><h2 id="prelude-to-graphics-town">Prelude to Graphics Town</h2>
+		<div class="content post__content clearfix"><h2 id="prelude-to-graphics-town">Prelude to Graphics Town</h2>
 <p>For the remaining parts of the workbook (two exercises), you will work with some framework code we have created for this class. Learning to work with the Framework code is important practically (you will use it on most of the assignments from here on), but also pedagogically. In the real world, you often have to work with code that someone else wrote.</p>
 <p>The framework code allows you to focus on creating graphics objects and defining their behavior (for animation). You don&rsquo;t need to worry about setting up a user interface, or the basic stuff of the world. It will give you &ldquo;good enough&rdquo; defaults that you can focus on the parts of the assignment you care about. For example, in this assignment, you can focus on making hierarchical objects. In future workbooks you will focus on making appearances (just wait).</p>
 <p>The framework provides a &ldquo;thin wrapper&rdquo; around THREE.JS - you still program using THREE.JS, but you put your objects inside of wrapper objects, and define their behaviors as methods of these objects.</p>
 <p>You will use the framework code for the rest of the assignments in class, so it is worth learning about it.</p>
-<p>The best documentation for the framework is the code itself, and the examples that we give you. The code is designed to be (reasonably) self-documenting. We are trying to structure the comments to automatically produce a documentation web (using <a href="http://usejsdoc.org/" target="_blank">jsdoc</a>), but that only gets some of the information. Here is a link to the <a href="https://cs559.github.io/CS559-Framework23/" target="_blank">Framework Documentation</a>.</p>
+<p>The best documentation for the framework is the code itself, and the examples that we give you. The code is designed to be (reasonably) self-documenting. We are trying to structure the comments to automatically produce a documentation web (using <a href="https://jsdoc.app/" target="_blank">jsdoc</a>), but that only gets some of the information. Here is a link to the <a href="https://cs559.github.io/CS559-Framework23/" target="_blank">Framework Documentation</a>.</p>
 <p>The framework is really helpful for small exercises where we simply want you to make an object. It will let you put the object on the screen with simple lighting and a simple UI with very little code. However, the real point of the framework is to allow you make a world with lots of objects that are all defined independently. This will let you make much more complex worlds. It also lets you add objects that we give you (or even to share objects with other students).</p>
 <p>The framework will allow us to build &ldquo;Graphics Town&rdquo; - where you will create a world with lots of &ldquo;living&rdquo; stuff in it. The last workbooks/assignments of the semester will ask you to do this. The new assignments will ask you to make some objects and put them into simpler &ldquo;worlds&rdquo;. However, the objects you create can be re-used later in later assignments.</p>
 <p>If you&rsquo;re wondering where the &ldquo;fancy features&rdquo; of the framework are (shadows, multi-pass rendering, or other fancy things), just wait. As we learn things in class, we will give you extended versions of the framework that support these kinds of things.</p>
 <h2 id="modern-javascript">Modern JavaScript</h2>
 <p>Learning about features of &ldquo;modern&rdquo; JavaScript is a learning goal of this assignment.</p>
 <p>The framework code uses &ldquo;modern&rdquo; JavaScript. That includes modules and classes. We&rsquo;ve actually had some of that in prior assignments, but this time you will see more of it. You will not be able to avoid writing a <code>class</code> or figuring out how to <code>export</code> from a module. Fortunately, we will provide a lot of examples, so you can always do things by modifying something we&rsquo;ve given you to start with. However, we do recommend that you take some time to actually understand what is going on with the code.</p>
-<p>If you want to learn about JavaScript classes, we have a basic tutorial for class <a href="https://cs559.github.io/559Tutorials/javascript/oop-in-js-1/" target="_blank">Traditional Object Oriented Programming in JavaScript</a>.  To learn more about them (and other nice JavaScript features), most up-to-date books have discussions. See the <a href="https://pages.graphics.cs.wisc.edu/559-sp23/pages/javascript559/" target="_blank">Javascript in CS559</a> for suggestions. One specific recommendation: <a href="http://exploringjs.com/es6/ch_classes.html" target="_blank">Exploring JS Ch15</a> has a nice introduction before it starts a deep-dive into some gory details and tricks to do fancy stuff.</p>
-<h2 id="box-1-object3d-and-grobject">Box 1: Object3D and GrObject</h2>
-<p>Here&rsquo;s a simple example in 
-    <a href="../../for_students/07-07-01.js" class="for_students">07-07-01.js</a> (
-    <a href="../../for_students/07-07-01.html" class="for_students">07-07-01.html</a>).</p>
-<iframe
-    title="07-07-01"
-    src="../../for_students/07-07-01.html"
-    class="includebox"
-    width="100%"
-    height="400px"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p>If you want to learn about JavaScript classes, we have a basic tutorial for class <a href="https://cs559.github.io/559Tutorials/javascript/oop-in-js-1/" target="_blank">Traditional Object Oriented Programming in JavaScript</a>.  To learn more about them (and other nice JavaScript features), most up-to-date books have discussions. See the <a href="https://cs559.github.io/559Tutorials/javascript/javascript559/" target="_blank">Javascript in CS559</a> for suggestions. One specific recommendation: <a href="http://exploringjs.com/es6/ch_classes.html" target="_blank">Exploring JS Ch15</a> has a nice introduction before it starts a deep-dive into some gory details and tricks to do fancy stuff.</p>
+<h2 id="object3d-and-grobject">Object3D and GrObject</h2>
+<p> 
 
+
+Here&rsquo;s a simple example, with the code in 
+<a href="../../for_students/07-07-01.js" class="box-html" data-tag="07-07-01">07-07-01.js</a>
+.</p>
+
+<div id="box-07-07-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 07-07-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/07-07-01.html class="boxtitlelink">07-07-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/07-07-01.js" class="boxtitlelink">07-07-01.js</a>
+    <iframe
+        title="07-07-01"
+        src="../../for_students/07-07-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="400"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-07-07-01"
+    ></iframe>
+</div>
 <p>Notice that this example has a ground object (the big flat gray box), it has lights, it has a camera in a reasonable location, it has orbit controls. You know how to do all that in THREE. So now, we can use the framework to do it for us.</p>
 <p>The code is a bit simpler than if you had to write it yourself in THREE (this is an excerpt from 
-    <a href="../../for_students/07-07-01.js" class="for_students">07-07-01.js</a>:</p>
+<a href="../../for_students/07-07-01.js" class="box-html" data-tag="07-07-01">07-07-01.js</a>
+:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
@@ -166,24 +129,33 @@
 <p>On line 34, we call <code>go()</code> - a method of <code>GrWorld</code> that starts an infinite loop with a render loop (using <code>window.requestAnimationFrame</code>).</p>
 <p>Read the code or documentation to see all of the options for these objects.</p>
 <h2 id="box-2-getting-started-with-a-simple-example">Box 2: Getting Started with a simple example</h2>
-<p>
-    <a href="../../for_students/07-07-02.js" class="for_students">07-07-02.js</a> (
-    <a href="../../for_students/07-07-02.html" class="for_students">07-07-02.html</a>) is another spinning cube example (from <a href="../../docs/3/">Page &nbsp;3&nbsp; (Axis Angle Representations)</a> and the previous workbook and lecture). This time in the framework:</p>
-<iframe
-    title="07-07-02"
-    src="../../for_students/07-07-02.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+Another spinning cube example (from <a href="../../docs/3/">Page &nbsp;3&nbsp; (Axis Angle Representations)</a> and the previous workbook and lecture) is in 
+<a href="../../for_students/07-07-02.js" class="box-html" data-tag="07-07-02">07-07-02.js</a>
+. This time in the framework:</p>
+
+<div id="box-07-07-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 07-07-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/07-07-02.html class="boxtitlelink">07-07-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/07-07-02.js" class="boxtitlelink">07-07-02.js</a>
+    <iframe
+        title="07-07-02"
+        src="../../for_students/07-07-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-07-07-02"
+    ></iframe>
+</div>
 <p>Everything is pretty much the default - except that we made the groundplane gray, not its usual green, since the cube is green. We got some lighting, a camera, orbit controls, an animation loop, and some other stuff &ldquo;for free&rdquo;. It may not be exactly what we want, but we get a reasonable default and can always change things.</p>
 <p>The key parts are:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
@@ -263,23 +235,32 @@
 <p>For a simple example like this one, the framework isn&rsquo;t that much easier than just writing the code from scratch using THREE.js directly. It does save us from having to remember to turn the lights on and point the camera the right way.</p>
 <p>In the simple example, we re-used a basic object (a cube). Just as when we use THREE directly, usually we will make more interesting objects. You&rsquo;ll see that on the next pages.</p>
 <h2 id="box-3-another-simple-example">Box 3: Another Simple Example</h2>
-<p>The first example showed how to make a simple animation. 
-    <a href="../../for_students/07-07-03.js" class="for_students">07-07-03.js</a> (
-    <a href="../../for_students/07-07-03.html" class="for_students">07-07-03.html</a>) is a different example, inspired by <a href="../../docs/2/">Page &nbsp;2&nbsp; (Euler Angles Toys)</a>. This time, rather than animating the cube, we control it with sliders. The nice thing: the framework will make the sliders for us!</p>
-<iframe
-    title="07-07-03"
-    src="../../for_students/07-07-03.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
+<p> 
 
+
+The first example showed how to make a simple animation. A different example, inspired by <a href="../../docs/2/">Page &nbsp;2&nbsp; (Euler Angles Toys)</a>, is in 
+<a href="../../for_students/07-07-03.js" class="box-html" data-tag="07-07-03">07-07-03.js</a>
+. This time, rather than animating the cube, we control it with sliders. The nice thing: the framework will make the sliders for us!</p>
+
+<div id="box-07-07-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 07-07-03</b>&nbsp;&nbsp;
+        <a href=../../for_students/07-07-03.html class="boxtitlelink">07-07-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/07-07-03.js" class="boxtitlelink">07-07-03.js</a>
+    <iframe
+        title="07-07-03"
+        src="../../for_students/07-07-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-07-07-03"
+    ></iframe>
+</div>
 <p>This defines a different subclass of cube:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
@@ -314,12 +295,13 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>The big difference here is that when we created the cube subclass, we defined a set of &ldquo;parameters&rdquo; (the X, Y, Z) for rotation. They each range from <code>$-\frac{\pi}{2}$</code> to <code>$\frac{\pi}{2}$</code>. Since these are defined (with a name, range, and default value), the AutoUI code can make a control panel for it. Also notice how rather than defining a <code>stepWorld</code> method, we provided an <code>update</code> method that takes the slider values as its argument.</p>
+<p>The big difference here is that when we created the cube subclass, we defined a set of &ldquo;parameters&rdquo; (the X, Y, Z) for rotation. They each range from <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><mfrac><mi>π</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">-\frac{\pi}{2}</annotation></semantics></math></span> to <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>π</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{\pi}{2}</annotation></semantics></math></span>. Since these are defined (with a name, range, and default value), the AutoUI code can make a control panel for it. Also notice how rather than defining a <code>stepWorld</code> method, we provided an <code>update</code> method that takes the slider values as its argument.</p>
 <p>The main body of the code created the UI - but all this required was telling <code>AutoUI</code> to do its job.</p>
 <p>Again, this is a really simple case where we extend the cube. Under normal circumstances, we would extend the base class <code>GrObject</code> and populate it with THREE objects ourselves.</p>
 <h2 id="the-framework-and-hierarchy">The Framework and Hierarchy</h2>
 <p>The Framework doesn&rsquo;t really handle hierarchy. A <code>GrObject</code> stores a list of THREE <code>Object3D</code> - not other <code>GrObject</code>s.</p>
-<p>That doesn&rsquo;t stop you from making hierarchical objects using THREE objects, and then putting this hierarchical object inside of a <code>GrObject</code>. There an example of this in the framework example file <a href="../../libs/CS559-Framework/TestObjects.js">TestObjects.js</a> called <code>HingeCube</code>. On <a href="../../docs/5/">Page &nbsp;5&nbsp; (Hierarchical Modeling in THREE)</a> there was an example where a cube was made inside of a <code>GrObject</code> and then put inside of another cube.</p>
+<p>That doesn&rsquo;t stop you from making hierarchical objects using THREE objects, and then putting this hierarchical object inside of a <code>GrObject</code>. There an example of this in the framework example file <a href="
+../../libs/CS559-Framework/TestObjects.js">TestObjects.js</a> called <code>HingeCube</code>. On <a href="../../docs/5/">Page &nbsp;5&nbsp; (Hierarchical Modeling in THREE)</a> there was an example where a cube was made inside of a <code>GrObject</code> and then put inside of another cube.</p>
 <p>One thing to note: you only put the top level <code>GrObject</code> into the <code>GrWorld</code>, and only the top level <code>Object3D</code> into the <code>GrObject</code>. This is very similar to using THREE by itself: you only place the top level parent <code>GrObject</code> into the <code>Scene</code>.</p>
 <h2 id="the-framework-code-ground-rules">The Framework Code Ground Rules</h2>
 <p>Some ground rules about the Framework Code:</p>
@@ -336,10 +318,6 @@
 <p>First, we&rsquo;ll go make Graphics Park on <a href="../../docs/8/">Page &nbsp;8&nbsp; (Exercise 2: Graphics Park)</a>.</p>
 
             
-
-<div>
-        <i>There are no points associated with this page.</i>
-    </div>
 			
 			
 		</div>
@@ -347,7 +325,7 @@
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 7: Transformation and Hierarchy in Three.js</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

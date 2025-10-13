@@ -4,53 +4,11 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
-        <script src="../../js/resizeIFrames.js"></script>    
-    
-    
-    <script type="text">
-        (function() {
-            var i, text, code, codes = document.getElementsByTagName('code');
-            for (i = 0; i &lt; codes.length;) {
-                code = codes[i];
-                if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-                text = code.textContent;
-                if (/^\$[^$]/.test(text) && /[^$]\$$/.test(text)) {
-                    text = text.replace(/^\$/, '\\(').replace(/\$$/, '\\)');
-                    code.textContent = text;
-                }
-                if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-                    /^\$(.|\s)+\$$/.test(text) ||
-                    /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-                    code.outerHTML = code.innerHTML;  // remove <code></code>
-                    continue;
-                }
-                }
-                i++;
-            }
-            })();
-    </script>
-    
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-    
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
-            inlineMath: [['$','$'], ['\\(','\\)']],
-            displayMath: [['$$','$$'], ['\\[','\\]']],
-            processEscapes: true,
-            processEnvironments: true,
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            TeX: { equationNumbers: { autoNumber: "AMS" },
-                    extensions: ["AMSmath.js", "AMSsymbols.js"] }
-            }
-        });
-    </script>
-
+        <script src="../../js/resizeIFrames.js"></script>
     </head>
     <body>
         <div class="container container--outer"><div class="maincolumn">
@@ -58,12 +16,7 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 1: Rotations in 3D</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><h2 id="topics-in-rotations">Topics in Rotations</h2>
+		<div class="content post__content clearfix"><h2 id="topics-in-rotations">Topics in Rotations</h2>
 <p>We will discuss rotations in lectures. Here is a summary of the key topics to know:</p>
 <ol>
 <li>Rotations around a single axis. Why is the 2D case easier, and how does that apply in 3D?</li>
@@ -78,22 +31,21 @@
 <h2 id="rotations-about-one-or-more-axes">Rotations about one or more axes</h2>
 <p>Rotations are rigid transformations (the distances between points are preserved, and handedness is preserved as well) that keep the zero position constant.</p>
 <p><strong>All rotations have an axis.</strong> There is a line through space (that goes through the origin) for which points on the line do not move (are not changed by the transformation). The space &ldquo;spins around&rdquo; this <strong>axis of rotation.</strong></p>
+<blockquote>
+<p>In 2D, the axis of rotation is perpendicular to the plane (so the Z axis poking out of the XY 2D space), and the &ldquo;center of rotation&rdquo; in 2D is where the axis of rotation intersects the plane.</p>
+</blockquote>
 <p>The composition of any sequence of rotations is a rotation. Put simply, if you rotate an object, rotate it again, then rotate it a third time, there will always be one rotation that gets you from the initial state to the final state. No matter how many rotations you put together.</p>
 <p>In a single axis (like in 2D):
-<code>$ R_z(\alpha) \circ R_z(\beta) = R_z(\alpha+\beta) $</code>.
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>z</mi></msub><mo stretchy="false">(</mo><mi>α</mi><mo stretchy="false">)</mo><mo>∘</mo><msub><mi>R</mi><mi>z</mi></msub><mo stretchy="false">(</mo><mi>β</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>R</mi><mi>z</mi></msub><mo stretchy="false">(</mo><mi>α</mi><mo>+</mo><mi>β</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> R_z(\alpha) \circ R_z(\beta) = R_z(\alpha+\beta) </annotation></semantics></math></span>.
 That is, the composition of rotations is the same as adding the angles. We can simply measure the amount of rotation about that axis.</p>
 <p>With different axes, this does not hold!
-<code>$ R_x(\alpha) \circ R_y(\beta) = R_?(?) $</code>
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>x</mi></msub><mo stretchy="false">(</mo><mi>α</mi><mo stretchy="false">)</mo><mo>∘</mo><msub><mi>R</mi><mi>y</mi></msub><mo stretchy="false">(</mo><mi>β</mi><mo stretchy="false">)</mo><mo>=</mo><mo stretchy="false">?</mo></mrow><annotation encoding="application/x-tex"> R_x(\alpha) \circ R_y(\beta) = ?</annotation></semantics></math></span>
 And things in between cause problems:
-<code>$ R_x(\alpha) \circ R_y(\beta) \circ R_x(\gamma) \neq R_x(\alpha+\gamma) R_y(\beta) $</code></p>
+<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>x</mi></msub><mo stretchy="false">(</mo><mi>α</mi><mo stretchy="false">)</mo><mo>∘</mo><msub><mi>R</mi><mi>y</mi></msub><mo stretchy="false">(</mo><mi>β</mi><mo stretchy="false">)</mo><mo>∘</mo><msub><mi>R</mi><mi>x</mi></msub><mo stretchy="false">(</mo><mi>γ</mi><mo stretchy="false">)</mo><mo mathvariant="normal">≠</mo><msub><mi>R</mi><mi>x</mi></msub><mo stretchy="false">(</mo><mi>α</mi><mo>+</mo><mi>γ</mi><mo stretchy="false">)</mo><msub><mi>R</mi><mi>y</mi></msub><mo stretchy="false">(</mo><mi>β</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex"> R_x(\alpha) \circ R_y(\beta) \circ R_x(\gamma) \neq R_x(\alpha+\gamma) R_y(\beta) </annotation></semantics></math></span></p>
 <h2 id="summary-rotations-in-3d">Summary: Rotations in 3D</h2>
 <p>That was a brief reminder of some of the points in lectures and the readings. The next pages will let you experiment with the demonstrations that have been developed for class. First, we&rsquo;ll look at Euler Angles on <a href="../../docs/2/">Page &nbsp;2&nbsp; (Euler Angles Toys)</a>.</p>
 
             
-
-<div>
-        <i>There are no points associated with this page.</i>
-    </div>
 			
 			
 		</div>
@@ -101,7 +53,7 @@ And things in between cause problems:
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 7: Transformation and Hierarchy in Three.js</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">

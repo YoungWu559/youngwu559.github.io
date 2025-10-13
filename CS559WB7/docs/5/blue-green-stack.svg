@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 564.85 124.7">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #231f20;
+      }
+
+      .cls-1, .cls-3, .cls-4 {
+        font-family: ArialMT, Arial;
+        font-size: 8px;
+      }
+
+      .cls-5, .cls-6, .cls-7, .cls-8 {
+        fill: none;
+      }
+
+      .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-5, .cls-9 {
+        stroke: #006838;
+      }
+
+      .cls-6, .cls-8 {
+        stroke: #ed1c24;
+      }
+
+      .cls-3, .cls-11 {
+        fill: #ed1c24;
+      }
+
+      .cls-7 {
+        stroke: #231f20;
+      }
+
+      .cls-7, .cls-8 {
+        stroke-width: 2px;
+      }
+
+      .cls-9 {
+        fill: #8dc63f;
+      }
+
+      .cls-12 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-10 {
+        fill: #27aae1;
+        stroke: #1c75bc;
+      }
+    </style>
+  </defs>
+  <text class="cls-1" transform="translate(0 112.5)"><tspan x="0" y="0">world coordinate</tspan><tspan x="16.68" y="9.6">system</tspan></text>
+  <g>
+    <line class="cls-7" x1="6.85" y1="90" x2="53.79" y2="90"/>
+    <polygon class="cls-2" points="60.85 90 50.9 94.07 53.26 90 50.9 85.94 60.85 90"/>
+  </g>
+  <g>
+    <line class="cls-7" x1="6.85" y1="90" x2="6.85" y2="43.06"/>
+    <polygon class="cls-2" points="6.85 36 10.92 45.95 6.85 43.59 2.79 45.95 6.85 36"/>
+  </g>
+  <text class="cls-1" transform="translate(4.62 99)"><tspan x="0" y="0">0</tspan></text>
+  <text class="cls-1" transform="translate(.12 92)"><tspan x="0" y="0">0</tspan></text>
+  <text class="cls-1" transform="translate(40.62 99)"><tspan x="0" y="0">1</tspan></text>
+  <text class="cls-1" transform="translate(.12 56)"><tspan x="0" y="0">1</tspan></text>
+  <text class="cls-1" transform="translate(90.33 112.5)"><tspan x="0" y="0">green cube</tspan><tspan x="-4.44" y="9.6">center at .5,.5</tspan></text>
+  <rect class="cls-9" x="87.85" y="54" width="36" height="36"/>
+  <g>
+    <line class="cls-7" x1="87.85" y1="90" x2="134.79" y2="90"/>
+    <polygon class="cls-2" points="141.85 90 131.9 94.07 134.26 90 131.9 85.94 141.85 90"/>
+  </g>
+  <g>
+    <line class="cls-7" x1="87.85" y1="90" x2="87.85" y2="43.06"/>
+    <polygon class="cls-2" points="87.85 36 91.92 45.95 87.85 43.59 83.79 45.95 87.85 36"/>
+  </g>
+  <text class="cls-1" transform="translate(85.63 99)"><tspan x="0" y="0">0</tspan></text>
+  <text class="cls-1" transform="translate(81.13 92)"><tspan x="0" y="0">0</tspan></text>
+  <text class="cls-1" transform="translate(121.63 99)"><tspan x="0" y="0">1</tspan></text>
+  <text class="cls-1" transform="translate(81.13 56)"><tspan x="0" y="0">1</tspan></text>
+  <line class="cls-5" x1="105.85" y1="94.5" x2="105.85" y2="45"/>
+  <line class="cls-5" x1="128.35" y1="72" x2="83.35" y2="72"/>
+  <g>
+    <text class="cls-1" transform="translate(177.52 112.5)"><tspan x="0" y="0">green cube</tspan><tspan class="cls-12" x="40.03" y="0">’</tspan><tspan x="41.66" y="0">s</tspan><tspan x="-9.63" y="9.6">coordinate system</tspan></text>
+    <rect class="cls-9" x="164.35" y="54" width="36" height="36"/>
+    <g>
+      <g>
+        <line class="cls-7" x1="182.35" y1="72" x2="229.29" y2="72"/>
+        <polygon class="cls-2" points="236.35 72 226.4 76.07 228.76 72 226.4 67.94 236.35 72"/>
+      </g>
+      <g>
+        <line class="cls-7" x1="182.35" y1="72" x2="182.35" y2="25.06"/>
+        <polygon class="cls-2" points="182.35 18 186.42 27.95 182.35 25.59 178.29 27.95 182.35 18"/>
+      </g>
+      <text class="cls-1" transform="translate(180.12 81)"><tspan x="0" y="0">0</tspan></text>
+      <text class="cls-1" transform="translate(175.62 74)"><tspan x="0" y="0">0</tspan></text>
+      <text class="cls-1" transform="translate(216.12 81)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-1" transform="translate(175.62 38)"><tspan x="0" y="0">1</tspan></text>
+    </g>
+  </g>
+  <g>
+    <text class="cls-4" transform="translate(276.27 112.5)"><tspan class="cls-11" x="0" y="0">group </tspan><tspan class="cls-2" x="22.68" y="0">placed at</tspan><tspan class="cls-2"><tspan x="-8.89" y="9.6">.5 .5 in green coords</tspan></tspan></text>
+    <rect class="cls-9" x="258.85" y="54" width="36" height="36"/>
+    <g>
+      <g>
+        <line class="cls-7" x1="276.85" y1="72" x2="323.79" y2="72"/>
+        <polygon class="cls-2" points="330.85 72 320.9 76.07 323.26 72 320.9 67.94 330.85 72"/>
+      </g>
+      <g>
+        <line class="cls-7" x1="276.85" y1="72" x2="276.85" y2="25.06"/>
+        <polygon class="cls-2" points="276.85 18 280.92 27.95 276.85 25.59 272.79 27.95 276.85 18"/>
+      </g>
+      <text class="cls-1" transform="translate(274.62 81)"><tspan x="0" y="0">0</tspan></text>
+      <text class="cls-1" transform="translate(270.12 74)"><tspan x="0" y="0">0</tspan></text>
+      <text class="cls-1" transform="translate(310.62 81)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-1" transform="translate(270.12 38)"><tspan x="0" y="0">1</tspan></text>
+    </g>
+    <g>
+      <line class="cls-8" x1="294.85" y1="54" x2="341.79" y2="54"/>
+      <polygon class="cls-11" points="348.85 54 338.9 58.07 341.26 54 338.9 49.94 348.85 54"/>
+    </g>
+    <g>
+      <line class="cls-8" x1="294.85" y1="54" x2="294.85" y2="7.06"/>
+      <polygon class="cls-11" points="294.85 0 298.92 9.95 294.85 7.59 290.79 9.95 294.85 0"/>
+    </g>
+    <text class="cls-3" transform="translate(292.62 63)"><tspan x="0" y="0">0</tspan></text>
+    <text class="cls-3" transform="translate(288.12 56)"><tspan x="0" y="0">0</tspan></text>
+    <text class="cls-3" transform="translate(328.62 63)"><tspan x="0" y="0">1</tspan></text>
+    <text class="cls-3" transform="translate(288.12 20)"><tspan x="0" y="0">1</tspan></text>
+  </g>
+  <text class="cls-4" transform="translate(380.72 112.5)"><tspan class="cls-2"><tspan x="0" y="0">cyan cube placed</tspan></tspan><tspan class="cls-2" x="-11.11" y="9.6">at -.5,.5 in </tspan><tspan class="cls-11" x="26.68" y="9.6">group </tspan><tspan class="cls-2" x="49.37" y="9.6">coords</tspan></text>
+  <rect class="cls-9" x="371.35" y="54" width="36" height="36"/>
+  <rect class="cls-10" x="371.35" y="18" width="36" height="36"/>
+  <g>
+    <line class="cls-8" x1="407.35" y1="54" x2="454.29" y2="54"/>
+    <polygon class="cls-11" points="461.35 54 451.4 58.07 453.76 54 451.4 49.94 461.35 54"/>
+  </g>
+  <g>
+    <line class="cls-8" x1="407.35" y1="54" x2="407.35" y2="7.06"/>
+    <polygon class="cls-11" points="407.35 0 411.42 9.95 407.35 7.59 403.29 9.95 407.35 0"/>
+  </g>
+  <text class="cls-3" transform="translate(405.12 63)"><tspan x="0" y="0">0</tspan></text>
+  <text class="cls-3" transform="translate(400.62 56)"><tspan x="0" y="0">0</tspan></text>
+  <text class="cls-3" transform="translate(441.12 63)"><tspan x="0" y="0">1</tspan></text>
+  <text class="cls-3" transform="translate(400.62 20)"><tspan x="0" y="0">1</tspan></text>
+  <text/>
+  <g>
+    <text class="cls-4" transform="translate(470.83 112.5)"><tspan class="cls-2" x="0" y="0">rotate </tspan><tspan class="cls-11" x="22.68" y="0">group </tspan><tspan class="cls-2" x="45.36" y="0">around</tspan><tspan class="cls-2"><tspan x="18.91" y="9.6">its center</tspan></tspan></text>
+    <rect class="cls-9" x="483.47" y="54" width="36" height="36"/>
+    <g>
+      <g>
+        <line class="cls-8" x1="519.47" y1="54" x2="544.91" y2="14.55"/>
+        <polygon class="cls-11" points="548.74 8.62 546.77 19.19 544.63 15 539.93 14.78 548.74 8.62"/>
+      </g>
+      <rect class="cls-10" x="496.1" y="11.12" width="36" height="36" transform="translate(97.86 -274.02) rotate(32.82)"/>
+      <g>
+        <line class="cls-8" x1="519.47" y1="54" x2="558.92" y2="79.44"/>
+        <polygon class="cls-11" points="564.85 83.27 554.29 81.29 558.47 79.16 558.69 74.46 564.85 83.27"/>
+      </g>
+      <text class="cls-3" transform="translate(512.72 60.36) rotate(32.82)"><tspan x="0" y="0">0</tspan></text>
+      <text class="cls-3" transform="translate(512.74 52.04) rotate(32.82)"><tspan x="0" y="0">0</tspan></text>
+      <text class="cls-3" transform="translate(542.98 79.87) rotate(32.82)"><tspan x="0" y="0">1</tspan></text>
+      <text class="cls-3" transform="translate(532.25 21.78) rotate(32.82)"><tspan x="0" y="0">1</tspan></text>
+    </g>
+  </g>
+  <line class="cls-6" x1="389.35" y1="58.5" x2="389.35" y2="9"/>
+  <line class="cls-6" x1="411.85" y1="36" x2="366.85" y2="36"/>
+</svg>
