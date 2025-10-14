@@ -74,6 +74,8 @@ export class AutoUI {
       });
     });
     folder.close();
+    this.gui = gui;
+    this.folder = folder;
 
     if (display) {
       /* if no where is provided, put it at the end of the panel panel - assuming there is one */
@@ -110,9 +112,15 @@ export class AutoUI {
       this.update();
     }
   }
+
   update() {
-    const vals = this.sliders.map(sl => Number(sl.value()));
-    this.object.update(vals);
+    if (!this.sliders) {
+      this.object.update(this.folder.controllers.map(c => c.getValue()));
+    }
+    else {
+      const vals = this.sliders.map(sl => Number(sl.value()));
+      this.object.update(vals);
+    }
   }
 
   /**
@@ -121,7 +129,23 @@ export class AutoUI {
    * @param {number} value
    */
   set(param, value) {
-    if (typeof param === "string") {
+    if (!this.sliders) {
+      let vals = this.folder.controllers.map(c => c.getValue());
+      if (typeof param === "string") {
+        for (let i = 0; i < this.object.params.length; i++) {
+          if (param == this.object.params[i].name) {
+            vals[i] = Number(value);
+            this.folder.controllers[i].setValue(Number(value));
+          }
+        }
+      }
+      else {
+        vals[param] = Number(value);
+        this.folder.controllers[param].setValue(Number(value));
+      }
+      this.object.update(vals);
+    }
+    else if (typeof param === "string") {
       for (let i = 0; i < this.object.params.length; i++) {
         if (param == this.object.params[i].name) {
           this.sliders[i].set(Number(value));

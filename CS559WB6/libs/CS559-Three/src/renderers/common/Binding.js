@@ -12,14 +12,14 @@ class Binding {
 	/**
 	 * Constructs a new binding.
 	 *
-	 * @param {string} [name=''] - The binding's name.
+	 * @param {String} [name=''] - The binding's name.
 	 */
 	constructor( name = '' ) {
 
 		/**
 		 * The binding's name.
 		 *
-		 * @type {string}
+		 * @type {String}
 		 */
 		this.name = name;
 
@@ -27,7 +27,7 @@ class Binding {
 		 * A bitmask that defines in what shader stages the
 		 * binding's resource is accessible.
 		 *
-		 * @type {number}
+		 * @type {String}
 		 */
 		this.visibility = 0;
 
@@ -36,7 +36,7 @@ class Binding {
 	/**
 	 * Makes sure binding's resource is visible for the given shader stage.
 	 *
-	 * @param {number} visibility - The shader stage.
+	 * @param {Number} visibility - The shader stage.
 	 */
 	setVisibility( visibility ) {
 

@@ -13,7 +13,7 @@ class Buffer extends Binding {
 	/**
 	 * Constructs a new buffer.
 	 *
-	 * @param {string} name - The buffer's name.
+	 * @param {String} name - The buffer's name.
 	 * @param {TypedArray} [buffer=null] - The buffer.
 	 */
 	constructor( name, buffer = null ) {
@@ -23,7 +23,7 @@ class Buffer extends Binding {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {boolean}
+		 * @type {Boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -32,7 +32,7 @@ class Buffer extends Binding {
 		/**
 		 * The bytes per element.
 		 *
-		 * @type {number}
+		 * @type {Number}
 		 */
 		this.bytesPerElement = Float32Array.BYTES_PER_ELEMENT;
 
@@ -49,7 +49,7 @@ class Buffer extends Binding {
 	/**
 	 * The buffer's byte length.
 	 *
-	 * @type {number}
+	 * @type {Number}
 	 * @readonly
 	 */
 	get byteLength() {
@@ -73,7 +73,7 @@ class Buffer extends Binding {
 	/**
 	 * Updates the binding.
 	 *
-	 * @return {boolean} Whether the buffer has been updated and must be
+	 * @return {Boolean} Whether the buffer has been updated and must be
 	 * uploaded to the GPU.
 	 */
 	update() {

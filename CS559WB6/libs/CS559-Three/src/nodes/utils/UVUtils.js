@@ -1,11 +1,12 @@
 import { Fn, vec2 } from '../tsl/TSLBase.js';
 import { rotate } from './RotateNode.js';
 
+/** @module UVUtils **/
+
 /**
  * Rotates the given uv coordinates around a center point
  *
- * @tsl
- * @function
+ * @method
  * @param {Node<vec2>} uv - The uv coordinates.
  * @param {Node<float>} rotation - The rotation defined in radians.
  * @param {Node<vec2>} center - The center of rotation
@@ -20,8 +21,7 @@ export const rotateUV = /*@__PURE__*/ Fn( ( [ uv, rotation, center = vec2( 0.5 )
 /**
  * Applies a spherical warping effect to the given uv coordinates.
  *
- * @tsl
- * @function
+ * @method
  * @param {Node<vec2>} uv - The uv coordinates.
  * @param {Node<float>} strength - The strength of the effect.
  * @param {Node<vec2>} center - The center point

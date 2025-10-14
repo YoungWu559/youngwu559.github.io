@@ -1,11 +1,11 @@
 import DataMap from './DataMap.js';
 import Color4 from './Color4.js';
-import { vec4, context, normalWorldGeometry, backgroundBlurriness, backgroundIntensity, backgroundRotation, modelViewProjection } from '../../nodes/TSL.js';
+import { vec4, context, normalWorld, backgroundBlurriness, backgroundIntensity, backgroundRotation, modelViewProjection } from '../../nodes/TSL.js';
 import NodeMaterial from '../../materials/nodes/NodeMaterial.js';
 
 import { Mesh } from '../../objects/Mesh.js';
 import { SphereGeometry } from '../../geometries/SphereGeometry.js';
-import { BackSide } from '../../constants.js';
+import { BackSide, LinearSRGBColorSpace } from '../../constants.js';
 
 const _clearColor = /*@__PURE__*/ new Color4();
 
@@ -64,14 +64,14 @@ class Background extends DataMap {
 
 			// no background settings, use clear color configuration from the renderer
 
-			renderer._clearColor.getRGB( _clearColor );
+			renderer._clearColor.getRGB( _clearColor, LinearSRGBColorSpace );
 			_clearColor.a = renderer._clearColor.a;
 
 		} else if ( background.isColor === true ) {
 
 			// background is an opaque color
 
-			background.getRGB( _clearColor );
+			background.getRGB( _clearColor, LinearSRGBColorSpace );
 			_clearColor.a = 1;
 
 			forceClear = true;
@@ -89,7 +89,7 @@ class Background extends DataMap {
 
 				const backgroundMeshNode = context( vec4( backgroundNode ).mul( backgroundIntensity ), {
 					// @TODO: Add Texture2D support using node context
-					getUV: () => backgroundRotation.mul( normalWorldGeometry ),
+					getUV: () => backgroundRotation.mul( normalWorld ),
 					getTextureLevel: () => backgroundBlurriness
 				} );
 
@@ -101,7 +101,6 @@ class Background extends DataMap {
 				nodeMaterial.side = BackSide;
 				nodeMaterial.depthTest = false;
 				nodeMaterial.depthWrite = false;
-				nodeMaterial.allowOverride = false;
 				nodeMaterial.fog = false;
 				nodeMaterial.lights = false;
 				nodeMaterial.vertexNode = viewProj;
@@ -117,17 +116,6 @@ class Background extends DataMap {
 					this.matrixWorld.copyPosition( camera.matrixWorld );
 
 				};
-
-				function onBackgroundDispose() {
-
-					background.removeEventListener( 'dispose', onBackgroundDispose );
-
-					backgroundMesh.material.dispose();
-					backgroundMesh.geometry.dispose();
-
-				}
-
-				background.addEventListener( 'dispose', onBackgroundDispose );
 
 			}
 
@@ -149,20 +137,6 @@ class Background extends DataMap {
 		} else {
 
 			console.error( 'THREE.Renderer: Unsupported background configuration.', background );
-
-		}
-
-		//
-
-		const environmentBlendMode = renderer.xr.getEnvironmentBlendMode();
-
-		if ( environmentBlendMode === 'additive' ) {
-
-			_clearColor.set( 0, 0, 0, 1 );
-
-		} else if ( environmentBlendMode === 'alpha-blend' ) {
-
-			_clearColor.set( 0, 0, 0, 0 );
 
 		}
 

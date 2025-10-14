@@ -1,8 +1,29 @@
 import DataMap from './DataMap.js';
 import { AttributeType } from './Constants.js';
-import { arrayNeedsUint32 } from '../../utils.js';
 
 import { Uint16BufferAttribute, Uint32BufferAttribute } from '../../core/BufferAttribute.js';
+
+/**
+ * Returns `true` if the given array has values that require an Uint32 array type.
+ *
+ * @private
+ * @function
+ * @param {Array<Number>} array - The array to test.
+ * @return {Booolean} Whether the given array has values that require an Uint32 array type or not.
+ */
+function arrayNeedsUint32( array ) {
+
+	// assumes larger values usually on last
+
+	for ( let i = array.length - 1; i >= 0; -- i ) {
+
+		if ( array[ i ] >= 65535 ) return true; // account for PRIMITIVE_RESTART_FIXED_INDEX, #24565
+
+	}
+
+	return false;
+
+}
 
 /**
  * Returns the wireframe version for the given geometry.
@@ -10,7 +31,7 @@ import { Uint16BufferAttribute, Uint32BufferAttribute } from '../../core/BufferA
  * @private
  * @function
  * @param {BufferGeometry} geometry - The geometry.
- * @return {number} The version.
+ * @return {Number} The versio.
  */
 function getWireframeVersion( geometry ) {
 
@@ -113,7 +134,7 @@ class Geometries extends DataMap {
 		 * This Weak Map is used to make sure buffer attributes are
 		 * updated only once per render call.
 		 *
-		 * @type {WeakMap<BufferAttribute,number>}
+		 * @type {WeakMap<BufferAttribute,Number>}
 		 */
 		this.attributeCall = new WeakMap();
 
@@ -123,7 +144,7 @@ class Geometries extends DataMap {
 	 * Returns `true` if the given render object has an initialized geometry.
 	 *
 	 * @param {RenderObject} renderObject - The render object.
-	 * @return {boolean} Whether if the given render object has an initialized geometry or not.
+	 * @return {Boolean} Whether if the given render object has an initialized geometry or not.
 	 */
 	has( renderObject ) {
 
@@ -246,7 +267,7 @@ class Geometries extends DataMap {
 	 * Updates the given attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The attribute to update.
-	 * @param {number} type - The attribute type.
+	 * @param {Number} type - The attribute type.
 	 */
 	updateAttribute( attribute, type ) {
 
@@ -288,7 +309,7 @@ class Geometries extends DataMap {
 	 * Returns the indirect buffer attribute of the given render object.
 	 *
 	 * @param {RenderObject} renderObject - The render object.
-	 * @return {?BufferAttribute} The indirect attribute. `null` if no indirect drawing is used.
+	 * @return {BufferAttribute?} The indirect attribute. `null` if no indirect drawing is used.
 	 */
 	getIndirect( renderObject ) {
 
@@ -301,7 +322,7 @@ class Geometries extends DataMap {
 	 * in a method to return a wireframe index if necessary.
 	 *
 	 * @param {RenderObject} renderObject - The render object.
-	 * @return {?BufferAttribute} The index. Returns `null` for non-indexed geometries.
+	 * @return {BufferAttribute?} The index. Returns `null` for non-indexed geometries.
 	 */
 	getIndex( renderObject ) {
 

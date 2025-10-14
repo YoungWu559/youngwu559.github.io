@@ -2,8 +2,7 @@ import DataMap from './DataMap.js';
 
 import { Vector3 } from '../../math/Vector3.js';
 import { DepthTexture } from '../../textures/DepthTexture.js';
-import { DepthStencilFormat, DepthFormat, UnsignedIntType, UnsignedInt248Type, UnsignedByteType, SRGBTransfer } from '../../constants.js';
-import { ColorManagement } from '../../math/ColorManagement.js';
+import { DepthStencilFormat, DepthFormat, UnsignedIntType, UnsignedInt248Type, EquirectangularReflectionMapping, EquirectangularRefractionMapping, CubeReflectionMapping, CubeRefractionMapping, UnsignedByteType } from '../../constants.js';
 
 const _size = /*@__PURE__*/ new Vector3();
 
@@ -54,7 +53,7 @@ class Textures extends DataMap {
 	 * it updates the texture states representing the attachments of the framebuffer.
 	 *
 	 * @param {RenderTarget} renderTarget - The render target to update.
-	 * @param {number} [activeMipmapLevel=0] - The active mipmap level.
+	 * @param {Number} [activeMipmapLevel=0] - The active mipmap level.
 	 */
 	updateRenderTarget( renderTarget, activeMipmapLevel = 0 ) {
 
@@ -78,13 +77,10 @@ class Textures extends DataMap {
 		if ( depthTexture === undefined && useDepthTexture ) {
 
 			depthTexture = new DepthTexture();
-
 			depthTexture.format = renderTarget.stencilBuffer ? DepthStencilFormat : DepthFormat;
 			depthTexture.type = renderTarget.stencilBuffer ? UnsignedInt248Type : UnsignedIntType; // FloatType
 			depthTexture.image.width = mipWidth;
 			depthTexture.image.height = mipHeight;
-			depthTexture.image.depth = size.depth;
-			depthTexture.isArrayTexture = renderTarget.multiview === true && size.depth > 1;
 
 			depthTextureMips[ activeMipmapLevel ] = depthTexture;
 
@@ -99,7 +95,6 @@ class Textures extends DataMap {
 				depthTexture.needsUpdate = true;
 				depthTexture.image.width = mipWidth;
 				depthTexture.image.height = mipHeight;
-				depthTexture.image.depth = depthTexture.isArrayTexture ? depthTexture.image.depth : 1;
 
 			}
 
@@ -129,28 +124,21 @@ class Textures extends DataMap {
 
 		//
 
-
 		const options = { sampleCount };
 
-		// XR render targets require no texture updates
+		for ( let i = 0; i < textures.length; i ++ ) {
 
-		if ( renderTarget.isXRRenderTarget !== true ) {
+			const texture = textures[ i ];
 
-			for ( let i = 0; i < textures.length; i ++ ) {
+			if ( textureNeedsUpdate ) texture.needsUpdate = true;
 
-				const texture = textures[ i ];
+			this.updateTexture( texture, options );
 
-				if ( textureNeedsUpdate ) texture.needsUpdate = true;
+		}
 
-				this.updateTexture( texture, options );
+		if ( depthTexture ) {
 
-			}
-
-			if ( depthTexture ) {
-
-				this.updateTexture( depthTexture, options );
-
-			}
+			this.updateTexture( depthTexture, options );
 
 		}
 
@@ -179,7 +167,6 @@ class Textures extends DataMap {
 				}
 
 				this.delete( renderTarget );
-				this.backend.delete( renderTarget );
 
 			};
 
@@ -242,15 +229,9 @@ class Textures extends DataMap {
 		options.needsMipmaps = this.needsMipmaps( texture );
 		options.levels = options.needsMipmaps ? this.getMipLevels( texture, width, height ) : 1;
 
-		// TODO: Uniformly handle mipmap definitions
-		// Normal textures and compressed cube textures define base level + mips with their mipmap array
-		// Uncompressed cube textures use their mipmap array only for mips (no base level)
-
-		if ( texture.isCubeTexture && texture.mipmaps.length > 0 ) options.levels ++;
-
 		//
 
-		if ( isRenderTarget || texture.isStorageTexture === true || texture.isExternalTexture === true ) {
+		if ( isRenderTarget || texture.isStorageTexture === true ) {
 
 			backend.createSampler( texture );
 			backend.createTexture( texture, options );
@@ -308,8 +289,6 @@ class Textures extends DataMap {
 
 					if ( options.needsMipmaps && texture.mipmaps.length === 0 ) backend.generateMipmaps( texture );
 
-					if ( texture.onUpdate ) texture.onUpdate( texture );
-
 				}
 
 			} else {
@@ -336,14 +315,6 @@ class Textures extends DataMap {
 
 			this.info.memory.textures ++;
 
-			//
-
-			if ( texture.isVideoTexture && ColorManagement.getTransfer( texture.colorSpace ) !== SRGBTransfer ) {
-
-				console.warn( 'WebGPURenderer: Video textures must use a color space with a sRGB transfer function, e.g. SRGBColorSpace.' );
-
-			}
-
 			// dispose
 
 			const onDispose = () => {
@@ -351,6 +322,8 @@ class Textures extends DataMap {
 				texture.removeEventListener( 'dispose', onDispose );
 
 				this._destroyTexture( texture );
+
+				this.info.memory.textures --;
 
 			};
 
@@ -384,25 +357,9 @@ class Textures extends DataMap {
 
 			if ( image.image !== undefined ) image = image.image;
 
-			if ( ( typeof HTMLVideoElement !== 'undefined' ) && ( image instanceof HTMLVideoElement ) ) {
-
-				target.width = image.videoWidth || 1;
-				target.height = image.videoHeight || 1;
-				target.depth = 1;
-
-			} else if ( image instanceof VideoFrame ) {
-
-				target.width = image.displayWidth || 1;
-				target.height = image.displayHeight || 1;
-				target.depth = 1;
-
-			} else {
-
-				target.width = image.width || 1;
-				target.height = image.height || 1;
-				target.depth = texture.isCubeTexture ? 6 : ( image.depth || 1 );
-
-			}
+			target.width = image.width || 1;
+			target.height = image.height || 1;
+			target.depth = texture.isCubeTexture ? 6 : ( image.depth || 1 );
 
 		} else {
 
@@ -418,33 +375,29 @@ class Textures extends DataMap {
 	 * Computes the number of mipmap levels for the given texture.
 	 *
 	 * @param {Texture} texture - The texture.
-	 * @param {number} width - The texture's width.
-	 * @param {number} height - The texture's height.
-	 * @return {number} The number of mipmap levels.
+	 * @param {Number} width - The texture's width.
+	 * @param {Number} height - The texture's height.
+	 * @return {Number} The number of mipmap levels.
 	 */
 	getMipLevels( texture, width, height ) {
 
 		let mipLevelCount;
 
-		if ( texture.mipmaps.length > 0 ) {
+		if ( texture.isCompressedTexture ) {
 
-			mipLevelCount = texture.mipmaps.length;
+			if ( texture.mipmaps ) {
 
-		} else {
-
-			if ( texture.isCompressedTexture === true ) {
-
-				// it is not possible to compute mipmaps for compressed textures. So
-				// when no mipmaps are defined in "texture.mipmaps", force a texture
-				// level of 1
-
-				mipLevelCount = 1;
+				mipLevelCount = texture.mipmaps.length;
 
 			} else {
 
-				mipLevelCount = Math.floor( Math.log2( Math.max( width, height ) ) ) + 1;
+				mipLevelCount = 1;
 
 			}
+
+		} else {
+
+			mipLevelCount = Math.floor( Math.log2( Math.max( width, height ) ) ) + 1;
 
 		}
 
@@ -453,14 +406,28 @@ class Textures extends DataMap {
 	}
 
 	/**
-	 * Returns `true` if the given texture makes use of mipmapping.
+	 * Returns `true` if the given texture requires mipmaps.
 	 *
 	 * @param {Texture} texture - The texture.
-	 * @return {boolean} Whether mipmaps are required or not.
+	 * @return {Boolean} Whether mipmaps are required or not.
 	 */
 	needsMipmaps( texture ) {
 
-		return texture.generateMipmaps === true || texture.mipmaps.length > 0;
+		return this.isEnvironmentTexture( texture ) || texture.isCompressedTexture === true || texture.generateMipmaps;
+
+	}
+
+	/**
+	 * Returns `true` if the given texture is an environment map.
+	 *
+	 * @param {Texture} texture - The texture.
+	 * @return {Boolean} Whether the given texture is an environment map or not.
+	 */
+	isEnvironmentTexture( texture ) {
+
+		const mapping = texture.mapping;
+
+		return ( mapping === EquirectangularReflectionMapping || mapping === EquirectangularRefractionMapping ) || ( mapping === CubeReflectionMapping || mapping === CubeRefractionMapping );
 
 	}
 
@@ -472,16 +439,10 @@ class Textures extends DataMap {
 	 */
 	_destroyTexture( texture ) {
 
-		if ( this.has( texture ) === true ) {
+		this.backend.destroySampler( texture );
+		this.backend.destroyTexture( texture );
 
-			this.backend.destroySampler( texture );
-			this.backend.destroyTexture( texture );
-
-			this.delete( texture );
-
-			this.info.memory.textures --;
-
-		}
+		this.delete( texture );
 
 	}
 

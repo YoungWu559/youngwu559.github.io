@@ -1,5 +1,7 @@
 import { Color } from '../../math/Color.js';
 
+/** @module RendererUtils **/
+
 /**
  * Saves the state of the given renderer and stores it into the given state object.
  *

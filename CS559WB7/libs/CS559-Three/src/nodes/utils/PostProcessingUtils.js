@@ -3,12 +3,13 @@ import { textureSize } from '../accessors/TextureSizeNode.js';
 import { textureLoad } from '../accessors/TextureNode.js';
 import { WebGPUCoordinateSystem } from '../../constants.js';
 
+/** @module PostProcessingUtils **/
+
 /**
  * Computes a position in view space based on a fragment's screen position expressed as uv coordinates, the fragments
  * depth value and the camera's inverse projection matrix.
  *
- * @tsl
- * @function
+ * @method
  * @param {Node<vec2>} screenPosition - The fragment's screen position expressed as uv coordinates.
  * @param {Node<float>} depth - The fragment's depth value.
  * @param {Node<mat4>} projectionMatrixInverse - The camera's inverse projection matrix.
@@ -39,8 +40,7 @@ export const getViewPosition = /*@__PURE__*/ Fn( ( [ screenPosition, depth, proj
  * Computes a screen position expressed as uv coordinates based on a fragment's position in view space
  * and the camera's projection matrix
  *
- * @tsl
- * @function
+ * @method
  * @param {Node<vec3>} viewPosition - The fragments position in view space.
  * @param {Node<mat4>} projectionMatrix - The camera's projection matrix.
  * @return {Node<vec2>} The fragment's screen position expressed as uv coordinates.
@@ -57,8 +57,7 @@ export const getScreenPosition = /*@__PURE__*/ Fn( ( [ viewPosition, projectionM
  * Computes a normal vector based on depth data. Can be used as a fallback when no normal render
  * target is available or if flat surface normals are required.
  *
- * @tsl
- * @function
+ * @method
  * @param {Node<vec2>} uv - The texture coordinate.
  * @param {DepthTexture} depthTexture - The depth texture.
  * @param {Node<mat4>} projectionMatrixInverse - The camera's inverse projection matrix.

@@ -3,15 +3,12 @@ import ChainMap from '../ChainMap.js';
 import NodeBuilderState from './NodeBuilderState.js';
 import { cubeMapNode } from '../../../nodes/utils/CubeMapNode.js';
 import { NodeFrame } from '../../../nodes/Nodes.js';
-import { objectGroup, renderGroup, frameGroup, cubeTexture, texture, texture3D, vec3, fog, rangeFogFactor, densityFogFactor, reference, pmremTexture, screenUV } from '../../../nodes/TSL.js';
-import { builtin } from '../../../nodes/accessors/BuiltinNode.js';
+import { objectGroup, renderGroup, frameGroup, cubeTexture, texture, fog, rangeFogFactor, densityFogFactor, reference, pmremTexture, screenUV } from '../../../nodes/TSL.js';
 
 import { CubeUVReflectionMapping, EquirectangularReflectionMapping, EquirectangularRefractionMapping } from '../../../constants.js';
 import { hashArray } from '../../../nodes/core/NodeUtils.js';
 
 const _outputNodeMap = new WeakMap();
-const _chainKeys = [];
-const _cacheKeyValues = [];
 
 /**
  * This renderer module manages node-related objects and is the
@@ -56,7 +53,7 @@ class Nodes extends DataMap {
 		/**
 		 * A cache for managing node builder states.
 		 *
-		 * @type {Map<number,NodeBuilderState>}
+		 * @type {Map<Number,NodeBuilderState>}
 		 */
 		this.nodeBuilderCache = new Map();
 
@@ -78,7 +75,7 @@ class Nodes extends DataMap {
 		 * A cache for managing node objects of
 		 * scene properties like fog or environments.
 		 *
-		 * @type {Object<string,WeakMap>}
+		 * @type {Object<String,WeakMap>}
 		 */
 		this.cacheLib = {};
 
@@ -88,7 +85,7 @@ class Nodes extends DataMap {
 	 * Returns `true` if the given node uniforms group must be updated or not.
 	 *
 	 * @param {NodeUniformsGroup} nodeUniformsGroup - The node uniforms group.
-	 * @return {boolean} Whether the node uniforms group requires an update or not.
+	 * @return {Boolean} Whether the node uniforms group requires an update or not.
 	 */
 	updateGroup( nodeUniformsGroup ) {
 
@@ -139,13 +136,10 @@ class Nodes extends DataMap {
 
 		// other groups are updated just when groupNode.needsUpdate is true
 
-		_chainKeys[ 0 ] = groupNode;
-		_chainKeys[ 1 ] = nodeUniformsGroup;
+		const groupChain = [ groupNode, nodeUniformsGroup ];
 
-		let groupData = this.groupsData.get( _chainKeys );
-		if ( groupData === undefined ) this.groupsData.set( _chainKeys, groupData = {} );
-
-		_chainKeys.length = 0;
+		let groupData = this.groupsData.get( groupChain );
+		if ( groupData === undefined ) this.groupsData.set( groupChain, groupData = {} );
 
 		if ( groupData.version !== groupNode.version ) {
 
@@ -163,7 +157,7 @@ class Nodes extends DataMap {
 	 * Returns the cache key for the given render object.
 	 *
 	 * @param {RenderObject} renderObject - The render object.
-	 * @return {number} The cache key.
+	 * @return {Number} The cache key.
 	 */
 	getForRenderCacheKey( renderObject ) {
 
@@ -202,12 +196,6 @@ class Nodes extends DataMap {
 				nodeBuilder.environmentNode = this.getEnvironmentNode( renderObject.scene );
 				nodeBuilder.fogNode = this.getFogNode( renderObject.scene );
 				nodeBuilder.clippingContext = renderObject.clippingContext;
-				if ( this.renderer.getOutputRenderTarget() ? this.renderer.getOutputRenderTarget().multiview : false ) {
-
-					nodeBuilder.enableMultiview();
-
-				}
-
 				nodeBuilder.build();
 
 				nodeBuilderState = this._createNodeBuilderState( nodeBuilder );
@@ -229,8 +217,8 @@ class Nodes extends DataMap {
 	/**
 	 * Deletes the given object from the internal data map
 	 *
-	 * @param {any} object - The object to delete.
-	 * @return {?Object} The deleted dictionary.
+	 * @param {Any} object - The object to delete.
+	 * @return {Object?} The deleted dictionary.
 	 */
 	delete( object ) {
 
@@ -296,7 +284,7 @@ class Nodes extends DataMap {
 			nodeBuilder.updateNodes,
 			nodeBuilder.updateBeforeNodes,
 			nodeBuilder.updateAfterNodes,
-			nodeBuilder.observer,
+			nodeBuilder.monitor,
 			nodeBuilder.transforms
 		);
 
@@ -390,39 +378,36 @@ class Nodes extends DataMap {
 	 *
 	 * @param {Scene} scene - The scene.
 	 * @param {LightsNode} lightsNode - The lights node.
-	 * @return {number} The cache key.
+	 * @return {Number} The cache key.
 	 */
 	getCacheKey( scene, lightsNode ) {
 
-		_chainKeys[ 0 ] = scene;
-		_chainKeys[ 1 ] = lightsNode;
-
+		const chain = [ scene, lightsNode ];
 		const callId = this.renderer.info.calls;
 
-		const cacheKeyData = this.callHashCache.get( _chainKeys ) || {};
+		let cacheKeyData = this.callHashCache.get( chain );
 
-		if ( cacheKeyData.callId !== callId ) {
+		if ( cacheKeyData === undefined || cacheKeyData.callId !== callId ) {
 
 			const environmentNode = this.getEnvironmentNode( scene );
 			const fogNode = this.getFogNode( scene );
 
-			if ( lightsNode ) _cacheKeyValues.push( lightsNode.getCacheKey( true ) );
-			if ( environmentNode ) _cacheKeyValues.push( environmentNode.getCacheKey() );
-			if ( fogNode ) _cacheKeyValues.push( fogNode.getCacheKey() );
+			const values = [];
 
-			_cacheKeyValues.push( this.renderer.getOutputRenderTarget() && this.renderer.getOutputRenderTarget().multiview ? 1 : 0 );
-			_cacheKeyValues.push( this.renderer.shadowMap.enabled ? 1 : 0 );
+			if ( lightsNode ) values.push( lightsNode.getCacheKey( true ) );
+			if ( environmentNode ) values.push( environmentNode.getCacheKey() );
+			if ( fogNode ) values.push( fogNode.getCacheKey() );
 
-			cacheKeyData.callId = callId;
-			cacheKeyData.cacheKey = hashArray( _cacheKeyValues );
+			values.push( this.renderer.shadowMap.enabled ? 1 : 0 );
 
-			this.callHashCache.set( _chainKeys, cacheKeyData );
+			cacheKeyData = {
+				callId,
+				cacheKey: hashArray( values )
+			};
 
-			_cacheKeyValues.length = 0;
+			this.callHashCache.set( chain, cacheKeyData );
 
 		}
-
-		_chainKeys.length = 0;
 
 		return cacheKeyData.cacheKey;
 
@@ -432,7 +417,7 @@ class Nodes extends DataMap {
 	 * A boolean that indicates whether tone mapping should be enabled
 	 * or not.
 	 *
-	 * @type {boolean}
+	 * @type {Boolean}
 	 */
 	get isToneMappingState() {
 
@@ -514,10 +499,10 @@ class Nodes extends DataMap {
 	 * This method is part of the caching of nodes which are used to represents the
 	 * scene's background, fog or environment.
 	 *
-	 * @param {string} type - The type of object to cache.
+	 * @param {String} type - The type of object to cache.
 	 * @param {Object} object - The object.
 	 * @param {Function} callback - A callback that produces a node representation for the given object.
-	 * @param {boolean} [forceUpdate=false] - Whether an update should be enforced or not.
+	 * @param {Boolean} [forceUpdate=false] - Whether an update should be enforced or not.
 	 * @return {Node} The node representation.
 	 */
 	getCacheNode( type, object, callback, forceUpdate = false ) {
@@ -660,13 +645,13 @@ class Nodes extends DataMap {
 	/**
 	 * Returns the current output cache key.
 	 *
-	 * @return {string} The output cache key.
+	 * @return {String} The output cache key.
 	 */
 	getOutputCacheKey() {
 
 		const renderer = this.renderer;
 
-		return renderer.toneMapping + ',' + renderer.currentColorSpace + ',' + renderer.xr.isPresenting;
+		return renderer.toneMapping + ',' + renderer.currentColorSpace;
 
 	}
 
@@ -675,7 +660,7 @@ class Nodes extends DataMap {
 	 * the given target has changed.
 	 *
 	 * @param {Texture} outputTarget - The output target.
-	 * @return {boolean} Whether the output configuration has changed or not.
+	 * @return {Boolean} Whether the output configuration has changed or not.
 	 */
 	hasOutputChange( outputTarget ) {
 
@@ -697,9 +682,7 @@ class Nodes extends DataMap {
 		const renderer = this.renderer;
 		const cacheKey = this.getOutputCacheKey();
 
-		const output = outputTarget.isArrayTexture ?
-			texture3D( outputTarget, vec3( screenUV, builtin( 'gl_ViewID_OVR' ) ) ).renderOutput( renderer.toneMapping, renderer.currentColorSpace ) :
-			texture( outputTarget, screenUV ).renderOutput( renderer.toneMapping, renderer.currentColorSpace );
+		const output = texture( outputTarget, screenUV ).renderOutput( renderer.toneMapping, renderer.currentColorSpace );
 
 		_outputNodeMap.set( outputTarget, cacheKey );
 
@@ -789,7 +772,7 @@ class Nodes extends DataMap {
 	 * Returns `true` if the given render object requires a refresh.
 	 *
 	 * @param {RenderObject} renderObject - The render object.
-	 * @return {boolean} Whether the given render object requires a refresh or not.
+	 * @return {Boolean} Whether the given render object requires a refresh or not.
 	 */
 	needsRefresh( renderObject ) {
 
@@ -801,7 +784,7 @@ class Nodes extends DataMap {
 	}
 
 	/**
-	 * Frees the internal resources.
+	 * Frees the intenral resources.
 	 */
 	dispose() {
 
