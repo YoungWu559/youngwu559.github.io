@@ -304,7 +304,7 @@ export class LabelSlider {
     this.label.setAttribute("for", id + "-text");
     this.label.setAttribute(
       "style",
-      `padding:2px; width:40px; display:inline-block;`
+      `padding:2px; width:40px; display:` + (params.display || "inline-block") + `;`
     );
     this.label.innerText = name;
     this.div.appendChild(this.label);

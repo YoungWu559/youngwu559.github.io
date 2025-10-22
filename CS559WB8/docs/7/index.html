@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,79 +16,56 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 7: A Car for Graphics Town (ex 5)</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>The pedagogical goals of this exercise are to give you practice defining shapes with meshes and adding textures to them.</p>
+		<div class="content post__content clearfix"> 
+
+
+<p>The pedagogical goals of this exercise are to give you practice defining shapes with meshes and adding textures to them.</p>
 <p>In graphics town, you will need vehicles. Cars, trucks, trains, or maybe other things.</p>
 <p>So in this page, please make one. It has to have wheels on the ground. But other than that, few restrictions - you can have a primitive (like a box or something) for the body. The vehicle must either have shape or texture to make it look like a car/truck/train.</p>
 <p>Here are some simple ones from that 2000 graphics town I mentioned. You should be able to make something nicer.</p>
 <p><img src="../../images/car1.png" height="200px" /> <img src="../../images/car2.png" height="200px" /></p>
-<p>If you want a simple train made out of primitives, you can look at <a href="https://discoverthreejs.com/book/first-steps/transformations/" target="_blank">this tutorial</a> for a simple train made out of primitives. If you use it, be sure to give attribution (and put it into the graphics town framework).</p>
+<p>If you want a simple train made out of primitives, you can look at <a href="https://discoverthreejs.com/book/first-steps/built-in-geometries/" target="_blank">the threejs built-in geometry tutorial (with train)</a> for a simple train made out of primitives. If you use it, be sure to give attribution (and put it into the graphics town framework).</p>
 <p>To get the points for this page, you just have to have a simple car (defined as a <code>GrObject</code> in 
-    <a href="../../for_students/08-07-car.js" class="for_students">08-07-car.js</a> and placed into the world in 
-    <a href="../../for_students/08-07-01.js" class="for_students">08-07-01.js</a>). Of course, it can be a fancier vehicle. Don&rsquo;t worry about making it drive around (that&rsquo;s a future workbook).</p>
-<iframe
-    title="08-07-01"
-    src="../../for_students/08-07-01.html"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
-
+<a href="../../for_students/08-07-01-car.js" class="box-html" data-tag="08-07-01">08-07-01-car.js</a>
+ and placed into the world in 
+<a href="../../for_students/08-07-01.js" class="box-html" data-tag="08-07-01">08-07-01.js</a>
+). Of course, it can be a fancier vehicle. Don&rsquo;t worry about making it drive around (that&rsquo;s a future workbook).</p>
+<p>
+<div id="box-08-07-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 08-07-01</b>&nbsp;
+        (2 basic + 1 advanced)&nbsp&nbsp;
+        <a href=../../for_students/08-07-01.html class="boxtitlelink">08-07-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/08-07-01.js" class="boxtitlelink">08-07-01.js</a>
+    <iframe
+        title="08-07-01"
+        src="../../for_students/08-07-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-08-07-01"
+    ></iframe>
+</div>
+<div class="page-rubric-container">
+        <i>There are no points associated with Box 08-07-01.</i>
+    </div></p>
 <p>You will need vehicles for the future assignments, so effort you put into making nice vehicles now will pay off in future workbooks. You can make more vehicle types later - but you may want to do some of the work now.</p>
 <p>Please do not re-use one of the pieces of construction equipment you made for the previous workbook.</p>
 <p>The rules for finding and importing object files and textures are the same as for <a href="../../docs/6/">Page &nbsp;6&nbsp; (Graphics Town Buildings (Exercise 4))</a>.</p>
 <p>Your Vehicles should be subclasses of <code>GrObject</code>. Your work goes into 
-    <a href="../../for_students/08-07-car.js" class="for_students">08-07-car.js</a> and modify 
-    <a href="../../for_students/08-07-01.js" class="for_students">08-07-01.js</a>. You&rsquo;ll see it in 
-    <a href="../../for_students/08-07-01.html" class="for_students">08-07-01.html</a>.  Please explain how you made each vehicle in 
-    <a href="../../for_students/08-07-01.txt" class="for_students">08-07-01.txt</a>.</p>
-<iframe
-    title="08-07-01"
-    src="../../for_students/08-07-01.txt"
-    class="includebox"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
-
-<h1 id="the-end">The End</h1>
-<p>That&rsquo;s the end of this work book! Don&rsquo;t forget to commit your work, push it to GitHub, and complete the <a href="https://canvas.wisc.edu/courses/343665/assignments/1844836">Workbook 08 Handin (due Mon, Apr 3)</a>.</p>
+<a href="../../for_students/08-07-01-car.js" class="box-html" data-tag="08-07-01">08-07-01-car.js</a>
+ and modify 
+<a href="../../for_students/08-07-01.js" class="box-html" data-tag="08-07-01">08-07-01.js</a>
+. You&rsquo;ll see it in 
+    
+    <a href="../../for_students/08-07-01.html" class="for_students for_students--notfile">08-07-01.html</a>.</p>
+<h1 id="the-end-of-the-first-half">The End of the First Half</h1>
+<p>That&rsquo;s the end of the first half of the work book! Don&rsquo;t forget to commit your work, push it to GitHub, and complete the WB8 Workbook Form.</p>
 <p>Be sure to include any texture files you added!</p>
+<a href="../../docs/8/" class="Next__Page">Next: Fancy Texturing </a>
 
             
-
-
-        
-        
-        
-        
-        <div class="page-rubric-container">
-    <details class="page__rubric">
-    <summary>Page 7 Rubric (14 points total)</summary>
-    <br/>
-    <div class="page-rubric-grid">
-            <div class="page-rubric-grid-header rubric-box-regular">Points (11):</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">6 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">Car or Vehicle (looks like a car or other vehicle)</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">Has texture (or at least coloring)</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-regular">Vehicle described in txt</div>
-            <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (3) 
-                 (maximum 10 can be earned in this workbook):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">fancy vehicle - grader&#39;s discretion</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-07-01</div>
-                <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-                <div class="page-rubric-grid-desc rubric-box-bonus">more than 1 vehicle type</div></div>
-    </details>
-    </div>
 			
 			
 		</div>
@@ -96,7 +73,7 @@
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 8: Meshes and Textures</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -108,6 +85,13 @@
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Dice and Dominos (Exercise 2 and 3) </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Graphics Town Buildings (Exercise 4) </a></li>
         <li class="Side__Item Side__Selected"> 7: A Car for Graphics Town (ex 5) </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Fancy Texturing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Exercise 1: Material Property Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Exercise 2: Bump and Normal Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Exercise 4: Environment Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: Exercise 5: Shadow Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: Multi-Pass Rendering </a></li>
 </ul>
 </div>
 </div>

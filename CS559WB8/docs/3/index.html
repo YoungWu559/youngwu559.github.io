@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,12 +16,7 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 3: Texture Basics</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>This page are some notes about texturing. The notes are meant to remind you about what you&rsquo;ve learned in class and point you towards resources to learn more from. This is not a texture tutorial.</p>
+		<div class="content post__content clearfix"><p>This page are some notes about texturing. The notes are meant to remind you about what you&rsquo;ve learned in class and point you towards resources to learn more from. This is not a texture tutorial.</p>
 <h2 id="the-big-picture">The Big Picture</h2>
 <p>Texturing is a way to add details to a scene without making the geometry more complex. Effectively, it provides a way to make a decision about appearance for every pixel on the screen - without having to make triangles that are pixel-sized.</p>
 <p>The obvious catch is that we can&rsquo;t know the pixels ahead of time: a triangle may be big or small on the screen. We need to define the textures in a way that is independent of the actual pixels, and then compute the texture for each pixel.</p>
@@ -36,7 +31,8 @@
 <li>Why we need filtering for texture lookups</li>
 </ul>
 <p>You might want to review this in a textbook.
-<a href="https://canvas.wisc.edu/files/30140506/download?download_frd=1">FCG4_Ch11.pdf (6.1mb)</a> covers texturing, describing it in a very general way. Section 11.1 gives the main ideas, and 11.2 gives many different types of textures - we&rsquo;ll focus on what&rsquo;s described in 11.2.2.</p>
+FCG4 Chapter 11 covers texturing, describing it in a very general way. Section 11.1 gives the main ideas, and 11.2 gives many different types of textures - we&rsquo;ll focus on what&rsquo;s described in 11.2.2.</p>
+<p>If you want to play with a gadget to help you see how a triangle gets placed in texture coordinates, check out <a href="https://cs559.github.io/559Tutorials/textures/gadget/">this demo</a>.</p>
 <h2 id="image-based-triangle-interpolated-textures-for-color-maps">Image-Based, Triangle-Interpolated Textures, for Color Maps</h2>
 <p>The specific kind of textures we&rsquo;re doing are:</p>
 <ol>
@@ -55,10 +51,6 @@
 <p>This page should give you a reminder of what you&rsquo;ve learned about texturing so far. On <a href="../../docs/4/">Page &nbsp;4&nbsp; (Textures in THREE)</a>, we&rsquo;ll review how this is applied in THREE.</p>
 
             
-
-<div>
-        <i>There are no points associated with this page.</i>
-    </div>
 			
 			
 		</div>
@@ -66,7 +58,7 @@
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 8: Meshes and Textures</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -78,6 +70,13 @@
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Dice and Dominos (Exercise 2 and 3) </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Graphics Town Buildings (Exercise 4) </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: A Car for Graphics Town (ex 5) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Fancy Texturing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Exercise 1: Material Property Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Exercise 2: Bump and Normal Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Exercise 4: Environment Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: Exercise 5: Shadow Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: Multi-Pass Rendering </a></li>
 </ul>
 </div>
 </div>

@@ -4,7 +4,7 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="../../css/workbook.css">
@@ -16,40 +16,44 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 4: Textures in THREE</h1>
 		</header>
-        
-        
-        
-		<div class="content post__content clearfix"><div class="dimbox">
-                    <h3>CS559 Spring 2023 Sample Solution</h3>
-                </div><p>Using textures is notoriously tricky because there are a lot of steps involved. Fortunately, THREE makes it remarkably easy - it takes care of all of the little details, allowing you to focus on the big parts (setting coordinates, defining the texture image).</p>
+		<div class="content post__content clearfix"><p>Using textures is notoriously tricky because there are a lot of steps involved. Fortunately, THREE makes it remarkably easy - it takes care of all of the little details, allowing you to focus on the big parts (setting coordinates, defining the texture image).</p>
 <p>If you want a sense of how much had to happen to get a cube with texture on it, have a look at the <a href="https://cs559.github.io/S20-FrameworkDemos/WebGLTexture/texture.html" target="_blank">2015 example</a>! And this doesn&rsquo;t do any lighting!</p>
 <p>Fortunately, THREE takes care of all of this for us. And it gives us access to lots of fancier kinds of texture things as well.</p>
 <h2 id="the-complete-example">The Complete Example</h2>
 <p>We&rsquo;re going to do this backwards. Here is a complete example program. It is the two triangles from <a href="../../docs/1/">Page &nbsp;1&nbsp; (Meshes: What you need to know)</a>, with an extra plane and a texture added. The plane is so you can see what the texture looks like when flat. There are a few changes - the triangles are white, not yellow.</p>
+<p> 
 
-<h3>08-04-01</h3><iframe
-    title=""
-    src="../../for_students/08-04-01.html"
-    js = "/for_students/08-04-01.js"
-    class="includebox includebox-standard"
-    width="100%"
-    height="100%"
-    scrolling="no"
-    frameborder="0"
-></iframe>
 
+
+<div id="box-08-04-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 08-04-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/08-04-01.html class="boxtitlelink">08-04-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/08-04-01.js" class="boxtitlelink">08-04-01.js</a>
+    <iframe
+        title="08-04-01"
+        src="../../for_students/08-04-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-08-04-01"
+    ></iframe>
+</div></p>
 <p>We&rsquo;ll explain how it works in the following, but you might want to have a look first (the program is 
-    <a href="../../for_students/08-04-01.js" class="for_students">08-04-01.js</a>).</p>
+<a href="../../for_students/08-04-01.js" class="box-html" data-tag="08-04-01">08-04-01.js</a>
+).</p>
 <p>On the left, we have the triangles without texture, for reference. In the center, we put the texture on the triangles. On the right, we again put the texture on, but adjust the texture coordinates - the left triangle gets its colors from the lower-left part of the texture map (as it appears on the square), and the right triangle gets its colors from the upper right corner.</p>
 <h2 id="texture-coordinates-in-three">Texture Coordinates in THREE</h2>
 <p>Most THREE primitives have reasonable texture coordinates defined. For example, the square (a THREE <code>PlaneGeometry</code>) in the demo 1 has its u,v going from 0 to 1 over the course of a plane.</p>
 <p>For user-defined geometries (of class <code>BufferGeometry</code>), we have to provide texture coordinates ourselves. We need to split a vertex if it needs to have different coordinates for the different triangles it is part of (as we did with color and normals before).</p>
 <p><strong>Note:</strong> in previous versions of the class, we used the old style <code>Geom</code> - now we are only using <code>BufferGeometry</code>.</p>
 <p>Setting up the texture coordinates for the <code>BufferGeometry</code> is simple: we make a new <code>BufferAttribute</code> that is the uvs. We give it an array of 2 * number of vertices (a uv pair for each vertex). Here&rsquo;s the code from 
-    <a href="../../for_students/08-04-01.js" class="for_students">08-04-01.js</a> - it&rsquo;s actually only 2 statements (since I put each vertex&rsquo;s data on a separate line, it takes longer).</p>
+<a href="../../for_students/08-04-01.js" class="box-html" data-tag="08-04-01">08-04-01.js</a>
+ - it&rsquo;s actually only 2 statements (since I put each vertex&rsquo;s data on a separate line, it takes longer).</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
@@ -77,10 +81,11 @@
 <p>Notice that I need to make a <strong>typed array</strong> of the values (that&rsquo;s what <code>FloatArray32</code> does). It has 12 values (6 vertices, 2 values per vertex - u and v). I then use that array to make a <code>BuffferAttribute</code> that gets assigned to &ldquo;uv&rdquo;.</p>
 <h2 id="using-the-texture">Using the Texture</h2>
 <p>Once we have UV values we simply need to make sure our material knows to use those UV values and color the triangles using the correct map. In 
-    <a href="../../for_students/08-04-01.js" class="for_students">08-04-01.js</a> it is done by:</p>
+<a href="../../for_students/08-04-01.js" class="box-html" data-tag="08-04-01">08-04-01.js</a>
+ it is done by:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
@@ -108,8 +113,8 @@
 <p>Fortunately, THREE takes care of all this for you with a texture loader. You say &ldquo;load me a texture&rdquo;, and it loads the texture in and sets things up once its loaded. A cool feature: before the texture is loaded, things still work (it just shows up as blank). Remember, this is JavaScript asynchronicity, so there really isn&rsquo;t any multi-threading. You need to make sure you return back to the main event loop for loading to happen (remember how <code>requestAnimationFrame</code> works?).</p>
 <p>The line of code is:</p>
 
-    
-    <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+        
+        <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
 </span></code></pre></td>
@@ -120,18 +125,17 @@
 </div>
 <h2 id="texture-re-use">Texture Re-Use</h2>
 <p>It&rsquo;s so easy to load and use textures with THREE that you might forget how many you&rsquo;ve loaded. In general, using lots of textures can be a problem: they take up a lot of memory.</p>
-<p>For example, in the example code (<code>for_students/08-04-01.js</code>), the texture file <code>/textures/UV_Grid_Sm.jpg</code> is loaded three times. A separate copy will be loaded for each instance of <code>TwoTrianglesTextured</code> and <code>TwoTrianglesTextured2</code> that we create. Right now, there is just one of each (so that&rsquo;s two copies of the texture - a third is used for the plane). If we made a lot of these objects, the memory usage would add up fast.</p>
+<p>For example, in the example code 
+<a href="../../for_students/08-04-01.js" class="box-html" data-tag="08-04-01">08-04-01.js</a>
+, the texture file <code>/textures/UV_Grid_Sm.jpg</code> is loaded three times. A separate copy will be loaded for each instance of <code>TwoTrianglesTextured</code> and <code>TwoTrianglesTextured2</code> that we create. Right now, there is just one of each (so that&rsquo;s two copies of the texture - a third is used for the plane). If we made a lot of these objects, the memory usage would add up fast.</p>
 <p>Therefore, when we use textures, we need to be careful to re-use things that we&rsquo;ve loaded already and not load multiple copies. In fact, we might want to try to re-use the same texture over and over to save memory. Think about this when you make your own objects for future projects.</p>
 <p>The obvious way to fix this in 
-    <a href="../../for_students/08-04-01.js" class="for_students">08-04-01.js</a> would be to move the line that loads the texture to near the top of the file (after the THREE library is loaded), outside of any function. That way <code>tl</code> would be a &ldquo;module&rdquo; variable (effectively a global), rather than a local variable. The texture would be loaded once, when the module is first loaded.</p>
+<a href="../../for_students/08-04-01.js" class="box-html" data-tag="08-04-01">08-04-01.js</a>
+ would be to move the line that loads the texture to near the top of the file (after the THREE library is loaded), outside of any function. That way <code>tl</code> would be a &ldquo;module&rdquo; variable (effectively a global), rather than a local variable. The texture would be loaded once, when the module is first loaded.</p>
 <h2 id="summary-textures-in-three">Summary: Textures in THREE</h2>
 <p>That was a quick summary of how textures are applied in THREE. On <a href="../../docs/5/">Page &nbsp;5&nbsp; (Dice and Dominos (Exercise 2 and 3))</a>, you can try doing it yourself!</p>
 
             
-
-<div>
-        <i>There are no points associated with this page.</i>
-    </div>
 			
 			
 		</div>
@@ -139,7 +143,7 @@
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 8: Meshes and Textures</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -151,6 +155,13 @@
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Dice and Dominos (Exercise 2 and 3) </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Graphics Town Buildings (Exercise 4) </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: A Car for Graphics Town (ex 5) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Fancy Texturing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Exercise 1: Material Property Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Exercise 2: Bump and Normal Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Exercise 4: Environment Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: Exercise 5: Shadow Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: Multi-Pass Rendering </a></li>
 </ul>
 </div>
 </div>

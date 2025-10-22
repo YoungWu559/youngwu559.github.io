@@ -1,4 +1,0 @@
-Please describe the vehicles you created and how you made them in this file 08-07-01.txt
-
-SUV, HatchBack, Van: body built with 24 triangles (dimensions from 2000 Graphics Town Cars), wheels are Cylinder Geometries, lights are Cone Geometries, with 
-suv-front.png and suv-side.png textures

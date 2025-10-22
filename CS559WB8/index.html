@@ -4,9 +4,9 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
-	<meta name="generator" content="Hugo 0.121.1">
+	<meta name="generator" content="Hugo 0.140.2">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/workbook.css">
         <script src="./js/resizeIFrames.js"></script>
@@ -22,145 +22,445 @@
 	<div class="content main__content clearfix">
         
 
-        <div class="dimbox">
-                <h2>CS559 Spring 2023 Sample Solution</h2>
-                <p>This is a sample solution for the Workbook.
-                    You are welcome to refer to it to learn one way to do the assignment
-                    but only after you have turned in your own assignment
-                </p>
-            </div>
-<h2>Learning Goals</h2>
-<ol>
-    <li>To get some practice with mesh data structures, and see how they are used in a practical API.</li>
-    <li>To understand vertex-oriented representations, their motivations, and their use.</li>
-    <li>To see the effects of vertex and face properties including colors and normals.</li>
-    <li>To practice the basic concepts of textures, especially texture coordinates.</li>
-    <li>To see how texturing is implemented in a practical API.</li>
-    <li>To gain some experience using shape and texture to create interesting 3D models.</li>
-</ol>
-
-            <p>This week, we&rsquo;ll move on to making the objects that we see in 3D worlds. We&rsquo;ll learn about how we group triangles into <em>meshes</em> and use <em>texturing</em> to give them more interesting colors.</p>
+        <p>This workbook is due on Tuesday, November 4, 2025.</p><p>This week, we&rsquo;ll move on to making the objects that we see in 3D worlds. We&rsquo;ll learn about how we group triangles into <em>meshes</em> and use <em>texturing</em> to give them more interesting colors.</p>
 <h2 id="required-and-recommended-readings">Required and Recommended Readings</h2>
 <p>The required material will be discussed in the lectures. You will want to consult the THREE.JS documentation for details on how to use the API, and you may want to consult a JavaScript text to learn about JavaScript features that are important for the class software framework.</p>
-<p>Note: the version of THREE we are using for this workbook (v148) is not the default on the THREE website. However, the documentation at <a href="https://threejs.org/docs" target="_blank">THREE.js Documentation (current)</a> should be close enough.</p>
+<p>Note: the version of THREE we are using for this workbook is not the default on the THREE website. However, the documentation at <a href="https://threejs.org/docs" target="_blank">THREE.js Documentation (current)</a> should be close enough.</p>
 <p>We <strong>strongly recommend</strong> reading the textbook chapters. The basic concepts will be covered in the lectures/videos, but it is also helpful to see more details. (these chapters are short):</p>
 <ul>
-<li><a href="https://canvas.wisc.edu/files/30140526/download?download_frd=1">FCG4_Ch10.pdf (0.8mb)</a> (10-10.2, 10.3 is optional)</li>
-<li><a href="https://canvas.wisc.edu/files/30140506/download?download_frd=1">FCG4_Ch11.pdf (6.1mb)</a> (11-11.3, 11.4 will be in the next workbook)</li>
+<li>FCG4 Chapter 10 (10-10.2, 10.3 is optional)</li>
+<li>FCG4 Chapter 11 (11-11.3, 11.4 will be in the next workbook)</li>
 </ul>
 <p><strong>From the previous workbook, but still relevant</strong></p>
 <ul>
-<li><a href="https://canvas.wisc.edu/files/30140527/download?download_frd=1">FCG4_Ch12.pdf (0.9mb)</a> (12, 12.1 (not 12.1.4), 12.2)</li>
+<li>FCG4 Chapter 12 (12, 12.1 (not 12.1.4), 12.2)</li>
 </ul>
 <h3 id="lighting">Lighting</h3>
-<p>In the workbooks, we let THREE take care of lighting for us. In lectures, and the textbook, we discuss how basic lighting works. You will need to understand it for the quiz. You should read <a href="https://canvas.wisc.edu/files/30140526/download?download_frd=1">FCG4_Ch10.pdf (0.8mb)</a> - Section 10.3 is optional, but interesting.</p>
+<p>In the workbooks, we let THREE take care of lighting for us. In lectures, and the textbook, we discuss how basic lighting works. You will need to understand it for the quiz. You should read FCG4 Chapter 10 - Section 10.3 is optional, but interesting.</p>
 <h3 id="basics-of-three">Basics of THREE</h3>
-<p>By now, you probably have the basics of THREE down. But the <a href="https://discoverthreejs.com/book/first-steps/transformations/" target="_blank">&quot;discover threejs tutorial&quot;</a> is a good way to review primitives, hierarchies and other basics. Unfortunately, its one of a very few chapters of the book that has been written.</p>
+<p>By now, you probably have the basics of THREE down. But the <a href="https://discoverthreejs.com/book/first-steps/transformations/" target="_blank">&quot;discover threejs tutorial&quot;</a> is a good way to review primitives, hierarchies and other basics.</p>
 <h3 id="meshes">Meshes</h3>
-<p>We&rsquo;ll discuss the basic concepts in class, which will be sufficient for what you need to know. Section 12.1 of Fundamentals of Computer Graphics (<a href="https://canvas.wisc.edu/files/30140527/download?download_frd=1">FCG4_Ch12.pdf (0.9mb)</a>) covers this, and then some. Sections 12, 12.1 and 12.2 cover the material for class. Section 12.1.3 covers strips and fans (which we will touch on in class, but won&rsquo;t use much). Section 12.1.4 discusses the fancy data structures used for representing meshes when they need to be manipulated - this is beyond what we will do in class - read this section to get a taste of a more advanced topic. Chapter 4 of The Big Fun Graphics Book (<a href="https://canvas.wisc.edu/files/30140537/download?download_frd=1">Hart04-jan19.pdf (2.4mb)</a>) covers much of the same material.</p>
+<p>We&rsquo;ll discuss the basic concepts in class, which will be sufficient for what you need to know. Section 12.1 of Fundamentals of Computer Graphics (FCG4 Chapter 12) covers this, and then some. Sections 12, 12.1 and 12.2 cover the material for class. Section 12.1.3 covers strips and fans (which we will touch on in class, but won&rsquo;t use much). Section 12.1.4 discusses the fancy data structures used for representing meshes when they need to be manipulated - this is beyond what we will do in class - read this section to get a taste of a more advanced topic.</p>
 <p>In the old days, THREE had a very convenient class for meshes called <code>Geometry.</code> Unfortunately, it was deprecated for the more modern <code>BufferGeometry</code> class. <code>BufferGeometry</code> has better performance because it matches how the graphics hardware works (we&rsquo;ll learn about the hardware in Workbook 10), however it is less convenient. Unfortunately, with modern versions of THREE we have no choice.</p>
 <h3 id="texturing">Texturing</h3>
-<p>Texturing is a big topic. We&rsquo;ll cover the basic concepts now, and return to see a lot more of the details later. Again, everything you need will be discussed in class, read a book chapter to get more details or see it explained another way. <a href="https://canvas.wisc.edu/files/30140506/download?download_frd=1">FCG4_Ch11.pdf (6.1mb)</a> covers texturing, describing it in a very general way. Section 11.1 gives the main ideas, and 11.2 gives many different types of texture - we&rsquo;ll focus on what&rsquo;s described in 11.2.2. Sections 11.2.4 (perspective correct interpolation) is an interesting detail (but the hardware takes care of it for you). 11.3 (pixel lookups) is an important topic. Section 11.4 is stuff we&rsquo;ll see next week (advanced texturing) and 11.5 is interesting but optional.</p>
+<p>Texturing is a big topic. We&rsquo;ll cover the basic concepts now, and return to see a lot more of the details later. Again, everything you need will be discussed in class, read a book chapter to get more details or see it explained another way. FCG4 Chapter 11 covers texturing, describing it in a very general way. Section 11.1 gives the main ideas, and 11.2 gives many different types of texture - we&rsquo;ll focus on what&rsquo;s described in 11.2.2. Sections 11.2.4 (perspective correct interpolation) is an interesting detail (but the hardware takes care of it for you). 11.3 (pixel lookups) is an important topic. Section 11.4 is stuff we&rsquo;ll see next week (advanced texturing) and 11.5 is interesting but optional.</p>
 <p>The implementation of texturing we&rsquo;ll use is built into the various <code>Materials</code> in THREE. The description of how a texture is stored is discussed with the <a href="https://threejs.org/docs/#api/en/textures/Texture" target="_blank"><code>Texture</code></a> class. We&rsquo;ll discuss the main ideas in class, and the examples in this workbook will help you out. There are many examples of using textures with THREE around the web, however, many of them use old versions of THREE. The new versions are much more convenient (especially the <code>TextureLoader</code>). If you&rsquo;re looking for things to read, <a href="https://discoverthreejs.com/book/first-steps/textures-intro/" target="_blank">this Discover ThreeJS tutorial</a> shows some of the basics, but goes off into tangents about details we probably won&rsquo;t care about (like color spaces and anisotropic filtering).</p>
-<h2 id="a-reminder-on-handing-things-in">A Reminder on Handing Things In&hellip;</h2>
-<p>Part of this assignment is adding images for textures. Do not forget to add this to your repository (for example, using <code>git add</code> if you are using the command line), and committing and pushing the new files to the repository.</p>
-<p>And don&rsquo;t forget to do the handin quiz when you have completed the assignment!</p>
+<p>This week we&rsquo;ll do some more texturing, try out fancier versions of texturing and see how this works with lighting.</p>
+<p>THREE makes fancy texture mapping very easy. A lot of things that are hard to program are built in and made convenient. Most of the important kinds of texture mapping we need to do are built in to THREE (usually in the materials). This is good news if you want to use advanced texturing - you don&rsquo;t need to understand the details of how it works, the implementors of THREE figured it out for you. Even better they all work together: you can use a physically-based material with a texture map, environment map, property map, shadow map, and bump map (and maybe even more features) just by specifying the parameters!</p>
+<p>This is a slight problem for class: we have no way to know if you are really understanding how these different things work. So, we&rsquo;re going to trust you. Watch the lecture videos, read the readings, experiment with different parameters, shapes and maps. Be thankful that you don&rsquo;t actually have to code up the math for each of these methods.</p>
+<h2 id="more-readings">More Readings</h2>
+<p>The main source of the material in this workbook are the lectures.</p>
+<p>You will undoubtedly need to look at the <a href="https://threejs.org/docs" target="_blank">THREE documentation</a>. You may also want to look at the <a href="https://cs559.github.io/CS559-Framework23/" target="_blank">framework code documentation</a>. The documentation is generated from the comments in the code, so you can probably just get by with reading the code.</p>
+<p>To get a little deeper into how things work, you will want to do some reading.</p>
+<ul>
+<li>FCG4 Chapter 10 (was in prior workbooks) has a concise and complete discussion of basic lighting. It is a great way to review what we discuss in class. Section 10.3 (Artistic Shading) is a more advanced topic. While lighting is not directly part of the exercises of the workbook, it is a topic that you will need to understand (both for programming and for the exams). We will also do more with it in coming weeks.</li>
+<li>FCG4 Chapter 11 was a reading for last week. Sections 11.1 and 11.2 cover the basics of texture mapping. Section 11.3 discusses the filtering issues (as we talked about in class), including mip mapping and anisotropy. Section 11.4 talks (briefly) about the advanced texturing concepts in the exercises of this workbook.</li>
+<li>RTR Chapter 6 (optional - for advanced students only!) has more details about texturing than you probably want to know. It will tell you about many different kinds of mapping, lots of different algorithms for each different problems, and lots of pictures of how these things can be used in practice. It&rsquo;s fun to look at the pictures and be inspired about what kinds of cool stuff can be done.</li>
+<li>RTR Chapter 7 (optional - for advanced students only!) is a whole chapter on shadows. We&rsquo;ll only talk about Shadow Maps (Section 7.4). Even with Shadow Maps, the RTR book will give you more details than you could imagine, and tell you some things that they&rsquo;ve done in recent (well, recent of the time the book was written) games.</li>
+</ul>
+<h2 id="exercises">Exercises</h2>
+<p>The requirements for this workbook are relatively easy. On most pages, we simply ask you to use a particular kind of texture. In most cases, this requires you to pick some object, pick some texture, and write a very minimal amount of code to attach the two. We encourage you to experiment: see how the parameters change things, try different kinds of images for your textures, etc. But we can&rsquo;t really check that you&rsquo;ve done this. The requirements are pretty minimal.</p>
+<p>It is your responsibility to make sure that your scene shows off the texturing feature that it is supposed to. For example, if you are showing off the use of environment maps to simulate reflections, make sure that you have a shiny object that reflects things (and an environment map that give something to be seen in the reflections). You may want to make your objects move in order to show off some of the lighting effects, or choose object views that make things clear (for example, in lecture I showed off when bump mapping becomes invisible). If you think that its not clear that you are using the required effect, you may want to describe (in the text box below the exercise) what we should be seeing and why it shows off the feature.</p>
+<p>You will need to find/create your own texture maps. Over the course of the assignment, you will need a bunch of texture maps. Over the whole assignment you must use each of these creation methods at least once:</p>
+<ol>
+<li>A texture you made yourself by painting (digital painting, using a painting program/photo editor)</li>
+<li>A texture that you got from the web (document where you found it, and confirm that it is free to use)</li>
+<li>A texture that is a photograph (that you took) of a real object</li>
+</ol>
+<p>You need to explain how you used each of these creation methods in the Workbook From to get credit.</p>
+<p>Don&rsquo;t forget to include the textures you use in your repo and push them to GitHub!</p>
+<p>In order to the exercises in the workbook, you might need to put an extra object in your scenes.</p>
+<p>If you want to load in objects from OBJ or FBX files, that is OK (but optional). Make sure to include the objects in your repo, and document where you got them from in the Workbook Form. You probably want to use the loader code built in the framework. Please choose objects that have appropriate licensing and be sure to give proper attribution.</p>
+<h2 id="a-note-on-textures">A Note on Textures</h2>
+<p>Please be reasonable with your textures. Because 100+ students are uploading files for grading, it uses up a lot of space very quickly. You don&rsquo;t need massive texture files. When you find textures on the web (especially environment textures) they tend to be huge. Please choose small sized textures, or shrink them to reasonable size if need be. (it is very unlikely that you need a texture that is more than 1MB).</p>
+<p>And please use compressed file formats (e.g., <code>.png</code> or <code>.jpg</code>).</p>
+<p>You do need to add/commit textures to your repo, so they get pushed to GitHub.</p>
+<p>If you get a texture from someplace, you need to give proper attribution. Please give it in the Workbook Form.</p>
 <h2 id="rubric-for-grading">Rubric for Grading</h2>
-
-<div class="page-rubric-container">
+<p>The requirements are pretty straightforward. You really only need to add a few lines on top of things you already know how to do.</p>
+<p>Assessing effort beyond the minimum is difficult for the graders: it&rsquo;s too subjective, and not necessarily a measure of your learning about graphics. For example, you might make a really cool scene just because you picked an nice environment map background from <a href="https://polyhaven.com/" target="_blank">Poly Haven</a>; in fact, that might look nicer than a simple one someone made themselves. Therefore, there are few advanced point opportunities in this assignment.</p>
+<h2 id="document-the-assignments-well-and-a-reminder-on-handing-things-in">Document the assignments well and a Reminder on Handing Things In&hellip;</h2>
+<p>In this workbook, the assignments are more open ended.
+For this reason, it is important that you document well what you did.
+Please do this in the Workbook Form.</p>
+<p>In particular, be sure to say where you get your textures from. It&rsquo;s OK to get them from the web - as long as they are freely available, and you give proper attribution. If you painted them yourself, say so. We&rsquo;d prefer to know how (what program did you use?). Please put attributions in the Workbook Form.</p>
+<p>Part of this assignment is adding images for textures. Do not forget to add this to your repository (for example, using <code>git add</code> if you are using the command line), and committing and pushing the new files to the repository.</p>
+<p>And don&rsquo;t forget to do the Workbook Form when you have completed the assignment!</p>
+<h2 id="rubric-for-grading-1">Rubric for Grading</h2>
+                          <div class="page-rubric-container">
 <details class="page__rubric">
-<summary>Workbook Rubric (97 points total)</summary>
-<br/>
-<div class="page-rubric-grid">
-        <div class="page-rubric-grid-header rubric-box-regular">Points (87):</div><div class="page-rubric-grid-box rubric-box-regular"></div>
-            <div class="page-rubric-grid-points rubric-box-regular">30 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">correct hand-in</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-01-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">triangles correctly oriented (no holes in grid)</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Object 1 has (at least) 3 triangles</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Object 1 has colored triangles (with different colors)</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Object 2 has (at least) 3 triangles</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Object 2 has vertex colors where we can see blending</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Object 3 has (at least) 3 triangles</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Object 3 has normals that make things look smooth</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Code Check: objects build “manually”</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-05-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">There are 2 dice</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-05-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Dice have numbers on their sides</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-05-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Dice have correct numbers on their sides</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-05-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">The two dice show different numbers on top</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-05-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">At least one domino</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-05-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">The domino is a double 6 (correct texture)</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Building Type 1</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Building 1 has texture</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Building 1 described in txt</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Building Type 2</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Building 2 described in txt</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Building 2 has texture</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Has different roof type than 1</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Tree or plant</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-07-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">6 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Car or Vehicle (looks like a car or other vehicle)</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-07-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">4 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Has texture (or at least coloring)</div><div class="page-rubric-grid-box rubric-box-regular">Box 08-07-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Vehicle described in txt</div>
-    <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (14 possible, of which you can earn a maximum of 10):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-05-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Rounded edges (Dice)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-05-02</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Rounded edges (Domino)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-05-02</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">More dominos (with different numbers)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-05-02</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Legal domino arrangement (at least 4 dominos)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">fancy/complex texture and/or shape (building 1) - grader discretion</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">fancy/complex texture and/or shape (building 2) - grader discretion</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Building Type 3 - substantially different and described in text</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">Building Type 3 - different roof type than others</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-07-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">fancy vehicle - grader&#39;s discretion</div><div class="page-rubric-grid-box rubric-box-bonus">Box 08-07-01</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">more than 1 vehicle type</div></div>
+    <summary>Workbook Rubric (16 basic + 4 advanced (4 max) = 20 total)</summary>
+    <br/>
+    <table class="page-rubric-table" style="background-color: #f0f0f0;">
+        <thead>
+            <tr>
+                <th>Box</th>
+                <th>Basic</th>
+                <th>Advanced</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>correct WB8 Workbook Form submission on time</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/1/#box-08-01-04">08-01-04</a></td>
+                <td></td>
+                <td></td>
+                <td>triangles correctly oriented (no holes in grid)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-08-02-01">08-02-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Object 1 has (at least) 3 triangles</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-08-02-01">08-02-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Object 1 has colored triangles (with different colors)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-08-02-01">08-02-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Object 2 has (at least) 3 triangles</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-08-02-01">08-02-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Object 2 has vertex colors where we can see blending</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-08-02-01">08-02-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Object 3 has (at least) 3 triangles</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-08-02-01">08-02-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Object 3 has normals that make things look smooth</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-08-02-01">08-02-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Code Check: objects build “manually”</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-01">08-05-01</a></td>
+                <td></td>
+                <td></td>
+                <td>There are 2 dice</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-01">08-05-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Dice have numbers on their sides</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-01">08-05-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Dice have correct numbers on their sides</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-01">08-05-01</a></td>
+                <td></td>
+                <td></td>
+                <td>The two dice show different numbers on top</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-02">08-05-02</a></td>
+                <td></td>
+                <td></td>
+                <td>At least one domino</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-02">08-05-02</a></td>
+                <td></td>
+                <td></td>
+                <td>The domino is a double 6 (correct texture)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Building Type 1</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Building 1 has texture</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Building Type 2</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Building 2 has texture</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Has different roof type than 1</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Tree or plant</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/7/#box-08-07-01">08-07-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Car or Vehicle (looks like a car or other vehicle)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/7/#box-08-07-01">08-07-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Has texture (or at least coloring)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-01">08-05-01</a></td>
+                <td></td>
+                <td></td>
+                <td>Rounded edges (Dice)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-02">08-05-02</a></td>
+                <td></td>
+                <td></td>
+                <td>Rounded edges (Domino)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-02">08-05-02</a></td>
+                <td></td>
+                <td></td>
+                <td>More dominos (with different numbers)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/5/#box-08-05-02">08-05-02</a></td>
+                <td></td>
+                <td></td>
+                <td>Legal domino arrangement (at least 4 dominos)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Building Type 3 - substantially different and described in text</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/6/#box-08-06-01">08-06-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Building Type 3 - different roof type than others</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/7/#box-08-07-01">08-07-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>more than 1 vehicle type</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>(at least one) texture you made by painting (described in the Workbook Form)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>(at least one) texture you found on the web (described in Workbook Form with proper attribution)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>(at least one) a texture you made by taking a picture (described in the Workbook Form)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-08-08-02">08-08-02</a></td>
+                <td></td>
+                <td></td>
+                <td>identifyable as a real object</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/8/#box-08-08-02">08-08-02</a></td>
+                <td></td>
+                <td></td>
+                <td>texture makes it look like a real object</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-08-09-01">08-09-01</a></td>
+                <td></td>
+                <td></td>
+                <td>an appropriate scene (objects, lighting, …)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-08-09-01">08-09-01</a></td>
+                <td></td>
+                <td></td>
+                <td>clear use of mat prop map</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/9/#box-08-09-01">08-09-01</a></td>
+                <td></td>
+                <td></td>
+                <td>material map use explained</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/10/#box-08-10-01">08-10-01</a></td>
+                <td></td>
+                <td></td>
+                <td>appropriate scene (objects and lighting)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/10/#box-08-10-01">08-10-01</a></td>
+                <td></td>
+                <td></td>
+                <td>bump map object looks “bump mappy”</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/10/#box-08-10-01">08-10-01</a></td>
+                <td></td>
+                <td></td>
+                <td>confirm bump map is a bump map (1 channel)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/10/#box-08-10-01">08-10-01</a></td>
+                <td></td>
+                <td></td>
+                <td>normal map object looks “normal mappy”</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/10/#box-08-10-01">08-10-01</a></td>
+                <td></td>
+                <td></td>
+                <td>confirm normal map is a normal map (3 channels)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/10/#box-08-10-01">08-10-01</a></td>
+                <td></td>
+                <td></td>
+                <td>explaination of how we can see the effects</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/11/#box-08-11-01">08-11-01</a></td>
+                <td></td>
+                <td></td>
+                <td>both boxes look like a skybox</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/11/#box-08-11-01">08-11-01</a></td>
+                <td></td>
+                <td></td>
+                <td>one of them is a fake sky box (get close to edge)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/12/#box-08-12-01">08-12-01</a></td>
+                <td></td>
+                <td></td>
+                <td>there is a reflective object in the scene that shows the environment map</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/12/#box-08-12-01">08-12-01</a></td>
+                <td></td>
+                <td></td>
+                <td>environment map matches environment</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/12/#box-08-12-01">08-12-01</a></td>
+                <td></td>
+                <td></td>
+                <td>explanation of why env map is appropriate</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/13/#box-08-13-01">08-13-01</a></td>
+                <td></td>
+                <td></td>
+                <td>there are shadows</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/13/#box-08-13-01">08-13-01</a></td>
+                <td></td>
+                <td></td>
+                <td>there are shadows of one object onto another object</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/14/#box-08-14-01">08-14-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>there is an object reflecting the environment (checks for code using current framework)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/14/#box-08-14-01">08-14-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>the reflections show the scene (not just the background)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/14/#box-08-14-01">08-14-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>you can see moving objects in the reflection</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/14/#box-08-14-01">08-14-01</a></td>
+                <td>1</td>
+                <td></td>
+                <td>not the same as the example (checks for code using current framework)</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/10/#box-08-10-01">08-10-01</a></td>
+                <td></td>
+                <td></td>
+                <td>combine bump/normal with color map, with explanation</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/12/#box-08-12-01">08-12-01</a></td>
+                <td></td>
+                <td></td>
+                <td>combine env map with other map types and explain</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/14/#box-08-14-01">08-14-01</a></td>
+                <td></td>
+                <td>1</td>
+                <td>video screen showing what a camera moving in the scene sees</td>
+            </tr>
+        </tbody>
+    </table>
 </details>
 </div>
+<p>Get Started on <a href="./docs/1/">Page &nbsp;1&nbsp; (Meshes: What you need to know)</a></p>
 
-        
-        
-        
-        
-        <h3 class="get__started">Get started on 
-            <a href="./docs/1/">Page &nbsp;1&nbsp; (Meshes: What you need to know)</a>!</h3>
         
 	</div>
 </main>
 
                 </div>
-                <div class="sidebar">
+                    <div class="sidebar">
 <h2 class="Side_Title">Workbook 8: Meshes and Textures</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
@@ -172,6 +472,13 @@
         <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Dice and Dominos (Exercise 2 and 3) </a></li>
         <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: Graphics Town Buildings (Exercise 4) </a></li>
         <li class="Side__Item Side__Unselected"> <a href="./docs/7/">7: A Car for Graphics Town (ex 5) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/8/">8: Fancy Texturing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/9/">9: Exercise 1: Material Property Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/10/">10: Exercise 2: Bump and Normal Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/11/">11: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/12/">12: Exercise 4: Environment Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/13/">13: Exercise 5: Shadow Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/14/">14: Multi-Pass Rendering </a></li>
 </ul>
 </div>
 </div>
