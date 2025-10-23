@@ -4,16 +4,14 @@
 import * as T from "../libs/CS559-Three/build/three.module.js";
 import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
+import * as InputHelpers from "../libs/CS559/inputHelpers.js";
 
-// your buildings are defined in another file... you should import them
-// here
-
-let world = new GrWorld();
-
-// place your buildings and trees into the world here
-
-world.go();
-
+function test() {
+  let parentOfCanvas = document.getElementById("div1");
+  let world = new GrWorld({ where: parentOfCanvas });
+  world.go();
+}
+test();
 
 
 // CS559 2025 Workbook

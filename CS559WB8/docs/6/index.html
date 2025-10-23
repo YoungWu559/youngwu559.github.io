@@ -14,72 +14,44 @@
         <div class="container container--outer"><div class="maincolumn">
 <main class="main" role="main">
 	<article class="post">
-		<header class="post__header"><h1 class="post__title">Page 6: Graphics Town Buildings (Exercise 4)</h1>
+		<header class="post__header"><h1 class="post__title">Page 6: Generative AI for Mesh</h1>
 		</header>
-		<div class="content post__content clearfix"><p>The pedagogical goals of this exercise are to give you practice defining shapes with meshes and adding textures to them.</p>
-<p>In the coming weeks, you will make Graphics Town. To start, in this exercise you will make a few kinds of buildings to put into your town. Over the next weeks, you&rsquo;ll make more stuff to go into the town.</p>
-<p>For this assignment, you need to make at least two different kinds of buildings. The buildings must have shapes that are more complicated than a box (or other single primitive), and must have textures.</p>
-<p>Here is a picture of the old Graphics Town framework (the houses are circa 2000, but they stayed in the assignment up to 2014).</p>
-<figure><img src="../../images/OldGrTown.png"
-    alt="Old Graphics Town" width="600">
-</figure>
-
-<p>In this picture, you can see three kinds of houses and a church. There are houses that are squarish with a pointy roof (this is called a &ldquo;pyramid hip&rdquo; roof), and houses that have two piece roofs (so two of the faces of the building have five edges) - these are called &ldquo;open gable&rdquo; roofs. If you want to learn the architectural terms see <a href="https://www.roofingcalc.com/top-20-roof-types/" target="_blank">this page</a> - but this has little to do with graphics. The gable roof houses have two variants: one where the front door is on a five-sided face, one where the front/back door is on a four-sided face. These simple buildings are good enough to satisfy the needs of the assignment.</p>
-<p>For the requirements, you need to make two different building types. The two buildings must have different shapes (so the gable roof houses above are a single shape). The buildings must have doors and windows (or other features), and must use at least one texture. If you need ideas, <a href="https://www.roofingcalc.com/top-20-roof-types/" target="_blank">this page about roofs</a> shows a bunch of different types.</p>
-<p>You can choose what kinds of buildings to make. You can make houses, stores, schools, office buildings, castles, forts, igloos, &hellip; (we&rsquo;re open to what qualifies as a &ldquo;building&rdquo;). A building must be more than a single primitive shape (so no boxes - even if you want to make a modernist skyscraper).</p>
-<p>Remember: be sure to add your textures to the repository so they get pushed to GitHub!</p>
-<p> 
-
-
-
-<div id="box-08-06-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
-    <b>Box 08-06-01</b>&nbsp;
-        (6 basic + 2 advanced)&nbsp&nbsp;
-        <a href=../../for_students/08-06-01.html class="boxtitlelink">08-06-01.html</a>
-        &nbsp;&nbsp;<a href="../../for_students/08-06-01.js" class="boxtitlelink">08-06-01.js</a>
-    <iframe
-        title="08-06-01"
-        src="../../for_students/08-06-01.html"
-        class="includebox includebox-standard"
-        width="100%"
-        height="100%"
-        scrolling="no"
-        frameborder="0"
-        id="box-iframe-08-06-01"
-    ></iframe>
-</div>
-<div class="page-rubric-container">
-        <i>There are basic or advanced gallery items to be completed for Box 08-06-01. To get full points, please add explanations of what you did in the .html file (or as notes in the Workbook Form) and submit at least one screenshot and one video recording of the box to the Workbook Canvas Assignment.</i>
-    </div></p>
-<p>For this assignment, it is legal to load an OBJ (or other file that THREE supports). However, you may not just find a building on web. You must create the model yourself. At least one of your buildings must have a shape that is more than just loading a model from a file (such as defining Geometry in the code, or putting multiple pieces together). If you find a building on the web, you must make your own texture for it. And don&rsquo;t forget to include any geometry files (OBJ) in the repository that gets pushed to GitHub! You must describe the buildings and how you made it in them 
-<a href="../../for_students/08-06-01.txt" class="box-html" data-tag="08-06-01">08-06-01.txt</a>
- file (below).</p>
-<p>If you find a building that has a texture on the web, you will be able to use it in a later assignment. But for this assignment, we want you to try to make things yourself.</p>
-<p>Please do not use fancy THREE/WebGL features that we have not yet discussed in class. The only kind of map you can use is a &ldquo;color map&rdquo; (the <code>map</code> for a THREE <code>MeshStandardMaterial</code>). You&rsquo;ll get a chance to use fancier kinds of maps soon enough.</p>
-<p>This assignment is a good opportunity to get advanced points. You can do this in a number of ways:</p>
+		<div class="content post__content clearfix"><p>In 2025, we are truly living in the era of Generative AI, and this revolution extends to 3D mesh creation as well! Today, advanced deep learning models can generate 3D meshes directly from text prompts or images.</p>
+<p><strong>In this workbook, you are encouraged to use meshes generated by AI.</strong></p>
+<p>Several commercial platforms provide AI-based mesh generation services:</p>
+<ul>
+<li><a href="https://www.meshy.ai/discover"><strong>Meshy AI</strong></a></li>
+<li><a href="https://studio.tripo3d.ai/home"><strong>Tripo AI</strong></a></li>
+<li><a href="https://app.sloyd.ai/"><strong>Sloyd AI</strong></a></li>
+<li><a href="https://www.3daistudio.com/"><strong>3D AI Studio</strong></a></li>
+</ul>
+<p>Since generating 3D meshes requires significant computing resources, most of these services are not entirely free. However, some platforms such as <a href="https://www.meshy.ai/discover"><strong>Meshy AI</strong></a> offer free credits for new users, allowing us to experience AI mesh generation. Below is an instruction guide for generating a mesh using Meshy AI.</p>
+<p><strong>Steps</strong></p>
 <ol>
-<li>Make more than two different types of buildings.</li>
-<li>Make fancier and more complex shapes.</li>
-<li>Use more interesting textures. For example, you might make a store with signs, or a movie theater with movie posters, or &hellip;</li>
+<li>
+<p>Go to <a href="https://www.meshy.ai/"><strong>Meshy AI</strong></a> and sign up. After registration, you may receive 100 free credits (shown in orange at the top of the site).</p>
+</li>
+<li>
+<p>Go to Workspace, then click Text to 3D or Image to 3D.</p>
+</li>
+<li>
+<p>Change the AI model to Meshy-4. <em>(Downloading models generated by Meshy-5 or Meshy-6 requires a Pro plan.)</em></p>
+</li>
+<li>
+<p>Enter a text prompt (e.g., <em>“white sedan”</em>) or upload an image.</p>
+</li>
+<li>
+<p>Click Generate. After a few minutes, you will see the generated models on the right side, usually four candidate meshes.</p>
+</li>
+<li>
+<p>Choose one of the four candidates. To generate a texture, set “Generate Texture” to Yes and click Confirm.</p>
+</li>
+<li>
+<p>Each mesh generation costs 10 credits, and each texture generation costs 10 credits. You can therefore try around 4–5 times before using up your free credits.</p>
+</li>
 </ol>
-<p>You will define your buildings as new classes of objects within the 559 Framework. This way, your buildings will be useful in the future when you make your town. For now, we&rsquo;ve given you a simple empty world to place some buildings in. You may need to make the ground plane bigger (this is a parameter to the <code>GrWorld</code> constructor, the camera should adjust appropriately). You will put your buildings into the file 
-<a href="../../for_students/08-06-01-buildings.js" class="box-html" data-tag="08-06-01">08-06-01-buildings.js</a>
- - which will contain your building classes and not much else. We&rsquo;ve made a shell program that loads this in: <a href="../../for_students/08-06-01.html" class="box-html" data-tag="08-06-01">08-06-01.html</a> and 
-<a href="../../for_students/08-06-01.js" class="box-html" data-tag="08-06-01">08-06-01.js</a>
-. You will need to use the correct module loading mechanisms to define your classes in 
-<a href="../../for_students/08-06-01-buildings.js" class="box-html" data-tag="08-06-01">08-06-01-buildings.js</a>
- and use them in 
-<a href="../../for_students/08-06-01.js" class="box-html" data-tag="08-06-01">08-06-01.js</a>
- - learning these module aspects (import and export) is part of the assignment.</p>
-<p>You must also make at least one type of tree/plant as an object type (put it in 
-<a href="../../for_students/08-06-01-buildings.js" class="box-html" data-tag="08-06-01">08-06-01-buildings.js</a>
-). It can be simple (a cylinder and cone for a pine tree). Or you can do something fancier.</p>
-<p>Be sure to put at least one of each kind of object you created into the world so we&rsquo;ll see it when we run 
-<a href="../../for_students/08-06-01.js" class="box-html" data-tag="08-06-01">08-06-01.js</a>
- from <a href="../../for_students/08-06-01.html" class="box-html" data-tag="08-06-01">08-06-01.html</a> and explain how you made each building in 
-<a href="../../for_students/08-06-01.txt" class="box-html" data-tag="08-06-01">08-06-01.txt</a>
-.</p>
-<p>And after you&rsquo;ve made some buildings for your town, go on to <a href="../../docs/7/">Page &nbsp;7&nbsp; (A Car for Graphics Town (ex 5))</a> where you&rsquo;ll make a vehicle.</p>
+<p>Note: For this assignment, do not generate or submit excessively large mesh files. Large files may take too long to load.</p>
+<p>You can use Generative AI to create meshes (geometries) or textures (for material maps) for one of the exercises on <a href="../../docs/7/">Page &nbsp;7&nbsp; (Graphics Town Buildings (Exercise 4))</a> and <a href="../../docs/8/">Page &nbsp;8&nbsp; (A Car for Graphics Town (ex 5))</a></p>
 
             
 			
@@ -99,15 +71,16 @@
         <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Texture Basics </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Textures in THREE </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Dice and Dominos (Exercise 2 and 3) </a></li>
-        <li class="Side__Item Side__Selected"> 6: Graphics Town Buildings (Exercise 4) </li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: A Car for Graphics Town (ex 5) </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Fancy Texturing </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Exercise 1: Material Property Maps </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Exercise 2: Bump and Normal Maps </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Exercise 4: Environment Maps </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: Exercise 5: Shadow Maps </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: Multi-Pass Rendering </a></li>
+        <li class="Side__Item Side__Selected"> 6: Generative AI for Mesh </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Graphics Town Buildings (Exercise 4) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: A Car for Graphics Town (ex 5) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Fancy Texturing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Exercise 1: Material Property Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Exercise 2: Bump and Normal Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: Exercise 4: Environment Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: Exercise 5: Shadow Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/15/">15: Multi-Pass Rendering </a></li>
 </ul>
 </div>
 </div>

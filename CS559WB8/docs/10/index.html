@@ -14,49 +14,23 @@
         <div class="container container--outer"><div class="maincolumn">
 <main class="main" role="main">
 	<article class="post">
-		<header class="post__header"><h1 class="post__title">Page 10: Exercise 2: Bump and Normal Maps</h1>
+		<header class="post__header"><h1 class="post__title">Page 10: Exercise 1: Material Property Maps</h1>
 		</header>
-		<div class="content post__content clearfix"><h2 id="normal-maps">Normal Maps</h2>
-<p>Normal maps use textures to change the <em>apparent</em> shape of the object by using the texture to modulate the normals on the surface so it interacts with light differently than it otherwise would.</p>
-<p>We&rsquo;ll discuss the details in class. Normal maps are described very briefly in the reading FCG4 Chapter 11 (section 11.4.2).</p>
-<p>The basic idea is that the R,G,B channels of the texture map will give us the X,Y,Z direction of the normal vector. However, there is a catch: what X,Y,Z do we use?</p>
-<p>The most common way to do normal maps is to define a local coordinate system so that Z is the direction of the &ldquo;real&rdquo; normal (so 0,0,1 would be keeping the original normals). This is convenient because it means that blue colors in the normal map mean &ldquo;keep the normals the same&rdquo;, and everything else represents a change from the object&rsquo;s true shape. The other two directions are the directions of U and V along the surface. This is called <em>tangent space normal maps</em>.</p>
-<p>THREE supports tangent space normal maps. It also supports &ldquo;object space normal maps&rdquo; that just use the XYZ of the object&rsquo;s local coordinate system.</p>
-<p>There is one other issue: we want to have normals with negative directions, but we don&rsquo;t have negative colors. So we really use (r-.5,g-.5,b-.5) for x,y,z, and then normalize. So, the &ldquo;no change - keep the real normal&rdquo; (0,0,1), is the color 0x8080FF - which is a pale blue. When you see normal maps, they tend to have a lot of this color.</p>
-<p>There is an excellent tutorial on normal maps in the <a href="https://docs.unity3d.com/Manual/StandardShaderMaterialParameterNormalMap.html" target="_blank">Unity documentation</a>. They like to call normal maps a kind of bump maps (so height maps, which are a kind of displacement map discussed below, are also bump maps for them).</p>
-<h2 id="bump-maps-and-normal-maps">Bump Maps and Normal Maps</h2>
-<p>The term <em>bump map</em> is often used interchangeably with <em>normal map</em>, but it really refers to a special kind of normal map that was actually invented first. Historically, bump maps refer to this specific kind of normal map, although some people use bump map as a general term (see the Unity documentation as an example).</p>
-<p>Making normal maps is a bit of a pain since you have to create 3-vectors (for the normal direction). It&rsquo;s hard to understand what the colors mean.</p>
-<p>Bump maps simplify this. They use only 1 color channel (so the textures have 1 number). The number is interpreted as a height. You could think of the bump map as a height map that alters the surface by pushing it upwards (in the normal direction) at each point. However, it doesn&rsquo;t really change the shape - it just adjusts the normal vectors as if it had this altered shape. The normals (as we would have from a normal map) are computed from the height differences.</p>
-<p>Bump maps are very easy to make, since you just paint some bumpiness.</p>
-<h2 id="normal-maps-and-displacement-maps">Normal Maps and Displacement Maps</h2>
-<p>Remember, normal maps (and bump maps) don&rsquo;t change the actual shape, they only change the <em>apparent</em> shape by changing the normals, which affect how light interacts with the surface (including reflections).</p>
-<p>This has some limitations, including:</p>
-<ol>
-<li>If you look at things from the side, you&rsquo;ll see the object is not bumpy.</li>
-<li>There are no self-occlusions.</li>
-<li>Things like shadows that depend on shape don&rsquo;t see the bumps (since they aren&rsquo;t really there).</li>
-</ol>
-<p>There is yet another kind of mapping called <strong>displacement mapping</strong> that is like normal mapping, except that rather than changing the normal, it actually changes the positions/shape (which also affects the normals). Displacement mapping is different than all the other mappings we talk about because it causes things to move: if you compute it for a pixel, that pixel might move to a different place (in which case, it will be a different pixel). With displacement mapping, you need to worry about making holes in things.</p>
-<p>From an implementation perspective, displacement mapping is implemented very differently. There is displacement mapping in THREE, but it works by moving the vertices of triangles, rather than changing pixel colors. Therefore, you can&rsquo;t use THREE displacement mapping if you have big triangles.</p>
-<h2 id="the-normal-map-and-bump-map-exercise">The Normal Map and Bump Map Exercise</h2>
-<p>Your turn. In the scene below, add two objects. On one of them, put a bump map. On the other one, put a normal map. Try to think of some kind of bumpiness that you&rsquo;d want to add, and figure out how to make it. It is OK to find textures for this on the web (but be sure to give proper attribution where the textures come from!).</p>
-<p>In order to see the effects of the bump and normal maps, you will probably either want your objects or the lights to move, which will make it more obvious that there is bumpiness.</p>
-<p>In this exercise, have the object material be a solid color, so all of the variation comes from the lighting (which is affected by the bump/normal maps). You can experiment with changing the lights to create more drastic effects (this is built in to the code framework, but you can try it yourself). You might also want to experiment with other material properties (such as roughness and metalness) to make the lighting effects more dramatic.</p>
+		<div class="content post__content clearfix"><p>Up until now, we&rsquo;ve only been using texture to change colors. However, we can use a texture to control just about any property of a material. If you look at the documentation for <a href="https://threejs.org/docs/#api/en/materials/MeshStandardMaterial" target="_blank"><code>MeshStandardMaterial</code></a>, you can see a lot of the things we control about materials (like roughness, emission, and metalness) can be controlled with a map as well instead of giving a single value for the entire object.</p>
+<p>For this exercise, pick one (or more) of those properties, and make a map that controls the property over the object. You need to make something where it is obvious what is going on. This means creating a texture with variation, having an appropriate object to show (a primitive like a sphere is often good enough), and maybe some adjustments to the lighting. Try using the property realistically, for example making the metal parts of an object more &ldquo;metal&rdquo; than the rest.</p>
+<p>Note: to show that you haven&rsquo;t just changed the colors, you probably want to make either the light or the object move (with animation). But you should know how to do that from previous workbooks.</p>
+<p>To show that you really understand the lighting effects and how they are influenced by the material properties (which are, in turn, specified by the map), in the text box explain what material property you are altering, and how this varying property can be seen in the resulting pictures. Be specific (tell us what to look for, and why it is there).</p>
+<p>You will probably want to create your own texture map. Make sure you include it in the repository.</p>
 <p> 
 
 
-Put the code in 
-<a href="../../for_students/08-10-01.js" class="box-html" data-tag="09-03-01">08-10-01.js</a>
-, and don&rsquo;t forget to add any texture files. You should be able to explain how we can see the bump/normal map effect.</p>
-<p>For a challenge, try to make the same effect with both a normal map and a bump map - this will help you understand why we prefer one over the other for different situations.</p>
-<p>
+
 <div id="box-08-10-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
     <b>Box 08-10-01</b>&nbsp;&nbsp;
         <a href=../../for_students/08-10-01.html class="boxtitlelink">08-10-01.html</a>
         &nbsp;&nbsp;<a href="../../for_students/08-10-01.js" class="boxtitlelink">08-10-01.js</a>
     <iframe
-        title="09-03-01"
+        title="09-02-01"
         src="../../for_students/08-10-01.html"
         class="includebox includebox-standard"
         width="100%"
@@ -69,10 +43,11 @@ Put the code in
 <div class="page-rubric-container">
         <i>There are no points associated with Box 08-10-01.</i>
     </div></p>
-<p>Of course, if you get an image from the web, be sure to give proper attribution.</p>
-<p>Advanced: create a third object that uses a color map and a bump or normal map together to achieve some effect. The two must be coordinated in some way (so that they work together to create some effect). Explain what you did in the text box (why do the two work together, and how can we see it).</p>
-<h2 id="summary">Summary</h2>
-<p>Next, we&rsquo;ll return to textures with colors, but think about a special use of them. <a href="../../docs/4/">Page &nbsp;4&nbsp; (Textures in THREE)</a> describes Sky Boxes.</p>
+<p>You can find the starter code in 
+<a href="../../for_students/08-10-01.js" class="box-html" data-tag="09-02-01">08-10-01.js</a>
+.</p>
+<h2 id="summary-material-property-maps">Summary: Material Property Maps</h2>
+<p>Material property maps are a simple kind of map. We&rsquo;ll talk about variants of normal maps on <a href="../../docs/11/" class="Next__Page">Next: Exercise 2: Bump and Normal Maps </a>.</p>
 
             
 			
@@ -92,15 +67,16 @@ Put the code in
         <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: Texture Basics </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Textures in THREE </a></li>
         <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Dice and Dominos (Exercise 2 and 3) </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Graphics Town Buildings (Exercise 4) </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: A Car for Graphics Town (ex 5) </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Fancy Texturing </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Exercise 1: Material Property Maps </a></li>
-        <li class="Side__Item Side__Selected"> 10: Exercise 2: Bump and Normal Maps </li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Exercise 4: Environment Maps </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: Exercise 5: Shadow Maps </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: Multi-Pass Rendering </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: Generative AI for Mesh </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Graphics Town Buildings (Exercise 4) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: A Car for Graphics Town (ex 5) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: Fancy Texturing </a></li>
+        <li class="Side__Item Side__Selected"> 10: Exercise 1: Material Property Maps </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/11/">11: Exercise 2: Bump and Normal Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/12/">12: Exercise 3: Sky Boxes (or: Not-Really-Sky-Boxes and THREE) </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/13/">13: Exercise 4: Environment Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/14/">14: Exercise 5: Shadow Maps </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/15/">15: Multi-Pass Rendering </a></li>
 </ul>
 </div>
 </div>
