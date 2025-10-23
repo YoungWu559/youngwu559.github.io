@@ -15,10 +15,12 @@
  * - the base mesh is always added to the morph targets - it is unclear what it's
  *      weight/influence is (I think its 1-sum(influences)). so in the example,
  *      the influence of the target is 1, the base is 0
+ * 
+ * Warning: this was written long ago using "old fashioned geometry" and hasn't 
+ * really been converted to the new era of "buffer geometry only"
  */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
-import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
 
 let mtTexture = null;
@@ -26,6 +28,10 @@ let mtTexture = null;
 export class MorphTest extends GrObject {
   /**
    *
+   * The old version of this did something weird.
+   * The new version of this is based on https://threejs.org/examples/webgl_morphtargets.html
+   * That morphs a Box into a sphere - I'll try a sphere into a plane
+   * 
    * @param {Object} params
    */
   constructor(params = {}) {
@@ -37,47 +43,27 @@ export class MorphTest extends GrObject {
     }
     // getting the UV is hard since they are in faces!
     let material = new T.MeshStandardMaterial({
-      map: mtTexture,
-      morphTargets: true,
-      morphNormals: true,
+      map: mtTexture
     });
 
-    // the initial shape is a sphere - which makes for weird UVs
-    let geometry = new T.SphereGeometry(radius);
+    // the initial shape is a box - with lots of segments
+    let geometry = new T.SphereGeometry(radius,10,10);
 
     // set up morph targets
     // set up a morph target - the first morph target is flat
     // we let the x,y position be the u,v coordinate (so the sphere "unwraps")
-    // getting the UV is hard since they are in faces!
+    // getting the UV has to come from the buffer
+    geometry.morphAttributes.position = [];
     let morphVerts = [];
-    // make an empty array of positions
-    geometry.vertices.forEach((element) => {
-      morphVerts.push(new T.Vector3(0, 0, 0));
-    });
-    // now go through the faces and copy the UVs for each vertex
-    for (let i = 0; i < geometry.faces.length; i++) {
-      // each vertex on the face
-      let v = geometry.faces[i].a;
-      morphVerts[geometry.faces[i].a].x =
-        geometry.faceVertexUvs[0][i][0].x * radius * 2;
-      morphVerts[geometry.faces[i].a].y =
-        geometry.faceVertexUvs[0][i][0].y * radius * 2;
-      morphVerts[geometry.faces[i].b].x =
-        geometry.faceVertexUvs[0][i][1].x * radius * 2;
-      morphVerts[geometry.faces[i].b].y =
-        geometry.faceVertexUvs[0][i][1].y * radius * 2;
-      morphVerts[geometry.faces[i].c].x =
-        geometry.faceVertexUvs[0][i][2].x * radius * 2;
-      morphVerts[geometry.faces[i].c].y =
-        geometry.faceVertexUvs[0][i][2].y * radius * 2;
+    const uvAttrib = geometry.attributes.uv;
+    for (let i=0; i< uvAttrib.count; i++) {
+        morphVerts.push(uvAttrib.getX(i) * radius * 2);
+        morphVerts.push(uvAttrib.getY(i) * radius * 2);
+        morphVerts.push(0);
     }
-    // make the morph target given the vertex positions
-    geometry.morphTargets.push({ name: "flat", vertices: morphVerts });
-    geometry.computeMorphNormals();
+    geometry.morphAttributes.position[0] = new T.Float32BufferAttribute(morphVerts,3);
 
-    // Morphing only works with Buffer Geometries
-    let bgeometry = new T.BufferGeometry().fromGeometry(geometry);
-    let mesh = new T.Mesh(bgeometry, material);
+    let mesh = new T.Mesh(geometry, material);
 
     super("MorphTest", mesh);
     mesh.position.x = params.x || 0;

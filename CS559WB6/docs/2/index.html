@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 2: Elements of 3D Graphics Programming</h1>
 		</header>
-		<div class="content post__content clearfix"><p>On this page, we&rsquo;ll try to understand what those programs on the prior page actually did. This page is somewhat redundant with all of the THREE.js tutorials out there, but we try to organize it to emphasize how the things that we need to do in the API will connect with the graphics concepts we&rsquo;ll learn about in class (and that exist no matter what the API is).</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>On this page, we&rsquo;ll try to understand what those programs on the prior page actually did. This page is somewhat redundant with all of the THREE.js tutorials out there, but we try to organize it to emphasize how the things that we need to do in the API will connect with the graphics concepts we&rsquo;ll learn about in class (and that exist no matter what the API is).</p>
 <h2 id="elements-of-3d-drawing">Elements of 3D Drawing</h2>
 <p>THREE.js is a scene-graph API, like SVG. We create pictures by creating &ldquo;scenes&rdquo; with graphics objects in them. We animate those scenes by altering the objects.</p>
 <p>To draw in 3D with a scene graph API, we need to have the following pieces in place:</p>
@@ -137,7 +139,7 @@
 </div>
 <h2 id="box-2-is-this-really-3d">Box 2: Is this really 3D?</h2>
 <p>We could have drawn the same square using the 2D canvas. How can we convince ourselves this is really 3D?</p>
-<p> 
+<p>
 
 
 
@@ -164,18 +166,22 @@
         
         <div class="highlight"><div style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+<pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre tabindex="0" style="color:#272822;background-color:#fafafa;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">yellowStuff</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">MeshBasicMaterial</span><span style="color:#111">({</span> <span style="color:#75af00">color</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0xffff00</span> <span style="color:#111">});</span>
 </span></span><span style="display:flex;"><span><span style="color:#00a8c8">let</span> <span style="color:#75af00">mesh2</span> <span style="color:#f92672">=</span> <span style="color:#00a8c8">new</span> <span style="color:#75af00">T</span><span style="color:#111">.</span><span style="color:#75af00">Mesh</span><span style="color:#111">(</span><span style="color:#75af00">geometry</span><span style="color:#111">,</span> <span style="color:#75af00">yellowStuff</span><span style="color:#111">);</span>
 </span></span><span style="display:flex;"><span><span style="color:#75af00">mesh2</span><span style="color:#111">.</span><span style="color:#75af00">position</span><span style="color:#111">.</span><span style="color:#75af00">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.2</span><span style="color:#111">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75af00">mesh2</span><span style="color:#111">.</span><span style="color:#75af00">position</span><span style="color:#111">.</span><span style="color:#75af00">z</span> <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span><span style="color:#111">;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75af00">scene</span><span style="color:#111">.</span><span style="color:#75af00">add</span><span style="color:#111">(</span><span style="color:#75af00">mesh2</span><span style="color:#111">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Begin Example Solution
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">mesh2</span><span style="color:#111">.</span><span style="color:#75af00">position</span><span style="color:#111">.</span><span style="color:#75af00">z</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span><span style="color:#111">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// End Example Solution
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#75af00">scene</span><span style="color:#111">.</span><span style="color:#75af00">add</span><span style="color:#111">(</span><span style="color:#75af00">mesh2</span><span style="color:#111">);</span>
 </span></span></code></pre></td></tr></table>
 </div>
 </div>

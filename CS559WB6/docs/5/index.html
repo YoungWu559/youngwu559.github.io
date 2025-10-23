@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 5: Lights, Camera, Action!</h1>
 		</header>
-		<div class="content post__content clearfix"><p>On this page and the next, we&rsquo;ll describe cameras and object appearance very briefly.
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>On this page and the next, we&rsquo;ll describe cameras and object appearance very briefly.
 The idea is to give you a sense of what you can do to make pictures.
 We&rsquo;ll come back and learn the details later.</p>
 <h2 id="the-camera">The Camera</h2>
@@ -76,7 +78,7 @@ Here&rsquo;s an example in
 <p>Be sure to look at the code! Note how we use a group for the green spotlight to move its position and target position together.</p>
 <p>Unfortunately, the <code>SpotLightHelper</code> objects (which are useful for seeing where spotlights are and what they are doing) don&rsquo;t update correctly for dynamic spotlights (with THREE&rsquo;s scene graph, we don&rsquo;t get control over what gets updated first). So you&rsquo;ll have to figure this out yourself.</p>
 <h2 id="box-3-lighting">Box 3: Lighting</h2>
-<p> 
+<p>
 
 
 Your turn. Here&rsquo;s a scene with some white cubes in it. Add some colored lights to the scene so that the different sides of the cubes are different colors. Use this as an opportunity to try out different kinds of lights. Edit 

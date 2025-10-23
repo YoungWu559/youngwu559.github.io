@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 6: Materials</h1>
 		</header>
-		<div class="content post__content clearfix"><p><strong>Materials</strong> are the abstraction in THREE that controls the appearances of object surfaces. You can think of the them as the thing that chooses the color for every point on a surface.</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p><strong>Materials</strong> are the abstraction in THREE that controls the appearances of object surfaces. You can think of the them as the thing that chooses the color for every point on a surface.</p>
 <p>In the real world, the apparent color of a point on an object depends on several things. It depends on the &ldquo;material&rdquo; that the object is made out of at that point (e.g., paper with ink on it, shiny plastic), the light that hits this point, and the shape of the object. When I describe a material (say, shiny gold), I am not just giving a color (dark yellow), but also information about how the surface interacts with light.</p>
 <p>The <code>Material</code> abstraction in THREE combines these aspects. It encodes the &ldquo;material&rdquo; (in the real world sense) of being the &ldquo;stuff&rdquo; the object is made out of. It also encodes the process by which the actual color is determined: how THREE should look at the lights, surface properties, and geometry to determine what color it ultimately appears.</p>
 <p>In the future, we&rsquo;ll learn about how Materials contains programs that tell the graphics hardware how to color each pixel. And we&rsquo;ll see how we can make new materials by writing programs for the hardware.</p>
@@ -50,7 +52,7 @@
 <p>Soon, we&rsquo;ll learn the details, but for now, experiment with different settings to get some intuitions on how to create different appearances.</p>
 <h2 id="box-1-exercise-3-materials">Box 1: Exercise 3, Materials</h2>
 <p>Make each sphere have a different, non-white, material. Use different settings of <code>MeshStandardMaterial</code>. Experiment with different values to get different appearances. To get the points for this exercise, the materials should be non-white, and should appear different. Note: there is a point light source near (but to the right of) the camera and a directional light source shining down (both lights are white).</p>
-<p> 
+<p>
 
 
 All you need to change are the 9 materials. The program is in 

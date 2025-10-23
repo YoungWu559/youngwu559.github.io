@@ -17,7 +17,6 @@
 import * as T from "../libs/CS559-Three/build/three.module.js";
 import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
-import * as Geom from "../libs/CS559-Three/examples/jsm/deprecated/Geometry.js";
 
 
 // keep the helipad geometry global so we can re-use it
@@ -35,82 +34,50 @@ export class Helipad extends GrObject {
    * @param {Number} y
    * @param {Number} z
    */
-  constructor(x, y, z) {
-    if (!helipadGeometry) {
-      // make the helipad geometry as a global - if it's not there
-      const q = 0.25;
-      const h = 0.5;
-      // make the normals point upwards - no matter what orientation the triangle has
-      const up = new T.Vector3(0, -1, 0);
-      const padcoords = [
-        -1,
-        0,
-        -1,
-        -1,
-        0,
-        1,
-        -h,
-        0,
-        1,
-        -h,
-        0,
-        -1,
-        1,
-        0,
-        -1,
-        1,
-        0,
-        1,
-        h,
-        0,
-        1,
-        h,
-        0,
-        -1,
-        -h,
-        0,
-        -q,
-        -h,
-        0,
-        q,
-        h,
-        0,
-        q,
-        h,
-        0,
-        -q,
-      ];
-      const padidx = [2, 1, 0, 3, 2, 0, 4, 5, 6, 4, 6, 7, 10, 9, 8, 10, 8, 11];
-      helipadGeometry = new Geom.Geometry();
-      for (let i = 0; i < padcoords.length; i += 3) {
-        helipadGeometry.vertices.push(
-          new T.Vector3(padcoords[i], padcoords[i + 1], padcoords[i + 2])
-        );
-      }
-      for (let i = 0; i < padidx.length; i += 3) {
-        helipadGeometry.faces.push(
-          new Geom.Face3(padidx[i], padidx[i + 1], padidx[i + 2], up)
-        );
-      }
-    }
-    if (!helipadMaterial) {
-      helipadMaterial = new T.MeshLambertMaterial({
-        color: "#FFFF00",
-        side: T.DoubleSide,
-      });
-    }
-    let helipadBufferGeom = helipadGeometry.toGeometry();
-    let mesh = new T.Mesh(helipadBufferGeom, helipadMaterial);
+    constructor(x, y, z) {
+        if (!helipadGeometry) {
+            // make the helipad geometry as a global - if it's not there
+            const q = 0.25;
+            const h = 0.5;
+            // make the normals point upwards - no matter what orientation the triangle has
+            const up = new T.Vector3(0, -1, 0);
+            const verts = new Float32Array([
+                -1,0,-1,
+                -1,0, 1,
+                -h,0, 1,
+                -h,0,-1,
+                1,0,-1,
+                1,0,1,
+                h,0,1,
+                h,0,-1,
+                -h,0,-q,
+                -h,0,q,
+                h,0,q,
+                h,0,-q
+            ]);
+            const padidx = [2, 1, 0, 3, 2, 0, 4, 5, 6, 4, 6, 7, 10, 9, 8, 10, 8, 11];
+            helipadGeometry = new T.BufferGeometry();
+            helipadGeometry.setAttribute("position",new T.BufferAttribute(verts,3));
+            helipadGeometry.setIndex(padidx);
+            helipadGeometry.computeVertexNormals();
+            if (!helipadMaterial) {
+                helipadMaterial = new T.MeshLambertMaterial({
+                    color: "#FFFF00",
+                    side: T.DoubleSide,
+                });
+            }
+        }
+        let mesh = new T.Mesh(helipadGeometry, helipadMaterial);
 
-    super(`Helipad-${++helipadCount}`, mesh);
-    mesh.position.x = x ? x : 0;
-    mesh.position.y = (y ? y : 0) + 0.01;
-    mesh.position.z = z ? z : 0;
-    mesh.receiveShadow = true;
-    mesh.castShadow = false;
-    this.mesh = mesh;
-    this.objects.push(mesh);
-  }
+        super(`Helipad-${++helipadCount}`, mesh);
+        mesh.position.x = x ? x : 0;
+        mesh.position.y = (y ? y : 0) + 0.01;
+        mesh.position.z = z ? z : 0;
+        mesh.receiveShadow = true;
+        mesh.castShadow = false;
+        this.mesh = mesh;
+        this.objects.push(mesh);
+    }
 }
 
 let helicopterCount = 0;
@@ -130,106 +97,49 @@ export class Helicopter extends GrObject {
 
     this.helicopter = group;
 
-    let helicopterBodyGeom = new Geom.Geometry();
+    let helicopterBodyGeom = new T.BufferGeometry();
     let q = 0.25;
     let body = 1;
     let tail = params.tail || 2;
     let rotor = params.rotor || 2;
-    const helicoords = [
-      body,
-      0,
-      0,
-      0,
-      0,
-      body,
-      -body,
-      0,
-      0,
-      0,
-      0,
-      -body,
-      0,
-      body,
-      0,
-      0,
-      -body,
-      0,
-      q,
-      0,
-      -q,
-      0,
-      q,
-      -q,
-      -q,
-      0,
-      -q,
-      0,
-      -q,
-      -q,
-      0,
-      0,
-      -tail,
-    ];
+    const helicoords = new Float32Array([
+      body,0,0,
+      0,0,body,
+      -body,0,0,
+      0,0,-body,
+      0,body,0,
+      0,-body,0,
+      q,0,-q,
+      0,q,-q,
+      -q,0,-q,
+      0,-q,-q,
+      0,0,-tail,
+    ]);
     const helifaces = [
-      0,
-      1,
-      4,
-      1,
-      2,
-      4,
-      2,
-      3,
-      4,
-      3,
-      0,
-      4,
-      1,
-      0,
-      5,
-      2,
-      1,
-      5,
-      3,
-      2,
-      5,
-      0,
-      3,
-      5,
-      6,
-      7,
-      10,
-      7,
-      8,
-      10,
-      8,
-      9,
-      10,
-      9,
-      6,
-      10,
+      0,1,4,
+      1,2,4,
+      2,3,4,
+      3,0,4,
+      1,0,5,
+      2,1,5,
+      3,2,5,
+      0,3,5,
+      6,7,10,
+      7,8,10,
+      8,9,10,
+      9,6,10,
     ];
-    for (let i = 0; i < helicoords.length; i += 3) {
-      helicopterBodyGeom.vertices.push(
-        new T.Vector3(helicoords[i], helicoords[i + 1], helicoords[i + 2])
-      );
-    }
-    for (let i = 0; i < helifaces.length; i += 3) {
-      helicopterBodyGeom.faces.push(
-        new Geom.Face3(helifaces[i], helifaces[i + 1], helifaces[i + 2])
-      );
-    }
-    helicopterBodyGeom.computeFaceNormals();
-    let helicopterBodyBufferGeom = helicopterBodyGeom.toGeometry();
-    this.body = new T.Mesh(helicopterBodyBufferGeom, material);
+    helicopterBodyGeom.setAttribute("position",new T.BufferAttribute(helicoords,3));
+    helicopterBodyGeom.setIndex(helifaces);
+    helicopterBodyGeom.computeVertexNormals();
+    this.body = new T.Mesh(helicopterBodyGeom, material);
     this.body.position.y = 1;
     this.body.castShadow = true;
     this.helicopter.add(this.body);
-
-    this.rotorGeom = new Geom.Geometry();
-    const rotorcoords = [
-      0,
-      body,
-      0,
+    
+    this.rotorGeom = new T.BufferGeometry();
+    const rotorcoords = new Float32Array([
+      0,body,0,
       rotor,
       body,
       0.1,
@@ -242,31 +152,25 @@ export class Helicopter extends GrObject {
       -rotor,
       body,
       -0.1,
-    ];
-    const rotorfaces = [0, 1, 2, 0, 3, 4];
-    for (let i = 0; i < rotorcoords.length; i += 3) {
-      this.rotorGeom.vertices.push(
-        new T.Vector3(rotorcoords[i], rotorcoords[i + 1], rotorcoords[i + 2])
-      );
-    }
-    for (let i = 0; i < rotorfaces.length; i += 3) {
-      this.rotorGeom.faces.push(
-        new Geom.Face3(rotorfaces[i], rotorfaces[i + 1], rotorfaces[i + 2])
-      );
-    }
-    this.rotorGeom.computeFaceNormals();
-    this.rotorBufferGeom = this.rotorGeom.toGeometry();
-    this.rotor = new T.Mesh(this.rotorBufferGeom, material);
+    ]);
+    this.rotorGeom.setIndex([0, 1, 2, 0, 3, 4]);
+    this.rotorGeom.setAttribute("position",new T.BufferAttribute(rotorcoords,3));
+    this.rotorGeom.computeVertexNormals();
+    this.rotor = new T.Mesh(this.rotorGeom, material);
     this.rotor.position.y = 1;
     this.helicopter.add(this.rotor);
-
+   
     // finite state machine
     this.state = 0;
     this.delay = 0;
+    // make the initial goal be a number so that type checking is OK
+    this.goalangle = 0;
+    this.currentangle = 0;
+    
     /** @type {Helipad[]} */
     this.pads = [];
     // pad we're currently at (or going to)
-    /** @type {?Helipad} */
+    /** @type {?Helipad | undefined} */
     this.current = undefined;
 
     //

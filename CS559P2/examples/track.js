@@ -70,7 +70,7 @@ export class TrackCube extends GrCube {
     this.rideable = this.objects[0];
   }
   stepWorld(delta, timeOfDay) {
-    this.u += delta / 2000;
+    this.u += delta / 2000 / (1 + timeOfDay);
     let pos = this.track.eval(this.u);
     // remember, the center of the cube needs to be above ground!
     this.objects[0].position.set(pos[0], 0.5 + pos[1], pos[2]);
@@ -86,23 +86,24 @@ export class TrackCube extends GrCube {
 /**
  * A Less Simple Object to go around the track
  */
-export class TrackCar extends Loaders.FbxGrObject {
+export class TrackCar extends Loaders.ObjGrObject {
   constructor(track) {
     super({
-      fbx: "../examples/assets/teeny_racecar.fbx",
+      obj: "../examples/assets/spot.obj",
+      texture: "../examples/assets/spot.png",
       norm: 2.0,
-      name: "Track Car",
+      name: "SpotTheCow",
     });
     this.track = track;
     this.u = 0;
     // the fbx loader puts the car on the ground - we need a ride point above the ground
     this.ridePoint = new T.Object3D();
-    this.ridePoint.translateY(0.5);
+    this.ridePoint.translateY(1);
     this.objects[0].add(this.ridePoint);
     this.rideable = this.ridePoint;
   }
   stepWorld(delta, timeOfDay) {
-    this.u += delta / 2000;
+    this.u += delta / 2000 / (1 + timeOfDay);
     let pos = this.track.eval(this.u);
     this.objects[0].position.set(pos[0], pos[1], pos[2]);
     let dir = this.track.tangent(this.u);
@@ -110,6 +111,6 @@ export class TrackCar extends Loaders.FbxGrObject {
     // easy since this is 2D!
     let zAngle = Math.atan2(dir[2], dir[0]);
     // turn the object so the Z axis is facing in that direction
-    this.objects[0].rotation.y = -zAngle - Math.PI / 2;
+    this.objects[0].rotation.y = -zAngle + Math.PI / 2;
   }
 }

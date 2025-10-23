@@ -12,7 +12,7 @@ import { GrObject } from "./GrObject.js";
 import { FBXLoader } from "../CS559-Three/examples/jsm/loaders/FBXLoader.js";
 import { MTLLoader } from "../CS559-Three/examples/jsm/loaders/MTLLoader.js";
 import { OBJLoader } from "../CS559-Three/examples/jsm/loaders/OBJLoader.js";
-import { GrCube} from "./SimpleObjects.js";
+import { GrCube } from "./SimpleObjects.js";
 
 /**
  * Rescale an object - assumes that the object is a group with 1 mesh in it
@@ -63,6 +63,7 @@ export class ObjGrObject extends GrObject {
    * @param {Object} params
    * @property {string} params.obj
    * @property {string} [params.mtl]
+   * @property {string} [params.texture]
    * @property {string} [params.name]
    * @property {Object} [params.mtloptions]
    * @property {Number} [params.norm] - normalize the object (make the largest dimension this value)
@@ -92,24 +93,34 @@ export class ObjGrObject extends GrObject {
       }
 
       // note that the callback then calls the Obj Loader
-      mtloader.load(params.mtl, function(myMaterialCreator) {
+      mtloader.load(params.mtl, function (myMaterialCreator) {
         myMaterialCreator.preload();
 
         const objLoader = new OBJLoader();
         objLoader.setMaterials(myMaterialCreator);
-        
-        objLoader.load(params.obj, function(obj) {
+
+        objLoader.load(params.obj, function (obj) {
           if (params.norm) normObject(obj, params.norm);
           objholder.add(obj);
           if (params.callback) params.callback(self);
         });
       });
 
+    } else if (params.texture) {
+      let texture = new T.TextureLoader().load(params.texture);
+      const objLoader = new OBJLoader();
+
+      objLoader.load(params.obj, function (obj) {
+        if (params.norm) normObject(obj, params.norm);
+        obj.children[0].material.map = texture;
+        objholder.add(obj);
+        if (params.callback) params.callback(self);
+      });
     } else {
       // no material file, just an obj
       const objLoader = new OBJLoader();
 
-      objLoader.load(params.obj, function(obj) {
+      objLoader.load(params.obj, function (obj) {
         if (params.norm) normObject(obj, params.norm);
         objholder.add(obj);
         if (params.callback) params.callback(self);
@@ -150,24 +161,24 @@ export class FbxGrObject extends GrObject {
     const self = this;
 
     const fbx = new FBXLoader();
-    
-    fbx.load(params.fbx, 
-        function(obj) { /* loaded callback */ 
-            if (params.norm) normObject(obj, params.norm);
-            objholder.add(obj);
-            if (params.callback) params.callback(self);
-            },
-        undefined, /* progress callback */
-        function(error) {  /* error callback */
-            console.log(error);
-            // put a dummy object in as an error warning
-            let tempGr = new GrCube({color:"red"});
-            let obj = tempGr.objects[0];
-            if (params.norm) normObject(obj, params.norm);
-            objholder.add(obj);
-            if (params.callback) params.callback(self);
-        }
-        );
+
+    fbx.load(params.fbx,
+      function (obj) { /* loaded callback */
+        if (params.norm) normObject(obj, params.norm);
+        objholder.add(obj);
+        if (params.callback) params.callback(self);
+      },
+      undefined, /* progress callback */
+      function (error) {  /* error callback */
+        console.log(error);
+        // put a dummy object in as an error warning
+        let tempGr = new GrCube({ color: "red" });
+        let obj = tempGr.objects[0];
+        if (params.norm) normObject(obj, params.norm);
+        objholder.add(obj);
+        if (params.callback) params.callback(self);
+      }
+    );
 
     objholder.translateX(Number(params.x) || 0);
     objholder.translateY(Number(params.y) || 0);

@@ -4,19 +4,63 @@
 /*
  * Graphics Town Example Objects
  *
- * Houses: adapted from the original C++ Graphics Town
+ * Houses: taken from the WB8 example solution (in 2023)
  */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
-import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
 import { GrObject } from "../libs/CS559-Framework/GrObject.js";
-import * as Geom from "../libs/CS559-Three/examples/jsm/deprecated/Geometry.js";
 
-function uvTri(u1, v1, u2, v2, u3, v3) {
-  return [new T.Vector2(u1, v1), new T.Vector2(u2, v2), new T.Vector2(u3, v3)];
+/** @type {number} */ let simpleHouse1Count = 0;
+/** @type {T.BoxGeometry} */ const boxGeometry = new T.BoxGeometry();
+/** @type {T.Shape} */ const triangle = new T.Shape();
+triangle.moveTo(0, 1);
+triangle.lineTo(-0.5, 0);
+triangle.lineTo(0.5, 0);
+triangle.lineTo(0, 1);
+/** @type {T.ExtrudeGeometry} */ const triangleGeometry = new T.ExtrudeGeometry(triangle, { depth: 1, bevelEnabled: false });
+/** @type {String[]} */ const houseColors = ["rgb(240, 240, 240)", "rgb(180, 175, 100)", "rgb(200, 100, 100)", "rgb(147, 144, 244)", "rgb(250, 249, 157)", "rgb(199, 144, 186)"];
+/** @type {T.TextureLoader} */ const textureLoader = new T.TextureLoader();
+/** @type {T.Texture} */ const simpleHouse1Texture = textureLoader.load("../examples/simpleHouse1-front.png");
+/** @type {T.MeshPhongMaterial[]} */ const simpleHouseMaterials = houseColors.map(c => new T.MeshPhongMaterial({ color: c }));
+/** @type {T.MeshPhongMaterial[]} */ const simpleHouse1TextureMaterials = houseColors.map(c => new T.MeshPhongMaterial({ color: c, map: simpleHouse1Texture }));
+export class SimpleHouse extends GrObject {
+  /**
+   * The constructor
+   * @param {Object} params Parameters
+   */
+  constructor(params = {}) {
+    // Set up an empty group and call the GrObject constructor
+    /** @type {T.Group} */ const houseGroup = new T.Group();
+    super(`SimpleHouse-${++simpleHouse1Count}`, houseGroup);
+    // Copy all the parameters with defaults
+    /** @type {number} */ const length = params.length || 1; // The length
+    /** @type {number} */ const width = params.width || 1; // The width
+    /** @type {number} */ const height = params.height || 1; // The height
+    /** @type {number} */ const x = params.x || 0; // Position x
+    /** @type {number} */ const y = params.y || 0; // Position y
+    /** @type {number} */ const z = params.z || 0; // Position z
+    /** @type {number} */ const scale = params.scale || 1; // Scale
+    /** @type {number} */ const color = params.index || 0; // Color
+    /** @type {T.MeshPhongMaterial} */ const door = simpleHouse1TextureMaterials[color];
+    /** @type {T.MeshPhongMaterial} */ const wall = simpleHouseMaterials[color];
+    /** @type {T.Mesh} */ const base = new T.Mesh(boxGeometry, [wall, wall, wall, wall, door, door]);
+    /** @type {T.Mesh} */ const roof = new T.Mesh(triangleGeometry, wall);
+    // Set the transformations for the base
+    base.scale.set(length, height, width);
+    base.translateY(height * 0.5); // CS559 Sample Code
+    // Set the transformations for the roof
+    roof.scale.set(length, height * 0.5, width);
+    roof.position.set(0, height, -width * 0.5); // CS559 Sample Code
+    // Put everything into the group and transform the group
+    houseGroup.add(base, roof);
+    houseGroup.position.set(x, y, z); // CS559 Sample Code
+    houseGroup.scale.set(scale, scale, scale);
+  }
 }
 
-/** Global (module) variables for simple Houses */
+/* OLD SIMPLE HOUSE
+
+// Global (module) variables for simple Houses 
 let simpleHouseCount = 0;
 let simpleHouseGeometry; // one geometry for all
 let simpleHouseTexture;
@@ -106,3 +150,5 @@ export class SimpleHouse extends GrObject {
     super(`SimpleHouse-${++simpleHouseCount}`, mesh);
   }
 }
+
+*/

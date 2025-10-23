@@ -44,10 +44,13 @@ export function main(world) {
   world.add(tc3);
 
   /** Helicopter - first make places for it to land*/
+
   world.add(new Helipad(-15, 0, 0));
+
   world.add(new Helipad(15, 0, 0));
   world.add(new Helipad(0, 0, -17));
   world.add(new Helipad(0, 0, 17));
+
   let copter = new Helicopter();
   world.add(copter);
   copter.getPads(world.objects);

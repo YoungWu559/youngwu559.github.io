@@ -1,4 +1,18 @@
+/**
+ * CS559 Spring 2023 Example Solution
+ * Written by CS559 course staff
+ */
+
+/**
+ * 06-02-02.js - a simple JavaScript file that gets loaded with
+ * page 2 of Workbook 7 (CS559).
+ *
+ * written by Michael Gleicher, January 2019
+ * modified January 2020
+ */
+
 // @ts-check
+/* jshint -W069, esversion:6 */
 
 import * as T from "../libs/CS559-Three/build/three.module.js";
 
@@ -37,7 +51,9 @@ scene.add(mesh1);
 let yellowStuff = new T.MeshBasicMaterial({ color: 0xffff00 });
 let mesh2 = new T.Mesh(geometry, yellowStuff);
 mesh2.position.x = 0.2;
-mesh2.position.z = -1;
+// Begin Example Solution
+mesh2.position.z = 1;
+// End Example Solution
 scene.add(mesh2);
 // @@Snippet:end
 
@@ -46,3 +62,5 @@ renderer.render(scene, camera);
 
 
 // CS559 2025 Workbook
+
+// CS559 2025 Example Solution

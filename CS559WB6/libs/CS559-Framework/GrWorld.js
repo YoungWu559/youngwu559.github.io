@@ -49,6 +49,7 @@ import Stats from './Stats.js'
  * @property [width] - canvas size
  * @property [height] - canvas size
  * @property [where] - where in the DOM to insert things
+ * @property [id] - id to put on the canvas (if we make it)
  * @property [lights] - a list of lights, or else default ones are made
  * @property [lightBrightness=.75] - brightness of the default lights
  * @property [lightColoring="cool-to-warm"] - either "c"ool-to-warm, "w"hite, or e"x"treme
@@ -109,7 +110,7 @@ export class GrWorld {
             "renderer" in params
                 ? params.renderer
                 : new T.WebGLRenderer(
-                    "renderparams" in params ? params.renderparams : {}
+                    "renderparams" in params ? params.renderparams : {preserveDrawingBuffer: true}
                 );
 
         // width and height are tricky, since they can come from many places
@@ -119,10 +120,13 @@ export class GrWorld {
         if ("renderer" in params) {
             width = params.renderer.domElement.width;
             height = params.renderer.domElement.height;
+            params.renderer.domElement.id = params.id || "canvas";
         } else if ("renderparams" in params && "canvas" in params.renderparams) {
             width = params.renderparams.canvas.width;
             height = params.renderparams.canvas.height;
+            params.renderparams.canvas.id = params.id || "canvas";
         }
+        else this.renderer.domElement.id = params.id || "canvas";
         // specified width/height overrides everything
         if ("width" in params) {
             width = params.width;

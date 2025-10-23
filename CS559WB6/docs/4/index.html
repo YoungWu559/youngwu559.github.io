@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 4: Primitive Objects and Basic Transformations</h1>
 		</header>
-		<div class="content post__content clearfix"><h2 id="objects">Objects</h2>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><h2 id="objects">Objects</h2>
 <p>Objects in THREE are subclasses of <a href="https://threejs.org/docs/index.html#api/en/core/Object3D" target="_blank">Object3D</a>. This same base class is used for all the things we put into the world: lights, camera, the actual &ldquo;things&rdquo; we see.</p>
 <p>The nice part of this is that all objects get the same common functionality.</p>
 <p>The main kind of &ldquo;thing&rdquo; we&rsquo;ll put in the world is a <a href="https://threejs.org/docs/index.html#api/en/objects/Mesh" target="_blank">Mesh</a>. A Mesh basically is a collection of triangles (in the form of a <code>Geometry</code>) combined with a <code>Material</code> (that tells THREE how those triangles should look) and other information required to place them in the scene, such as transformations and hierarchy information.</p>
@@ -126,7 +128,7 @@ The trick with loading an object is that it may take time. So when we start the 
 <p>In both cases, THREE is doing something smart. For 1, it is trying to be efficient. For 2, it allows loading in files that contain multiple meshes.</p>
 <p><strong>A Note on File Formats:</strong> In this example, we are using a &ldquo;.OBJ&rdquo; file - which is a historic format for triangle data. Three.JS has importers for many different file formats.</p>
 <h2 id="exercise-1-stacking-boxes">Exercise 1, Stacking Boxes</h2>
-<p> 
+<p>
 
 
 In 

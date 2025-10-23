@@ -1,3 +1,5 @@
+**warning: use the "main" branch - the master branch is just for legacy compatibility"
+
 # CS 559 Library for Workbooks
 
 This directory contains files used by CS559 workbooks. It is included in workbooks.
@@ -6,9 +8,9 @@ Students should not edit the files in this directory or add to them without expl
 
 Students are welcome to read the code. They should not modify it (for class use).
 
-These files were written by Michael Gleicher for the class, with contributions from the course staff.
+These files were written by Michael Gleicher for the class, with contributions from the course staff. Young Wu added some of the 2024 grading infrastructure.
 
-Note: this is the 2022(3) version. In the past, each version had a different name.
+Note: this is the ~~2022(3)~~ 2025 version. In the past, each version had a different name.
 
 ##  License
 
