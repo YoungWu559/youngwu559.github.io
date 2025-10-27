@@ -1,0 +1,2 @@
+Explain how your shader works. If your shader is based on some example, cite your source (with a link).
+

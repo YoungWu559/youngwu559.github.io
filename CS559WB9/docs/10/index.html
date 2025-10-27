@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 10: Shader Tools and Examples</h1>
+		</header>
+		<div class="content post__content clearfix"><p>Back on <a href="../../docs/3/">Page &nbsp;3&nbsp; (GLSL and THREE)</a>, we talked about tools for developing shaders. Here, we&rsquo;ll talk about them a little more.</p>
+<p>One of the nice things about many of the shader tools (especially the web-based ones) is that they provide nice galleries of examples (often contributed by users). Some example galleries are:</p>
+<ul>
+<li><a href="http://glslsandbox.com/" target="_blank">GLSL Sandbox</a></li>
+<li><a href="https://www.shadertoy.com/" target="_blank">ShaderToy</a></li>
+<li><a href="https://thebookofshaders.com/examples/" target="_blank">The Book of Shaders</a></li>
+<li><a href="https://shaderfrog.com/" target="_blank">ShaderFrog</a></li>
+</ul>
+<p>For many of them (everything on the list above except ShaderFrog), the focus is on fragment shaders - the idea is that you always apply the fragment shader to every pixel in the image (effectively, the scene is one big rectangle). People do crazy things in these environments (like implementing an entire rendering system, and creating animations in it - for example <a href="http://glslsandbox.com/e#63078.0" target="_blank">WWI dogfight</a> and <a href="https://www.shadertoy.com/view/wlVSDK" target="_blank">Snake</a> - warning, these links require a modern GPU and decent graphics card drivers).</p>
+<p>Looking at other people&rsquo;s shaders is useful. It can inspire you with ideas of things to do. It can give you examples of things to read to learn new tricks. Trying to read and modify another person&rsquo;s work can be a good way to understand the concepts as well as their specific work. And, sometimes, the thing that you want has already been made by someone else (assuming they allow you to use it).</p>
+<p>For class, we really want you to write some of your own shaders - since that&rsquo;s the best way to check that you really understand things.</p>
+<p>But, we also want you to look at other shaders (for the reasons listed above).</p>
+<p>Remember: if you use things from someone else, give them proper attribution!</p>
+<p>For this exercise to borrow someone else&rsquo;s shader! Find a cool shader in a gallery or tutorial. And put it on an object in the class software framework in the box below. You must also explain in 
+    
+    <a href="../../for_students/10-workbook.txt" class="for_students for_students--notfile">10-workbook.txt</a> file, to give attribution, as well as a brief description explaining how the shader works (to show that you read the code and tried to understand it).</p>
+<p>Some things you&rsquo;ll need to do:</p>
+<ol>
+<li>
+<p>You will need to adapt the shader to work within the Framework. Even if the shader is written in GLSL, you will need to make sure that it uses the correct uniforms and attributes provided by the THREE and the framework. You might need to correctly access THREE&rsquo;s built-in uniforms and attributes, or you might need to add your own new uniforms. (adding attributes is trickier)</p>
+</li>
+<li>
+<p>You will need to adapt the JavaScript programs to correctly load and set up the shaders. This may involve making new uniforms. You might want to add more objects or lights to show off the shader.</p>
+</li>
+<li>
+<p>You will need to answer questions in the text box (below) including giving attribution to where you got the shader from. Please format the text so it is easy to read.</p>
+</li>
+<li>
+<p>You will need to understand how the shader works (since that is one of the questions). Ideally, you&rsquo;ll pick a shader that is complicated enough that you&rsquo;ll have to think about it.</p>
+</li>
+<li>
+<p>You will need to add the shader files and any images (textures) you use to the repo. The files 
+    
+    <a href="../../for_students/10-10-01.html" class="for_students for_students--notfile">10-10-01.html</a>, 
+    
+    <a href="../../for_students/10-10-01.js" class="for_students for_students--notfile">10-10-01.js</a>, 
+    
+    <a href="../../for_students/shaders/10-10-01.vs" class="for_students for_students--notfile">shaders/10-10-01.vs</a> and 
+    
+    <a href="../../for_students/shaders/10-10-01.fs" class="for_students for_students--notfile">shaders/10-10-01.fs</a> are all in place - you can edit them. If you add new files, make sure that things run in the box 
+    
+    <a href="../../for_students/10-10-01.html" class="for_students for_students--notfile">10-10-01.html</a> and all files are added to the repo.</p>
+</li>
+</ol>
+<p>The grading will be relatively loose for this. If you pick something easy (some simple shader that already works in THREE), or something complicated (that required a lot of adaptation and thinking), we might not know the difference. We won&rsquo;t really know how much you understand the code. We&rsquo;ll trust that if you do something for this assignment and say something reasonable, you really tried to fulfill the spirit of the assignment and deserve full points.</p>
+<p>In the past (2020), we had hints about <a href="https://graphics.cs.wisc.edu/Courses/559-sp2020/posts/shaderfrog/">adapting shaders from ShaderFrog</a>. ShaderFrog has changed since then (although, the general strategies probably still apply).</p>
+<p> 
+
+
+
+<div id="box-10-10-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 10-10-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/10-10-01.html class="boxtitlelink">10-10-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/10-10-01.js" class="boxtitlelink">10-10-01.js</a>
+    <iframe
+        title="10-10-01"
+        src="../../for_students/10-10-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-10-10-01"
+    ></iframe>
+</div></p>
+<h2 id="the-end">The End!</h2>
+<p>That&rsquo;s the end of this workbook - and of the regular workbooks for the class! (there is the final project workbook)</p>
+<p>Don&rsquo;t forget to commit, push, and complete the handin survey!</p>
+
+            
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                    <div class="sidebar">
+<h2 class="Side_Title">Workbook 10: Shaders</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Shaders)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Shader Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Simple Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: GLSL and THREE </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Lighting in Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Procedural Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: More Procedural Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Aliasing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Using Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/9/">9: All Together </a></li>
+        <li class="Side__Item Side__Selected"> 10: Shader Tools and Examples </li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

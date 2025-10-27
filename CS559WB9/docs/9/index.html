@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    
+<!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
+<!-- This page is part of a Workbook developed for the 
+    CS559 Computer Graphics Class at the University of Wisconsin
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../css/workbook.css">
+        <script src="../../js/resizeIFrames.js"></script>
+    </head>
+    <body>
+        <div class="container container--outer"><div class="maincolumn">
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header"><h1 class="post__title">Page 9: All Together</h1>
+		</header>
+		<div class="content post__content clearfix"><p>On this page there are 3 exercises: you need to write a shader for each one.</p>
+<p>Exercises 1 and 2 require some lighting, and 3 recommends it. For the purposes of these exercises, you can assume that the lights are in &ldquo;camera coordinates&rdquo; (if that&rsquo;s easier for you), or use any of the methods we discussed on <a href="../../docs/4/">Page  4  (Lighting in Shaders)</a> (like assuming that transformation is a rotation).</p>
+<p>If you do diffuse lighting, the lighting may change as the camera moves (if the lights move with the camera). It is sufficient to create a single directional light either in the camera direction (0,0,1 in view coordinates), or from above the camera (0,1,0 in view coordinates). It is sufficient just to diffuse lighting (since it is simple); you may want to add some ambient to it so that the parts facing away from the light are not totally black, or add some specular lighting since you have the implementation of it.</p>
+<p>It should be clear that there is lighting (for the examples that have lighting).</p>
+<p>For this page, you should write the shader yourself - on the next page, you can adapt a shader from somewhere. You can reuse the lighting code from a prior page.</p>
+<p>It is OK to use ideas that you find elsewhere. Remember: if you use ideas (or code) from some shader you find someplace else, be sure to give proper attribution. If you adapt a shader from somewhere else, make sure you understand how it works!</p>
+<h4 id="shader-composition">Shader Composition</h4>
+<p>One thing to notice about the first two exercises: they require you to put together two different simpler shaders. For example, the first exercise on this page asks you to mix lighting and a procedural texture. You have seen each piece independently - you really just need to put them together. For the exercise, this means computing a color using the procedural shader, and then using that color as the input (maybe the material color) of the lighting shader.</p>
+<p>This idea of putting shaders is really common. In fact, shaders are often designed as pieces that get plugged together. If you look at shader design tools (like <a href="https://shaderfrog.com/" target="_blank">ShaderFrog</a>), they often provide a workflow where you take simpler shaders and connect them together. Internally, THREE does this (it has &ldquo;chunks&rdquo; of shaders in a library, and assembles them to make you materials depending on what options you use).</p>
+<p>For these exercises, compose the shaders yourself. We&rsquo;ll talk about using shaders from other tools later.</p>
+<h2 id="exercise-lighting-and-procedural">Exercise: Lighting and Procedural</h2>
+<p>Write a shader in 
+    
+    <a href="../../for_students/shaders/10-09-01.vs" class="for_students for_students--notfile">shaders/10-09-01.vs</a> and 
+    
+    <a href="../../for_students/shaders/10-09-01.fs" class="for_students for_students--notfile">shaders/10-09-01.fs</a> that creates a procedural texture (one of the ones from page 5 is fine - even one of the examples) and adds lighting. A single directional light source (either in the direction of the camera line of sight or from above the camera) is sufficient. You may not need to modify 
+    
+    <a href="../../for_students/10-09-01.js" class="for_students for_students--notfile">10-09-01.js</a> (
+    
+    <a href="../../for_students/10-09-01.html" class="for_students for_students--notfile">10-09-01.html</a>), but you can if you want to.</p>
+<p> 
+
+
+
+<div id="box-10-09-01" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 10-09-01</b>&nbsp;&nbsp;
+        <a href=../../for_students/10-09-01.html class="boxtitlelink">10-09-01.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/10-09-01.js" class="boxtitlelink">10-09-01.js</a>
+    <iframe
+        title="10-09-01"
+        src="../../for_students/10-09-01.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-10-09-01"
+    ></iframe>
+</div></p>
+<h2 id="exercise-images-and-lighting">Exercise: Images and Lighting</h2>
+<p>Write a shader in 
+    
+    <a href="../../for_students/shaders/10-09-02.vs" class="for_students for_students--notfile">shaders/10-09-02.vs</a> and 
+    
+    <a href="../../for_students/shaders/10-09-02.fs" class="for_students for_students--notfile">shaders/10-09-02.fs</a> that combines information from an image with lighting. A single directional light source (either in the direction of the camera line of sight or from above the camera) is sufficient. You will need to modify 
+    
+    <a href="../../for_students/10-09-02.js" class="for_students for_students--notfile">10-09-02.js</a> (
+    
+    <a href="../../for_students/10-09-02.html" class="for_students for_students--notfile">10-09-02.html</a>) to load the image and to set up the texture in a uniform.</p>
+<p> 
+
+
+
+<div id="box-10-09-02" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 10-09-02</b>&nbsp;&nbsp;
+        <a href=../../for_students/10-09-02.html class="boxtitlelink">10-09-02.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/10-09-02.js" class="boxtitlelink">10-09-02.js</a>
+    <iframe
+        title="10-09-02"
+        src="../../for_students/10-09-02.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-10-09-02"
+    ></iframe>
+</div></p>
+<p>If you&rsquo;d like an advanced point, do something more complex than just adding diffuse lighting to a texture. You may want to do something more creative than just showing the colors of a single texture (the standard color map that you could do with THREE&rsquo;s built-in shaders). For example, adjust the geometry or normals, mix two textures together and so on. If you add your own image, make sure you add it to the repository and push it when you submit.</p>
+<p>Either way, explain it in the textbox in the file 
+    
+    <a href="../../for_students/10-workbook.txt" class="for_students for_students--notfile">10-workbook.txt</a>.</p>
+<h2 id="exercise-students-choice">Exercise: Student&rsquo;s Choice</h2>
+<p>Write a shader in 
+    
+    <a href="../../for_students/shaders/10-09-03.vs" class="for_students for_students--notfile">shaders/10-09-03.vs</a> and 
+    
+    <a href="../../for_students/shaders/10-09-03.fs" class="for_students for_students--notfile">shaders/10-09-03.fs</a> that does something interesting and different than the other shaders you&rsquo;ve made already in this workbook. You will need to modify 
+    
+    <a href="../../for_students/10-09-03.js" class="for_students for_students--notfile">10-09-03.js</a> (
+    
+    <a href="../../for_students/10-09-03.html" class="for_students for_students--notfile">10-09-03.html</a>) to set up the uniforms and load textures.</p>
+<p>In this exercise, you must add a uniform variable that controls some parameters, and have them controlled by a slider. You can look at the examples on pages 5 and 6 to see how to make sliders easily with the framework code.</p>
+<p>If you write a shader that alters the geometry of the object (moving vertices), you may want to increase the tessellation of the sphere (see page 7 for an example). You can add more example geometry if you think it shows off your shader better - but please leave the plane and sphere.</p>
+<p>You need to not only write a pair of shaders, but also explain what they do and how they work in the file 
+    
+    <a href="../../for_students/10-workbook.txt" class="for_students for_students--notfile">10-workbook.txt</a>. You can earn some advanced points for a particularly interesting shader with an explanation.</p>
+<p>Some things to consider trying:</p>
+<ul>
+<li>alter the geometry in the vertex shader (as in page 7)</li>
+<li>mix lighting with other colorings</li>
+<li>animate effects (see page 2 for an example)</li>
+<li>have procedural effects modify images (or vice versa)</li>
+<li>create a different pattern</li>
+<li>combine effects (make dirty wood grain, or a checkerboard of different woods)</li>
+</ul>
+<p>Feel free to add uniform variables (for example, to add a time variable like on page <a href="../../docs/2/">Page  2  (Simple Shaders)</a>).</p>
+<p> 
+
+
+
+<div id="box-10-09-03" style="border: 2px solid black; padding: 0px 5px 0px 5px; margin: 0;border-radius: 5px;">
+    <b>Box 10-09-03</b>&nbsp;
+        (1 basic + 0 advanced)&nbsp&nbsp;
+        <a href=../../for_students/10-09-03.html class="boxtitlelink">10-09-03.html</a>
+        &nbsp;&nbsp;<a href="../../for_students/10-09-03.js" class="boxtitlelink">10-09-03.js</a>
+    <iframe
+        title="10-09-03"
+        src="../../for_students/10-09-03.html"
+        class="includebox includebox-standard"
+        width="100%"
+        height="100%"
+        scrolling="no"
+        frameborder="0"
+        id="box-iframe-10-09-03"
+    ></iframe>
+</div></p>
+<p>Then we can move on to <a href="../../docs/10/" class="Next__Page">Next: Shader Tools and Examples </a>.</p>
+
+            
+			
+			
+		</div>
+	</article>
+</main>
+
+                </div>
+                    <div class="sidebar">
+<h2 class="Side_Title">Workbook 10: Shaders</h2>
+<p class="Side__Note">Pages:</p>
+<ul class="Side__List">
+    <li class="Side__Item Side__Unselected"><a href="../../">Index (Shaders)</a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/1/">1: Shader Basics </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/2/">2: Simple Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/3/">3: GLSL and THREE </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/4/">4: Lighting in Shaders </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/5/">5: Procedural Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/6/">6: More Procedural Textures </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/7/">7: Aliasing </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/8/">8: Using Textures </a></li>
+        <li class="Side__Item Side__Selected"> 9: All Together </li>
+        <li class="Side__Item Side__Unselected"> <a href="../../docs/10/">10: Shader Tools and Examples </a></li>
+</ul>
+</div>
+</div>
+    </body>
+</html>

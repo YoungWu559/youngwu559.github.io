@@ -1,0 +1,13 @@
+Where did the image come from? 
+
+
+
+
+What lighting did you implement?
+
+
+
+
+Did you do anything beyond basic texure with diffuse lighting (explain)?
+
+
