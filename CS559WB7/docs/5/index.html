@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 5: Hierarchical Modeling in THREE</h1>
 		</header>
-		<div class="content post__content clearfix"><p>In THREE, objects (instances of <code>Object3D</code>) can contain other objects. Rather than adding an object directly to the scene, we can add an object to another object. This parent object can be added to the scene (or to another object). In order to be in the scene, an object either needs to be added to the scene, or added to some object who has a parent that is part of the scene (recursively).</p>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><p>In THREE, objects (instances of <code>Object3D</code>) can contain other objects. Rather than adding an object directly to the scene, we can add an object to another object. This parent object can be added to the scene (or to another object). In order to be in the scene, an object either needs to be added to the scene, or added to some object who has a parent that is part of the scene (recursively).</p>
 <p>In the previous workbook (and in class), we learned that in THREE, every object (technically, every instance of <code>Object3D</code>, which is the base class for just about everything), has its own transformation associated with it.</p>
 <p>This transformation is relative to the object&rsquo;s <em>parent</em>. If the object is simply placed in the scene, the transformation is relative to the scene (the scene is not actually an <code>Object3D</code>). However, if the object is a child of some other object, then its transformation is relative to that object. If you transform the parent, the children are transformed as well.</p>
 <p>When an object has a parent, its transformation is composed with the parent transformation. In class we talked about how this trickles along the tree of object containment.</p>

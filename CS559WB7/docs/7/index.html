@@ -16,7 +16,9 @@
 	<article class="post">
 		<header class="post__header"><h1 class="post__title">Page 7: The CS559 Framework Code (GraphicsTown)</h1>
 		</header>
-		<div class="content post__content clearfix"><h2 id="prelude-to-graphics-town">Prelude to Graphics Town</h2>
+		<div class="content post__content clearfix"><div class="dimbox">
+                    <h3>Spring 2025 Sample Solution</h3>
+                </div><h2 id="prelude-to-graphics-town">Prelude to Graphics Town</h2>
 <p>For the remaining parts of the workbook (two exercises), you will work with some framework code we have created for this class. Learning to work with the Framework code is important practically (you will use it on most of the assignments from here on), but also pedagogically. In the real world, you often have to work with code that someone else wrote.</p>
 <p>The framework code allows you to focus on creating graphics objects and defining their behavior (for animation). You don&rsquo;t need to worry about setting up a user interface, or the basic stuff of the world. It will give you &ldquo;good enough&rdquo; defaults that you can focus on the parts of the assignment you care about. For example, in this assignment, you can focus on making hierarchical objects. In future workbooks you will focus on making appearances (just wait).</p>
 <p>The framework provides a &ldquo;thin wrapper&rdquo; around THREE.JS - you still program using THREE.JS, but you put your objects inside of wrapper objects, and define their behaviors as methods of these objects.</p>
@@ -30,7 +32,7 @@
 <p>The framework code uses &ldquo;modern&rdquo; JavaScript. That includes modules and classes. We&rsquo;ve actually had some of that in prior assignments, but this time you will see more of it. You will not be able to avoid writing a <code>class</code> or figuring out how to <code>export</code> from a module. Fortunately, we will provide a lot of examples, so you can always do things by modifying something we&rsquo;ve given you to start with. However, we do recommend that you take some time to actually understand what is going on with the code.</p>
 <p>If you want to learn about JavaScript classes, we have a basic tutorial for class <a href="https://cs559.github.io/559Tutorials/javascript/oop-in-js-1/" target="_blank">Traditional Object Oriented Programming in JavaScript</a>.  To learn more about them (and other nice JavaScript features), most up-to-date books have discussions. See the <a href="https://cs559.github.io/559Tutorials/javascript/javascript559/" target="_blank">Javascript in CS559</a> for suggestions. One specific recommendation: <a href="http://exploringjs.com/es6/ch_classes.html" target="_blank">Exploring JS Ch15</a> has a nice introduction before it starts a deep-dive into some gory details and tricks to do fancy stuff.</p>
 <h2 id="object3d-and-grobject">Object3D and GrObject</h2>
-<p> 
+<p>
 
 
 Here&rsquo;s a simple example, with the code in 
@@ -129,7 +131,7 @@ Here&rsquo;s a simple example, with the code in
 <p>On line 34, we call <code>go()</code> - a method of <code>GrWorld</code> that starts an infinite loop with a render loop (using <code>window.requestAnimationFrame</code>).</p>
 <p>Read the code or documentation to see all of the options for these objects.</p>
 <h2 id="box-2-getting-started-with-a-simple-example">Box 2: Getting Started with a simple example</h2>
-<p> 
+<p>
 
 
 Another spinning cube example (from <a href="../../docs/3/">Page &nbsp;3&nbsp; (Axis Angle Representations)</a> and the previous workbook and lecture) is in 
@@ -235,7 +237,7 @@ Another spinning cube example (from <a href="../../docs/3/">Page &nbsp;3&nbsp; (
 <p>For a simple example like this one, the framework isn&rsquo;t that much easier than just writing the code from scratch using THREE.js directly. It does save us from having to remember to turn the lights on and point the camera the right way.</p>
 <p>In the simple example, we re-used a basic object (a cube). Just as when we use THREE directly, usually we will make more interesting objects. You&rsquo;ll see that on the next pages.</p>
 <h2 id="box-3-another-simple-example">Box 3: Another Simple Example</h2>
-<p> 
+<p>
 
 
 The first example showed how to make a simple animation. A different example, inspired by <a href="../../docs/2/">Page &nbsp;2&nbsp; (Euler Angles Toys)</a>, is in 

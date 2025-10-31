@@ -19,7 +19,7 @@ export function record (id = "canvas", idt = "time") {
     let time = Math.min(Number(document.getElementById(idt).value), 60);
     if (canvas && time > 0) {
         let chunks = [];
-        let stream = canvas.captureStream(time);
+        let stream = canvas.captureStream();
         let recorder = new MediaRecorder(stream);
         recorder.ondataavailable = function (event) {
             chunks.push(event.data);
