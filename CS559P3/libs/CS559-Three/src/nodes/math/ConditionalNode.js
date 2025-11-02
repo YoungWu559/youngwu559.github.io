@@ -2,8 +2,6 @@ import Node from '../core/Node.js';
 import { property } from '../core/PropertyNode.js';
 import { addMethodChaining, nodeProxy } from '../tsl/TSLCore.js';
 
-/** @module ConditionalNode **/
-
 /**
  * Represents a logical `if/else` statement. Can be used as an alternative
  * to the `If()`/`Else()` syntax.
@@ -30,7 +28,7 @@ class ConditionalNode extends Node {
 	 *
 	 * @param {Node} condNode - The node that defines the condition.
 	 * @param {Node} ifNode - The node that is evaluate when the condition ends up `true`.
-	 * @param {Node?} [elseNode=null] - The node that is evaluate when the condition ends up `false`.
+	 * @param {?Node} [elseNode=null] - The node that is evaluate when the condition ends up `false`.
 	 */
 	constructor( condNode, ifNode, elseNode = null ) {
 
@@ -53,7 +51,7 @@ class ConditionalNode extends Node {
 		/**
 		 * The node that is evaluate when the condition ends up `false`.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.elseNode = elseNode;
@@ -65,7 +63,7 @@ class ConditionalNode extends Node {
 	 * nodes.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( builder ) {
 
@@ -75,7 +73,7 @@ class ConditionalNode extends Node {
 
 			// fallback setup
 
-			this.setup( builder );
+			builder.flowBuildStage( this, 'setup' );
 
 			return this.getNodeType( builder );
 
@@ -114,10 +112,12 @@ class ConditionalNode extends Node {
 
 		//
 
+		const isUniformFlow = builder.context.uniformFlow;
+
 		const properties = builder.getNodeProperties( this );
 		properties.condNode = condNode;
-		properties.ifNode = ifNode.context( { nodeBlock: ifNode } );
-		properties.elseNode = elseNode ? elseNode.context( { nodeBlock: elseNode } ) : null;
+		properties.ifNode = isUniformFlow ? ifNode : ifNode.context( { nodeBlock: ifNode } );
+		properties.elseNode = elseNode ? ( isUniformFlow ? elseNode : elseNode.context( { nodeBlock: elseNode } ) ) : null;
 
 	}
 
@@ -135,12 +135,27 @@ class ConditionalNode extends Node {
 
 		const { condNode, ifNode, elseNode } = builder.getNodeProperties( this );
 
+		const functionNode = builder.currentFunctionNode;
 		const needsOutput = output !== 'void';
 		const nodeProperty = needsOutput ? property( type ).build( builder ) : '';
 
 		nodeData.nodeProperty = nodeProperty;
 
 		const nodeSnippet = condNode.build( builder, 'bool' );
+		const isUniformFlow = builder.context.uniformFlow;
+
+		if ( isUniformFlow && elseNode !== null ) {
+
+			const ifSnippet = ifNode.build( builder, type );
+			const elseSnippet = elseNode.build( builder, type );
+
+			const mathSnippet = builder.getTernary( nodeSnippet, ifSnippet, elseSnippet );
+
+			// TODO: If node property already exists return something else
+
+			return builder.format( mathSnippet, type, output );
+
+		}
 
 		builder.addFlowCode( `\n${ builder.tab }if ( ${ nodeSnippet } ) {\n\n` ).addFlowTab();
 
@@ -155,6 +170,14 @@ class ConditionalNode extends Node {
 			} else {
 
 				ifSnippet = 'return ' + ifSnippet + ';';
+
+				if ( functionNode === null ) {
+
+					console.warn( 'THREE.TSL: Return statement used in an inline \'Fn()\'. Define a layout struct to allow return values.' );
+
+					ifSnippet = '// ' + ifSnippet;
+
+				}
 
 			}
 
@@ -177,6 +200,14 @@ class ConditionalNode extends Node {
 				} else {
 
 					elseSnippet = 'return ' + elseSnippet + ';';
+
+					if ( functionNode === null ) {
+
+						console.warn( 'THREE.TSL: Return statement used in an inline \'Fn()\'. Define a layout struct to allow return values.' );
+
+						elseSnippet = '// ' + elseSnippet;
+
+					}
 
 				}
 
@@ -201,23 +232,13 @@ export default ConditionalNode;
 /**
  * TSL function for creating a conditional node.
  *
+ * @tsl
  * @function
  * @param {Node} condNode - The node that defines the condition.
  * @param {Node} ifNode - The node that is evaluate when the condition ends up `true`.
- * @param {Node?} [elseNode=null] - The node that is evaluate when the condition ends up `false`.
+ * @param {?Node} [elseNode=null] - The node that is evaluate when the condition ends up `false`.
  * @returns {ConditionalNode}
  */
-export const select = /*@__PURE__*/ nodeProxy( ConditionalNode );
+export const select = /*@__PURE__*/ nodeProxy( ConditionalNode ).setParameterLength( 2, 3 );
 
 addMethodChaining( 'select', select );
-
-//
-
-export const cond = ( ...params ) => { // @deprecated, r168
-
-	console.warn( 'TSL.ConditionalNode: cond() has been renamed to select().' );
-	return select( ...params );
-
-};
-
-addMethodChaining( 'cond', cond );

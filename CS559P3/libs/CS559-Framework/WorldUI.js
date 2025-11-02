@@ -57,171 +57,202 @@ export class WorldUI {
      * @param {number} [width=300]
      * @param {InputHelpers.WhereSpec} [where] - where to place the panel in the DOM (at the end of the page by default)
      */
-    constructor(world, width = 500, where = undefined, grading = false) {
+    constructor(world, width = -1, where = undefined, grading = false) {
         const self = this;
         this.world = world;
 
-        /* if no where is provided, put it at the end of the panel panel - assuming there is one */
-        if (!where) {
-            where = panel();
-        }
-
-        this.div = InputHelpers.makeBoxDiv({ width: width }, where);
-        this.div.id = "world-ui-div";
-        InputHelpers.makeHead("World Controls", this.div, { tight: true });
-
-        // because in some cases, we lose this (because of scoping issues), make a variable
-        // that reliably refers to the world
-        const _world = this.world;
-
-        // run control
-        this.runbutton = InputHelpers.makeCheckbox("Run", this.div);
-        world.runbutton = this.runbutton;
-        world.runbutton.checked = true;
-        this.runslider = new InputHelpers.LabelSlider("speed", {
-            width: 250,
-            min: 0.1,
-            max: 3,
-            step: 0.1,
-            initial: 1,
-            where: this.div
-        });
-        world.speedcontrol = this.runslider.range;
-
-        // create "view solo" checkbox.
-        this.selectionChkList = InputHelpers.makeFlexDiv(this.div);
-        /**@type HTMLInputElement */
-        this.chkSolo = InputHelpers.makeCheckbox(
-            "chkSolo",
-            this.selectionChkList,
-            "View Solo Object"
-        );
-        this.chkSolo.onclick = function () {
-            // avoid this as it is ambiguous when reading the code and lacks type info
-            if (self.chkSolo.checked) {
-                // we need to have some active object - so update it!
-                _world.setActiveObject(self.selectLook.value);
-                _world.showSoloObject();
-            } else {
-                _world.showWorld();
-            }
-        };
-        world.chkSolo = this.chkSolo;
-
-        if (grading) {
-            InputHelpers.makeSpan("replace", this.selectionChkList).innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;";
-            remoteButton("Grader", "https://graphics.cs.wisc.edu/test/grading.js", world, this.selectionChkList);
-        }
-        //
-        //
-        this.selectViewMode = InputHelpers.makeSelect(
-            ["Orbit Camera", "Fly Camera", "Follow Object", "Drive Object"],
-            this.div
-        );
-        this.selectViewMode.onchange = function () {
-            // if we're driving or following make sure we have something to ride/follow
-            // note that we need to do this before setting the mode
-            if (
-                self.selectViewMode.value == "Drive Object" ||
-                self.selectViewMode.value == "Follow Object"
-            ) {
-                _world.setActiveObject(self.selectRideable.value);
-            }
-            // avoid this as it is ambiguous when reading the code and lacks type info
-            _world.setViewMode(self.selectViewMode.value);
-        };
-        this.selectViewMode.onchange(null);
-        world.selectViewMode = this.selectViewMode;
-
-        InputHelpers.makeBreak(this.div);
-
-        // create object selector for rideable
-        InputHelpers.makeSpan("Drive:", this.div);
         const rideable = world.objects.filter(obj => obj.rideable);
-        this.selectRideable = InputHelpers.makeSelect(
-            rideable.map(ob => ob.name),
-            this.div
-        );
-        this.selectRideable.onchange = function () {
-            // avoid this as it is ambiguous when reading the code and lacks type info
-            _world.setActiveObject(self.selectRideable.value);
-            _world.setViewMode("Drive Object");
-            self.selectViewMode.value = "Drive Object";
-        };
-        world.selectRideable = this.selectRideable;
+        let highObjs = world.objects.filter(ob => ob.highlighted);
 
-        // create a selector for isolate
-        // because there are often too many objects, we
-        // allow for some to be "highlighted" and included on a 
-        // shorter list
-        InputHelpers.makeBreak(this.div);
-        InputHelpers.makeSpan("LookAt:", this.div);
-        this.selectLook = InputHelpers.makeSelect(
-            world.objects.map(ob => ob.name).sort(),
-            this.div
-        );
-        // this has to work for either lookat or highlight
-        function onSelectLook(event) {
-            // if we were driving, stop!
-            if (
-                world.view_mode == "Drive Object" ||
-                world.view_mode == "Follow Object"
-            ) {
-                _world.setViewMode("Orbit Camera");
-                self.selectViewMode.value = "Orbit Camera";
+        if (width > 0) {
+            /* if no where is provided, put it at the end of the panel panel - assuming there is one */
+            if (!where) {
+                where = panel();
             }
 
-            const name = event.target.value;
-            _world.setActiveObject(name);
-            const obj = _world.objects.find(ob => ob.name === name);
-            const camparams = obj.lookFromLookAt();
-            world.camera.position.set(camparams[0], camparams[1], camparams[2]);
-            const lookAt = new T.Vector3(camparams[3], camparams[4], camparams[5]);
-            world.camera.lookAt(lookAt);
-            world.orbit_controls.target = new T.Vector3(
-                camparams[3],
-                camparams[4],
-                camparams[5]
-            );
-        }
-        this.selectLook.onchange = onSelectLook;
-        world.selectLook = this.selectLook;
+            this.div = InputHelpers.makeBoxDiv({ width: width }, where);
+            this.div.id = "world-ui-div";
+            InputHelpers.makeHead("World Controls", this.div, { tight: true });
 
-        // get a list of the names of highlighted objects
-        let highObjs = world.objects.filter(ob => ob.highlighted);
-        if (highObjs.length) {
-            InputHelpers.makeBreak(this.div);
-            InputHelpers.makeSpan("LookAt (highlighted objects):", this.div);
-            this.selectLookHigh = InputHelpers.makeSelect(
-                highObjs.map(ob => ob.name).sort(),
+            // because in some cases, we lose this (because of scoping issues), make a variable
+            // that reliably refers to the world
+            const _world = this.world;
+
+            // run control
+            this.runbutton = InputHelpers.makeCheckbox("Run", this.div);
+            world.runbutton = this.runbutton;
+            world.runbutton.checked = true;
+            this.runslider = new InputHelpers.LabelSlider("speed", {
+                width: 250,
+                min: 0.1,
+                max: 3,
+                step: 0.1,
+                initial: 1,
+                where: this.div
+            });
+            world.speedcontrol = this.runslider.range;
+
+            // create "view solo" checkbox.
+            this.selectionChkList = InputHelpers.makeFlexDiv(this.div);
+            /**@type HTMLInputElement */
+            this.chkSolo = InputHelpers.makeCheckbox(
+                "chkSolo",
+                this.selectionChkList,
+                "View Solo Object"
+            );
+            this.chkSolo.onclick = function () {
+                // avoid this as it is ambiguous when reading the code and lacks type info
+                if (self.chkSolo.checked) {
+                    // we need to have some active object - so update it!
+                    _world.setActiveObject(self.selectLook.value);
+                    _world.showSoloObject();
+                } else {
+                    _world.showWorld();
+                }
+            };
+            world.chkSolo = this.chkSolo;
+
+            if (grading) {
+                InputHelpers.makeSpan("replace", this.selectionChkList).innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;";
+                remoteButton("Grader", "https://graphics.cs.wisc.edu/test/grading.js", world, this.selectionChkList);
+            }
+            //
+            //
+            this.selectViewMode = InputHelpers.makeSelect(
+                ["Orbit Camera", "Fly Camera", "Follow Object", "Drive Object"],
                 this.div
             );
-            this.selectLookHigh.onchange = onSelectLook;
-        }
+            this.selectViewMode.onchange = function () {
+                // if we're driving or following make sure we have something to ride/follow
+                // note that we need to do this before setting the mode
+                if (
+                    self.selectViewMode.value == "Drive Object" ||
+                    self.selectViewMode.value == "Follow Object"
+                ) {
+                    _world.setActiveObject(self.selectRideable.value);
+                }
+                // avoid this as it is ambiguous when reading the code and lacks type info
+                _world.setViewMode(self.selectViewMode.value);
+            };
+            this.selectViewMode.onchange(null);
+            world.selectViewMode = this.selectViewMode;
 
-        const gui = new GUI({ title: "WorldUI" });
-        let obj = { run: true, speed: 1, solo: false, camera: "Orbit Camera", drive: rideable[0].name, look: world.objects[0].name, time: 0 };
-        gui.add(obj, "run").name("Run").onChange(function (value) {
-            world.runbutton.checked = value;
-        });
-        gui.add(obj, "speed", Number(this.runslider.range.min) || 0, Number(world.speedcontrol.max) || 1, Number(world.speedcontrol.step) || 0.01).onChange(function (value) {
-            world.speedcontrol.value = value;
-        });
-        gui.add(obj, "solo").name("View Solo Object").onChange(function (value) {
-            world.chkSolo.checked = value;
-            world.chkSolo.onclick();
-        });
-        gui.add(obj, "camera", ["Orbit Camera", "Fly Camera", "Follow Object", "Drive Object"]).onChange(function (value) {
-            world.selectViewMode.value = value;
-            world.selectViewMode.onchange();
-        });
-        gui.add(obj, "drive", rideable.map(ob => ob.name).sort()).name("Drive").onChange(function (value) {
-            world.selectRideable.value = value;
-            world.selectRideable.onchange();
-        });
-        gui.add(obj, "look", world.objects.map(ob => ob.name).sort()).name("LookAt").onChange(function (value) {
-            world.selectLook.value = value;
-            world.selectLook.onchange();
-        });
+            InputHelpers.makeBreak(this.div);
+
+            // create object selector for rideable
+            InputHelpers.makeSpan("Drive:", this.div);
+            this.selectRideable = InputHelpers.makeSelect(
+                rideable.map(ob => ob.name),
+                this.div
+            );
+            this.selectRideable.onchange = function () {
+                // avoid this as it is ambiguous when reading the code and lacks type info
+                _world.setActiveObject(self.selectRideable.value);
+                _world.setViewMode("Drive Object");
+                self.selectViewMode.value = "Drive Object";
+            };
+            world.selectRideable = this.selectRideable;
+
+            // create a selector for isolate
+            // because there are often too many objects, we
+            // allow for some to be "highlighted" and included on a 
+            // shorter list
+            InputHelpers.makeBreak(this.div);
+            InputHelpers.makeSpan("LookAt:", this.div);
+            this.selectLook = InputHelpers.makeSelect(
+                world.objects.map(ob => ob.name).sort(),
+                this.div
+            );
+            // this has to work for either lookat or highlight
+            function onSelectLook(event) {
+                // if we were driving, stop!
+                if (
+                    world.view_mode == "Drive Object" ||
+                    world.view_mode == "Follow Object"
+                ) {
+                    _world.setViewMode("Orbit Camera");
+                    self.selectViewMode.value = "Orbit Camera";
+                }
+
+                const name = event.target.value;
+                _world.setActiveObject(name);
+                const obj = _world.objects.find(ob => ob.name === name);
+                const camparams = obj.lookFromLookAt();
+                world.camera.position.set(camparams[0], camparams[1], camparams[2]);
+                const lookAt = new T.Vector3(camparams[3], camparams[4], camparams[5]);
+                world.camera.lookAt(lookAt);
+                world.orbit_controls.target = new T.Vector3(
+                    camparams[3],
+                    camparams[4],
+                    camparams[5]
+                );
+            }
+            this.selectLook.onchange = onSelectLook;
+            world.selectLook = this.selectLook;
+
+            // get a list of the names of highlighted objects
+            if (highObjs.length) {
+                InputHelpers.makeBreak(this.div);
+                InputHelpers.makeSpan("LookAt (highlighted objects):", this.div);
+                this.selectLookHigh = InputHelpers.makeSelect(
+                    highObjs.map(ob => ob.name).sort(),
+                    this.div
+                );
+                this.selectLookHigh.onchange = onSelectLook;
+            }
+        }
+        else {
+            const gui = new GUI({ title: "WorldUI" });
+            world.runbutton = { checked: true };
+            world.speedcontrol = { value: 1.0 };
+            let obj = { run: true, speed: 1, solo: false, camera: "Orbit Camera", drive: rideable[0].name, look: world.objects[0].name, time: world.lastTimeOfDay };
+            world.gui = obj;
+            gui.add(obj, "run").name("Run").onChange(function (value) {
+                world.runbutton.checked = value;
+            });
+            gui.add(obj, "time", 0, 24, 0.1).name("Time of Day").listen().disable();
+            gui.add(obj, "speed", 0.1, 3, 0.1).name("Speed").onChange(function (value) {
+                world.speedcontrol.value = value;
+            });
+            gui.add(obj, "solo").name("View Solo Object").onChange(function (value) {
+                if (value) {
+                    world.setActiveObject(gui_look.getValue());
+                    world.showSoloObject();
+                } else {
+                    world.showWorld();
+                }
+            });
+            let gui_camera = gui.add(obj, "camera", ["Orbit Camera", "Fly Camera", "Follow Object", "Drive Object"]).name("Camera").onChange(function (value) {
+                if (value == "Drive Object" || value == "Follow Object") {
+                    world.setActiveObject(gui_drive.getValue());
+                }
+                world.setViewMode(value);
+            });
+            let gui_drive = gui.add(obj, "drive", rideable.map(ob => ob.name).sort()).name("Drive").onChange(function (value) {
+                world.setActiveObject(value);
+                gui_camera.setValue("Drive Object");
+            });
+            let gui_look = gui.add(obj, "look", world.objects.map(ob => ob.name).sort()).name("LookAt").onChange(function (value) {
+                if (world.view_mode == "Drive Object" || world.view_mode == "Follow Object") {
+                    world.setViewMode("Orbit Camera");
+                }
+                world.setActiveObject(value);
+                const oj = world.objects.find(ob => ob.name == value);
+                const camparams = oj.lookFromLookAt();
+                world.camera.position.set(camparams[0], camparams[1], camparams[2]);
+                const lookAt = new T.Vector3(camparams[3], camparams[4], camparams[5]);
+                world.camera.lookAt(lookAt);
+                world.orbit_controls.target = new T.Vector3(
+                    camparams[3],
+                    camparams[4],
+                    camparams[5]
+                );
+            });
+            if (highObjs.length) {
+                gui.add(obj, "highlight", highObjs.map(ob => ob.name).sort()).name("LookAt (highlighted):").onChange(function (value) {
+                    gui_look.setValue(value);
+                });
+            }
+        }
     }
 }

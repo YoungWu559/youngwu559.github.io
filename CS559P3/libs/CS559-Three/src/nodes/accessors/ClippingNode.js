@@ -7,15 +7,13 @@ import { Loop } from '../utils/LoopNode.js';
 import { smoothstep } from '../math/MathNode.js';
 import { uniformArray } from './UniformArrayNode.js';
 import { builtin } from './BuiltinNode.js';
-
-/** @module ClippingNode **/
+import { renderGroup } from '../core/UniformGroupNode.js';
 
 /**
- * ```
  * This node is used in {@link NodeMaterial} to setup the clipping
  * which can happen hardware-accelerated (if supported) and optionally
  * use alpha-to-coverage for anti-aliasing clipped edges.
- * ```
+ *
  * @augments Node
  */
 class ClippingNode extends Node {
@@ -97,7 +95,7 @@ class ClippingNode extends Node {
 
 			if ( this.hardwareClipping === false && numUnionPlanes > 0 ) {
 
-				const clippingPlanes = uniformArray( unionPlanes );
+				const clippingPlanes = uniformArray( unionPlanes ).setGroup( renderGroup );
 
 				Loop( numUnionPlanes, ( { i } ) => {
 
@@ -116,7 +114,7 @@ class ClippingNode extends Node {
 
 			if ( numIntersectionPlanes > 0 ) {
 
-				const clippingPlanes = uniformArray( intersectionPlanes );
+				const clippingPlanes = uniformArray( intersectionPlanes ).setGroup( renderGroup );
 				const intersectionClipOpacity = float( 1 ).toVar( 'intersectionClipOpacity' );
 
 				Loop( numIntersectionPlanes, ( { i } ) => {
@@ -157,7 +155,7 @@ class ClippingNode extends Node {
 
 			if ( this.hardwareClipping === false && numUnionPlanes > 0 ) {
 
-				const clippingPlanes = uniformArray( unionPlanes );
+				const clippingPlanes = uniformArray( unionPlanes ).setGroup( renderGroup );
 
 				Loop( numUnionPlanes, ( { i } ) => {
 
@@ -172,7 +170,7 @@ class ClippingNode extends Node {
 
 			if ( numIntersectionPlanes > 0 ) {
 
-				const clippingPlanes = uniformArray( intersectionPlanes );
+				const clippingPlanes = uniformArray( intersectionPlanes ).setGroup( renderGroup );
 				const clipped = bool( true ).toVar( 'clipped' );
 
 				Loop( numIntersectionPlanes, ( { i } ) => {
@@ -205,7 +203,7 @@ class ClippingNode extends Node {
 
 		return Fn( () => {
 
-			const clippingPlanes = uniformArray( unionPlanes );
+			const clippingPlanes = uniformArray( unionPlanes ).setGroup( renderGroup );
 			const hw_clip_distances = builtin( builder.getClipDistance() );
 
 			Loop( numUnionPlanes, ( { i } ) => {
@@ -232,6 +230,7 @@ export default ClippingNode;
 /**
  * TSL function for setting up the default clipping logic.
  *
+ * @tsl
  * @function
  * @returns {ClippingNode}
  */
@@ -240,6 +239,7 @@ export const clipping = () => nodeObject( new ClippingNode() );
 /**
  * TSL function for setting up alpha to coverage.
  *
+ * @tsl
  * @function
  * @returns {ClippingNode}
  */
@@ -248,6 +248,7 @@ export const clippingAlpha = () => nodeObject( new ClippingNode( ClippingNode.AL
 /**
  * TSL function for setting up hardware-based clipping.
  *
+ * @tsl
  * @function
  * @returns {ClippingNode}
  */

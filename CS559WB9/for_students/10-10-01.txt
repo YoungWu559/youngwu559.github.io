@@ -1,8 +1,0 @@
-Where did you get your shader? Describe the source and include a link.
-
-
-
-
-In your own words, describe how this shader works. (3-5 sentences)
-
-

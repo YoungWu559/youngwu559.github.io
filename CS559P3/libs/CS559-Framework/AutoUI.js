@@ -54,27 +54,6 @@ export class AutoUI {
   constructor(object, width = 300, where = undefined, widthdiv = 1, adjusted = false, display = "") {
     const self = this;
     this.object = object;
-
-    // Create the GUI using lil-gui
-    let element = document.getElementById("gui");
-    let gui;
-    if (!element) {
-      if (adjusted) gui = new GUI({ title: "AutoUI" });
-      else gui = new GUI({ width: width / widthdiv, title: "AutoUI" });
-      gui.domElement.id = "gui";
-      gui.domElement.gui = gui;
-    }
-    else gui = element.gui;
-    const folder = gui.addFolder(object.name);
-    object.params.forEach(function (param) {
-      if (object.values) object.values[param.name] = param.initial;
-      else object.values = { [param.name]: param.initial };
-      folder.add(object.values, param.name, param.min, param.max, param.step || Math.max((param.max - param.min) / 30, 1)).onChange(function () {
-        object.update(folder.controllers.map(c => c.getValue()));
-      });
-    });
-    folder.close();
-
     if (display) {
       /* if no where is provided, put it at the end of the panel panel - assuming there is one */
       if (!where) {
@@ -109,10 +88,39 @@ export class AutoUI {
 
       this.update();
     }
+    else {
+      // Create the GUI using lil-gui
+      let element = document.getElementById("gui");
+      let gui;
+      if (!element) {
+        if (adjusted) gui = new GUI({ title: "AutoUI" });
+        else gui = new GUI({ width: width / widthdiv, title: "AutoUI" });
+        gui.domElement.id = "gui";
+        gui.domElement.gui = gui;
+      }
+      else gui = element.gui;
+      const folder = gui.addFolder(object.name);
+      object.params.forEach(function (param) {
+        if (object.values) object.values[param.name] = param.initial;
+        else object.values = { [param.name]: param.initial };
+        folder.add(object.values, param.name, param.min, param.max, param.step || Math.max((param.max - param.min) / 30, 1)).onChange(function () {
+          object.update(folder.controllers.map(c => c.getValue()));
+        });
+      });
+      folder.close();
+      this.gui = gui;
+      this.folder = folder;
+    }
   }
+
   update() {
-    const vals = this.sliders.map(sl => Number(sl.value()));
-    this.object.update(vals);
+    if (!this.sliders) {
+      this.object.update(this.folder.controllers.map(c => c.getValue()));
+    }
+    else {
+      const vals = this.sliders.map(sl => Number(sl.value()));
+      this.object.update(vals);
+    }
   }
 
   /**
@@ -121,7 +129,23 @@ export class AutoUI {
    * @param {number} value
    */
   set(param, value) {
-    if (typeof param === "string") {
+    if (!this.sliders) {
+      let vals = this.folder.controllers.map(c => c.getValue());
+      if (typeof param === "string") {
+        for (let i = 0; i < this.object.params.length; i++) {
+          if (param == this.object.params[i].name) {
+            vals[i] = Number(value);
+            this.folder.controllers[i].setValue(Number(value));
+          }
+        }
+      }
+      else {
+        vals[param] = Number(value);
+        this.folder.controllers[param].setValue(Number(value));
+      }
+      this.object.update(vals);
+    }
+    else if (typeof param === "string") {
       for (let i = 0; i < this.object.params.length; i++) {
         if (param == this.object.params[i].name) {
           this.sliders[i].set(Number(value));

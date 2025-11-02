@@ -2,7 +2,6 @@ import { Material } from '../Material.js';
 import { NormalBlending } from '../../constants.js';
 
 import { getNodeChildren, getCacheKey } from '../../nodes/core/NodeUtils.js';
-import { attribute } from '../../nodes/core/AttributeNode.js';
 import { output, diffuseColor, emissive, varyingProperty } from '../../nodes/core/PropertyNode.js';
 import { materialAlphaTest, materialColor, materialOpacity, materialEmissive, materialNormal, materialLightMap, materialAO } from '../../nodes/accessors/MaterialNode.js';
 import { modelViewProjection } from '../../nodes/accessors/ModelViewProjectionNode.js';
@@ -11,10 +10,10 @@ import { instancedMesh } from '../../nodes/accessors/InstancedMeshNode.js';
 import { batch } from '../../nodes/accessors/BatchNode.js';
 import { materialReference } from '../../nodes/accessors/MaterialReferenceNode.js';
 import { positionLocal, positionView } from '../../nodes/accessors/Position.js';
-import { skinningReference } from '../../nodes/accessors/SkinningNode.js';
+import { skinning } from '../../nodes/accessors/SkinningNode.js';
 import { morphReference } from '../../nodes/accessors/MorphNode.js';
 import { mix } from '../../nodes/math/MathNode.js';
-import { float, vec3, vec4 } from '../../nodes/tsl/TSLBase.js';
+import { float, vec3, vec4, bool } from '../../nodes/tsl/TSLBase.js';
 import AONode from '../../nodes/lighting/AONode.js';
 import { lightingContext } from '../../nodes/lighting/LightingContextNode.js';
 import IrradianceNode from '../../nodes/lighting/IrradianceNode.js';
@@ -24,6 +23,9 @@ import { clipping, clippingAlpha, hardwareClipping } from '../../nodes/accessors
 import NodeMaterialObserver from './manager/NodeMaterialObserver.js';
 import getAlphaHashThreshold from '../../nodes/functions/material/getAlphaHashThreshold.js';
 import { modelViewMatrix } from '../../nodes/accessors/ModelNode.js';
+import { vertexColor } from '../../nodes/accessors/VertexColorNode.js';
+import { premultiplyAlpha } from '../../nodes/display/BlendModes.js';
+import { subBuild } from '../../nodes/core/SubBuildNode.js';
 
 /**
  * Base class for all node materials.
@@ -41,7 +43,7 @@ class NodeMaterial extends Material {
 	/**
 	 * Represents the type of the node material.
 	 *
-	 * @type {String}
+	 * @type {string}
 	 */
 	get type() {
 
@@ -61,7 +63,7 @@ class NodeMaterial extends Material {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -70,7 +72,7 @@ class NodeMaterial extends Material {
 		/**
 		 * Whether this material is affected by fog or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default true
 		 */
 		this.fog = true;
@@ -78,7 +80,7 @@ class NodeMaterial extends Material {
 		/**
 		 * Whether this material is affected by lights or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.lights = false;
@@ -88,7 +90,7 @@ class NodeMaterial extends Material {
 		 * This property is managed by the engine and should not be
 		 * modified by apps.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.hardwareClipping = false;
@@ -98,7 +100,7 @@ class NodeMaterial extends Material {
 		 * are affected by all lights of the scene. Sometimes selective
 		 * lighting is wanted which means only _some_ lights in the scene
 		 * affect a material. This can be achieved by creating an instance
-		 * of {@link module:LightsNode~LightsNode} with a list of selective
+		 * of {@link LightsNode} with a list of selective
 		 * lights and assign the node to this property.
 		 *
 		 * ```js
@@ -106,7 +108,7 @@ class NodeMaterial extends Material {
 		 * material.lightsNode = customLightsNode;
 		 * ```
 		 *
-		 * @type {LightsNode?}
+		 * @type {?LightsNode}
 		 * @default null
 		 */
 		this.lightsNode = null;
@@ -121,7 +123,7 @@ class NodeMaterial extends Material {
 		 * material.envNode = pmremTexture( renderTarget.texture );
 		 * ```
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.envNode = null;
@@ -133,9 +135,9 @@ class NodeMaterial extends Material {
 		 * the default and define the ambient occlusion with a custom node instead.
 		 *
 		 * If you don't want to overwrite the diffuse color but modify the existing
-		 * values instead, use {@link module:MaterialNode.materialAO}.
+		 * values instead, use {@link materialAO}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.aoNode = null;
@@ -150,13 +152,13 @@ class NodeMaterial extends Material {
 		 * ```
 		 *
 		 * If you don't want to overwrite the diffuse color but modify the existing
-		 * values instead, use {@link module:MaterialNode.materialColor}.
+		 * values instead, use {@link materialColor}.
 		 *
 		 * ```js
 		 * material.colorNode = materialColor.mul( color( 0xff0000 ) ); // give diffuse colors a red tint
 		 * ```
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.colorNode = null;
@@ -167,9 +169,9 @@ class NodeMaterial extends Material {
 		 * and define the normals with a node instead.
 		 *
 		 * If you don't want to overwrite the normals but modify the existing values instead,
-		 * use {@link module:MaterialNode.materialNormal}.
+		 * use {@link materialNormal}.
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.normalNode = null;
@@ -180,15 +182,15 @@ class NodeMaterial extends Material {
 		 * and define the opacity with a node instead.
 		 *
 		 * If you don't want to overwrite the normals but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialOpacity}.
+		 * value instead, use {@link materialOpacity}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.opacityNode = null;
 
 		/**
-		 * This node can be used to to implement a variety of filter-like effects. The idea is
+		 * This node can be used to implement a variety of filter-like effects. The idea is
 		 * to store the current rendering into a texture e.g. via `viewportSharedTexture()`, use it
 		 * to create an arbitrary effect and then assign the node composition to this property.
 		 * Everything behind the object using this material will now be affected by a filter.
@@ -198,12 +200,12 @@ class NodeMaterial extends Material {
 		 * material.transparent = true;
 		 *
 		 * // everything behind the object will be monochromatic
-		 * material.backdropNode = viewportSharedTexture().rgb.saturation( 0 );
+		 * material.backdropNode = saturation( viewportSharedTexture().rgb, 0 );
 		 * ```
 		 *
 		 * Backdrop computations are part of the lighting so only lit materials can use this property.
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.backdropNode = null;
@@ -211,7 +213,7 @@ class NodeMaterial extends Material {
 		/**
 		 * This node allows to modulate the influence of `backdropNode` to the outgoing light.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.backdropAlphaNode = null;
@@ -222,12 +224,21 @@ class NodeMaterial extends Material {
 		 * alpha test with a node instead.
 		 *
 		 * If you don't want to overwrite the alpha test but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialAlphaTest}.
+		 * value instead, use {@link materialAlphaTest}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.alphaTestNode = null;
+
+
+		/**
+		 * Discards the fragment if the mask value is `false`.
+		 *
+		 * @type {?Node<bool>}
+		 * @default null
+		 */
+		this.maskNode = null;
 
 		/**
 		 * The local vertex positions are computed based on multiple factors like the
@@ -235,13 +246,13 @@ class NodeMaterial extends Material {
 		 * the default and define local vertex positions with nodes instead.
 		 *
 		 * If you don't want to overwrite the vertex positions but modify the existing
-		 * values instead, use {@link module:Position.positionLocal}.
+		 * values instead, use {@link positionLocal}.
 		 *
 		 *```js
 		 * material.positionNode = positionLocal.add( displace );
 		 * ```
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.positionNode = null;
@@ -249,7 +260,7 @@ class NodeMaterial extends Material {
 		/**
 		 * This node property is intended for logic which modifies geometry data once or per animation step.
 		 * Apps usually place such logic randomly in initialization routines or in the animation loop.
-		 * `geometryNode` is intended as a dedicated API so there is an intended spot where goemetry modiciations
+		 * `geometryNode` is intended as a dedicated API so there is an intended spot where geometry modifications
 		 * can be implemented.
 		 *
 		 * The idea is to assign a `Fn` definition that holds the geometry modification logic. A typical example
@@ -257,7 +268,7 @@ class NodeMaterial extends Material {
 		 * simulation would be implemented as compute shaders and managed inside a `Fn` function. This function is
 		 * eventually assigned to `geometryNode`.
 		 *
-		 * @type {Function}
+		 * @type {?Function}
 		 * @default null
 		 */
 		this.geometryNode = null;
@@ -265,20 +276,29 @@ class NodeMaterial extends Material {
 		/**
 		 * Allows to overwrite depth values in the fragment shader.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.depthNode = null;
 
 		/**
 		 * Allows to overwrite the position used for shadow map rendering which
-		 * is by default {@link module:Position.positionWorld}, the vertex position
+		 * is by default {@link positionWorld}, the vertex position
 		 * in world space.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
-		this.shadowPositionNode = null;
+		this.receivedShadowPositionNode = null;
+
+		/**
+		 * Allows to overwrite the geometry position used for shadow map projection which
+		 * is by default {@link positionLocal}, the vertex position in local space.
+		 *
+		 * @type {?Node<float>}
+		 * @default null
+		 */
+		this.castShadowPositionNode = null;
 
 		/**
 		 * This node can be used to influence how an object using this node material
@@ -292,7 +312,7 @@ class NodeMaterial extends Material {
 		 * 	return shadow.mix( color( 0xff0000 ), 1 ); // modify shadow color
 		 * } );
 		 *
-		 * @type {Node<vec4>?}
+		 * @type {?(Function|FunctionNode<vec4>)}
 		 * @default null
 		 */
 		this.receivedShadowNode = null;
@@ -316,7 +336,7 @@ class NodeMaterial extends Material {
 		 * } )();
 		 *  ```
 		 *
-		 * @type {Node<vec4>?}
+		 * @type {?Node<vec4>}
 		 * @default null
 		 */
 		this.castShadowNode = null;
@@ -326,7 +346,7 @@ class NodeMaterial extends Material {
 		 *
 		 * TODO: Explain the differences to `fragmentNode`.
 		 *
-		 * @type {Node<vec4>?}
+		 * @type {?Node<vec4>}
 		 * @default null
 		 */
 		this.outputNode = null;
@@ -337,7 +357,7 @@ class NodeMaterial extends Material {
 		 * can be useful for implementing selective FX features that should only affect
 		 * specific objects.
 		 *
-		 * @type {MRTNode?}
+		 * @type {?MRTNode}
 		 * @default null
 		 */
 		this.mrtNode = null;
@@ -347,7 +367,7 @@ class NodeMaterial extends Material {
 		 * the fragment shader. Assigning a node will replace the built-in material
 		 * logic used in the fragment stage.
 		 *
-		 * @type {Node<vec4>?}
+		 * @type {?Node<vec4>}
 		 * @default null
 		 */
 		this.fragmentNode = null;
@@ -357,10 +377,30 @@ class NodeMaterial extends Material {
 		 * the vertex shader. Assigning a node will replace the built-in material logic
 		 * used in the vertex stage.
 		 *
-		 * @type {Node<vec4>?}
+		 * @type {?Node<vec4>}
 		 * @default null
 		 */
 		this.vertexNode = null;
+
+		// Deprecated properties
+
+		Object.defineProperty( this, 'shadowPositionNode', { // @deprecated, r176
+
+			get: () => {
+
+				return this.receivedShadowPositionNode;
+
+			},
+
+			set: ( value ) => {
+
+				console.warn( 'THREE.NodeMaterial: ".shadowPositionNode" was renamed to ".receivedShadowPositionNode".' );
+
+				this.receivedShadowPositionNode = value;
+
+			}
+
+		} );
 
 	}
 
@@ -368,7 +408,7 @@ class NodeMaterial extends Material {
 	 * Allows to define a custom cache key that influence the material key computation
 	 * for render objects.
 	 *
-	 * @return {String} The custom cache key.
+	 * @return {string} The custom cache key.
 	 */
 	customProgramCacheKey() {
 
@@ -406,7 +446,7 @@ class NodeMaterial extends Material {
 	 */
 	setup( builder ) {
 
-		builder.context.setupNormal = () => this.setupNormal( builder );
+		builder.context.setupNormal = () => subBuild( this.setupNormal( builder ), 'NORMAL', 'vec3' );
 		builder.context.setupPositionView = () => this.setupPositionView( builder );
 		builder.context.setupModelViewProjection = () => this.setupModelViewProjection( builder );
 
@@ -417,7 +457,9 @@ class NodeMaterial extends Material {
 
 		builder.addStack();
 
-		const vertexNode = this.vertexNode || this.setupVertex( builder );
+		const mvp = subBuild( this.setupVertex( builder ), 'VERTEX' );
+
+		const vertexNode = this.vertexNode || mvp;
 
 		builder.stack.outputNode = vertexNode;
 
@@ -476,7 +518,9 @@ class NodeMaterial extends Material {
 
 			//
 
-			if ( this.outputNode !== null ) resultNode = this.outputNode;
+			const isCustomOutput = this.outputNode !== null;
+
+			if ( isCustomOutput ) resultNode = this.outputNode;
 
 			// MRT
 
@@ -486,6 +530,8 @@ class NodeMaterial extends Material {
 				const materialMRT = this.mrtNode;
 
 				if ( mrt !== null ) {
+
+					if ( isCustomOutput ) output.assign( resultNode );
 
 					resultNode = mrt;
 
@@ -521,9 +567,9 @@ class NodeMaterial extends Material {
 
 		builder.addFlow( 'fragment', builder.removeStack() );
 
-		// < MONITOR >
+		// < OBSERVER >
 
-		builder.monitor = this.setupObserver( builder );
+		builder.observer = this.setupObserver( builder );
 
 	}
 
@@ -628,7 +674,7 @@ class NodeMaterial extends Material {
 
 		if ( depthNode !== null ) {
 
-			depth.assign( depthNode ).append();
+			depth.assign( depthNode ).toStack();
 
 		}
 
@@ -636,7 +682,7 @@ class NodeMaterial extends Material {
 
 	/**
 	 * Setups the position node in view space. This method exists
-	 * so derived node materials can modifiy the implementation e.g. sprite materials.
+	 * so derived node materials can modify the implementation e.g. sprite materials.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
 	 * @return {Node<vec3>} The position in view space.
@@ -689,13 +735,13 @@ class NodeMaterial extends Material {
 
 		if ( geometry.morphAttributes.position || geometry.morphAttributes.normal || geometry.morphAttributes.color ) {
 
-			morphReference( object ).append();
+			morphReference( object ).toStack();
 
 		}
 
 		if ( object.isSkinnedMesh === true ) {
 
-			skinningReference( object ).append();
+			skinning( object ).toStack();
 
 		}
 
@@ -711,19 +757,19 @@ class NodeMaterial extends Material {
 
 		if ( object.isBatchedMesh ) {
 
-			batch( object ).append();
+			batch( object ).toStack();
 
 		}
 
 		if ( ( object.isInstancedMesh && object.instanceMatrix && object.instanceMatrix.isInstancedBufferAttribute === true ) ) {
 
-			instancedMesh( object ).append();
+			instancedMesh( object ).toStack();
 
 		}
 
 		if ( this.positionNode !== null ) {
 
-			positionLocal.assign( this.positionNode.context( { isPositionNodeInput: true } ) );
+			positionLocal.assign( subBuild( this.positionNode, 'POSITION', 'vec3' ) );
 
 		}
 
@@ -739,17 +785,29 @@ class NodeMaterial extends Material {
 	 */
 	setupDiffuseColor( { object, geometry } ) {
 
+		// MASK
+
+		if ( this.maskNode !== null ) {
+
+			// Discard if the mask is `false`
+
+			bool( this.maskNode ).not().discard();
+
+		}
+
+		// COLOR
+
 		let colorNode = this.colorNode ? vec4( this.colorNode ) : materialColor;
 
 		// VERTEX COLORS
 
 		if ( this.vertexColors === true && geometry.hasAttribute( 'color' ) ) {
 
-			colorNode = vec4( colorNode.xyz.mul( attribute( 'color', 'vec3' ) ), colorNode.a );
+			colorNode = colorNode.mul( vertexColor() );
 
 		}
 
-		// Instanced colors
+		// INSTANCED COLORS
 
 		if ( object.instanceColor ) {
 
@@ -767,8 +825,7 @@ class NodeMaterial extends Material {
 
 		}
 
-
-		// COLOR
+		// DIFFUSE COLOR
 
 		diffuseColor.assign( colorNode );
 
@@ -779,9 +836,11 @@ class NodeMaterial extends Material {
 
 		// ALPHA TEST
 
+		let alphaTestNode = null;
+
 		if ( this.alphaTestNode !== null || this.alphaTest > 0 ) {
 
-			const alphaTestNode = this.alphaTestNode !== null ? float( this.alphaTestNode ) : materialAlphaTest;
+			alphaTestNode = this.alphaTestNode !== null ? float( this.alphaTestNode ) : materialAlphaTest;
 
 			diffuseColor.a.lessThanEqual( alphaTestNode ).discard();
 
@@ -795,9 +854,17 @@ class NodeMaterial extends Material {
 
 		}
 
-		if ( this.transparent === false && this.blending === NormalBlending && this.alphaToCoverage === false ) {
+		// OPAQUE
+
+		const isOpaque = this.transparent === false && this.blending === NormalBlending && this.alphaToCoverage === false;
+
+		if ( isOpaque ) {
 
 			diffuseColor.a.assign( 1.0 );
+
+		} else if ( alphaTestNode === null ) {
+
+			diffuseColor.a.lessThanEqual( 0 ).discard();
 
 		}
 
@@ -965,7 +1032,7 @@ class NodeMaterial extends Material {
 
 		if ( lightsNode && lightsNode.getScope().hasLights ) {
 
-			const lightingModel = this.setupLightingModel( builder );
+			const lightingModel = this.setupLightingModel( builder ) || null;
 
 			outgoingLightNode = lightingContext( lightsNode, lightingModel, backdropNode, backdropAlphaNode );
 
@@ -990,6 +1057,42 @@ class NodeMaterial extends Material {
 	}
 
 	/**
+	 * Setup the fog.
+	 *
+	 * @param {NodeBuilder} builder - The current node builder.
+	 * @param {Node<vec4>} outputNode - The existing output node.
+	 * @return {Node<vec4>} The output node.
+	 */
+	setupFog( builder, outputNode ) {
+
+		const fogNode = builder.fogNode;
+
+		if ( fogNode ) {
+
+			output.assign( outputNode );
+
+			outputNode = vec4( fogNode.toVar() );
+
+		}
+
+		return outputNode;
+
+	}
+
+	/**
+	 * Setups premultiplied alpha.
+	 *
+	 * @param {NodeBuilder} builder - The current node builder.
+	 * @param {Node<vec4>} outputNode - The existing output node.
+	 * @return {Node<vec4>} The output node.
+	 */
+	setupPremultipliedAlpha( builder, outputNode ) {
+
+		return premultiplyAlpha( outputNode );
+
+	}
+
+	/**
 	 * Setups the output node.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
@@ -1002,15 +1105,15 @@ class NodeMaterial extends Material {
 
 		if ( this.fog === true ) {
 
-			const fogNode = builder.fogNode;
+			outputNode = this.setupFog( builder, outputNode );
 
-			if ( fogNode ) {
+		}
 
-				output.assign( outputNode );
+		// PREMULTIPLIED ALPHA
 
-				outputNode = vec4( fogNode );
+		if ( this.premultipliedAlpha === true ) {
 
-			}
+			outputNode = this.setupPremultipliedAlpha( builder, outputNode );
 
 		}
 
@@ -1062,7 +1165,7 @@ class NodeMaterial extends Material {
 	/**
 	 * Serializes this material to JSON.
 	 *
-	 * @param {(Object|String)?} meta - The meta information for serialization.
+	 * @param {?(Object|string)} meta - The meta information for serialization.
 	 * @return {Object} The serialized node.
 	 */
 	toJSON( meta ) {
@@ -1141,12 +1244,14 @@ class NodeMaterial extends Material {
 		this.backdropNode = source.backdropNode;
 		this.backdropAlphaNode = source.backdropAlphaNode;
 		this.alphaTestNode = source.alphaTestNode;
+		this.maskNode = source.maskNode;
 
 		this.positionNode = source.positionNode;
 		this.geometryNode = source.geometryNode;
 
 		this.depthNode = source.depthNode;
-		this.shadowPositionNode = source.shadowPositionNode;
+		this.receivedShadowPositionNode = source.receivedShadowPositionNode;
+		this.castShadowPositionNode = source.castShadowPositionNode;
 		this.receivedShadowNode = source.receivedShadowNode;
 		this.castShadowNode = source.castShadowNode;
 
