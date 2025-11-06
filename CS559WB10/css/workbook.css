@@ -8,7 +8,12 @@ html {
 body {
   padding-bottom: 33vh; }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: Calibri, Helvetica, sans-serif; }
 
 /* the div surrounding the body parts - float the sidebar next to the content*/
@@ -125,9 +130,11 @@ a:hover {
   width: 50%;
   margin-left: 5px; }
 
-.highlight pre, .highlight code {
+.highlight pre,
+.highlight code {
   font-size: 1rem;
-  font-family: consolas, monaco, monospace; }
+  font-family: consolas, monaco, monospace;
+  overflow: scroll; }
 
 /************************************************************************/
 /* Making the exercises look right... */
@@ -194,10 +201,13 @@ svg {
 table {
   border-collapse: collapse; }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid black; }
 
-th, td {
+th,
+td {
   padding: 3px; }
 
 li {
@@ -240,7 +250,8 @@ li {
   font-size: 120%;
   font-family: 'Courier New', Courier, monospace; }
 
-.workbook-todo > strong, .workbook-todo > div {
+.workbook-todo > strong,
+.workbook-todo > div {
   display: inline-block; }
 
 .workbook-future {
@@ -252,7 +263,8 @@ li {
   font-size: 120%;
   font-family: 'Courier New', Courier, monospace; }
 
-.workbook-future > strong, .workbook-future > div {
+.workbook-future > strong,
+.workbook-future > div {
   display: inline-block; }
 
 .page-rubric-container {
@@ -260,6 +272,10 @@ li {
   padding: 1rem;
   border: 1px solid darkslategray;
   background-color: #F0E59f; }
+
+.box-rubric-container {
+  margin: 0rem 0rem 0rem 0rem;
+  padding: 0rem 1rem .5rem 1rem; }
 
 .page-rubric-grid {
   border: 1px solid darkslategray;
@@ -271,7 +287,7 @@ li {
 
 .page-rubric-grid-header {
   padding-top: 0.5rem;
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 4;
   padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   font-weight: 600; }
 
@@ -283,11 +299,17 @@ li {
 .page-rubric-grid-points {
   grid-column: 2;
   padding: 0.25rem 0.5rem 0.25rem 0.5rem;
-  text-align: center; }
+  text-align: left; }
+
+.page-rubric-grid-bonus {
+  grid-column: 3;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  text-align: left; }
 
 .page-rubric-grid-desc {
-  grid-column: 3;
-  padding: 0.25rem 0.5rem 0.25rem 0.5rem; }
+  grid-column: 4;
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem;
+  text-align: left; }
 
 .rubric-box-regular {
   background-color: #f0f0f0; }
@@ -305,11 +327,18 @@ li {
 
 .includebox {
   overflow: hidden;
-  border: 2px solid gray;
-  border-radius: 5px; }
+  border: 1px solid gray;
+  margin: .5rem 0px 0px 0px;
+  padding: 0px 0px 0px 0px; }
 
 .expandbox {
   border-radius: 5px;
   background-color: #bbd;
   border: 2px solid black;
   padding: 5px; }
+
+.next_end {
+  background-color: #ffd;
+  border: 1px solid #bbd;
+  margin: 10pt;
+  padding: 6pt; }

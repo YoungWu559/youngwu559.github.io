@@ -4,9 +4,9 @@
 <!-- CS559 Workbook Pages - page content &copy; 2021, Michael Gleicher -->
 <!-- This page is part of a Workbook developed for the 
     CS559 Computer Graphics Class at the University of Wisconsin
-    https://graphics.cs.wisc.edu/Courses/559-sp2021/ -->
+    https://graphics.cs.wisc.edu/Courses/559-sp2025/ -->
     <head>
-	<meta name="generator" content="Hugo 0.121.1">
+	<meta name="generator" content="Hugo 0.140.2">
         <meta charset="UTF-8">
         <link rel="stylesheet" href="./css/workbook.css">
         <script src="./js/resizeIFrames.js"></script>
@@ -17,148 +17,115 @@
 
 <main class="main list" role="main">
 	<header class="main__header">
-		<h1 class="main__title">Workbook 10: Shaders</h1>
+		<h1 class="main__title">Workbook 10: Advanced Topics</h1>
 	</header>
 	<div class="content main__content clearfix">
         
 
-        <div class="dimbox">
-                <h2>CS559 Spring 2023 Sample Solution</h2>
-                <p>This is a sample solution for the Workbook.
-                    You are welcome to refer to it to learn one way to do the assignment
-                    but only after you have turned in your own assignment
-                </p>
-            </div><p>This week, we&rsquo;ll learn to program the graphics hardware. In many classes, you have to start with this, because in some environments displaying anything at all requires programming the graphics hardware. So far, we&rsquo;ve let THREE.js program the graphics hardware for us. Now we&rsquo;re learning what it is doing.</p>
-<h2>Learning Goals</h2>
-<ol>
-    <li>Understand the basic organization of graphics hardware, and how programmability fits into it.</li>
-    <li>Appreciate why shaders are the ways that they are and what you can do with them.</li>
-    <li>Learn how the shader programming paradigm leads to specific, real implementations.</li>
-    <li>Be able to write shaders in a real shading language.</li>
-    <li>See how shaders are managed and integrated into a graphics application.</li>
-</ol>
-<p>In one week, you won&rsquo;t master shader programming. But you will get to read and write some actual shader programs. This means that you not only have to learn the concepts, but you&rsquo;ll need to work with a new programming langauge (we&rsquo;ll use GLSL).</p>
-<p><strong>Note that for class:</strong></p>
-<ol>
-<li>You must write some shaders. For this, you need to understand the basic concepts, and a little bit of the GLSL language.</li>
-<li>You must understand shaders (for the exam). We won&rsquo;t test you on GLSL details, but you will need to know the key concepts and be able to read shader code.</li>
-</ol>
-<h2 id="recommended-and-required-readings">Recommended and Required Readings</h2>
-<p>This <a href="http://rogerallen.github.io/webgl/2014/01/24/threejs-baby-steps" target="_blank">&quot;ThreeJS Baby Steps&quot;</a> posting shows how you can do it all yourself - don&rsquo;t worry, you don&rsquo;t have to.</p>
-<p>Unfortunately, we don&rsquo;t have great readings on how to write shaders. Things tend to spend too much time on the issues in connecting shaders to real programs (which is generally taken care of by a higher level API, such as THREE). Hopefully, the combination of lectures, this workbook, and the different readings will help.</p>
-<p>Be aware that many resources talk about using GLSL with OpenGL. The version of GLSL used in WebGL (OpenGL ES) is slightly different than the &ldquo;real&rdquo; OpenGL GLSL. In particular, WebGL only supports GLSL-ES version 3 (not 3.2). Check the <a href="https://www.khronos.org/files/webgl20-reference-guide.pdf" target="_blank">WebGL Reference Card</a> to see what is supported. The GLSL ES shading language (used in WebGL) is a subset of regular OpenGL GLSL. Generally, things just work, but sometimes, things are missing.</p>
-<p>Also, A lot of the resources for GLSL with OpenGL talk about the interface between C++ and GLSL which is quite complicated. In WebGL, the JavaScript to GLSL interface is somewhat better. But for class, we will let THREE.js take care of it for us.</p>
-<p>There are three different types of readings:</p>
-<ol>
-<li>
-<p><strong>Required Readings</strong> - to give you the basic idea of what&rsquo;s going on with how the hardware works and how GLSL lets you write Shaders. <a href="https://canvas.wisc.edu/files/30140461/download?download_frd=1">Chapter 2</a> and <a href="https://canvas.wisc.edu/files/30140514/download?download_frd=1">Chapter 3</a> of <a href="https://amzn.to/2x9wtyF" target="_blank">The OpenGL Shading Language (3e)</a> covers the basics and gives you enough to get started. We&rsquo;ll suggest some others below.</p>
-</li>
-<li>
-<p><strong>Reference Readings</strong> - when you are programming, you will want something that shows you the details. The <a href="https://www.khronos.org/files/webgl20-reference-guide.pdf" target="_blank">WebGL Reference Card</a> has what you need in a concise form on pages 6-8. There are more thorough references below.</p>
-</li>
-<li>
-<p><strong>Supplementary Readings</strong> - a good way to learn is by looking at examples, and seeing how people do cool things. We&rsquo;ll suggest some good places to get started (including the examples in the workbook).</p>
-</li>
-</ol>
-<p>The &ldquo;official&rdquo; documentation for GLSL is <a href="https://amzn.to/2x9wtyF" target="_blank">The OpenGL Shading Language (3e)</a> (also known as the orange book). The book is a bit old (2009), and it is about OpenGL GLSL and not WebGL, but it&rsquo;s still a great resource. <a href="https://canvas.wisc.edu/files/30140536/download?download_frd=1">Chapter 1</a> gives an overview of the graphics programming model (OpenGL in general). <a href="https://canvas.wisc.edu/files/30140461/download?download_frd=1">Chapter 2</a> and <a href="https://canvas.wisc.edu/files/30140514/download?download_frd=1">Chapter 3</a> give a nice introduction to shading and the GLSL language (these are the chapters that are required reading). <a href="https://canvas.wisc.edu/files/30140461/download?download_frd=1">Chapter 4</a> reviews the types of variables (a topic that confuses most people), <a href="https://canvas.wisc.edu/files/30140490/download?download_frd=1">Chapter 5</a> is a reference for different functions that are available (kind of like the standard library), and <a href="https://canvas.wisc.edu/files/30140569/download?download_frd=1">Chapter 6</a> gives a complete example in thorough detail.</p>
-<h4 id="shading-and-glsl-basics">Shading and GLSL Basics</h4>
-<p>You will get the basic ideas of how the graphics hardware works and why shading languages work the way they do from lectures. Be sure you understand the lectures on the graphics pipeline - otherwise the concepts of shaders will not make sense. The lectures on Shaders (especially the introductory parts) will give you an overview.</p>
-<p><a href="https://canvas.wisc.edu/files/30140461/download?download_frd=1">Chapter 2</a> and <a href="https://canvas.wisc.edu/files/30140514/download?download_frd=1">Chapter 3</a> of <a href="https://amzn.to/2x9wtyF" target="_blank">The OpenGL Shading Language (3e)</a> are <strong>required.</strong> They introduce the concepts of shading and the GLSL language, with only a minor amount of irrelevant stuff on the C++ interface.</p>
-<p>Chapter 17 of Fundamentals of Computer Graphics <a href="https://canvas.wisc.edu/files/30140465/download?download_frd=1">FCG4_Ch17.pdf (2.2mb)</a> provides a nice introduction if you want to see things described in another way. It talks a lot about how we get data to the shaders, which is important for performance.</p>
-<h4 id="glsl-reference">GLSL Reference</h4>
-<p>As you start to program in GLSL (or even read programs), you will want to have some resources about the details of the language and the functions you can use.</p>
-<p>The <a href="https://www.khronos.org/files/webgl20-reference-guide.pdf" target="_blank">WebGL Reference Card</a> has a concise reference for the version of GLSL used by WebGL on pages 6-8. It is amazingly handy as a resource (although less useful to learn from).</p>
-<p><a href="https://canvas.wisc.edu/files/30140490/download?download_frd=1">OpenGLShading-Ch5.pdf (0.6mb)</a> has a more descriptive list of all the functions available in GLSL (kind of like its standard library).</p>
-<p>The official GLSL specification is available <a href="https://www.khronos.org/registry/OpenGL/specs/gl/GLSLangSpec.4.60.pdf" target="_blank">here</a>. It&rsquo;s mainly for language lawyers, but it can help you find out what are all the variable types or built in functions. It is for &ldquo;OpenGL&rdquo; - WebGL&rsquo;s version of GLSL is a subset.</p>
-<h4 id="examples">Examples</h4>
-<p>A great wat to learn how to use shading (once you&rsquo;ve gotten the basics) is to look at examples. This will also give you good ideas on what kinds of things you can do.</p>
-<p><a href="https://canvas.wisc.edu/files/30140569/download?download_frd=1">OpenGLShading-Ch6.pdf (0.5mb)</a> works through a simple example of a shader to make something that looks like bricks. (This is an example of a procedural texture; we&rsquo;ll discuss these further on <a href="./docs/5/">Page &nbsp;5&nbsp; (Procedural Textures)</a>.)</p>
-<p><a href="https://thebookofshaders.com/" target="_blank">The Book of Shaders</a> promises a &ldquo;a gentle step-by-step guide through the abstract and complex universe of Fragment Shaders&rdquo;. It&rsquo;s oriented more towards artists, and it only covers fragment shaders. But that&rsquo;s our focus, and the art aspects are fun, because the authors create cool things with them. It&rsquo;s a little tricky to apply directly (since all of its examples are designed to run standalone in the browser using the author&rsquo;s framework), but not that tricky because things are simplified (it&rsquo;s only fragment shaders, so the examples expect less than other documents). The book also tries to do all computer graphics in a fragment shader - which leads to interesting examples, but not necessarily practical ones.</p>
-<p>Another resource are the examples of shaders available around the web. We&rsquo;ll encourage you to look for those later.</p>
-
-        
-        <h2>Rubric</h2>
-            
-<div class="page-rubric-container">
+        <p>This workbook is due on Tuesday, November 18, 2025.</p><p>This week, the TAs will cover some advanced topics in Computer Graphics during the lectures, including pose detection and animation, and cloth simulation with mass-spring system. These topics are usually covered in more advanced graphics and computer vision courses, for example, <a href="https://www.biostat.wisc.edu/~yli/bmi771_cs771_25fall/">CS771</a> and <a href="https://pages.cs.wisc.edu/~sifakis/courses/cs839-s22/">CS839</a>, and the TAs will give you a brief preview and introduction to these topics.</p>
+<h2 id="readings">Readings</h2>
+<p>The main source of the material in this workbook are the guest lectures and the references in the workbook.</p>
+<h2 id="exercises">Exercises</h2>
+<p>There are three exercises on the next two pages. You can use the things you create in this Workbook for the Graphics Town (individual) Project and the Game (group) Project.</p>
+    <div class="page-rubric-container">
 <details class="page__rubric">
-<summary>Workbook Rubric (96 points total)</summary>
-<br/>
-<div class="page-rubric-grid">
-        <div class="page-rubric-grid-header rubric-box-regular">Points (88):</div><div class="page-rubric-grid-box rubric-box-regular"></div>
-            <div class="page-rubric-grid-points rubric-box-regular">34 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">correct hand-in</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-01-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">answered basic questions (1 pt each)</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-02-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">change the color in 10-02-01.fs from yellow to something else</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-05-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">some dots are blue, some are green</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-04-02b</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">change diffuse lighting (direction and 2-sidedness)</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-04-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">add diffuse lighting</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-04-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">change specular to white</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-04-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">1 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">explain how you know it is correct</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">looks like a checkerboard</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-06-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">responds to slider</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-06-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">some other pattern</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-07-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">non-jaggy checkerboard</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">has a procedural pattern</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-09-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">has lighting</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-09-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">has an image-based texture</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-09-02</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">has lighting</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-09-03</div>
-            <div class="page-rubric-grid-points rubric-box-regular">6 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">Some shader that is different than what is in other boxes</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-10-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">5 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">has some example</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-10-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">gives attribution</div><div class="page-rubric-grid-box rubric-box-regular">Box 10-10-01</div>
-            <div class="page-rubric-grid-points rubric-box-regular">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-regular">gives an explanation</div>
-    <div class="page-rubric-grid-header rubric-box-bonus">Advanced points (8 possible, of which you can earn a maximum of 8):</div><div class="page-rubric-grid-box rubric-box-bonus">Box 10-02-02</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">2 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">implement the color animation inside the fragment shader using the provided time uniform</div><div class="page-rubric-grid-box rubric-box-bonus">Box 10-09-02</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">something beyond basic lighting with texture (required explanation)</div><div class="page-rubric-grid-box rubric-box-bonus">Box 10-09-03</div>
-            <div class="page-rubric-grid-points rubric-box-bonus">3 pt</div>
-            <div class="page-rubric-grid-desc rubric-box-bonus">something particularly interesting (grader&#39;s discretion) (requires explanation)</div></div>
+    <summary>Workbook Rubric (6 basic + 5 advanced (4 max) = 10 total)</summary>
+    <br/>
+    <table class="page-rubric-table" style="background-color: #f0f0f0;">
+        <thead>
+            <tr>
+                <th>Box</th>
+                <th>Basic</th>
+                <th>Advanced</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td>1</td>
+                <td></td>
+                <td>correct WB10 Workbook Form submission on time</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>The default simulation settings should be numerically stable</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Include UI controls for interactivity</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Implement a more stable integration method</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Implement a drag (air resistance) force, with parameters adjustable through the UI.</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td>1</td>
+                <td></td>
+                <td>Convert the cloth into a triangular mesh for rendering</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td></td>
+                <td>1</td>
+                <td>The simulation should show dynamic motion</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Implement shear and bending springs, and add a wireframe view option in the UI to visually show different spring connections</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Add texture mapping to the cloth surface</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Implement collision with an object</td>
+            </tr>
+            <tr>
+                        <td><a href="./docs/2/#box-10-02-04">10-02-04</a></td>
+                <td></td>
+                <td>1</td>
+                <td>Introduce technically challenging and visually noticeable features</td>
+            </tr>
+        </tbody>
+    </table>
 </details>
 </div>
-        
-        
-        
-        <h3 class="get__started">Get started on 
-            <a href="./docs/1/">Page &nbsp;1&nbsp; (Shader Basics)</a>!</h3>
+<h2 id="get-started">Get Started</h2>
+<p>Everything begins on <a href="./docs/1/">Page &nbsp;1&nbsp; (Pose Detection and Animation)</a>.</p>
+
         
 	</div>
 </main>
 
                 </div>
-                <div class="sidebar">
-<h2 class="Side_Title">Workbook 10: Shaders</h2>
+                    <div class="sidebar">
+<h2 class="Side_Title">Workbook 10: Advanced Topics</h2>
 <p class="Side__Note">Pages:</p>
 <ul class="Side__List">
-    <li class="Side__Item Side__Selected">Index (Shaders) </li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Shader Basics </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Simple Shaders </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/3/">3: GLSL and THREE </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/4/">4: Lighting in Shaders </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/5/">5: Procedural Textures </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/6/">6: More Procedural Textures </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/7/">7: Aliasing </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/8/">8: Using Textures </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/9/">9: All Together </a></li>
-        <li class="Side__Item Side__Unselected"> <a href="./docs/10/">10: Shader Tools and Examples </a></li>
+    <li class="Side__Item Side__Selected">Index (Advanced Topics) </li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/1/">1: Pose Detection and Animation </a></li>
+        <li class="Side__Item Side__Unselected"> <a href="./docs/2/">2: Cloth Simulation </a></li>
 </ul>
 </div>
 </div>

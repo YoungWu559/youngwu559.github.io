@@ -49,6 +49,7 @@ import Stats from './Stats.js'
  * @property [width] - canvas size
  * @property [height] - canvas size
  * @property [where] - where in the DOM to insert things
+ * @property [id] - id to put on the canvas (if we make it)
  * @property [lights] - a list of lights, or else default ones are made
  * @property [lightBrightness=.75] - brightness of the default lights
  * @property [lightColoring="cool-to-warm"] - either "c"ool-to-warm, "w"hite, or e"x"treme
@@ -104,12 +105,12 @@ export class GrWorld {
         this.scene.background = new T.Color(params.background ? params.background : "black")
 
         // make a renderer if it isn't given
-        /** @type THREE.WebGLRenderer */
+        /** @type T.WebGLRenderer */
         this.renderer =
             "renderer" in params
                 ? params.renderer
                 : new T.WebGLRenderer(
-                    "renderparams" in params ? params.renderparams : {}
+                    "renderparams" in params ? params.renderparams : {preserveDrawingBuffer: true}
                 );
 
         // width and height are tricky, since they can come from many places
@@ -119,10 +120,13 @@ export class GrWorld {
         if ("renderer" in params) {
             width = params.renderer.domElement.width;
             height = params.renderer.domElement.height;
+            params.renderer.domElement.id = params.id || "canvas";
         } else if ("renderparams" in params && "canvas" in params.renderparams) {
             width = params.renderparams.canvas.width;
             height = params.renderparams.canvas.height;
+            params.renderparams.canvas.id = params.id || "canvas";
         }
+        else this.renderer.domElement.id = params.id || "canvas";
         // specified width/height overrides everything
         if ("width" in params) {
             width = params.width;
@@ -158,7 +162,7 @@ export class GrWorld {
         let lookat = params.lookat;
 
         // make a camera
-        /** @type {THREE.PerspectiveCamera} */
+        /** @type {T.PerspectiveCamera} */
         this.camera = undefined;
         if ("camera" in params) {
             this.camera = params.camera;
@@ -206,7 +210,9 @@ export class GrWorld {
             );
             this.fly_controls.dragToLook = true;
             this.fly_controls.rollSpeed = 0.1;
-            this.fly_controls.dispose();
+            // this.fly_controls.dispose();
+            this.fly_controls.disconnect();
+            this.fly_controls.enabled = false;
             let flySaveState = function () {
                 this.position0 = new T.Vector3(
                     this.object.position.x,
@@ -224,37 +230,10 @@ export class GrWorld {
                 }
                 this.update(0.1);
             };
-            let register = function () {
-                function bind(scope, fn) {
-                    return function () {
-                        fn.apply(scope, arguments);
-                    };
-                }
-                this.domElement.addEventListener(
-                    "mousemove",
-                    bind(this, this.mousemove),
-                    false
-                );
-                this.domElement.addEventListener(
-                    "mousedown",
-                    bind(this, this.mousedown),
-                    false
-                );
-                this.domElement.addEventListener(
-                    "mouseup",
-                    bind(this, this.mouseup),
-                    false
-                );
-
-                window.addEventListener("keydown", bind(this, this.keydown), false);
-                window.addEventListener("keyup", bind(this, this.keyup), false);
-            };
+            // the old fly controls register doesn't work
             if (!this.fly_controls.saveState) {
                 this.fly_controls.saveState = flySaveState;
                 this.fly_controls.reset = flyReset;
-            }
-            if (!this.fly_controls.register) {
-                this.fly_controls.register = register;
             }
         } // only make controls for PerspectiveCameras
 
@@ -344,7 +323,7 @@ export class GrWorld {
 
         // Keep track of rendering timings
         this.lastRenderTime = 0;
-        this.lastTimeOfDay = 12;
+        this.lastTimeOfDay = 0;
 
         // Track the "active" object, which we may follow, view solo, etc.
         /**@type GrObject */
@@ -508,7 +487,8 @@ export class GrWorld {
             // @ts-ignore
             this.fly_controls.reset();
         }
-        this.fly_controls.register();
+        this.fly_controls?.connect();
+        this.fly_controls.enabled = true;
     }
 
     flyControlOff() {
@@ -516,7 +496,8 @@ export class GrWorld {
             // @ts-ignore
             this.fly_controls.saveState();
         }
-        this.fly_controls.dispose();
+        this.fly_controls?.disconnect();
+        this.fly_controls.enabled = false;
     }
 
     followObjectOn() {
@@ -672,6 +653,8 @@ export class GrWorld {
         if (!this.runbutton || this.runbutton.checked) {
             let delta = performance.now() - this.lastRenderTime;
             let speed = this.speedcontrol ? Number(this.speedcontrol.value) : 1.0;
+            this.lastTimeOfDay = (this.lastTimeOfDay + delta * speed / 1000) % 24;
+            if (this.gui) this.gui.time = Number(this.lastTimeOfDay.toFixed(1));
             this.stepWorld(delta * speed, this.lastTimeOfDay);
             if (callbacks.stepWorld) callbacks.stepWorld(this);
         }

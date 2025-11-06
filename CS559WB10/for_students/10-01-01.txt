@@ -1,3 +1,0 @@
-1. Inputs: 3D vertex position, any other attributes, any uniforms. Outputs: at least the 2D screen position of the vetex, sometimes `varying` variables
-
-2. Inputs: 2D screen position of fragment, interpolated `varying` variables from vertices. Outputs: the color of the fragment on the screen
