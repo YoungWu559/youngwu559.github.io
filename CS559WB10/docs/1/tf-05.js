@@ -799,7 +799,7 @@ const loader = new GLTFLoader();
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !! IMPORTANT: REPLACE WITH THE PATH TO YOUR RIGGED GLB FILE !!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-loader.load("assets/leaf_pokemon.glb", (gltf) => {
+loader.load("/docs/1/leaf_pokemon.glb", (gltf) => {
     glbModel = gltf.scene;
     
     // Scale and position the model as needed

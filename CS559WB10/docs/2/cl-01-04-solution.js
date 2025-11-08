@@ -193,7 +193,7 @@ class AdvancedClothSimulation extends GrObject {
 
         // Load texture
         const textureLoader = new T.TextureLoader();
-        const clothTexture = textureLoader.load('../textures/bucky.png');
+        const clothTexture = textureLoader.load('../docs/2/bucky.png');
         clothTexture.wrapS = T.RepeatWrapping;
         clothTexture.wrapT = T.RepeatWrapping;
         clothTexture.repeat.set(2, 2); // Repeat texture 2x2 across the cloth

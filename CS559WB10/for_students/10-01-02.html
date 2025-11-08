@@ -2,13 +2,20 @@
 <html>
   <head>
     <link rel="stylesheet" href="/libs/CS559/style559.css" />
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "/libs/CS559-Three/build/three.module.js"
+      }
+    }
+    </script>
   </head>
 
   <body>
     <div id="video-container" style="display:flex;gap:16px;align-items:flex-start;">
       <div style="position: relative; display: inline-block;">
         <video id="video" playsinline autoplay muted loop style="width:480px;height:auto;background:#000">
-        <source src="/assets/hand-pose-one-through-five.mp4" type="video/mp4">
+        <source src="../docs/1/hand-pose-one-through-five.mp4" type="video/mp4">
         </video>
       </div>
       <div id="debug" style="font-family:monospace;white-space:pre-wrap;font-size:12px;">Initializing...</div>
