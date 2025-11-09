@@ -1,9 +1,9 @@
-import { GrWorld } from "/libs/CS559-Framework/GrWorld.js";
-import { GrObject} from "/libs/CS559-Framework/GrObject.js";
-import { GrCube } from "/libs/CS559-Framework/SimpleObjects.js";
+import { GrWorld } from "../libs/CS559-Framework/GrWorld.js";
+import { GrObject} from "../libs/CS559-Framework/GrObject.js";
+import { GrCube } from "../libs/CS559-Framework/SimpleObjects.js";
 
 // three things for making a cube
-import * as T from "/libs/CS559-Three/build/three.module.js";
+import * as T from "../libs/CS559-Three/build/three.module.js";
 
 // Global variables
 let detector;

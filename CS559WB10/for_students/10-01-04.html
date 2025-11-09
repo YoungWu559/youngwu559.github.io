@@ -2,6 +2,13 @@
 <html>
   <head>
     <link rel="stylesheet" href="../libs/CS559/style559.css" />
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "../libs/CS559-Three/build/three.module.js"
+      }
+    }
+    </script>
   </head>
 
   <body>
@@ -14,6 +21,9 @@
       </div>
       <div id="debug" style="font-family:monospace;white-space:pre-wrap;font-size:12px;">Initializing...</div>
     </div>
+
+    <div id="div1"></div>
+    
     <!-- Load TensorFlow.js dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.10.0/dist/tf.min.js"></script>
     <!-- Load MediaPipe runtime for BlazePose -->
@@ -22,7 +32,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection@2.1.0/dist/pose-detection.min.js"></script>
     
     <!-- Load our main script -->
-    <script src="10-01-03.js"></script>
+    <script src="10-01-04.js" type="module"></script>
   </body>
 </html>
 <!-- CS559 2025 Workbook -->

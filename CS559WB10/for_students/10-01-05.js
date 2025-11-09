@@ -842,3 +842,4 @@ loader.load("/docs/1/leaf_pokemon.glb", (gltf) => {
 // Start pose detection initialization
 init();
 // @@Snippet:end
+// CS559 2025 Workbook
